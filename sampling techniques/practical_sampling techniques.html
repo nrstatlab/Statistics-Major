@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 7 Experiments | Sampling Techniques</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_sampling techniques.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 7 Experiments</h1>
+    <p>Semester III, Course 7 (Practical) — 2 hrs/week, Credit 1. Hands-on verifications of theoretical properties.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Show that the sample mean is an unbiased estimator of the population mean in SRSWOR and find its variance.</li>
+    <li>Show that the sample mean square is an unbiased estimator of the population mean square in SRSWOR.</li>
+    <li>Show that the sample mean is an unbiased estimator of the population mean in SRSWR and find its variance.</li>
+    <li>Compare means and variances between SRSWR and SRSWOR.</li>
+    <li>Allocate sample sizes among strata using proportional and optimum allocations.</li>
+    <li>Compare the precision of proportional and optimum allocations with SRSWOR and compute the gain in efficiency.</li>
+    <li>Systematic sampling with \(N = nk\) — compare its precision with Stratified and SRSWOR.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Unbiasedness of \(\bar y\) under SRSWOR</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Population: \(Y_1 = 2, Y_2 = 4, Y_3 = 6, Y_4 = 8\) (\(N = 4\)). \(\bar Y = 5\). Draw all SRSWOR of size \(n = 2\).</p>
+  </div>
+  <p>There are \(\binom{4}{2} = 6\) possible samples. Sample means:</p>
+  <table class="left">
+    <tr><th>Sample</th><th>{Y₁,Y₂}</th><th>{Y₁,Y₃}</th><th>{Y₁,Y₄}</th><th>{Y₂,Y₃}</th><th>{Y₂,Y₄}</th><th>{Y₃,Y₄}</th></tr>
+    <tr><th>\(\bar y\)</th><td>3</td><td>4</td><td>5</td><td>5</td><td>6</td><td>7</td></tr>
+  </table>
+  <p>\(E(\bar y) = (3+4+5+5+6+7)/6 = 30/6 = 5 = \bar Y\) ✓ (unbiased).</p>
+  <p>Variance: \(E(\bar y - 5)^2 = (4+1+0+0+1+4)/6 = 10/6 = 1.667\).</p>
+  <p>Verify with formula: \(S^2 = \sum(Y_i - 5)^2/(N-1) = 20/3\). \(\text{Var}(\bar y) = (N-n)/(Nn) \cdot S^2 = (2/8)(20/3) = 40/24 = 1.667\) ✓.</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Unbiasedness of \(s^2\) under SRSWOR</h2>
+  <p>Compute \(s^2\) for each of the 6 samples in Experiment 1:</p>
+  <table class="left">
+    <tr><th>Sample</th><th>s²</th></tr>
+    <tr><td>{2,4}</td><td>2</td></tr>
+    <tr><td>{2,6}</td><td>8</td></tr>
+    <tr><td>{2,8}</td><td>18</td></tr>
+    <tr><td>{4,6}</td><td>2</td></tr>
+    <tr><td>{4,8}</td><td>8</td></tr>
+    <tr><td>{6,8}</td><td>2</td></tr>
+  </table>
+  <p>\(E(s^2) = (2+8+18+2+8+2)/6 = 40/6 = 6.667 = S^2\) ✓.</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Unbiasedness of \(\bar y\) under SRSWR</h2>
+  <p>For the same population (\(Y_1=2, Y_2=4, Y_3=6, Y_4=8\)), draw all ordered samples of size 2 with replacement.</p>
+  <p>Total ordered samples = \(4^2 = 16\). By symmetry, mean of all sample means = \(\bar Y = 5\) ✓.</p>
+  <p>Variance: \(\text{Var}_{WR}(\bar y) = \sigma^2/n = (\sum(Y_i - 5)^2/N)/2 = (20/4)/2 = 5/2 = 2.5\).</p>
+  <p>Notice \(\text{Var}_{WR} = 2.5 &gt; \text{Var}_{WOR} = 1.667\) — SRSWOR is more efficient.</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Comparison of SRSWR and SRSWOR</h2>
+  <table class="left">
+    <tr><th></th><th>SRSWR</th><th>SRSWOR</th></tr>
+    <tr><th>\(E(\bar y)\)</th><td>5</td><td>5</td></tr>
+    <tr><th>\(\text{Var}(\bar y)\)</th><td>2.500</td><td>1.667</td></tr>
+    <tr><th>FPC factor</th><td>1</td><td>\((N-n)/N = 0.5\)</td></tr>
+    <tr><th>Relative efficiency</th><td>1.0</td><td>1.50 (50 % gain)</td></tr>
+  </table>
+  <p>RE = 2.5/1.667 = 1.5 → SRSWOR is 50 % more efficient than SRSWR for this population.</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Allocation of Sample Sizes (Proportional &amp; Optimum)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Three strata: \(N_1 = 200,\; N_2 = 300,\; N_3 = 500;\; S_1 = 4,\; S_2 = 6,\; S_3 = 8\). Total \(n = 50\).</p>
+  </div>
+  <p><strong>Proportional allocation</strong> (\(n_h = n N_h / N\)):</p>
+  <ul>
+    <li>\(n_1 = 50 \cdot 200/1000 = 10\)</li>
+    <li>\(n_2 = 50 \cdot 300/1000 = 15\)</li>
+    <li>\(n_3 = 50 \cdot 500/1000 = 25\)</li>
+  </ul>
+  <p><strong>Optimum (Neyman) allocation</strong> (\(n_h = n N_h S_h / \sum N_k S_k\)):</p>
+  <p>\(N_1 S_1 = 800,\; N_2 S_2 = 1800,\; N_3 S_3 = 4000\); sum = 6600.</p>
+  <ul>
+    <li>\(n_1 = 50 \cdot 800/6600 = 6.06 \approx 6\)</li>
+    <li>\(n_2 = 50 \cdot 1800/6600 = 13.64 \approx 14\)</li>
+    <li>\(n_3 = 50 \cdot 4000/6600 = 30.30 \approx 30\)</li>
+  </ul>
+  <p>Note that stratum 3 (large \(N\) and \(S\)) gets a much larger share under optimum allocation.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Precision Comparison &amp; Gain in Efficiency</h2>
+  <p>Using the same data: \(W_1 = 0.2,\; W_2 = 0.3,\; W_3 = 0.5;\; S_1^2 = 16, S_2^2 = 36, S_3^2 = 64\).</p>
+  <p>\(\sum W_h S_h^2 = 0.2(16) + 0.3(36) + 0.5(64) = 3.2 + 10.8 + 32 = 46\).</p>
+  <p>\(\sum W_h S_h = 0.2(4) + 0.3(6) + 0.5(8) = 0.8 + 1.8 + 4.0 = 6.6\).</p>
+  <p>Ignoring FPC (large \(N\)):</p>
+  <ul>
+    <li>\(\text{Var}_{prop} = 46/50 = 0.920\)</li>
+    <li>\(\text{Var}_{opt} = 6.6^2/50 = 43.56/50 = 0.871\)</li>
+    <li>If \(S^2 \approx 50\) (population variance): \(\text{Var}_{SRSWOR} = 50/50 = 1.0\)</li>
+  </ul>
+  <p>Order: \(\text{Var}_{opt} (0.871) &lt; \text{Var}_{prop} (0.920) &lt; \text{Var}_{SRS} (1.000)\).</p>
+  <p><strong>Gain in efficiency over SRSWOR:</strong></p>
+  <ul>
+    <li>Proportional: 1.000/0.920 − 1 = 8.7 %</li>
+    <li>Optimum: 1.000/0.871 − 1 = 14.8 %</li>
+  </ul>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Systematic Sampling Comparison</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Population values for \(N = 16\) units: 2, 3, 5, 7, 9, 10, 12, 13, 15, 17, 18, 20, 22, 24, 25, 27. Take \(n = 4\), so \(k = 4\).</p>
+  </div>
+  <p>The four possible systematic samples (\(r = 1, 2, 3, 4\)):</p>
+  <table class="left">
+    <tr><th>r</th><th>Sample (units r, r+k, r+2k, r+3k)</th><th>\(\bar y\)</th></tr>
+    <tr><td>1</td><td>{2, 9, 15, 22}</td><td>12.00</td></tr>
+    <tr><td>2</td><td>{3, 10, 17, 24}</td><td>13.50</td></tr>
+    <tr><td>3</td><td>{5, 12, 18, 25}</td><td>15.00</td></tr>
+    <tr><td>4</td><td>{7, 13, 20, 27}</td><td>16.75</td></tr>
+  </table>
+  <p>Population mean \(\bar Y = 14.31\). \(E(\bar y_{sys}) = (12 + 13.5 + 15 + 16.75)/4 = 14.31\) ✓.</p>
+  <p>\(\text{Var}(\bar y_{sys}) = \dfrac{1}{4}\sum(\bar y_r - 14.31)^2 = [5.34 + 0.66 + 0.48 + 5.95]/4 = 3.11\).</p>
+  <p><strong>Compare with SRSWOR:</strong> \(S^2 = \sum(Y_i - \bar Y)^2/(N-1) = 868.94/15 = 57.93\). \(\text{Var}_{SRSWOR} = (12/64)(57.93) = 10.86\).</p>
+  <p>Systematic is more efficient here (3.11 &lt; 10.86) — typical for slowly-varying populations.</p>
+  <p><strong>Stratified comparison (every group of \(k\) consecutive values forms a stratum of size \(k\), draw one unit per stratum):</strong> for this near-linear trend, stratified gives \(\text{Var} \approx (k^2 - 1)/(12 n) \cdot b^2\) which equals 1.25 — best of the three.</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title.</li>
+    <li>Aim / population taken.</li>
+    <li>Listing of all possible samples and their statistics.</li>
+    <li>Verification of unbiasedness (mean of means = population mean).</li>
+    <li>Variance computation and matching with theoretical formula.</li>
+    <li>Comparison and conclusion.</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_sampling techniques.html">← Previous: Unit 5</a>
+    <a href="syllabus_sampling techniques.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 7 Experiments • Sampling Techniques</footer>
+</div>
+</body>
+</html>

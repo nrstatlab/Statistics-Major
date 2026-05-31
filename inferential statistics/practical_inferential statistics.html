@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 12 Experiments | Inferential Statistics</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_inferential statistics.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 12 Experiments</h1>
+    <p>Semester III, Course 6 (Practical) — 2 hrs/week, Credit 1. Conclusions to be drawn from p-value and critical value.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Large sample test for mean and difference of means.</li>
+    <li>Large sample test for proportion and difference of proportions.</li>
+    <li>Large sample test for SD and difference of SDs.</li>
+    <li>Large sample test for correlation coefficient.</li>
+    <li>Small sample test for mean and difference of means.</li>
+    <li>Small sample test for correlation coefficient.</li>
+    <li>Paired t-test (paired samples).</li>
+    <li>Small sample test for single variance (χ² test) and difference of variances (F test).</li>
+    <li>χ² test for goodness of fit and independence of attributes.</li>
+    <li>Non-parametric tests for single sample (run test, sign test, Wilcoxon signed-rank).</li>
+    <li>Non-parametric tests for related samples (sign test, Wilcoxon signed-rank).</li>
+    <li>Non-parametric tests for two independent samples (Median, Mann–Whitney U, Wald–Wolfowitz).</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Large Sample Test for Mean &amp; Difference of Means</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1 (single mean)</span>
+    <p>From a sample of 100 students, average IQ is 105 with σ = 15. Test \(H_0: \mu = 100\) at 5 %.</p>
+    <p>\(Z = (105 - 100)/(15/10) = 3.33\). \(|Z| &gt; 1.96\) ⇒ reject \(H_0\). p-value = 2(1−Φ(3.33)) = 0.00087.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2 (difference)</span>
+    <p>City A: \(n_1 = 200,\bar X_1 = 28,\sigma_1 = 4\). City B: \(n_2 = 250,\bar X_2 = 26,\sigma_2 = 5\). Test means equal.</p>
+    <p>\(Z = (28-26)/\sqrt{16/200 + 25/250} = 2/\sqrt{0.18} = 4.71\) ⇒ reject \(H_0\).</p>
+  </div>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Test for Proportion(s)</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1</span>
+    <p>120 of 200 voters favour A. Test \(H_0: p = 0.5\). \(\hat p = 0.6,\; Z = 0.10/\sqrt{0.5 \cdot 0.5/200} = 2.83\) ⇒ reject.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2</span>
+    <p>F1: 60/500 defective; F2: 40/400. Pooled \(\hat p = 100/900 = 0.111\). \(Z = (0.12 - 0.10)/\sqrt{0.111 \cdot 0.889 (1/500+1/400)} = 0.02/0.0212 = 0.94\) ⇒ accept \(H_0\).</p>
+  </div>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Test for SD(s)</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1</span>
+    <p>Sample of 100, \(s = 14.2\); test \(H_0: \sigma = 15\). \(Z = (14.2 - 15)/(15/\sqrt{200}) = -0.8/1.061 = -0.754\) ⇒ accept \(H_0\).</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2</span>
+    <p>\(n_1=144,s_1=8;\; n_2=100,s_2=6\). \(Z = (8-6)/\sqrt{64/288 + 36/200} = 2/\sqrt{0.402} = 3.15\) ⇒ reject \(H_0\).</p>
+  </div>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Test for Correlation Coefficient</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1 (\(\rho = 0\))</span>
+    <p>\(r = 0.6, n = 50\). \(t = 0.6\sqrt{48}/\sqrt{0.64} = 4.16/0.8 = 5.20\) ⇒ reject; correlation significant.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2 (\(\rho = 0.5\))</span>
+    <p>\(r = 0.7, n = 28\). Fisher's Z': \(0.5\ln(1.7/0.3) = 0.867\), \(\zeta_0 = 0.5\ln(1.5/0.5) = 0.549\). \(Z = (0.867 - 0.549)\sqrt{25} = 1.59\) ⇒ accept.</p>
+  </div>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Small Sample Test for Mean &amp; Difference of Means</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1 (single mean)</span>
+    <p>Sample of 9, \(\bar X = 47.5,\; s = 4\). Test \(H_0: \mu = 50\). \(t = (47.5-50)/(4/3) = -1.875\). df=8, \(t_{0.025} = 2.306\) ⇒ accept.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2 (difference)</span>
+    <p>\(n_1=10,\bar X_1=22,s_1=3;\;n_2=12,\bar X_2=19,s_2=2.5\). \(s_p^2 = (9 \cdot 9 + 11 \cdot 6.25)/20 = 7.49,\; s_p = 2.74\).</p>
+    <p>\(t = 3/(2.74\sqrt{1/10+1/12}) = 3/1.171 = 2.56\). df=20, \(t_{0.025} = 2.086\) ⇒ reject.</p>
+  </div>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Small Sample Test for Correlation Coefficient</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>For 18 pairs: \(r = 0.55\). Test \(H_0: \rho = 0\). \(t = 0.55\sqrt{16}/\sqrt{1 - 0.3025} = 2.2/0.835 = 2.635\). df=16, \(t_{0.025} = 2.12\) ⇒ reject.</p>
+  </div>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Paired t-test</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Heart-rate before/after a workout for 12 patients gives differences \(d\): 5,7,4,6,8,3,5,7,6,4,5,6.</p>
+    <p>\(\bar d = 5.5,\; s_d \approx 1.50\). \(t = 5.5/(1.50/\sqrt{12}) = 5.5/0.433 = 12.7\). df = 11, highly significant.</p>
+  </div>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — χ² for Variance &amp; F-test for Equality of Variances</h2>
+  <div class="example">
+    <span class="label">PROBLEM 1 (χ²)</span>
+    <p>\(n=20, s^2=12;\) test \(H_0: \sigma^2 = 9\). \(\chi^2 = 19 \cdot 12/9 = 25.33\). df=19; critical (two-tailed at 5 %): 8.91 and 32.85 ⇒ accept.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM 2 (F-test)</span>
+    <p>\(n_1=21,s_1^2=20;\; n_2=16,s_2^2=8\). \(F = 20/8 = 2.5\). df=(20,15), \(F_{0.05}=2.33\) ⇒ reject \(H_0\); variances differ.</p>
+  </div>
+
+  <!-- EXP 9 -->
+  <h2>Experiment 9 — χ² Goodness of Fit &amp; Independence</h2>
+  <div class="example">
+    <span class="label">GOODNESS OF FIT</span>
+    <p>Among 100 patients on a drug, recoveries by week: 22, 27, 25, 26 (expected 25 each).</p>
+    <p>\(\chi^2 = (9+4+0+1)/25 = 0.56\). df=3, \(\chi^2_{0.05}=7.81\) ⇒ accept (uniform recovery rate).</p>
+  </div>
+  <div class="example">
+    <span class="label">INDEPENDENCE</span>
+    <p>Smoking × Cancer 2×2 with O = (60, 40, 20, 80). Expected = (40, 60, 40, 60). \(\chi^2 = 33.33\). df=1 ⇒ reject (smoking ≠ independent of cancer).</p>
+  </div>
+
+  <!-- EXP 10 -->
+  <h2>Experiment 10 — Non-parametric Tests for One Sample</h2>
+  <div class="example">
+    <span class="label">RUNS TEST</span>
+    <p>Series of signs +/− for 12 observations of stock returns: + + − − − + + + − − + +. n₁=7, n₂=5, R=5. \(E(R)=2 \cdot 7 \cdot 5/12 + 1 = 6.83;\; \text{Var}(R) = 2 \cdot 7 \cdot 5(70-12)/(144 \cdot 11) = 2.56;\; Z = (5-6.83)/1.6 = -1.14\) ⇒ accept (random).</p>
+  </div>
+  <div class="example">
+    <span class="label">SIGN TEST + WILCOXON</span>
+    <p>Test median = 50 with sample 45, 48, 52, 47, 55, 49, 53, 50, 51, 46.</p>
+    <p>Drop the 50: 9 obs left. Signs: − − + − + − + + −, with 4 plus and 5 minus. P(B(9, 0.5) ≤ 4) = 0.5 ⇒ accept.</p>
+    <p>Wilcoxon: differences −5, −2, +2, −3, +5, −1, +3, +1, −4. |d|: 5,2,2,3,5,1,3,1,4 ranked (with ties averaged).</p>
+  </div>
+
+  <!-- EXP 11 -->
+  <h2>Experiment 11 — Non-parametric Tests for Related Samples</h2>
+  <div class="example">
+    <span class="label">SIGN TEST</span>
+    <p>For 10 paired samples, 7 had positive differences, 3 negative. n=10, S=7. P(B(10, 0.5) ≥ 7) = 0.172, two-tailed p = 0.344 ⇒ accept H₀.</p>
+  </div>
+  <div class="example">
+    <span class="label">WILCOXON SIGNED-RANK</span>
+    <p>For paired data with \(W^+ = 48, W^- = 7\). \(W = 7\) for n=10. Critical Wilcoxon = 8 at 5 % (two-tailed); \(W &lt; 8\) ⇒ reject H₀.</p>
+  </div>
+
+  <!-- EXP 12 -->
+  <h2>Experiment 12 — Non-parametric Tests for Two Independent Samples</h2>
+  <div class="example">
+    <span class="label">MEDIAN TEST</span>
+    <p>2×2 table for two groups with 4/6 and 8/2 above the grand median. Expected = 6 each. \(\chi^2 = (2)^2/6 + ... = 5.33\). df=1, \(\chi^2_{0.05}=3.84\) ⇒ reject; medians differ.</p>
+  </div>
+  <div class="example">
+    <span class="label">MANN–WHITNEY U</span>
+    <p>n₁=5, n₂=6 with R₁=20. \(U_1 = 20 - 15 = 5,\; U_2 = 25\). \(U = 5\). Critical at 5 % two-tailed = 3 ⇒ accept H₀.</p>
+  </div>
+  <div class="example">
+    <span class="label">WALD–WOLFOWITZ</span>
+    <p>Combined ranked sequence ABBABABA (n₁=4,n₂=4). R=7. \(E(R) = 2 \cdot 4 \cdot 4/8 + 1 = 5,\; \text{Var}(R) \approx 1.71,\; Z = 1.53\) ⇒ accept H₀.</p>
+  </div>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim and hypotheses (H₀, H₁)</li>
+    <li>Test statistic chosen and its distribution</li>
+    <li>Computation</li>
+    <li>Conclusion drawn from <em>both</em> p-value and critical value (per syllabus note)</li>
+  </ol>
+
+  <div class="tip">
+    <strong>Important:</strong> The syllabus instructs students to draw conclusions of practical
+    problems based on <em>both</em> p-value and critical value approaches. Always state both.
+  </div>
+
+  <div class="page-nav">
+    <a href="unit5_inferential statistics.html">← Previous: Unit 5</a>
+    <a href="syllabus_inferential statistics.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 12 Experiments • Inferential Statistics</footer>
+</div>
+</body>
+</html>

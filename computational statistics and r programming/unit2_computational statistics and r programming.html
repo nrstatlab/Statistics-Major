@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 — Descriptive Statistics in R | R Programming</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_computational statistics and r programming.html">Home</a> &raquo; Unit 2</div>
+    <h1>Unit 2 — Descriptive Statistics &amp; Data Summarization in R</h1>
+    <p>Central tendency, variability, skewness, kurtosis, quantiles; <code>summary()</code> &amp; <code>describe()</code>; frequency tables, cross-tabulations and contingency tables.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">Central Tendency</span>
+    <span class="chip">Variability</span>
+    <span class="chip">Skewness / Kurtosis</span>
+    <span class="chip">Quantiles</span>
+    <span class="chip">summary()</span>
+    <span class="chip">describe()</span>
+    <span class="chip">Frequency Tables</span>
+    <span class="chip">Cross-tabulations</span>
+    <span class="chip">Contingency Tables</span>
+  </div>
+
+  <!-- 1. CENTRAL TENDENCY -->
+  <h2>1. Measures of Central Tendency</h2>
+  <table class="left">
+    <tr><th>Statistic</th><th>R Function</th><th>Notes</th></tr>
+    <tr><td>Arithmetic Mean</td><td><code>mean(x)</code></td><td><code>mean(x, trim = 0.1)</code> for trimmed mean</td></tr>
+    <tr><td>Median</td><td><code>median(x)</code></td><td>Robust to outliers</td></tr>
+    <tr><td>Mode</td><td>no built-in</td><td>See user function below</td></tr>
+    <tr><td>Geometric Mean</td><td><code>psych::geometric.mean(x)</code></td><td>or <code>exp(mean(log(x)))</code></td></tr>
+    <tr><td>Harmonic Mean</td><td><code>psych::harmonic.mean(x)</code></td><td>or <code>1/mean(1/x)</code></td></tr>
+    <tr><td>Weighted Mean</td><td><code>weighted.mean(x, w)</code></td><td></td></tr>
+  </table>
+
+  <p>R has no built-in mode function (the function <code>mode()</code> returns data type). Define your own:</p>
+  <pre><code>get_mode &lt;- function(v) {
+  uv &lt;- unique(v)
+  uv[which.max(tabulate(match(v, uv)))]
+}</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code>marks &lt;- c(45, 52, 38, 71, 64, 49, 58, 33, 67, 72, 55, 49)
+mean(marks)                  # 54.42
+median(marks)                # 53.5
+get_mode(marks)              # 49
+
+# Trimmed mean (drop top &amp; bottom 10%)
+mean(marks, trim = 0.10)     # 54.10</code></pre>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Growth rates</span>
+    <pre><code>growth &lt;- c(1.10, 1.20, 1.30)        # 10%, 20%, 30%
+# install.packages("psych")
+library(psych)
+geometric.mean(growth)               # 1.197 → avg growth ≈ 19.7%
+harmonic.mean(c(40, 60))             # 48 — avg speed for equal distances</code></pre>
+  </div>
+
+  <!-- 2. VARIABILITY -->
+  <h2>2. Measures of Variability</h2>
+  <table class="left">
+    <tr><th>Statistic</th><th>R Function</th><th>Divisor</th></tr>
+    <tr><td>Range</td><td><code>range(x)</code> returns min and max; <code>diff(range(x))</code></td><td>—</td></tr>
+    <tr><td>Variance (sample)</td><td><code>var(x)</code></td><td>n − 1</td></tr>
+    <tr><td>Standard Deviation (sample)</td><td><code>sd(x)</code></td><td>n − 1</td></tr>
+    <tr><td>IQR</td><td><code>IQR(x)</code></td><td>—</td></tr>
+    <tr><td>MAD (median abs. dev)</td><td><code>mad(x)</code></td><td>—</td></tr>
+    <tr><td>Coefficient of Variation</td><td><code>sd(x) / mean(x) * 100</code></td><td>%</td></tr>
+  </table>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code>marks &lt;- c(45, 52, 38, 71, 64, 49, 58, 33, 67, 72, 55, 49)
+diff(range(marks))           # 39
+var(marks)                   # 156.45
+sd(marks)                    # 12.51
+IQR(marks)                   # 18.5
+sd(marks)/mean(marks)*100    # CV ≈ 22.99%</code></pre>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Comparing CV across variables</span>
+    <pre><code>data(iris)
+sapply(iris[, 1:4],
+       function(x) sd(x)/mean(x)*100)
+# Sepal.Length  Sepal.Width  Petal.Length  Petal.Width
+#      14.17       14.26         46.97        63.55</code></pre>
+    <p>Petal.Width has the highest relative variability.</p>
+  </div>
+
+  <!-- 3. QUANTILES -->
+  <h2>3. Quantiles &amp; Percentiles</h2>
+  <pre><code>quantile(marks)                        # default 0, 25, 50, 75, 100%
+quantile(marks, probs = c(0.1, 0.9))   # 10th &amp; 90th percentiles
+
+fivenum(marks)                         # Tukey's five-number summary
+summary(marks)                         # min, Q1, median, mean, Q3, max</code></pre>
+
+  <div class="out">&gt; summary(marks)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+  33.00   46.75   53.50   54.42   65.25   72.00</div>
+
+  <!-- 4. SKEWNESS & KURTOSIS -->
+  <h2>4. Skewness &amp; Kurtosis</h2>
+  <p>Base R does not include these — load the <code>moments</code> or <code>psych</code> package.</p>
+
+  <pre><code># install.packages("moments")
+library(moments)
+
+skewness(marks)              # γ₁
+kurtosis(marks)              # β₂ (note: returns kurtosis, not excess)</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code>x &lt;- c(5, 6, 7, 7, 8, 8, 8, 9, 9, 10)
+skewness(x)        # −0.07 (approx symmetric)
+kurtosis(x)        # 1.95   → β₂ &lt; 3 ⇒ platykurtic</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Right-skewed income</span>
+    <pre><code>income &lt;- c(20, 22, 25, 28, 30, 35, 50, 80, 120)
+skewness(income)   # 1.36 → strong positive skew
+kurtosis(income)   # 3.65 → mildly leptokurtic</code></pre>
+  </div>
+
+  <!-- 5. SUMMARY FUNCTIONS -->
+  <h2>5. Quick Summary Functions</h2>
+
+  <h3>5.1 Base R — <code>summary()</code></h3>
+  <pre><code>data(iris)
+summary(iris)
+#  Sepal.Length    Sepal.Width    Petal.Length   Petal.Width        Species
+#  Min.   :4.30   Min.   :2.00   Min.   :1.00   Min.   :0.10   setosa    :50
+#  1st Qu.:5.10   1st Qu.:2.80   1st Qu.:1.60   1st Qu.:0.30   versicolor:50
+#  Median :5.80   Median :3.00   Median :4.35   Median :1.30   virginica :50
+#  Mean   :5.84   Mean   :3.06   Mean   :3.76   Mean   :1.20
+#  3rd Qu.:6.40   3rd Qu.:3.30   3rd Qu.:5.10   3rd Qu.:1.80
+#  Max.   :7.90   Max.   :4.40   Max.   :6.90   Max.   :2.50</code></pre>
+
+  <h3>5.2 psych — <code>describe()</code></h3>
+  <pre><code>library(psych)
+describe(iris[, 1:4])
+#              vars   n mean   sd median trimmed  mad  min  max range  skew  kurt   se
+# Sepal.Length    1 150 5.84 0.83  5.80    5.81 1.04 4.30 7.90  3.60  0.31 -0.61 0.07
+# Sepal.Width     2 150 3.06 0.44  3.00    3.04 0.44 2.00 4.40  2.40  0.31  0.14 0.04
+# Petal.Length    3 150 3.76 1.77  4.35    3.76 1.85 1.00 6.90  5.90 -0.27 -1.42 0.14
+# Petal.Width     4 150 1.20 0.76  1.30    1.18 1.04 0.10 2.50  2.40 -0.10 -1.36 0.06</code></pre>
+
+  <p><strong><code>describe.by()</code></strong> and <strong><code>describeBy()</code></strong> give group-wise summaries.</p>
+
+  <h3>5.3 Group-wise Summaries</h3>
+  <pre><code># By Species in iris
+describeBy(iris[, 1:4], group = iris$Species)
+
+# Using base R
+aggregate(. ~ Species, data = iris, FUN = mean)
+#      Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+# 1    setosa        5.006       3.428        1.462       0.246
+# 2 versicolor       5.936       2.770        4.260       1.326
+# 3  virginica       6.588       2.974        5.552       2.026
+
+# Using dplyr
+library(dplyr)
+iris %&gt;%
+  group_by(Species) %&gt;%
+  summarise(mean_PL = mean(Petal.Length),
+            sd_PL   = sd(Petal.Length),
+            n       = n())</code></pre>
+
+  <!-- 6. CATEGORICAL DATA -->
+  <h2>6. Handling Categorical Data</h2>
+
+  <h3>6.1 Frequency Tables</h3>
+  <pre><code># One-way table
+gender &lt;- c("M","F","F","M","M","F","M","F","F","M")
+table(gender)
+# F M
+# 5 5
+
+# Proportions
+prop.table(table(gender))
+#   F   M
+# 0.5 0.5
+
+# Percent
+round(prop.table(table(gender)) * 100, 1)
+#   F   M
+# 50  50</code></pre>
+
+  <h3>6.2 Two-way (Cross-tabulation)</h3>
+  <pre><code>result &lt;- c("Pass","Pass","Fail","Pass","Fail","Pass","Pass","Fail","Pass","Pass")
+table(gender, result)
+#       result
+# gender Fail Pass
+#      F    1    4
+#      M    2    3
+
+# Row percentages
+prop.table(table(gender, result), margin = 1) * 100
+# Column percentages: margin = 2</code></pre>
+
+  <h3>6.3 Three-way (Contingency Cube)</h3>
+  <pre><code>section &lt;- c("A","A","B","B","A","B","A","B","A","B")
+table(gender, result, section)
+# , , section = A …</code></pre>
+
+  <h3>6.4 Using <code>xtabs()</code> (formula style)</h3>
+  <pre><code>df &lt;- data.frame(gender, result, section)
+xtabs(~ gender + result, data = df)
+xtabs(~ gender + result + section, data = df)</code></pre>
+
+  <h3>6.5 Margins &amp; Adding Totals</h3>
+  <pre><code>tbl &lt;- table(gender, result)
+addmargins(tbl)
+#       result
+# gender Fail Pass Sum
+#      F    1    4   5
+#      M    2    3   5
+#      Sum  3    7  10</code></pre>
+
+  <h3>6.6 Frequency of a Continuous Variable (binning)</h3>
+  <pre><code>marks &lt;- c(45, 52, 38, 71, 64, 49, 58, 33, 67, 72, 55, 49)
+bins  &lt;- cut(marks,
+             breaks = c(0, 35, 50, 65, 80, 100),
+             labels = c("F","D","C","B","A"),
+             right  = TRUE)
+table(bins)
+# F D C B A
+# 1 4 4 3 0</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Cross-tabulation iris)</span>
+    <pre><code>data(iris)
+big_petal &lt;- ifelse(iris$Petal.Length &gt; 4, "Big", "Small")
+table(iris$Species, big_petal)
+#              big_petal
+#              Big Small
+# setosa         0    50
+# versicolor    44     6
+# virginica     50     0</code></pre>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Mendelian ratio)</span>
+    <pre><code>observed &lt;- c(rndYellow = 460, rndGreen = 140, wriYellow = 130, wriGreen = 70)
+expected &lt;- c(450, 150, 150, 50)
+
+chi2 &lt;- sum((observed - expected)^2 / expected)   # 11.56
+1 - pchisq(chi2, df = 3)                          # p-value ≈ 0.009</code></pre>
+  </div>
+
+  <!-- 7. PUTTING IT TOGETHER -->
+  <h2>7. A Mini Descriptive-Statistics Workflow</h2>
+  <pre><code>data(mtcars)
+
+# Step 1: Structure
+str(mtcars)
+
+# Step 2: Quick summary
+summary(mtcars)
+
+# Step 3: Detailed
+library(psych)
+describe(mtcars)
+
+# Step 4: By group (cylinders)
+describeBy(mtcars$mpg, group = mtcars$cyl)
+
+# Step 5: Correlations between numeric variables
+round(cor(mtcars[, c("mpg","hp","wt","disp")]), 2)
+#       mpg    hp    wt  disp
+# mpg  1.00 -0.78 -0.87 -0.85
+# hp  -0.78  1.00  0.66  0.79
+# wt  -0.87  0.66  1.00  0.89
+# disp -0.85  0.79  0.89  1.00</code></pre>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>Use <code>mean</code>, <code>median</code>, <code>var</code>, <code>sd</code>, <code>IQR</code>, <code>quantile</code> for the basics — all accept <code>na.rm = TRUE</code>.</li>
+    <li><code>summary()</code> for any data frame gives min/Q1/median/mean/Q3/max per column; for factors it shows counts.</li>
+    <li><code>psych::describe()</code> gives n, mean, sd, median, trimmed, mad, min, max, range, skew, kurt, se — all in one shot.</li>
+    <li>R's <code>kurtosis()</code> returns β₂ (not excess); subtract 3 to get excess kurtosis (γ₂).</li>
+    <li><code>table()</code> for frequencies; <code>prop.table()</code> for percentages; <code>xtabs()</code> for formula-style cross-tabs.</li>
+    <li>Group summaries via <code>aggregate()</code>, <code>describeBy()</code>, or <code>dplyr::group_by + summarise</code>.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit1_computational statistics and r programming.html">← Previous: Unit 1</a>
+    <a href="unit3_computational statistics and r programming.html">Next: Unit 3 — Data Visualization →</a>
+  </div>
+
+  <footer>Unit 2 — Descriptive Statistics &amp; Data Summarization in R</footer>
+</div>
+</body>
+</html>

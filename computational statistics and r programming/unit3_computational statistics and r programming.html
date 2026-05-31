@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 — Data Visualization in R | R Programming</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_computational statistics and r programming.html">Home</a> &raquo; Unit 3</div>
+    <h1>Unit 3 — Data Visualization in R</h1>
+    <p>Base R graphics — histograms, boxplots, scatter plots, bar charts and residual plots for assumption checking in statistics.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">plot()</span>
+    <span class="chip">Histogram</span>
+    <span class="chip">Boxplot</span>
+    <span class="chip">Scatter Plot</span>
+    <span class="chip">Bar Chart</span>
+    <span class="chip">Pie Chart</span>
+    <span class="chip">Multi-panel</span>
+    <span class="chip">Residual Plots</span>
+    <span class="chip">Q-Q Plot</span>
+  </div>
+
+  <!-- 1. INTRO -->
+  <h2>1. Plotting in R — Overview</h2>
+  <p>R offers three major plotting systems:</p>
+  <ul>
+    <li><strong>Base R graphics</strong> (this unit) — easy, immediate, controllable via parameters.</li>
+    <li><strong>lattice</strong> — formula-based multi-panel plots.</li>
+    <li><strong>ggplot2</strong> — grammar of graphics; most popular modern system.</li>
+  </ul>
+
+  <p>The generic <code>plot()</code> function dispatches on the class of the first argument:</p>
+  <ul>
+    <li>Numeric vector → scatter or line.</li>
+    <li>Factor → bar chart of counts.</li>
+    <li>Data frame → matrix scatter plot.</li>
+    <li>Model object (lm) → residual diagnostics.</li>
+  </ul>
+
+  <h3>Common Graphical Parameters</h3>
+  <table class="left">
+    <tr><th>Parameter</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>main</code></td><td>Title</td><td><code>main = "Histogram of Marks"</code></td></tr>
+    <tr><td><code>xlab, ylab</code></td><td>Axis labels</td><td><code>xlab = "Hours"</code></td></tr>
+    <tr><td><code>col</code></td><td>Colour</td><td><code>col = "skyblue"</code> or <code>col = 2</code></td></tr>
+    <tr><td><code>pch</code></td><td>Plotting character (0–25)</td><td><code>pch = 19</code> (solid dot)</td></tr>
+    <tr><td><code>lty</code></td><td>Line type</td><td><code>lty = 2</code> (dashed)</td></tr>
+    <tr><td><code>lwd</code></td><td>Line width</td><td><code>lwd = 2</code></td></tr>
+    <tr><td><code>xlim, ylim</code></td><td>Axis ranges</td><td><code>xlim = c(0, 100)</code></td></tr>
+    <tr><td><code>cex</code></td><td>Symbol/text size</td><td><code>cex = 1.2</code></td></tr>
+    <tr><td><code>las</code></td><td>Axis labels orientation</td><td><code>las = 1</code> (horizontal)</td></tr>
+  </table>
+
+  <!-- 2. HISTOGRAM -->
+  <h2>2. Histograms</h2>
+  <p>Use <code>hist()</code> to display the distribution of a continuous variable.</p>
+
+  <pre><code>data(mtcars)
+hist(mtcars$mpg,
+     breaks = 10,
+     col    = "skyblue",
+     border = "white",
+     main   = "Distribution of Fuel Economy",
+     xlab   = "Miles per Gallon",
+     ylab   = "Frequency")
+
+# With density curve overlay
+hist(mtcars$mpg,
+     freq = FALSE,            # density instead of counts
+     col  = "lightyellow",
+     main = "MPG Density")
+lines(density(mtcars$mpg), col = "red", lwd = 2)
+rug(mtcars$mpg)               # tick marks under axis</code></pre>
+
+  <h3>Controlling Bins</h3>
+  <ul>
+    <li><code>breaks = 15</code> — approximately 15 bins.</li>
+    <li><code>breaks = c(10,15,20,25,30,35)</code> — explicit boundaries.</li>
+    <li><code>breaks = "Sturges"</code> (default), <code>"Scott"</code>, <code>"FD"</code> — algorithms.</li>
+  </ul>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code># Compare two histograms side by side
+par(mfrow = c(1, 2))
+hist(iris$Sepal.Length, col = "lightblue", main = "Sepal Length")
+hist(iris$Petal.Length, col = "lightgreen", main = "Petal Length")
+par(mfrow = c(1, 1))           # reset</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Histogram with normal overlay</span>
+    <pre><code>x &lt;- rnorm(500, mean = 60, sd = 10)
+hist(x, freq = FALSE, breaks = 25, col = "lavender",
+     main = "Sample vs Theoretical Normal", xlab = "Value")
+curve(dnorm(x, mean = 60, sd = 10),
+      add = TRUE, col = "red", lwd = 2)
+legend("topright", c("Sample density","N(60, 10)"),
+       col = c("black","red"), lty = 1, lwd = 2, bty = "n")</code></pre>
+  </div>
+
+  <!-- 3. BOXPLOT -->
+  <h2>3. Boxplots</h2>
+  <p>Display the five-number summary (min, Q1, median, Q3, max) and outliers.</p>
+
+  <pre><code>boxplot(mtcars$mpg,
+        col  = "lightgreen",
+        main = "Boxplot of MPG",
+        ylab = "MPG")
+
+# By group (formula syntax)
+boxplot(mpg ~ cyl, data = mtcars,
+        col  = c("salmon","skyblue","palegreen"),
+        main = "MPG by Number of Cylinders",
+        xlab = "Cylinders", ylab = "MPG",
+        notch = TRUE)              # adds notches around medians</code></pre>
+
+  <p><strong>Interpretation:</strong> circles beyond the whiskers are typical outliers (|x − median| &gt; 1.5 × IQR). Non-overlapping notches suggest medians differ significantly.</p>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code># All four iris numeric variables on one plot
+boxplot(iris[, 1:4],
+        col  = c("pink","skyblue","lightgreen","plum"),
+        main = "Iris Measurements",
+        ylab = "cm")</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Group comparison</span>
+    <pre><code>boxplot(Sepal.Length ~ Species, data = iris,
+        col = "lightyellow",
+        main = "Sepal Length by Species")</code></pre>
+  </div>
+
+  <!-- 4. SCATTER -->
+  <h2>4. Scatter Plots</h2>
+  <pre><code>plot(mtcars$wt, mtcars$mpg,
+     pch  = 19, col = "navy",
+     main = "Fuel Economy vs Weight",
+     xlab = "Weight (1000 lbs)",
+     ylab = "MPG")
+
+# Add a regression line
+fit &lt;- lm(mpg ~ wt, data = mtcars)
+abline(fit, col = "red", lwd = 2)
+
+# Add LOESS smooth
+lines(lowess(mtcars$wt, mtcars$mpg), col = "blue", lty = 2, lwd = 2)
+
+legend("topright", c("Linear fit","LOESS"),
+       col = c("red","blue"), lty = c(1,2), lwd = 2, bty = "n")</code></pre>
+
+  <h3>Multi-variable Scatter Matrix</h3>
+  <pre><code>pairs(iris[, 1:4], col = iris$Species, pch = 19,
+      main = "Iris Scatter Plot Matrix")</code></pre>
+
+  <h3>Plotting Symbols (<code>pch</code>) Reference</h3>
+  <pre><code>plot(1:25, rep(1, 25), pch = 1:25, cex = 2,
+     main = "Plotting characters 1–25", ylab = "", yaxt = "n")
+text(1:25, rep(1.2, 25), labels = 1:25)</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — Colour by group</span>
+    <pre><code>plot(Petal.Length ~ Petal.Width, data = iris,
+     col  = iris$Species, pch = 19,
+     main = "Iris: Petal length vs width")
+legend("topleft", levels(iris$Species),
+       col = 1:3, pch = 19, bty = "n")</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Time series line</span>
+    <pre><code>data(airquality)
+plot(airquality$Day[1:31],
+     airquality$Temp[1:31],
+     type = "o", col = "darkred",
+     main = "May Temperatures (NY)",
+     xlab = "Day", ylab = "Temp (°F)")
+grid()</code></pre>
+  </div>
+
+  <!-- 5. BAR CHART -->
+  <h2>5. Bar Charts</h2>
+  <pre><code>counts &lt;- table(mtcars$cyl)
+barplot(counts,
+        col  = c("salmon","skyblue","palegreen"),
+        main = "Number of Cars by Cylinders",
+        xlab = "Cylinders", ylab = "Count")
+
+# Horizontal
+barplot(counts, horiz = TRUE)
+
+# Stacked / grouped (two-way table)
+tbl &lt;- table(mtcars$gear, mtcars$cyl)
+barplot(tbl, beside = TRUE,        # set FALSE for stacked
+        col = c("lightblue","lightgreen","lightyellow"),
+        main = "Cylinders by Gears",
+        legend.text = TRUE)</code></pre>
+
+  <h3>Pie Chart</h3>
+  <pre><code>pie(counts,
+    col    = c("salmon","skyblue","palegreen"),
+    labels = paste(names(counts), counts),
+    main   = "Cars by Cylinders")</code></pre>
+  <p><strong>Note:</strong> Bar charts are usually preferable to pie charts for comparison.</p>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code>fruits  &lt;- c("Apple","Banana","Cherry","Date")
+prices  &lt;- c(80, 40, 200, 150)
+barplot(prices, names.arg = fruits,
+        col = "lightcoral",
+        main = "Fruit Prices (₹/kg)", ylab = "₹/kg")</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Stacked frequency</span>
+    <pre><code># Iris counts by species (one per row, but illustrative)
+sp &lt;- table(iris$Species)
+barplot(sp, col = c("plum","skyblue","palegreen"),
+        main = "Iris Sample by Species")</code></pre>
+  </div>
+
+  <!-- 6. RESIDUAL PLOTS -->
+  <h2>6. Residual Plots for Assumption Checking</h2>
+  <p>After fitting a model with <code>lm()</code> or <code>glm()</code>, R provides four diagnostic plots through <code>plot(model)</code>.</p>
+
+  <pre><code>fit &lt;- lm(mpg ~ wt + hp, data = mtcars)
+par(mfrow = c(2, 2))
+plot(fit)
+par(mfrow = c(1, 1))</code></pre>
+
+  <p>The four panels are:</p>
+  <ol>
+    <li><strong>Residuals vs Fitted</strong> — checks linearity &amp; homoscedasticity. A flat red line ⇒ ok.</li>
+    <li><strong>Normal Q-Q</strong> — residuals should lie on the 45° line if normally distributed.</li>
+    <li><strong>Scale–Location</strong> — checks equal variance; should show no clear pattern.</li>
+    <li><strong>Residuals vs Leverage</strong> — points outside Cook's distance contours are influential.</li>
+  </ol>
+
+  <h3>Other Useful Diagnostics</h3>
+  <pre><code># Histogram of residuals
+hist(resid(fit), breaks = 12, col = "lightgray",
+     main = "Distribution of Residuals", xlab = "Residual")
+
+# Q-Q plot for any data
+qqnorm(resid(fit)); qqline(resid(fit), col = "red", lwd = 2)
+
+# Shapiro-Wilk test for normality
+shapiro.test(resid(fit))</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <pre><code>fit &lt;- lm(Sepal.Length ~ Petal.Length, data = iris)
+par(mfrow = c(2, 2)); plot(fit); par(mfrow = c(1, 1))
+shapiro.test(resid(fit))   # p &gt; 0.05 ⇒ residuals plausibly normal</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Spotting non-linearity</span>
+    <pre><code>x &lt;- 1:50
+y &lt;- x + x^2/40 + rnorm(50, 0, 3)    # quadratic relation + noise
+fit &lt;- lm(y ~ x)
+par(mfrow = c(1, 2))
+plot(x, y, main = "Data + Linear Fit"); abline(fit, col = "red")
+plot(fit, which = 1)                  # curved residual pattern signals non-linearity
+par(mfrow = c(1, 1))</code></pre>
+  </div>
+
+  <!-- 7. SAVING PLOTS -->
+  <h2>7. Saving Plots</h2>
+  <pre><code># PDF
+pdf("myplot.pdf", width = 8, height = 6)
+hist(mtcars$mpg, col = "skyblue", main = "MPG")
+dev.off()
+
+# PNG
+png("myplot.png", width = 800, height = 600, res = 100)
+boxplot(mpg ~ cyl, data = mtcars, col = "lightyellow")
+dev.off()
+
+# JPEG, SVG, TIFF — similar
+svg("myplot.svg"); plot(1:10); dev.off()</code></pre>
+
+  <h2>8. Best Practices for Statistical Visualization</h2>
+  <ul>
+    <li>Always add <strong>title</strong>, <strong>axis labels with units</strong>, and a legend when colours/shapes encode categories.</li>
+    <li>Use <strong>colour-blind-friendly palettes</strong> (e.g., <code>viridis</code> package).</li>
+    <li>Avoid 3-D effects and unnecessary decoration.</li>
+    <li>For comparison, use side-by-side / grouped boxplots rather than overlaid histograms.</li>
+    <li>Always inspect residual diagnostics after fitting regression / ANOVA.</li>
+    <li>Save plots in PDF for publications (vector, infinite resolution) and PNG for web.</li>
+  </ul>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li><code>hist()</code> for distributions; <code>boxplot()</code> for spread &amp; outliers; <code>plot()</code> for scatter; <code>barplot()</code> for categorical.</li>
+    <li>Generic parameters: <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>col</code>, <code>pch</code>, <code>lty</code>, <code>lwd</code>.</li>
+    <li>Multi-panel layout via <code>par(mfrow = c(r, c))</code>.</li>
+    <li><code>plot(lm_object)</code> auto-generates four diagnostic plots for residual assumption checking.</li>
+    <li>Save plots with <code>pdf()</code>, <code>png()</code>, etc., followed by <code>dev.off()</code>.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit2_computational statistics and r programming.html">← Previous: Unit 2</a>
+    <a href="unit4_computational statistics and r programming.html">Next: Unit 4 — Inferential Stats →</a>
+  </div>
+
+  <footer>Unit 3 — Data Visualization in R</footer>
+</div>
+</body>
+</html>

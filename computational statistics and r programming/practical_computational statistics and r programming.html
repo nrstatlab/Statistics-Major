@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 7 Experiments | R Programming</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_computational statistics and r programming.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 7 Experiments</h1>
+    <p>Semester V, Course 11 (Practical) — 2 hrs/week, Credit 1. Hands-on R labs to be done in the Computer Lab (≥ 4 hrs/month).</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Data Import and Preprocessing — import dataset (e.g., iris), handle missing values, basic sub-setting.</li>
+    <li>Descriptive Statistics Computation — mean, variance, skewness; interpret results.</li>
+    <li>Frequency Analysis — contingency tables and chi-square tests on categorical data.</li>
+    <li>Basic Visualizations — histograms and boxplots to assess data normality.</li>
+    <li>Hypothesis Testing — t-tests and ANOVA on experimental data, reporting p-values.</li>
+    <li>Non-Parametric Tests — Wilcoxon tests; compare with parametric alternatives.</li>
+    <li>Linear Regression Modeling — fit a simple linear model, plot residuals, predict new values.</li>
+  </ol>
+
+  <div class="tip">
+    Use built-in R datasets (<code>iris</code>, <code>mtcars</code>, <code>airquality</code>, <code>ToothGrowth</code>) or download CSV from the UCI ML Repository for these experiments.
+  </div>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Data Import &amp; Preprocessing</h2>
+  <div class="example">
+    <span class="label">AIM</span>
+    <p>Import a dataset, examine its structure, handle missing values, perform sub-setting.</p>
+  </div>
+
+  <pre><code># Built-in dataset
+data(airquality)
+str(airquality)              # 153 obs of 6 vars; NAs in Ozone and Solar.R
+
+# Or read a CSV (uncomment and edit path)
+# air &lt;- read.csv("airquality.csv")
+
+# Check missing values
+colSums(is.na(airquality))   # Ozone:37, Solar.R:7
+
+# Drop rows with any NA
+clean &lt;- na.omit(airquality)
+nrow(clean)                   # 111
+
+# Replace Ozone NAs with mean
+airquality$Ozone[is.na(airquality$Ozone)] &lt;- mean(airquality$Ozone, na.rm = TRUE)
+
+# Subset: rows where temperature &gt; 80
+hot &lt;- subset(airquality, Temp &gt; 80)
+nrow(hot)
+
+# Save preprocessed data
+write.csv(clean, "airquality_clean.csv", row.names = FALSE)</code></pre>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Descriptive Statistics Computation</h2>
+  <pre><code>data(iris)
+x &lt;- iris$Sepal.Length
+
+mean(x)                       # 5.84
+median(x)                     # 5.80
+var(x)                        # 0.686
+sd(x)                         # 0.828
+range(x)                      # 4.3  7.9
+quantile(x)                   # min, Q1, Q2, Q3, max
+IQR(x)                        # 1.3
+
+# Skewness &amp; Kurtosis
+library(moments)
+skewness(x)                   #  0.31
+kurtosis(x)                   #  2.43
+
+# Full report
+library(psych)
+describe(iris[, 1:4])</code></pre>
+
+  <p><strong>Interpretation:</strong> Sepal.Length is approximately symmetric (skew ≈ 0.31) and platykurtic (β₂ ≈ 2.4 &lt; 3).</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Frequency Analysis &amp; Chi-Square</h2>
+
+  <h3>3a — One-way frequency table</h3>
+  <pre><code># Categorise iris by petal length (long if &gt; 4)
+big &lt;- ifelse(iris$Petal.Length &gt; 4, "Long", "Short")
+table(iris$Species, big)</code></pre>
+
+  <div class="out">              big
+              Long Short
+  setosa         0    50
+  versicolor    44     6
+  virginica     50     0</div>
+
+  <h3>3b — Chi-Square Test of Independence</h3>
+  <pre><code>tbl &lt;- table(iris$Species, big)
+chisq.test(tbl)
+#  X-squared = 122.85, df = 2, p-value &lt; 2.2e-16
+# Strong association ⇒ reject H0 of independence</code></pre>
+
+  <h3>3c — Goodness-of-fit (fair die simulation)</h3>
+  <pre><code>set.seed(7); rolls &lt;- sample(1:6, 120, replace = TRUE)
+observed &lt;- table(rolls); observed
+chisq.test(observed)           # expected: uniform 1/6 each</code></pre>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Basic Visualizations</h2>
+
+  <h3>Histograms</h3>
+  <pre><code>par(mfrow = c(1, 2))
+hist(iris$Sepal.Length, breaks = 15, col = "lightblue",
+     main = "Histogram of Sepal Length",
+     xlab = "Sepal length (cm)", freq = FALSE)
+curve(dnorm(x, mean(iris$Sepal.Length), sd(iris$Sepal.Length)),
+      add = TRUE, col = "red", lwd = 2)
+
+hist(iris$Petal.Length, breaks = 15, col = "lightgreen",
+     main = "Histogram of Petal Length", xlab = "Petal length (cm)")
+par(mfrow = c(1, 1))</code></pre>
+
+  <h3>Boxplots</h3>
+  <pre><code>boxplot(Sepal.Length ~ Species, data = iris,
+        col  = c("pink","skyblue","lightgreen"),
+        main = "Sepal Length by Species",
+        notch = TRUE)</code></pre>
+
+  <h3>Normality check — Q-Q plot &amp; Shapiro-Wilk</h3>
+  <pre><code>qqnorm(iris$Sepal.Length); qqline(iris$Sepal.Length, col = "red", lwd = 2)
+shapiro.test(iris$Sepal.Length)
+#  p-value = 0.0102 ⇒ borderline; histogram looks roughly normal but tails differ</code></pre>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Hypothesis Testing (t-tests &amp; ANOVA)</h2>
+
+  <h3>One-sample t-test</h3>
+  <pre><code>x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
+t.test(x, mu = 50)              # p = 0.469 ⇒ accept H0</code></pre>
+
+  <h3>Two-sample t-test (Welch)</h3>
+  <pre><code>setosa     &lt;- iris$Sepal.Length[iris$Species == "setosa"]
+versicolor &lt;- iris$Sepal.Length[iris$Species == "versicolor"]
+t.test(setosa, versicolor)        # p &lt; 2.2e-16 ⇒ reject H0</code></pre>
+
+  <h3>Paired t-test (sleep dataset)</h3>
+  <pre><code>data(sleep)
+t.test(extra ~ group, data = sleep, paired = TRUE)
+#  t = -4.062, df = 9, p-value = 0.00283 ⇒ Drug effect significant</code></pre>
+
+  <h3>One-way ANOVA</h3>
+  <pre><code>fit &lt;- aov(Sepal.Length ~ Species, data = iris)
+summary(fit)
+TukeyHSD(fit)                     # all 3 pairs significant</code></pre>
+
+  <h3>Two-way ANOVA</h3>
+  <pre><code>data(ToothGrowth)
+fit2 &lt;- aov(len ~ supp * factor(dose), data = ToothGrowth)
+summary(fit2)</code></pre>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Non-Parametric Tests</h2>
+
+  <h3>Wilcoxon Signed-Rank (one-sample / paired)</h3>
+  <pre><code># One-sample
+x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
+wilcox.test(x, mu = 50)                    # p = 0.464
+
+# Paired sleep data
+wilcox.test(extra ~ group, data = sleep, paired = TRUE)</code></pre>
+
+  <h3>Wilcoxon Rank-Sum (two-sample)</h3>
+  <pre><code>wilcox.test(setosa, versicolor)            # p &lt; 2.2e-16 ⇒ groups differ</code></pre>
+
+  <h3>Compare with parametric alternative</h3>
+  <pre><code>t_result &lt;- t.test(setosa, versicolor)
+w_result &lt;- wilcox.test(setosa, versicolor)
+
+data.frame(
+  Test  = c("Welch t-test","Wilcoxon"),
+  p_val = c(t_result$p.value, w_result$p.value)
+)
+# Both reject H0; Wilcoxon is appropriate when normality is doubtful.</code></pre>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Linear Regression Modeling</h2>
+  <pre><code># Simple linear regression: MPG vs Weight
+data(mtcars)
+fit &lt;- lm(mpg ~ wt, data = mtcars)
+summary(fit)</code></pre>
+
+  <div class="out">Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  37.285      1.878   19.86  &lt;2e-16 ***
+wt           -5.344      0.559   -9.56  1.29e-10 ***
+Multiple R-squared: 0.753</code></div>
+
+  <h3>Scatter with fitted line</h3>
+  <pre><code>plot(mtcars$wt, mtcars$mpg, pch = 19, col = "navy",
+     main = "MPG vs Weight",
+     xlab = "Weight (1000 lbs)", ylab = "Miles per Gallon")
+abline(fit, col = "red", lwd = 2)</code></pre>
+
+  <h3>Residual diagnostics</h3>
+  <pre><code>par(mfrow = c(2, 2))
+plot(fit)
+par(mfrow = c(1, 1))
+
+shapiro.test(resid(fit))   # check residual normality
+hist(resid(fit), breaks = 12, col = "lightgray",
+     main = "Distribution of Residuals", xlab = "Residual")</code></pre>
+
+  <h3>Predict new values</h3>
+  <pre><code>new &lt;- data.frame(wt = c(2.5, 3.5, 4.5))
+predict(fit, new, interval = "prediction")</code></pre>
+
+  <div class="out">     fit    lwr    upr
+1  23.92  17.55  30.29
+2  18.58  12.33  24.84
+3  13.24   6.96  19.52</div>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title.</li>
+    <li>Aim of the experiment.</li>
+    <li>R script (chunks) used.</li>
+    <li>Output (console) snippet.</li>
+    <li>Plot screenshots.</li>
+    <li>Interpretation in plain language.</li>
+    <li>Reference to underlying theory (from earlier units).</li>
+  </ol>
+
+  <div class="tip">
+    <strong>Note from syllabus:</strong> Practical problems must be done in the Computer Lab at least 4 hours per month using R. Use real datasets (UCI ML Repository) or built-in datasets (<code>mtcars</code>, <code>airquality</code>, <code>iris</code>, etc.) for variety.
+  </div>
+
+  <div class="page-nav">
+    <a href="unit5_computational statistics and r programming.html">← Previous: Unit 5</a>
+    <a href="syllabus_computational statistics and r programming.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 7 Experiments • Computational Statistics &amp; R Programming</footer>
+</div>
+</body>
+</html>

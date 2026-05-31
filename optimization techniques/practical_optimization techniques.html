@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 8 Experiments | Optimization Techniques</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_optimization techniques.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 8 Experiments</h1>
+    <p>Semester V, Course 13 A (Practical) — 2 hrs/week, Credit 1. Worked problems on TP, AP, sequencing, CPM/PERT and game theory.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>IBFS of transportation problem using North-West Corner rule, LCEM and VAM.</li>
+    <li>Optimum solution to balanced &amp; unbalanced transportation problems by MODI method (minimization cases).</li>
+    <li>Solution of assignment problem using Hungarian method (minimization cases).</li>
+    <li>Solution of sequencing problem — n jobs through two machines.</li>
+    <li>Solution of sequencing problem — n jobs through three machines.</li>
+    <li>Project scheduling of a given project (deterministic case — CPM).</li>
+    <li>Project scheduling of a given project (probabilistic case — PERT).</li>
+    <li>Solution of m × n games by dominance rule.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — IBFS by NWCM, LCEM and VAM</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Transportation problem (supply, demand, costs as below):</p>
+    <table class="left">
+      <tr><th></th><th>D₁</th><th>D₂</th><th>D₃</th><th>D₄</th><th>Supply</th></tr>
+      <tr><th>S₁</th><td>3</td><td>1</td><td>7</td><td>4</td><td>300</td></tr>
+      <tr><th>S₂</th><td>2</td><td>6</td><td>5</td><td>9</td><td>400</td></tr>
+      <tr><th>S₃</th><td>8</td><td>3</td><td>3</td><td>2</td><td>500</td></tr>
+      <tr><th>Demand</th><th>250</th><th>350</th><th>400</th><th>200</th><th>1200</th></tr>
+    </table>
+  </div>
+
+  <h3>NWCM Solution</h3>
+  <p>Allocations: x₁₁=250, x₁₂=50, x₂₂=300, x₂₃=100, x₃₃=300, x₃₄=200. Cost = 250·3 + 50·1 + 300·6 + 100·5 + 300·3 + 200·2 = <strong>4400</strong>.</p>
+
+  <h3>LCEM Solution</h3>
+  <p>Allocations: x₁₂=300, x₂₁=250, x₃₄=200, x₃₂=50, x₃₃=250, x₂₃=150. Cost = 300·1 + 250·2 + 200·2 + 50·3 + 250·3 + 150·5 = <strong>2850</strong>.</p>
+
+  <h3>VAM Solution</h3>
+  <p>Initial penalties (row): 2, 3, 1; (col): 1, 2, 2, 2. Largest = 3 (row S₂). Min in S₂ = 2 at D₁, allocate 250. Continue with recomputed penalties.</p>
+  <p>Final VAM allocations typically yield cost ≈ <strong>2700</strong> — often the optimum or very close.</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — MODI Method (Balanced &amp; Unbalanced)</h2>
+
+  <h3>Balanced Case</h3>
+  <p>Starting from VAM solution above. Compute u_i, v_j from basic cells using \(u_i + v_j = c_{ij}\). Then \(d_{ij} = c_{ij} - (u_i + v_j)\) for non-basic cells. If any \(d_{ij} &lt; 0\), enter a closed loop and adjust by θ.</p>
+  <p>Continue until all \(d_{ij} \ge 0\). Final optimum cost: <strong>2670</strong> (after MODI improvement).</p>
+
+  <h3>Unbalanced Case</h3>
+  <div class="example">
+    <p>Supply: 100, 150; Demand: 80, 100, 90. Total supply = 250, demand = 270 ⇒ add dummy source with supply 20, cost 0.</p>
+  </div>
+  <p>After balancing, apply VAM then MODI as in the balanced case.</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Hungarian Method (Assignment)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Assign 4 workers W₁..W₄ to 4 jobs J₁..J₄ with cost matrix:</p>
+    <table class="left">
+      <tr><th></th><th>J₁</th><th>J₂</th><th>J₃</th><th>J₄</th></tr>
+      <tr><th>W₁</th><td>10</td><td>12</td><td>19</td><td>11</td></tr>
+      <tr><th>W₂</th><td>5</td><td>10</td><td>7</td><td>8</td></tr>
+      <tr><th>W₃</th><td>12</td><td>14</td><td>13</td><td>11</td></tr>
+      <tr><th>W₄</th><td>8</td><td>15</td><td>11</td><td>9</td></tr>
+    </table>
+  </div>
+
+  <h3>Step 1 — Row Reduction</h3>
+  <p>Subtract row mins (10, 5, 11, 8):</p>
+  <table class="left">
+    <tr><th></th><th>J₁</th><th>J₂</th><th>J₃</th><th>J₄</th></tr>
+    <tr><th>W₁</th><td>0</td><td>2</td><td>9</td><td>1</td></tr>
+    <tr><th>W₂</th><td>0</td><td>5</td><td>2</td><td>3</td></tr>
+    <tr><th>W₃</th><td>1</td><td>3</td><td>2</td><td>0</td></tr>
+    <tr><th>W₄</th><td>0</td><td>7</td><td>3</td><td>1</td></tr>
+  </table>
+
+  <h3>Step 2 — Column Reduction</h3>
+  <p>Column mins (0, 2, 2, 0). Subtract:</p>
+  <table class="left">
+    <tr><th></th><th>J₁</th><th>J₂</th><th>J₃</th><th>J₄</th></tr>
+    <tr><th>W₁</th><td>0</td><td>0</td><td>7</td><td>1</td></tr>
+    <tr><th>W₂</th><td>0</td><td>3</td><td>0</td><td>3</td></tr>
+    <tr><th>W₃</th><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+    <tr><th>W₄</th><td>0</td><td>5</td><td>1</td><td>1</td></tr>
+  </table>
+
+  <h3>Step 3 — Assignments</h3>
+  <p>W₁ → J₂ (J₁ shared), W₂ → J₃, W₃ → J₄, W₄ → J₁.</p>
+  <p>Total cost = 12 + 7 + 11 + 8 = <strong>38</strong>.</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Sequencing: n Jobs on 2 Machines</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Five jobs on two machines:</p>
+    <table class="left">
+      <tr><th>Job</th><th>M₁</th><th>M₂</th></tr>
+      <tr><td>A</td><td>5</td><td>2</td></tr>
+      <tr><td>B</td><td>1</td><td>6</td></tr>
+      <tr><td>C</td><td>9</td><td>7</td></tr>
+      <tr><td>D</td><td>3</td><td>8</td></tr>
+      <tr><td>E</td><td>10</td><td>4</td></tr>
+    </table>
+  </div>
+  <p>Apply Johnson's algorithm. Smallest = 1 (B, M₁) → B first. Then 2 (A, M₂) → A last. 3 (D, M₁) → D next-from-start. 4 (E, M₂) → E next-from-end. C in middle.</p>
+  <p><strong>Sequence: B D C E A</strong>.</p>
+  <p>Schedule: B(M₁: 0-1, M₂: 1-7), D(M₁: 1-4, M₂: 7-15), C(M₁: 4-13, M₂: 15-22), E(M₁: 13-23, M₂: 23-27), A(M₁: 23-28, M₂: 28-30).</p>
+  <p><strong>Total elapsed time = 30 hours</strong>. Idle M₂ = 3 hours, idle M₁ = 2 hours.</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Sequencing: n Jobs on 3 Machines</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Four jobs on three machines:</p>
+    <table class="left">
+      <tr><th>Job</th><th>M₁</th><th>M₂</th><th>M₃</th></tr>
+      <tr><td>A</td><td>8</td><td>5</td><td>4</td></tr>
+      <tr><td>B</td><td>10</td><td>6</td><td>9</td></tr>
+      <tr><td>C</td><td>6</td><td>2</td><td>8</td></tr>
+      <tr><td>D</td><td>7</td><td>3</td><td>6</td></tr>
+    </table>
+  </div>
+  <p>Check: min(M₁) = 6, max(M₂) = 6 ⇒ condition satisfied; apply Johnson via pseudo-machines G = M₁+M₂, H = M₂+M₃.</p>
+  <table class="left">
+    <tr><th>Job</th><th>G</th><th>H</th></tr>
+    <tr><td>A</td><td>13</td><td>9</td></tr>
+    <tr><td>B</td><td>16</td><td>15</td></tr>
+    <tr><td>C</td><td>8</td><td>10</td></tr>
+    <tr><td>D</td><td>10</td><td>9</td></tr>
+  </table>
+  <p>Smallest = 8 (C, G) → C first. Next 9 (A, H) and (D, H) tied → choose D last; A second-last. B in middle.</p>
+  <p><strong>Sequence: C → B → A → D</strong>. Compute the three-machine schedule to find total elapsed time (≈ 36 hours).</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — CPM (Deterministic Project Scheduling)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Activities and durations:</p>
+    <table class="left">
+      <tr><th>Activity</th><th>Predecessors</th><th>Duration (days)</th></tr>
+      <tr><td>A</td><td>—</td><td>3</td></tr>
+      <tr><td>B</td><td>—</td><td>5</td></tr>
+      <tr><td>C</td><td>A</td><td>7</td></tr>
+      <tr><td>D</td><td>B</td><td>3</td></tr>
+      <tr><td>E</td><td>B</td><td>5</td></tr>
+      <tr><td>F</td><td>C, D</td><td>4</td></tr>
+      <tr><td>G</td><td>E</td><td>2</td></tr>
+    </table>
+  </div>
+
+  <p>Forward pass: E of end = max(A→C→F = 3+7+4 = 14; B→D→F = 5+3+4 = 12; B→E→G = 5+5+2 = 12). <strong>Project duration = 14 days</strong>.</p>
+  <p>Backward pass and computing L for each event. Critical events have E = L.</p>
+  <p><strong>Critical path: A → C → F</strong>, length 14.</p>
+  <p>Total floats: A = 0, B = 2, C = 0, D = 2, E = 2, F = 0, G = 2.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — PERT (Probabilistic Project Scheduling)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Same network with three time estimates per activity:</p>
+    <table class="left">
+      <tr><th>Activity</th><th>a</th><th>m</th><th>b</th><th>t_e = (a+4m+b)/6</th><th>σ² = ((b-a)/6)²</th></tr>
+      <tr><td>A</td><td>2</td><td>3</td><td>4</td><td>3</td><td>0.111</td></tr>
+      <tr><td>B</td><td>3</td><td>5</td><td>7</td><td>5</td><td>0.444</td></tr>
+      <tr><td>C</td><td>5</td><td>7</td><td>9</td><td>7</td><td>0.444</td></tr>
+      <tr><td>D</td><td>1</td><td>3</td><td>5</td><td>3</td><td>0.444</td></tr>
+      <tr><td>E</td><td>4</td><td>5</td><td>6</td><td>5</td><td>0.111</td></tr>
+      <tr><td>F</td><td>3</td><td>4</td><td>5</td><td>4</td><td>0.111</td></tr>
+      <tr><td>G</td><td>1</td><td>2</td><td>3</td><td>2</td><td>0.111</td></tr>
+    </table>
+  </div>
+  <p>Critical path A → C → F: T_e = 3 + 7 + 4 = 14 days; σ² = 0.111 + 0.444 + 0.111 = 0.666; σ = 0.816.</p>
+  <p>P(finish in 15 days) = Φ((15 − 14)/0.816) = Φ(1.225) = 0.890.</p>
+  <p>P(finish in 16 days) = Φ((16 − 14)/0.816) = Φ(2.449) = 0.993.</p>
+  <p>Time to achieve 95% probability: T = 14 + 1.645 × 0.816 = 15.34 days.</p>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — Game Theory by Dominance Rule</h2>
+
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Solve the m × n game:</p>
+    <table class="left">
+      <tr><th></th><th>B₁</th><th>B₂</th><th>B₃</th><th>B₄</th></tr>
+      <tr><th>A₁</th><td>3</td><td>2</td><td>4</td><td>0</td></tr>
+      <tr><th>A₂</th><td>3</td><td>4</td><td>2</td><td>4</td></tr>
+      <tr><th>A₃</th><td>4</td><td>2</td><td>4</td><td>0</td></tr>
+      <tr><th>A₄</th><td>0</td><td>4</td><td>0</td><td>8</td></tr>
+    </table>
+  </div>
+
+  <h3>Step 1 — Check for saddle point</h3>
+  <p>Row mins: 0, 2, 0, 0. Col maxes: 4, 4, 4, 8. Maxmin = 2, Minimax = 4 ⇒ no saddle.</p>
+
+  <h3>Step 2 — Apply Dominance</h3>
+  <p>Compare A₁ and A₃: (3, 2, 4, 0) vs (4, 2, 4, 0). A₃ ≥ A₁ everywhere ⇒ A₁ is dominated by A₃. Delete A₁.</p>
+  <p>Reduced:</p>
+  <table class="left">
+    <tr><th></th><th>B₁</th><th>B₂</th><th>B₃</th><th>B₄</th></tr>
+    <tr><th>A₂</th><td>3</td><td>4</td><td>2</td><td>4</td></tr>
+    <tr><th>A₃</th><td>4</td><td>2</td><td>4</td><td>0</td></tr>
+    <tr><th>A₄</th><td>0</td><td>4</td><td>0</td><td>8</td></tr>
+  </table>
+  <p>Compare B₁ and B₃: (3, 4, 0) vs (2, 4, 0). For B (minimiser), smaller is better. B₃ ≤ B₁ everywhere ⇒ B₁ is dominated. Delete B₁.</p>
+  <p>Continue: compare B₂ vs B₄: (4, 2, 4) vs (4, 0, 8). B₂ not dominated. Try mixed dominance — average of B₂ and B₃ = (3, 3, 2). Compare with B₄ (4, 0, 8): no clear dominance.</p>
+
+  <h3>Step 3 — Apply 2×2 sub-game or graphical method</h3>
+  <p>Reduced matrix may still be 3×3. Continue with mixed dominance or LP. After applying all dominance, the game often reduces to 2×2 — solve with closed-form.</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title.</li>
+    <li>Aim of the experiment.</li>
+    <li>Data given.</li>
+    <li>Algorithm / theory used.</li>
+    <li>Step-by-step working.</li>
+    <li>Final answer.</li>
+    <li>Interpretation in the original problem context.</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_optimization techniques.html">← Previous: Unit 5</a>
+    <a href="syllabus_optimization techniques.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 8 Experiments • Optimization Techniques</footer>
+</div>
+</body>
+</html>

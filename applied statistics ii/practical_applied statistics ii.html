@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course Lab Manual | Applied Statistics II</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_applied statistics ii.html">Home</a> &raquo; Practical Course</div>
+    <h1>Practical Course — Lab Manual</h1>
+    <p>B.Sc. Statistics (Honours) — Semester V, Course 13 B Practical (1 Credit)</p>
+  </div>
+
+  <h2>Laboratory Framework & Guidelines</h2>
+  <div class="tip">
+    <strong>Lab Requirements:</strong> This practical component demands 2 hours per week in the computer lab. Every student must personally perform the calculations, handle data inputs, interpret output results, and document their findings in a dedicated practical record book.
+  </div>
+
+  <h2>Prescribed List of Experiments</h2>
+  <p>The following 12 experiments map directly to the core curriculum and form the evaluation framework for the practical semester examinations:</p>
+
+  <h3>Phase 1: Empirical Fitting of Growth Curves</h3>
+  
+  <div class="concept">
+    <h4>Experiment 1: Fitting of Modified Exponential Curve (Three Selected Points)</h4>
+    <p><strong>Objective:</strong> Fit the trend model \(Y_t = a + b c^t\) using three equidistant selected time markers.</p>
+    <p><strong>Methodology:</strong> Select three points \(t_1, t_2, t_3\) separated by a fixed interval \(k\) such that \(t_2 - t_1 = t_3 - t_2 = k\). Utilize the explicit algebraic relations to extract parameters:</p>
+    \[
+      c = \left(\dfrac{Y_3 - Y_2}{Y_2 - Y_1}\right)^{1/k}, \quad a = \dfrac{Y_1 Y_3 - Y_2^2}{Y_1 + Y_3 - 2 Y_2}
+    \]
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 2: Fitting of Modified Exponential Curve (Partial Sums Method)</h4>
+    <p><strong>Objective:</strong> Fit the trend model \(Y_t = a + b c^t\) over a series of \(n = 3k\) successive historical records.</p>
+    <p><strong>Methodology:</strong> Partition the time-series dataset into three equal chronological groups of length \(k\). Compute the partial aggregates:</p>
+    \[
+      S_1 = \sum_{t=1}^{k} Y_t, \quad S_2 = \sum_{t=k+1}^{2k} Y_t, \quad S_3 = \sum_{t=2k+1}^{3k} Y_t
+    \]
+    <p>Solve simultaneously for parameters using the smoothed group totals to minimize irregular variations.</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 3: Fitting of Gompertz Curve (Three Selected Points)</h4>
+    <p><strong>Objective:</strong> Establish parameters for the asymmetric S-shaped growth curve \(Y_t = k a^{b^t}\) utilizing equispaced point markers.</p>
+    <p><strong>Methodology:</strong> Apply a logarithmic transformation layer to linearize the model into a modified exponential form: \(\log Y_t = \log k + b^t \log a\). Solve for the ratio parameter \(b\) across equidistant steps using:</p>
+    \[
+      b^k = \dfrac{\log Y_3 - \log Y_2}{\log Y_2 - \log Y_1}
+    \]
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 4: Fitting of Gompertz Curve (Partial Sums Method)</h4>
+    <p><strong>Objective:</strong> Fit the model \(Y_t = k a^{b^t}\) leveraging group totals across an entire time-series range.</p>
+    <p><strong>Methodology:</strong> Convert all historical inputs into raw logarithmic entries (\(\log Y_t\)). Divide into three equal sequential blocks of length \(k\), find the block sums of logs, and calculate the upper saturation limit \(\log k\).</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 5: Fitting of Logistic Curve (Partial Sums Method)</h4>
+    <p><strong>Objective:</strong> Fit the symmetric S-shaped growth framework \(Y_t = \dfrac{k}{1 + b e^{-ct}}\) to active population or technology distribution data arrays.</p>
+    <p><strong>Methodology:</strong> Execute a reciprocal transformation layer \(Z_t = 1/Y_t\) to convert the logistic equation into a standard modified exponential curve format. Divide the converted series into three equal sub-groups to compute the carrying capacity parameter \(k\).</p>
+  </div>
+
+  <h3>Phase 2: Advanced Index Number Operations</h3>
+
+  <div class="concept">
+    <h4>Experiment 6: Finding Index Numbers by Shifting the Base</h4>
+    <p><strong>Objective:</strong> Recalibrate a historical index number series onto a modern reference base year or a multi-year average base span.</p>
+    <p><strong>Methodology:</strong> Standardize trackers by mapping each entry against the chosen reference value via the operational transformation:</p>
+    \[
+      \text{New Index}_t = \dfrac{\text{Old Index}_t}{\text{Old Index in the New Base Year}} \times 100
+    \]
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 7: Calculation of Fixed-Base and Chain-Base Index Numbers</h4>
+    <p><strong>Objective:</strong> Construct and contrast fixed-base series against dynamic chain-linked index structures.</p>
+    <p><strong>Methodology:</strong> Determine year-on-year link relatives from underlying data points via \(L_t = \left(\dfrac{P_t}{P_{t-1}}\right) \times 100\). Link these relatives sequentially to build the continuous chain index series:</p>
+    \[
+      \text{CBI}_t = \dfrac{\text{CBI}_{t-1} \times L_t}{100}
+    \]
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 8: Splicing Two Index Number Series</h4>
+    <p><strong>Objective:</strong> Join two non-overlapping or revised index number series sharing different baselines into a continuous historical timeline.</p>
+    <p><strong>Methodology:</strong> Locate the common overlap row entry. Execute forward splicing to express older indices on the new base, or implement backward splicing to extend the current series into past decades:</p>
+    \[
+      \text{Spliced New Index (Backward)} = \dfrac{\text{New Index}_t \times \text{Old Index in Overlap Year}}{100}
+    \]
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 9: Deflating Index Numbers</h4>
+    <p><strong>Objective:</strong> Adjust nominal monetary values (such as wages or national income data) to compute real purchasing power changes over time.</p>
+    <p><strong>Methodology:</strong> Correct raw data series to eliminate inflationary distortion elements using the classical deflation formula:</p>
+    \[
+      \text{Real Value}_t = \dfrac{\text{Nominal Value}_t}{\text{Price Index}_t} \times 100
+    \]
+  </div>
+
+  <h3>Phase 3: Demand Analysis and Educational Test Analytics</h3>
+
+  <div class="concept">
+    <h4>Experiment 10: Calculation of Income and Price Elasticities</h4>
+    <p><strong>Objective:</strong> Estimate demand responsiveness properties from household budget cross-sections or market pricing records.</p>
+    <p><strong>Methodology:</strong> Determine partial price elasticities via point derivative models or arc methods:</p>
+    \[
+      E_p = \dfrac{\Delta Q}{\Delta P} \cdot \dfrac{(P_1 + P_2)}{(Q_1 + Q_2)}
+    \]
+    <p>Fit log-linear regression layouts to extract constant demand parameters.</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 11: Fitting of Pareto's Curve to Given Income Distributions</h4>
+    <p><strong>Objective:</strong> Fit Pareto’s distribution rule for higher wealth brackets to evaluate socioeconomic inequality.</p>
+    <p><strong>Methodology:</strong> Map income values \(X\) and cumulative individuals exceeding that threshold \(N\) onto a double-log coordinate space. Fit a linear model via least-squares regression:</p>
+    \[
+      \log N = \log A - \alpha \log X
+    \]
+    <p>Extract the slope parameter \(\alpha\) to evaluate concentration characteristics.</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 12: Test Reliability Computations</h4>
+    <p><strong>Objective:</strong> Evaluate the internal consistency and measurement accuracy profiles of educational testing instruments.</p>
+    <p><strong>Methodology:</strong> Utilizing item-difficulty values, sample means, and test score variance (\(\sigma_X^2\)), compute internal reliability coefficients using split-half layouts (with Spearman-Brown adjustments), the Rulon method, or the Kuder-Richardson formula (KR-20):</p>
+    \[
+      r_{KR\text{-}20} = \dfrac{k}{k - 1}\left(1 - \dfrac{\sum_{i=1}^{k} p_i q_i}{\sigma_X^2}\right)
+    \]
+  </div>
+
+  <div class="page-nav">
+    <a href="index_applied statistics ii.html">← Back to Home Hub</a>
+    <a href="syllabus_applied statistics ii.html">View Official Syllabus Outline →</a>
+  </div>
+
+  <footer>Course 13 B Practical Lab Companion Framework</footer>
+</div>
+</body>
+</html>

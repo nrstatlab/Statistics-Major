@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 10 Experiments | Descriptive Statistics</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_descriptive statistics.html">Home</a> &raquo; Practical Course</div>
+    <h1>Practical Course — 10 Experiments</h1>
+    <p>Semester I, Course 1 (Practical) — 2 hrs/week, Credit 1. Worked problem with data &amp; solution for each experiment.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Writing a Questionnaire in different situations.</li>
+    <li>Forming a grouped and ungrouped frequency distribution table.</li>
+    <li>Diagrammatic presentation of data — Bar, multiple Bar and Pie.</li>
+    <li>Graphical presentation of data — Histogram, frequency polygon, Ogives.</li>
+    <li>Computation of measures of central tendency — Mean, Median and Mode.</li>
+    <li>Computation of measures of dispersion — QD, MD and SD.</li>
+    <li>Computation of non-central, central moments, β₁ and β₂ for ungrouped data.</li>
+    <li>Computation of non-central, central moments, β₁, β₂ and Sheppard's corrections for grouped data.</li>
+    <li>Computation of Karl Pearson's and Bowley's coefficients of skewness.</li>
+    <li>Computation of kurtosis.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Writing a Questionnaire</h2>
+  <div class="concept">
+    <span class="label">AIM</span>
+    <p>To frame a structured questionnaire for a given research situation.</p>
+  </div>
+  <h3>Guidelines for a Good Questionnaire</h3>
+  <ol>
+    <li>Cover letter explaining purpose and confidentiality.</li>
+    <li>Questions should be short, simple, unambiguous.</li>
+    <li>Avoid leading and double-barrelled questions.</li>
+    <li>Use closed (multiple-choice) questions where possible.</li>
+    <li>Logical flow — easy to difficult, general to specific.</li>
+    <li>Pilot-test before full deployment.</li>
+  </ol>
+  <div class="example">
+    <span class="label">SITUATION 1</span>
+    <h4>Survey on Reading Habits of College Students</h4>
+    <ol>
+      <li>Name (optional): ____________________</li>
+      <li>Age: __ Gender: ☐ Male ☐ Female ☐ Other</li>
+      <li>Class / Year of study: __________</li>
+      <li>How often do you read non-academic books? ☐ Daily ☐ Weekly ☐ Monthly ☐ Rarely ☐ Never</li>
+      <li>Preferred genre: ☐ Fiction ☐ Biography ☐ Science ☐ Self-help ☐ Other ____</li>
+      <li>Average hours per week spent reading: ☐ &lt;2 ☐ 2–5 ☐ 5–10 ☐ &gt;10</li>
+      <li>Source of books: ☐ Library ☐ Bookstore ☐ Online ☐ E-books</li>
+      <li>Suggestions to encourage reading in college: ____________</li>
+    </ol>
+  </div>
+  <div class="example">
+    <span class="label">SITUATION 2</span>
+    <h4>Customer Satisfaction Survey for a Mobile Service Provider</h4>
+    <ol>
+      <li>How long have you used our service? ☐ &lt;6 m ☐ 6 m–1 y ☐ 1–3 y ☐ &gt;3 y</li>
+      <li>Rate call quality: 1 (Poor) — 5 (Excellent)</li>
+      <li>Rate data speed: 1 — 5</li>
+      <li>Rate customer support: 1 — 5</li>
+      <li>Did you face any billing issue in last 3 months? Yes / No</li>
+      <li>Likely to recommend us to a friend (NPS): 0 — 10</li>
+      <li>Suggestions for improvement: ______________</li>
+    </ol>
+  </div>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Forming a Frequency Distribution</h2>
+  <div class="concept">
+    <span class="label">AIM</span>
+    <p>To form ungrouped and grouped frequency distributions for given raw data.</p>
+  </div>
+  <div class="example">
+    <span class="label">UNGROUPED</span>
+    <p>Number of accidents per day for 25 days:<br>
+    1, 2, 0, 3, 2, 1, 4, 0, 2, 1, 3, 2, 1, 0, 2, 1, 3, 2, 0, 1, 2, 4, 1, 2, 3.</p>
+    <table class="left">
+      <tr><th>Accidents (x)</th><th>Tally</th><th>Frequency (f)</th></tr>
+      <tr><td>0</td><td>||||</td><td>4</td></tr>
+      <tr><td>1</td><td>|||| ||</td><td>7</td></tr>
+      <tr><td>2</td><td>|||| ||||</td><td>9</td></tr>
+      <tr><td>3</td><td>||||</td><td>4</td></tr>
+      <tr><td>4</td><td>||</td><td>2</td></tr>
+      <tr><th>Total</th><th></th><th>26 (Note: re-count)</th></tr>
+    </table>
+    <p style="font-size:0.92rem;color:#374151"><em>(Always re-tally to ensure ∑f = N. The student should
+    verify the count.)</em></p>
+  </div>
+  <div class="example">
+    <span class="label">GROUPED</span>
+    <p>Use the marks data given in Unit 2 (30 students). Apply Sturges' rule \(k = 1 + 3.322 \log_{10} 30 \approx 6\).
+    Take \(h = 10\) and form 5 intervals 30–40, 40–50, …, 70–80 with frequencies 4, 8, 9, 6, 3.</p>
+  </div>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Bar, Multiple Bar and Pie Diagrams</h2>
+  <div class="example">
+    <span class="label">BAR DIAGRAM</span>
+    <p>Production (in lakh tonnes) of a factory in 5 years: 12, 15, 18, 20, 22. Draw vertical bars of
+    equal width with these heights.</p>
+  </div>
+  <div class="example">
+    <span class="label">MULTIPLE BAR</span>
+    <p>Imports vs Exports (₹ crores):</p>
+    <table class="left">
+      <tr><th>Year</th><th>Imports</th><th>Exports</th></tr>
+      <tr><td>2021</td><td>200</td><td>180</td></tr>
+      <tr><td>2022</td><td>240</td><td>220</td></tr>
+      <tr><td>2023</td><td>260</td><td>260</td></tr>
+      <tr><td>2024</td><td>290</td><td>270</td></tr>
+    </table>
+    <p>For each year draw two side-by-side bars in different colours.</p>
+  </div>
+  <div class="example">
+    <span class="label">PIE</span>
+    <p>Use family budget data: Food 8 000, Rent 5 000, Education 4 000, Savings 3 000.
+    Angles 144°, 90°, 72°, 54° (verified in Unit 2).</p>
+  </div>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Histogram, Frequency Polygon, Ogives</h2>
+  <p>Use the marks data from Unit 2 (frequencies 4, 8, 9, 6, 3 for classes 30–40 ... 70–80).</p>
+  <ul>
+    <li><strong>Histogram:</strong> rectangles on classes; heights 4, 8, 9, 6, 3.</li>
+    <li><strong>Frequency Polygon:</strong> plot mid-points (35, 45, 55, 65, 75) against frequencies; close at 25 &amp; 85.</li>
+    <li><strong>Less-than Ogive:</strong> plot (40,4), (50,12), (60,21), (70,27), (80,30).</li>
+    <li><strong>More-than Ogive:</strong> plot (30,30), (40,26), (50,18), (60,9), (70,3).</li>
+  </ul>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Mean, Median, Mode</h2>
+  <div class="example">
+    <span class="label">MEAN, MEDIAN, MODE — Worked Problem</span>
+    <table class="left">
+      <tr><th>Class</th><th>f</th><th>x</th><th>fx</th><th>CF</th></tr>
+      <tr><td>0–10</td><td>5</td><td>5</td><td>25</td><td>5</td></tr>
+      <tr><td>10–20</td><td>10</td><td>15</td><td>150</td><td>15</td></tr>
+      <tr><td>20–30</td><td>20</td><td>25</td><td>500</td><td>35 ←median</td></tr>
+      <tr><td>30–40</td><td>25</td><td>35</td><td>875</td><td>60 ←mode</td></tr>
+      <tr><td>40–50</td><td>15</td><td>45</td><td>675</td><td>75</td></tr>
+      <tr><td>50–60</td><td>5</td><td>55</td><td>275</td><td>80</td></tr>
+      <tr><th>Total</th><th>80</th><th></th><th>2 500</th><th></th></tr>
+    </table>
+    <p><strong>Mean</strong> = 2 500/80 = 31.25.<br>
+    <strong>Median</strong>: \(N/2 = 40\) ⇒ class 30–40; \(L=30,C=35,f=25,h=10\):
+    Median = 30 + (40−35)/25 × 10 = 32.<br>
+    <strong>Mode</strong>: modal class 30–40; \(f_1=25,f_0=20,f_2=15,h=10\):
+    Mode = 30 + (25−20)/(50−20−15) × 10 = 30 + 50/15 ≈ 33.33.<br>
+    Empirical check: 3 Median − 2 Mean = 96 − 62.5 = 33.5 ≈ 33.33 ✓.</p>
+  </div>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — QD, MD, SD</h2>
+  <p>Continue with the data of Experiment 5.</p>
+  <p><strong>QD:</strong> \(N/4 = 20\) ⇒ \(Q_1\) class 20–30, \(L=20,C=15,f=20,h=10\); \(Q_1 = 20 + 5/20\times 10 = 22.5\).<br>
+  \(3N/4 = 60\) ⇒ \(Q_3\) class 30–40 (CF first reaches 60 here), \(L=30,C=35,f=25,h=10\); \(Q_3 = 30 + 25/25 \times 10 = 40\).<br>
+  QD = (40 − 22.5)/2 = <strong>8.75</strong>.</p>
+
+  <p><strong>MD about Mean</strong>:</p>
+  <table class="left">
+    <tr><th>x</th><th>f</th><th>|x − 31.25|</th><th>f|x − 31.25|</th></tr>
+    <tr><td>5</td><td>5</td><td>26.25</td><td>131.25</td></tr>
+    <tr><td>15</td><td>10</td><td>16.25</td><td>162.50</td></tr>
+    <tr><td>25</td><td>20</td><td>6.25</td><td>125.00</td></tr>
+    <tr><td>35</td><td>25</td><td>3.75</td><td>93.75</td></tr>
+    <tr><td>45</td><td>15</td><td>13.75</td><td>206.25</td></tr>
+    <tr><td>55</td><td>5</td><td>23.75</td><td>118.75</td></tr>
+    <tr><th>Total</th><th>80</th><th></th><th>837.50</th></tr>
+  </table>
+  <p>MD = 837.5/80 = <strong>10.47</strong>.</p>
+
+  <p><strong>SD</strong>:</p>
+  <table class="left">
+    <tr><th>x</th><th>f</th><th>fx²</th></tr>
+    <tr><td>5</td><td>5</td><td>125</td></tr>
+    <tr><td>15</td><td>10</td><td>2 250</td></tr>
+    <tr><td>25</td><td>20</td><td>12 500</td></tr>
+    <tr><td>35</td><td>25</td><td>30 625</td></tr>
+    <tr><td>45</td><td>15</td><td>30 375</td></tr>
+    <tr><td>55</td><td>5</td><td>15 125</td></tr>
+    <tr><th>Total</th><th>80</th><th>91 000</th></tr>
+  </table>
+  <p>\(\sigma^2 = 91000/80 - 31.25^2 = 1137.5 - 976.5625 = 160.9375\).<br>
+  \(\sigma = \sqrt{160.9375} \approx \mathbf{12.69}\). CV = 12.69/31.25 × 100 ≈ 40.6 %.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Moments, β₁, β₂ (Ungrouped)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Data: 1, 3, 5, 7, 9. Compute the first four central moments and \(\beta_1, \beta_2\).</p>
+    <p>Mean = 25/5 = 5. Deviations: −4, −2, 0, 2, 4.</p>
+    <table class="left">
+      <tr><th>x</th><th>d</th><th>d²</th><th>d³</th><th>d⁴</th></tr>
+      <tr><td>1</td><td>−4</td><td>16</td><td>−64</td><td>256</td></tr>
+      <tr><td>3</td><td>−2</td><td>4</td><td>−8</td><td>16</td></tr>
+      <tr><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>7</td><td>2</td><td>4</td><td>8</td><td>16</td></tr>
+      <tr><td>9</td><td>4</td><td>16</td><td>64</td><td>256</td></tr>
+      <tr><th>Σ</th><th>0</th><th>40</th><th>0</th><th>544</th></tr>
+    </table>
+    <p>\(\mu_1 = 0,\;\mu_2 = 8,\;\mu_3 = 0,\;\mu_4 = 108.8\).<br>
+    \(\beta_1 = 0\) (symmetric); \(\beta_2 = 108.8/64 = 1.7\) (platykurtic).</p>
+  </div>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — Moments &amp; Sheppard's Correction (Grouped)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <table class="left">
+      <tr><th>Class</th><th>f</th><th>x</th><th>d=(x−25)</th><th>fd</th><th>fd²</th><th>fd³</th><th>fd⁴</th></tr>
+      <tr><td>0–10</td><td>5</td><td>5</td><td>−20</td><td>−100</td><td>2 000</td><td>−40 000</td><td>800 000</td></tr>
+      <tr><td>10–20</td><td>10</td><td>15</td><td>−10</td><td>−100</td><td>1 000</td><td>−10 000</td><td>100 000</td></tr>
+      <tr><td>20–30</td><td>20</td><td>25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>30–40</td><td>10</td><td>35</td><td>10</td><td>100</td><td>1 000</td><td>10 000</td><td>100 000</td></tr>
+      <tr><td>40–50</td><td>5</td><td>45</td><td>20</td><td>100</td><td>2 000</td><td>40 000</td><td>800 000</td></tr>
+      <tr><th>Σ</th><th>50</th><th></th><th></th><th>0</th><th>6 000</th><th>0</th><th>1 800 000</th></tr>
+    </table>
+    <p>About \(A = 25\): \(\mu'_1 = 0,\; \mu'_2 = 120,\; \mu'_3 = 0,\; \mu'_4 = 36 000\).</p>
+    <p>Since \(\mu'_1 = 0\), the central moments equal the raw moments here:
+    \(\mu_2 = 120,\; \mu_3 = 0,\; \mu_4 = 36 000\).</p>
+    <p><strong>Sheppard's correction</strong> with \(h = 10\):</p>
+    <ul>
+      <li>\(\mu_2^* = 120 - 100/12 = 111.67\).</li>
+      <li>\(\mu_3^* = 0\) (no correction).</li>
+      <li>\(\mu_4^* = 36 000 - (100/2)(120) + 7(10000)/240 = 36 000 - 6 000 + 291.67 = 30 291.67\).</li>
+    </ul>
+    <p>\(\beta_1 = 0\); \(\beta_2 = 30 291.67 / 111.67^2 = 30 291.67 / 12 470.18 \approx 2.43\) (platykurtic).</p>
+  </div>
+
+  <!-- EXP 9 -->
+  <h2>Experiment 9 — Karl Pearson &amp; Bowley Skewness</h2>
+  <div class="example">
+    <span class="label">KARL PEARSON</span>
+    <p>From Experiment 5: Mean = 31.25, Mode = 33.33, SD = 12.69.<br>
+    \(S_k = (31.25 - 33.33)/12.69 = -0.164\) (slightly negatively skewed).<br>
+    Or via empirical relation: \(S_k = 3(31.25 - 32)/12.69 = -0.177\). Both agree.</p>
+  </div>
+  <div class="example">
+    <span class="label">BOWLEY</span>
+    <p>From Experiment 6: \(Q_1 = 22.5,\; Q_2 = \) Median \(= 32,\; Q_3 = 40\).<br>
+    \(S_B = (40 + 22.5 - 64)/(40 - 22.5) = -1.5/17.5 = -0.086\) (very mildly negative).</p>
+  </div>
+
+  <!-- EXP 10 -->
+  <h2>Experiment 10 — Kurtosis</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Use Experiment 7 results: \(\mu_2 = 8,\; \mu_4 = 108.8\).<br>
+    \(\beta_2 = 108.8 / 64 = 1.70\). Since \(\beta_2 &lt; 3\), distribution is <strong>Platykurtic</strong>.<br>
+    \(\gamma_2 = \beta_2 - 3 = -1.30\).</p>
+  </div>
+  <div class="example">
+    <span class="label">SECOND PROBLEM</span>
+    <p>Suppose \(\mu_2 = 4\) and \(\mu_4 = 75\). \(\beta_2 = 75/16 = 4.6875\) → Leptokurtic.<br>
+    \(\gamma_2 = 1.6875\).</p>
+  </div>
+
+  <h2>Lab Notebook Format (suggested)</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim of the experiment</li>
+    <li>Formula(e) used</li>
+    <li>Data table with calculations</li>
+    <li>Result with proper units</li>
+    <li>Interpretation / conclusion</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_descriptive statistics.html">← Previous: Unit 5</a>
+    <a href="syllabus_descriptive statistics.html">Next: Official Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 10 Experiments</footer>
+</div>
+</body>
+</html>

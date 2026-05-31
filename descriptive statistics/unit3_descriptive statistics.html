@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 — Measures of Central Tendency | Descriptive Statistics</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_descriptive statistics.html">Home</a> &raquo; Unit 3</div>
+    <h1>Unit 3 — Measures of Central Tendency</h1>
+    <p>Arithmetic Mean, Median, Mode, Geometric Mean, Harmonic Mean — for grouped &amp; ungrouped data, with properties &amp; empirical relation.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">Arithmetic Mean</span>
+    <span class="chip">Properties of AM</span>
+    <span class="chip">Median</span>
+    <span class="chip">Mode</span>
+    <span class="chip">Geometric Mean</span>
+    <span class="chip">Harmonic Mean</span>
+    <span class="chip">Empirical Relation</span>
+    <span class="chip">Median &amp; Mode by Graph</span>
+  </div>
+
+  <!-- INTRODUCTION -->
+  <h2>1. What is Central Tendency?</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A <strong>measure of central tendency</strong> is a single value that represents the entire data
+    by indicating the centre around which the values cluster. Also called an <em>average</em>.</p>
+  </div>
+
+  <h3>Features of a Good Average</h3>
+  <ol>
+    <li>Should be <strong>rigidly defined</strong>.</li>
+    <li>Easy to <strong>understand and compute</strong>.</li>
+    <li>Based on <strong>all observations</strong>.</li>
+    <li>Suitable for <strong>further mathematical / algebraic treatment</strong>.</li>
+    <li>Affected as little as possible by <strong>fluctuations of sampling</strong>.</li>
+    <li>Not unduly affected by <strong>extreme values (outliers)</strong>.</li>
+  </ol>
+
+  <p>The five averages prescribed in the syllabus: Arithmetic Mean (AM), Median, Mode, Geometric Mean (GM), Harmonic Mean (HM).</p>
+
+  <!-- 2. ARITHMETIC MEAN -->
+  <h2>2. Arithmetic Mean (AM)</h2>
+
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The arithmetic mean is the sum of all observations divided by the number of observations.</p>
+  </div>
+
+  <h3>2.1 Formulae</h3>
+  <div class="formula">
+    <span class="label">UNGROUPED DATA</span>
+    \[
+      \bar{x} \;=\; \dfrac{x_1 + x_2 + \cdots + x_n}{n} \;=\; \dfrac{\sum x_i}{n}
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">DISCRETE FREQUENCY DATA</span>
+    \[
+      \bar{x} \;=\; \dfrac{\sum f_i x_i}{\sum f_i} \;=\; \dfrac{\sum f_i x_i}{N}
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">CONTINUOUS GROUPED DATA</span>
+    <p>Take \(x_i\) = mid-value of class \(i\):</p>
+    \[
+      \bar{x} \;=\; \dfrac{\sum f_i x_i}{N}
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">SHORTCUT (Assumed-Mean) METHOD</span>
+    <p>Let \(A\) = assumed mean, \(d_i = x_i - A\):</p>
+    \[
+      \bar{x} \;=\; A + \dfrac{\sum f_i d_i}{N}
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">STEP-DEVIATION METHOD</span>
+    <p>For equal class width \(h\), let \(u_i = (x_i - A)/h\):</p>
+    \[
+      \bar{x} \;=\; A + \dfrac{\sum f_i u_i}{N}\, h
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <h4>Mean of ungrouped data</h4>
+    <p>Marks of 7 students: 45, 60, 55, 70, 65, 50, 80.</p>
+    <p>\(\sum x = 425;\; n = 7\). \(\bar{x} = 425/7 = 60.71\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <h4>Mean of grouped data (step deviation)</h4>
+    <table class="left">
+      <tr><th>Class</th><th>f</th><th>Mid x</th><th>u = (x − 45)/10</th><th>fu</th></tr>
+      <tr><td>20–30</td><td>5</td><td>25</td><td>−2</td><td>−10</td></tr>
+      <tr><td>30–40</td><td>8</td><td>35</td><td>−1</td><td>−8</td></tr>
+      <tr><td>40–50</td><td>15</td><td>45 (A)</td><td>0</td><td>0</td></tr>
+      <tr><td>50–60</td><td>10</td><td>55</td><td>1</td><td>10</td></tr>
+      <tr><td>60–70</td><td>2</td><td>65</td><td>2</td><td>4</td></tr>
+      <tr><th>Total</th><th>40</th><th>—</th><th>—</th><th>−4</th></tr>
+    </table>
+    <p>\(\bar{x} = 45 + (-4/40)\cdot 10 = 45 - 1 = \mathbf{44}\).</p>
+  </div>
+
+  <h3>2.2 Properties of Arithmetic Mean (very important)</h3>
+  <ol>
+    <li><strong>Sum of deviations from mean is zero:</strong> \(\sum (x_i - \bar{x}) = 0\).</li>
+    <li><strong>Sum of squared deviations is least</strong> when taken about the mean: \(\sum (x_i - A)^2\) is minimum at \(A=\bar{x}\).</li>
+    <li><strong>Effect of change of origin and scale:</strong> if \(y = a + bx\) then \(\bar{y} = a + b\bar{x}\).</li>
+    <li><strong>Combined mean</strong> of two groups with means \(\bar{x}_1, \bar{x}_2\) and sizes \(n_1, n_2\):
+      \[
+        \bar{x}_{12} = \dfrac{n_1 \bar{x}_1 + n_2 \bar{x}_2}{n_1 + n_2}
+      \]
+    </li>
+    <li>If every observation is multiplied by a constant \(k\), the mean is also multiplied by \(k\).</li>
+  </ol>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Combined Mean)</span>
+    <p>Section A has 30 students with mean 60; Section B has 20 students with mean 70.</p>
+    <p>\(\bar{x}_{12} = \dfrac{30(60)+20(70)}{30+20} = \dfrac{1800+1400}{50} = \dfrac{3200}{50} = 64\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Sum of deviations)</span>
+    <p>Data: 4, 8, 6, 10, 12. Mean = 40/5 = 8.<br>
+    Deviations: −4, 0, −2, 2, 4. Sum = 0. ✓</p>
+  </div>
+
+  <h3>2.3 Merits and Demerits of AM</h3>
+  <table class="left">
+    <tr><th>Merits</th><th>Demerits</th></tr>
+    <tr>
+      <td>Rigidly defined; based on all observations; easy to compute; suitable for algebraic treatment.</td>
+      <td>Highly affected by extreme values; cannot be obtained graphically; not suitable for qualitative data; cannot be computed if any value is missing or open-ended class.</td>
+    </tr>
+  </table>
+
+  <!-- 3. MEDIAN -->
+  <h2>3. Median</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The <strong>median</strong> is the middle value of an arranged data set. It divides the distribution
+    into two equal halves — half the values are less than the median and half are more.</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">UNGROUPED DATA</span>
+    <p>Arrange data in ascending order. Then:</p>
+    <ul>
+      <li>If \(n\) is odd: Median = \(\left(\dfrac{n+1}{2}\right)^{\text{th}}\) value.</li>
+      <li>If \(n\) is even: Median = average of \(\left(\dfrac{n}{2}\right)^{\text{th}}\) and \(\left(\dfrac{n}{2}+1\right)^{\text{th}}\) values.</li>
+    </ul>
+  </div>
+
+  <div class="formula">
+    <span class="label">DISCRETE FREQUENCY DATA</span>
+    <p>Form cumulative frequencies. Locate the value corresponding to \(\dfrac{N+1}{2}\)-th cumulative frequency.</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">CONTINUOUS (GROUPED) DATA</span>
+    \[
+      \text{Median} \;=\; L + \dfrac{\dfrac{N}{2} - C}{f}\, h
+    \]
+    <ul>
+      <li>\(L\) = lower boundary of the median class</li>
+      <li>\(N\) = total frequency</li>
+      <li>\(C\) = cumulative frequency before median class</li>
+      <li>\(f\) = frequency of the median class</li>
+      <li>\(h\) = width of median class</li>
+    </ul>
+    <p>Median class = the class containing the \(\dfrac{N}{2}\)-th observation.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Ungrouped)</span>
+    <p>Data: 12, 4, 9, 7, 15, 18, 11. (n = 7, odd)</p>
+    <p>Sorted: 4, 7, 9, <strong>11</strong>, 12, 15, 18. Median = 4th term = <strong>11</strong>.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Grouped)</span>
+    <p>Marks of 50 students:</p>
+    <table class="left">
+      <tr><th>Class</th><th>f</th><th>CF</th></tr>
+      <tr><td>0–10</td><td>5</td><td>5</td></tr>
+      <tr><td>10–20</td><td>8</td><td>13</td></tr>
+      <tr><td>20–30</td><td>12</td><td>25 ← median class</td></tr>
+      <tr><td>30–40</td><td>15</td><td>40</td></tr>
+      <tr><td>40–50</td><td>10</td><td>50</td></tr>
+    </table>
+    <p>\(N/2 = 25\). Median class = 20–30 (since CF first reaches 25 here).
+       \(L = 20,\; C = 13,\; f = 12,\; h = 10\).</p>
+    <p>Median = \(20 + \dfrac{25 - 13}{12}\times 10 = 20 + 10 = \mathbf{30}\) marks.</p>
+  </div>
+
+  <h3>Median through Graph</h3>
+  <p>Draw both ogives (less-than and more-than). The X-coordinate of their <strong>point of intersection</strong> = median.
+  Alternatively, on a less-than ogive, locate \(N/2\) on the Y-axis, draw a horizontal line to meet the
+  curve, then drop a perpendicular to the X-axis.</p>
+
+  <h3>Merits and Demerits of Median</h3>
+  <table class="left">
+    <tr><th>Merits</th><th>Demerits</th></tr>
+    <tr>
+      <td>Not affected by extreme values; can be located graphically; suitable for qualitative ranks; can be found in open-ended classes.</td>
+      <td>Not based on all observations; not suitable for further algebraic treatment; needs data to be arranged.</td>
+    </tr>
+  </table>
+
+  <!-- 4. MODE -->
+  <h2>4. Mode</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The <strong>mode</strong> is the value that occurs <strong>most frequently</strong> in a data set.
+    A distribution may have one mode (unimodal), two modes (bimodal) or more (multimodal).</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">CONTINUOUS DATA</span>
+    \[
+      \text{Mode} \;=\; L + \dfrac{f_1 - f_0}{2f_1 - f_0 - f_2}\,h
+    \]
+    <ul>
+      <li>\(L\) = lower boundary of modal class (class with highest frequency)</li>
+      <li>\(f_1\) = frequency of modal class</li>
+      <li>\(f_0\) = frequency of class preceding the modal class</li>
+      <li>\(f_2\) = frequency of class succeeding the modal class</li>
+      <li>\(h\) = class width</li>
+    </ul>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Discrete)</span>
+    <p>Data: 3, 5, 7, 5, 8, 5, 6, 9, 5. The value 5 appears 4 times — most often. Mode = 5.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Grouped)</span>
+    <p>Use the same table as Median Example 2. Modal class = 30–40 (highest f = 15).<br>
+    \(L = 30,\; f_1 = 15,\; f_0 = 12,\; f_2 = 10,\; h = 10\).</p>
+    <p>Mode = \(30 + \dfrac{15-12}{2(15)-12-10}\times 10 = 30 + \dfrac{3}{8}\times 10 = 30 + 3.75 = \mathbf{33.75}\).</p>
+  </div>
+
+  <h3>Mode through Graph</h3>
+  <p>Draw the histogram of the data. In the modal rectangle, draw two diagonals from the top corners
+  of the modal rectangle to the corresponding top corners of the adjacent rectangles.
+  Drop a perpendicular from their intersection to the X-axis — that point is the mode.</p>
+
+  <h3>Merits and Demerits of Mode</h3>
+  <table class="left">
+    <tr><th>Merits</th><th>Demerits</th></tr>
+    <tr>
+      <td>Not affected by extreme values; easy to locate visually; useful for qualitative data (most popular brand).</td>
+      <td>Not rigidly defined; not based on all observations; may not exist or may be multiple; not suitable for algebraic treatment.</td>
+    </tr>
+  </table>
+
+  <!-- 5. EMPIRICAL RELATION -->
+  <h2>5. Empirical Relation between Mean, Median and Mode</h2>
+  <div class="formula">
+    <span class="label">KARL PEARSON'S EMPIRICAL FORMULA</span>
+    \[
+      \text{Mode} \;=\; 3\,\text{Median} \;-\; 2\,\text{Mean}
+    \]
+    <p>Valid for a moderately skewed distribution.</p>
+  </div>
+  <ul>
+    <li>For a <strong>symmetric</strong> distribution: Mean = Median = Mode.</li>
+    <li>For <strong>positively skewed</strong>: Mean &gt; Median &gt; Mode.</li>
+    <li>For <strong>negatively skewed</strong>: Mean &lt; Median &lt; Mode.</li>
+  </ul>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>If Mean = 50 and Median = 45, then Mode = 3(45) − 2(50) = 135 − 100 = <strong>35</strong>.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>If Mode = 30 and Median = 36, then 30 = 3(36) − 2 Mean ⇒ 2 Mean = 108 − 30 = 78
+    ⇒ <strong>Mean = 39</strong>.</p>
+  </div>
+
+  <!-- 6. GEOMETRIC MEAN -->
+  <h2>6. Geometric Mean (GM)</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The <strong>geometric mean</strong> of \(n\) positive observations is the \(n\)-th root of their product.</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">UNGROUPED</span>
+    \[
+      \text{GM} \;=\; \sqrt[n]{x_1 \cdot x_2 \cdots x_n} \;=\; \text{antilog}\!\left( \dfrac{\sum \log x_i}{n} \right)
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">FREQUENCY DATA</span>
+    \[
+      \text{GM} \;=\; \text{antilog}\!\left( \dfrac{\sum f_i \log x_i}{N} \right)
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>GM of 4, 8, 16. \(\text{GM} = \sqrt[3]{4\cdot 8\cdot 16} = \sqrt[3]{512} = 8\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Growth rates)</span>
+    <p>A company's sales rose 10 % then 20 % then 30 % in three successive years. The average annual
+    growth factor is \(\sqrt[3]{1.10 \times 1.20 \times 1.30}\) = \(\sqrt[3]{1.716} \approx 1.197\).
+    Average growth rate ≈ 19.7 %.</p>
+  </div>
+
+  <p><strong>Use:</strong> for ratios, percentages, growth rates, compound interest. <strong>Limitation:</strong>
+  cannot be computed if any value is zero or negative.</p>
+
+  <!-- 7. HARMONIC MEAN -->
+  <h2>7. Harmonic Mean (HM)</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The <strong>harmonic mean</strong> is the reciprocal of the arithmetic mean of the reciprocals
+    of the observations.</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">UNGROUPED</span>
+    \[
+      \text{HM} \;=\; \dfrac{n}{\sum \dfrac{1}{x_i}}
+    \]
+  </div>
+
+  <div class="formula">
+    <span class="label">FREQUENCY DATA</span>
+    \[
+      \text{HM} \;=\; \dfrac{N}{\sum \dfrac{f_i}{x_i}}
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>HM of 2, 4, 8.<br>
+    \(\sum 1/x = 1/2 + 1/4 + 1/8 = 7/8\). HM = \(3 \div (7/8) = 24/7 \approx 3.43\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Average speed)</span>
+    <p>A man covers half the distance at 40 km/h and half at 60 km/h. Average speed for
+    equal distances at different speeds is the <strong>harmonic mean</strong>:</p>
+    <p>HM = \(\dfrac{2}{\frac{1}{40}+\frac{1}{60}} = \dfrac{2}{\frac{5}{120}} = 48\) km/h.</p>
+  </div>
+
+  <p><strong>Use:</strong> for averaging rates and ratios (speeds, prices per unit).
+  <strong>Limitation:</strong> cannot be used if any value is zero.</p>
+
+  <!-- 8. RELATION AMONG AM, GM, HM -->
+  <h2>8. Relation Among AM, GM and HM</h2>
+  <div class="formula">
+    <span class="label">INEQUALITY</span>
+    \[
+      \text{AM} \;\geq\; \text{GM} \;\geq\; \text{HM}
+    \]
+    <p>Equality holds only when all observations are equal.</p>
+  </div>
+  <div class="formula">
+    <span class="label">FOR TWO POSITIVE NUMBERS</span>
+    \[
+      \text{GM}^2 \;=\; \text{AM} \times \text{HM}
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>For 4 and 16: AM = 10, GM = \(\sqrt{64}=8\), HM = \(2/(1/4+1/16) = 2 \times 16/5 = 6.4\).</p>
+    <p>Check: \(10 \geq 8 \geq 6.4\) ✓ and \(\text{GM}^2 = 64 = 10 \times 6.4\) ✓.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>If AM = 25 and HM = 16, then GM = \(\sqrt{25 \times 16} = \sqrt{400} = 20\).</p>
+  </div>
+
+  <!-- 9. CHOOSING THE RIGHT AVERAGE -->
+  <h2>9. Choosing the Right Average</h2>
+  <table class="left">
+    <tr><th>Situation</th><th>Best Average</th></tr>
+    <tr><td>Symmetric data, no outliers</td><td>Arithmetic Mean</td></tr>
+    <tr><td>Skewed data or outliers present</td><td>Median</td></tr>
+    <tr><td>Most fashionable / popular item</td><td>Mode</td></tr>
+    <tr><td>Growth rates, ratios, percentages</td><td>Geometric Mean</td></tr>
+    <tr><td>Average speeds, prices, rates</td><td>Harmonic Mean</td></tr>
+    <tr><td>Open-ended class intervals</td><td>Median or Mode</td></tr>
+  </table>
+
+  <!-- KEY TAKEAWAYS -->
+  <h2>Key Take-aways from Unit 3</h2>
+  <ul>
+    <li>Five averages: AM, Median, Mode, GM, HM.</li>
+    <li>AM is most common but sensitive to outliers; Median is robust; Mode is for "most frequent".</li>
+    <li>Empirical relation: Mode = 3 Median − 2 Mean.</li>
+    <li>Inequality: AM ≥ GM ≥ HM and \(\text{GM}^2 = \text{AM} \times \text{HM}\) (for two values).</li>
+    <li>Median can be obtained from ogive; Mode from histogram.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit2_descriptive statistics.html">← Previous: Unit 2</a>
+    <a href="unit4_descriptive statistics.html">Next: Unit 4 — Dispersion →</a>
+  </div>
+
+  <footer>Unit 3 — Measures of Central Tendency</footer>
+</div>
+</body>
+</html>

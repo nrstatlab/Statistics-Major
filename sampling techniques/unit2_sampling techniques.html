@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 — Simple Random Sampling | Sampling Techniques</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_sampling techniques.html">Home</a> &raquo; Unit 2</div>
+    <h1>Unit 2 — Simple Random Sampling (SRS)</h1>
+    <p>SRSWR vs SRSWOR; lottery and random-number methods; estimators of population total &amp; mean; variances and standard errors; sample size; SRS for attributes.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">SRSWR</span>
+    <span class="chip">SRSWOR</span>
+    <span class="chip">Notation</span>
+    <span class="chip">Lottery Method</span>
+    <span class="chip">Random Number Tables</span>
+    <span class="chip">Estimators &amp; Variance</span>
+    <span class="chip">Sample Size</span>
+    <span class="chip">SRS for Attributes</span>
+  </div>
+
+  <!-- 1. NOTATION -->
+  <h2>1. Notation and Terminology</h2>
+  <p>Population: \(U_1, U_2, \ldots, U_N\); values \(Y_1, Y_2, \ldots, Y_N\). Sample of size \(n\) observes \(y_1, y_2, \ldots, y_n\).</p>
+  <ul>
+    <li><strong>Population total</strong>: \(Y = \sum_{i=1}^{N} Y_i\)</li>
+    <li><strong>Population mean</strong>: \(\bar Y = Y/N\)</li>
+    <li><strong>Population variance</strong>: \(\sigma^2 = \dfrac{1}{N}\sum (Y_i - \bar Y)^2\)</li>
+    <li><strong>Population mean square</strong>: \(S^2 = \dfrac{1}{N - 1}\sum (Y_i - \bar Y)^2\)</li>
+    <li><strong>Sample mean</strong>: \(\bar y = \dfrac{1}{n}\sum y_i\)</li>
+    <li><strong>Sample mean square</strong>: \(s^2 = \dfrac{1}{n - 1}\sum (y_i - \bar y)^2\)</li>
+  </ul>
+
+  <p>Note: \(\sigma^2 = \dfrac{N - 1}{N} S^2\).</p>
+
+  <!-- 2. SRSWR vs SRSWOR -->
+  <h2>2. Two Schemes of SRS</h2>
+
+  <h3>2.1 SRS with Replacement (SRSWR)</h3>
+  <div class="concept">
+    <p>At each draw, every unit has equal probability \(1/N\) of selection. Selected unit is replaced before next draw, so the same unit can appear multiple times.</p>
+  </div>
+  <p>Probability of any particular sample of size \(n\): \(1/N^n\).</p>
+
+  <h3>2.2 SRS without Replacement (SRSWOR)</h3>
+  <div class="concept">
+    <p>Each unit can be selected at most once. Probability of any particular ordered sample is \(\dfrac{1}{N(N-1)\cdots(N-n+1)}\). Probability of any particular unordered sample of size \(n\) is \(\dfrac{1}{\binom{N}{n}}\).</p>
+  </div>
+
+  <h3>2.3 Probabilities of Selection</h3>
+  <table class="left">
+    <tr><th></th><th>SRSWR</th><th>SRSWOR</th></tr>
+    <tr><td>P(any unit drawn at draw <em>r</em>)</td><td>1/N</td><td>1/N</td></tr>
+    <tr><td>P(unit included in sample of size n)</td><td>1 − (1 − 1/N)<sup>n</sup></td><td>n/N</td></tr>
+    <tr><td>P(any specific sample)</td><td>1/N<sup>n</sup></td><td>1 / C(N, n)</td></tr>
+  </table>
+
+  <!-- 3. METHODS -->
+  <h2>3. Methods of Selecting an SRS</h2>
+
+  <h3>3.1 Lottery Method</h3>
+  <ol>
+    <li>Number all units 1 to \(N\).</li>
+    <li>Write each number on identical chits, place in a container, mix thoroughly.</li>
+    <li>Draw \(n\) chits — with or without replacement as required.</li>
+  </ol>
+
+  <h3>3.2 Random Number Tables</h3>
+  <ol>
+    <li>Number units 1 to \(N\). If \(N = 850\), use 3-digit groups.</li>
+    <li>Pick any starting point in the table; read groups of digits in any direction.</li>
+    <li>Accept numbers ≤ \(N\); discard the rest. Repeat in WOR if duplicate.</li>
+  </ol>
+
+  <p>Other practical methods: pseudo-random numbers from calculators or computers, systematic random selection.</p>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Lottery)</span>
+    <p>From 50 students, draw a sample of 5. Number them 1–50, write on chits, draw 5 chits without replacement.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Random number table)</span>
+    <p>For \(N = 200\) (3-digit numbers 001–200): from random number table read 145, 287 (skip), 092, 388 (skip), 050, 156, 173. Sample = {145, 92, 50, 156, 173}.</p>
+  </div>
+
+  <!-- 4. ESTIMATORS -->
+  <h2>4. Estimators and their Variances</h2>
+
+  <h3>4.1 SRSWR — Sample Mean</h3>
+  <div class="formula">
+    \[
+      \bar y \;=\; \dfrac{1}{n}\sum y_i.
+    \]
+    <p>Properties:</p>
+    \[
+      E(\bar y) = \bar Y, \qquad
+      \text{Var}(\bar y) = \dfrac{\sigma^2}{n}.
+    \]
+    <p>(Sample mean is unbiased; variance ignores \(N\) because units are independent.)</p>
+  </div>
+
+  <h3>4.2 SRSWOR — Sample Mean</h3>
+  <div class="formula">
+    \[
+      E(\bar y) = \bar Y, \qquad
+      \text{Var}(\bar y) = \dfrac{N - n}{N\, n}\, S^2 = \dfrac{S^2}{n}\left(1 - \dfrac{n}{N}\right).
+    \]
+    <p>The factor \((N - n)/N\) is the <strong>finite population correction (FPC)</strong>.</p>
+  </div>
+
+  <h3>4.3 Sample Mean Square (SRSWOR)</h3>
+  <div class="formula">
+    \[
+      E(s^2) \;=\; S^2.
+    \]
+    <p>So \(s^2\) is unbiased for \(S^2\).</p>
+  </div>
+
+  <h3>4.4 Estimator of Population Total</h3>
+  <div class="formula">
+    \[
+      \hat Y = N \bar y, \qquad
+      \text{Var}(\hat Y) = N^2\, \text{Var}(\bar y).
+    \]
+  </div>
+
+  <h3>4.5 Estimator of Variance of \(\bar y\) (SRSWOR)</h3>
+  <div class="formula">
+    \[
+      \widehat{\text{Var}}(\bar y) \;=\; \dfrac{N - n}{N\, n}\, s^2.
+    \]
+  </div>
+
+  <h3>4.6 Standard Error</h3>
+  <p>\(\text{SE}(\bar y) = \sqrt{\text{Var}(\bar y)}\).</p>
+
+  <h3>SRSWR vs SRSWOR — Variance Comparison</h3>
+  <p>For \(n &gt; 1\): \(\text{Var}_{WOR}(\bar y) &lt; \text{Var}_{WR}(\bar y)\) — SRSWOR is more efficient than SRSWR.</p>
+
+  <div class="formula">
+    \[
+      \dfrac{\text{Var}_{WOR}}{\text{Var}_{WR}} \approx \dfrac{N - n}{N - 1} \cdot \dfrac{S^2}{\sigma^2} \approx \dfrac{N - n}{N}.
+    \]
+    <p>So when \(n/N\) is large (high sampling fraction), SRSWOR is markedly better.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Population mean)</span>
+    <p>\(N = 6\) units with values \(Y = 4, 6, 8, 10, 12, 14\). \(\bar Y = 9,\; \sigma^2 = (40 + 16 + 4 + 4 + 16 + 40)/6 = 120/6 = 20,\; S^2 = (120)/5 = 24\).</p>
+    <p>SRSWR with \(n = 2\): \(\text{Var}(\bar y) = 20/2 = 10\). SRSWOR with \(n = 2\): \((6-2)/(6 \cdot 2) \cdot 24 = (4/12) \cdot 24 = 8\). WOR is more precise.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Total)</span>
+    <p>\(N = 100\) farms, sample of 10 yields \(\bar y = 250\) kg. \(\hat Y = 100 \cdot 250 = 25\,000\) kg. If sample SD = 30, \(\text{SE}(\bar y) = \sqrt{(90/100)(30^2/10)} = \sqrt{81} = 9\); SE(total) = 100 × 9 = 900 kg.</p>
+  </div>
+
+  <!-- 5. SAMPLE SIZE -->
+  <h2>5. Determination of Sample Size</h2>
+  <p>To estimate the mean within a margin \(d\) with confidence \((1-\alpha)\):</p>
+  <div class="formula">
+    \[
+      n \;\ge\; \left(\dfrac{z_{\alpha/2}\, \sigma}{d}\right)^2.
+    \]
+    <p>For finite populations (apply FPC):</p>
+    \[
+      n \;=\; \dfrac{n_0}{1 + n_0/N}, \quad n_0 = (z_{\alpha/2}\sigma/d)^2.
+    \]
+  </div>
+
+  <p>For estimating a proportion within margin \(d\):</p>
+  <div class="formula">
+    \[
+      n \;=\; \dfrac{z_{\alpha/2}^2\, p(1-p)}{d^2}.
+    \]
+    <p>Take \(p = 0.5\) for the most conservative (largest) sample size.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>Estimate population mean with σ ≈ 10 to within ±2 at 95 %: \(n = (1.96 \cdot 10/2)^2 = 96\) (round up to 97). With \(N = 1000\): adjusted \(n = 97/(1 + 97/1000) = 88\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>Estimate proportion to within ±0.05 at 95 %: \(n = 1.96^2 \cdot 0.25/0.0025 = 384.16\) ⇒ 385.</p>
+  </div>
+
+  <!-- 6. SRS FOR ATTRIBUTES -->
+  <h2>6. SRS for Attributes</h2>
+  <p>Suppose \(M\) of the \(N\) population units possess an attribute (so population proportion \(P = M/N\)).
+  Let \(m\) be the count in the sample and \(\hat p = m/n\).</p>
+
+  <div class="formula">
+    \[
+      E(\hat p) = P, \quad
+      \text{Var}_{WR}(\hat p) = \dfrac{P Q}{n}, \quad
+      \text{Var}_{WOR}(\hat p) = \dfrac{N - n}{N(n)} \cdot \dfrac{NPQ}{N - 1},
+    \]
+    <p>where \(Q = 1 - P\).</p>
+    <p>Estimator of variance: \(\widehat{\text{Var}}(\hat p) = \dfrac{N - n}{N\, n}\cdot \dfrac{n \hat p \hat q}{n - 1} = \dfrac{(N - n)\hat p \hat q}{N(n - 1)}\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>From a population of 500 voters, an SRSWOR of 50 yields 30 in favour. \(\hat p = 0.6\). \(\widehat{\text{Var}} = (450/500)(0.6 \cdot 0.4/49) = 0.00441\). SE = 0.0664.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>If \(N = 10\,000, n = 100, m = 18\): \(\hat p = 0.18\). With FPC ≈ 1, \(\widehat{\text{Var}} \approx 0.18(0.82)/99 = 0.00149\); SE = 0.0386.</p>
+  </div>
+
+  <h2>Summary Formulas</h2>
+  <table class="left">
+    <tr><th>Quantity</th><th>SRSWR</th><th>SRSWOR</th></tr>
+    <tr><td>\(E(\bar y)\)</td><td>\(\bar Y\)</td><td>\(\bar Y\)</td></tr>
+    <tr><td>\(\text{Var}(\bar y)\)</td><td>\(\sigma^2/n\)</td><td>\((N-n)S^2/(Nn)\)</td></tr>
+    <tr><td>\(E(s^2)\)</td><td>\(\sigma^2\)</td><td>\(S^2\)</td></tr>
+    <tr><td>\(\text{Var}(\hat p)\)</td><td>\(PQ/n\)</td><td>\((N-n)PQ/[(N-1)n]\)</td></tr>
+  </table>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>SRSWR allows repeats; SRSWOR does not. Both give equal probability of selection per draw.</li>
+    <li>Sample mean is unbiased for population mean in both schemes.</li>
+    <li>Variance under SRSWOR is smaller — FPC factor \((N-n)/N\).</li>
+    <li>Sample mean square is unbiased for \(S^2\) in SRSWOR.</li>
+    <li>Sample size: \(n_0 = (z\sigma/d)^2\) (mean) or \(z^2 p q/d^2\) (proportion); apply FPC for finite populations.</li>
+    <li>SRS for attributes: \(\hat p = m/n\); same formulas as proportion estimation.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit1_sampling techniques.html">← Previous: Unit 1</a>
+    <a href="unit3_sampling techniques.html">Next: Unit 3 — Stratified →</a>
+  </div>
+
+  <footer>Unit 2 — Simple Random Sampling</footer>
+</div>
+</body>
+</html>
