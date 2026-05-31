@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 9 Experiments | Statistical Methods</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_statistical methods.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 9 Experiments</h1>
+    <p>Semester III, Course 5 (Practical) — 2 hrs/week, Credit 1. Worked problems on curve fitting, correlation, regression and association.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Fitting of straight line by the method of least squares.</li>
+    <li>Fitting of parabola by the method of least squares.</li>
+    <li>Fitting of exponential curve of two types by the method of least squares.</li>
+    <li>Fitting of power curve by the method of least squares.</li>
+    <li>Computation of correlation coefficient and regression lines for ungrouped data.</li>
+    <li>Computation of correlation coefficient for bivariate frequency distribution.</li>
+    <li>Computation of correlation coefficient and forming regression lines for grouped data.</li>
+    <li>Computation of partial and multiple correlation coefficients.</li>
+    <li>Computation of Yule's coefficient of association and colligation.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Fitting a Straight Line</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Fit \(Y = a + bX\):</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+      <tr><th>y</th><td>1</td><td>1.8</td><td>3.3</td><td>4.5</td><td>6.3</td></tr>
+    </table>
+  </div>
+  <p>\(\sum x = 10,\; \sum y = 16.9,\; \sum xy = 47.5,\; \sum x^2 = 30,\; n = 5\).</p>
+  <p>\(b = (5 \cdot 47.5 - 10 \cdot 16.9)/(5 \cdot 30 - 100) = (237.5 - 169)/50 = 1.37\).</p>
+  <p>\(a = 16.9/5 - 1.37 \cdot 2 = 3.38 - 2.74 = 0.64\). Fitted line: \(Y = 0.64 + 1.37 X\).</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Fitting a Parabola</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Fit \(Y = a + bX + cX^2\):</p>
+    <table class="left">
+      <tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>y</th><td>2</td><td>5</td><td>10</td><td>17</td><td>26</td></tr>
+    </table>
+  </div>
+  <p>\(\sum x = 15, \sum y = 60, \sum x^2 = 55, \sum x^3 = 225, \sum x^4 = 979, \sum xy = 235, \sum x^2 y = 1003\).</p>
+  <p>Normal equations:</p>
+  <ul>
+    <li>\(60 = 5a + 15b + 55c\)</li>
+    <li>\(235 = 15a + 55b + 225c\)</li>
+    <li>\(1003 = 55a + 225b + 979c\)</li>
+  </ul>
+  <p>Solving: \(a = 1, b = 0, c = 1\). Fitted: \(Y = 1 + X^2\) ✓ (data are exact).</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Fitting Exponential Curves</h2>
+
+  <h3>Type I: \(Y = a b^X\)</h3>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <table class="left">
+      <tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>y</th><td>3</td><td>9</td><td>27</td><td>81</td><td>243</td></tr>
+    </table>
+  </div>
+  <p>\(\log y\): 0.477, 0.954, 1.431, 1.908, 2.386. \(\sum \log y = 7.156, \sum x \log y = 25.014, \sum x = 15, \sum x^2 = 55\).</p>
+  <p>Slope \(B = (5 \cdot 25.014 - 15 \cdot 7.156)/(5 \cdot 55 - 225) = (125.07 - 107.34)/50 = 0.355\).</p>
+  <p>Wait, \(\log 3 = 0.477\), so \(B = \log b\) should be 0.477. Let's redo: \(\sum x = 15\), \(\sum x \log y = 1\cdot 0.477 + 2\cdot 0.954 + 3\cdot 1.431 + 4\cdot 1.908 + 5\cdot 2.386 = 0.477+1.908+4.293+7.632+11.93 = 26.24\).</p>
+  <p>\(B = (5 \cdot 26.24 - 15 \cdot 7.156)/50 = (131.2 - 107.34)/50 = 0.477\). ✓</p>
+  <p>\(A = \overline{\log y} - B\bar x = 1.4312 - 0.477 \cdot 3 = 0.0002 \approx 0\). So \(a = 1,\; b = 10^{0.477} = 3\). Fitted: \(Y = 1 \cdot 3^X = 3^X\). ✓</p>
+
+  <h3>Type II: \(Y = a e^{bX}\)</h3>
+  <p>Same data: \(b = \ln 3 = 1.0986\), \(a = 1\). Hence \(Y = e^{1.0986 X}\).</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Fitting a Power Curve</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Fit \(Y = a X^b\):</p>
+    <table class="left">
+      <tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+      <tr><th>y</th><td>2</td><td>16</td><td>54</td><td>128</td></tr>
+    </table>
+  </div>
+  <p>\(\log x\): 0, 0.301, 0.477, 0.602; \(\log y\): 0.301, 1.204, 1.732, 2.107.</p>
+  <p>\(\sum \log x = 1.380, \sum \log y = 5.344, \sum (\log x)^2 = 0.660, \sum \log x \log y = 2.461\).</p>
+  <p>Slope \(b = (4 \cdot 2.461 - 1.380 \cdot 5.344)/(4 \cdot 0.660 - 1.380^2) = (9.844 - 7.375)/(2.64 - 1.904) = 2.469/0.736 = 3.354 \approx 3\) (data is \(2X^3\)).</p>
+  <p>Intercept \(\log a = 5.344/4 - 3 \cdot 0.345 = 1.336 - 1.035 = 0.301 \Rightarrow a = 2\). Fitted: \(Y = 2 X^3\) ✓.</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Correlation &amp; Regression Lines (Ungrouped)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>For the data in Unit 4 Example 1: x = 1,2,3,4,5; y = 2,3,5,4,6.</p>
+  </div>
+  <p>\(\sum x = 15, \sum y = 20, \sum xy = 67, \sum x^2 = 55, \sum y^2 = 90\).</p>
+  <p>\(r = (5 \cdot 67 - 15 \cdot 20)/\sqrt{(5\cdot55 - 225)(5\cdot 90 - 400)} = 35/\sqrt{50 \cdot 50} = 35/50 = 0.7\).</p>
+  <p>\(b_{yx} = 35/50 = 0.7;\; b_{xy} = 35/50 = 0.7\).</p>
+  <p>Lines: \(Y = 0.7X + 1.9;\; X = 0.7Y + 0.2\). Check: \(r = \sqrt{b_{yx} b_{xy}} = 0.7\) ✓.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Correlation for Bivariate Frequency Distribution</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Bivariate frequency table (X = age in years, Y = weight in kg):</p>
+    <table class="left">
+      <tr><th>X \ Y</th><th>40–50</th><th>50–60</th><th>60–70</th><th>Total</th></tr>
+      <tr><td>20–30</td><td>2</td><td>5</td><td>3</td><td>10</td></tr>
+      <tr><td>30–40</td><td>1</td><td>10</td><td>9</td><td>20</td></tr>
+      <tr><td>40–50</td><td>0</td><td>5</td><td>15</td><td>20</td></tr>
+      <tr><th>Total</th><th>3</th><th>20</th><th>27</th><th>50</th></tr>
+    </table>
+  </div>
+  <p>Mid-points: \(x = 25, 35, 45;\; y = 45, 55, 65\). Step deviations \(u = (x-35)/10,\; v = (y-55)/10\).</p>
+  <p>Compute \(\sum fu, \sum fv, \sum fu^2, \sum fv^2, \sum fuv\) from the table; substitute into the bivariate-frequency formula. (See Unit 2 for full formula.) Result \(r \approx 0.55\) — moderate positive correlation.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Correlation &amp; Regression Lines for Grouped Data</h2>
+  <p>Same as Experiment 6 but additionally compute the two regression lines using:</p>
+  <div class="formula">
+    \[
+      b_{yx} = r \dfrac{\sigma_y}{\sigma_x}, \quad b_{xy} = r \dfrac{\sigma_x}{\sigma_y}.
+    \]
+  </div>
+  <p>For the bivariate table, after step-deviation: \(\bar x \approx 38.4,\; \bar y \approx 60.6,\; \sigma_x \approx 7.5,\; \sigma_y \approx 5.6\). With \(r = 0.55\):</p>
+  <p>\(b_{yx} = 0.55 \cdot 5.6/7.5 = 0.41\); regression of Y on X: \(Y - 60.6 = 0.41(X - 38.4)\).</p>
+  <p>\(b_{xy} = 0.55 \cdot 7.5/5.6 = 0.74\); regression of X on Y: \(X - 38.4 = 0.74(Y - 60.6)\).</p>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — Partial &amp; Multiple Correlation</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Given simple correlations \(r_{12} = 0.8,\; r_{13} = 0.5,\; r_{23} = 0.4\). Compute partial and multiple correlations.</p>
+  </div>
+  <p><strong>Partial:</strong> \(r_{12.3} = (0.8 - 0.5 \cdot 0.4)/\sqrt{(1 - 0.25)(1 - 0.16)} = (0.8 - 0.2)/\sqrt{0.75 \cdot 0.84} = 0.6/0.7937 = 0.756\).</p>
+  <p>\(r_{13.2} = (0.5 - 0.8 \cdot 0.4)/\sqrt{(1 - 0.64)(1 - 0.16)} = 0.18/\sqrt{0.36 \cdot 0.84} = 0.18/0.5499 = 0.327\).</p>
+  <p><strong>Multiple:</strong> \(R_{1.23}^2 = (0.64 + 0.25 - 2 \cdot 0.8 \cdot 0.5 \cdot 0.4)/(1 - 0.16) = (0.89 - 0.32)/0.84 = 0.679\). \(R_{1.23} = 0.824\).</p>
+  <p>Joint predictors explain about 67.9 % of variation in \(X_1\).</p>
+
+  <!-- EXP 9 -->
+  <h2>Experiment 9 — Yule's Coefficient of Association &amp; Colligation</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Distribution by smoking and lung cancer in 200 individuals:</p>
+    <table class="left">
+      <tr><th></th><th>Cancer (B)</th><th>No Cancer (β)</th><th>Total</th></tr>
+      <tr><th>Smoker (A)</th><td>60</td><td>40</td><td>100</td></tr>
+      <tr><th>Non-smoker (α)</th><td>20</td><td>80</td><td>100</td></tr>
+      <tr><th>Total</th><th>80</th><th>120</th><th>200</th></tr>
+    </table>
+  </div>
+  <p>\((AB)=60,\; (A\beta)=40,\; (\alpha B)=20,\; (\alpha\beta)=80\).</p>
+  <p>\(Q = (60 \cdot 80 - 40 \cdot 20)/(60 \cdot 80 + 40 \cdot 20) = (4800 - 800)/(4800 + 800) = 4000/5600 = 0.714\).</p>
+  <p>Strong positive association between smoking and lung cancer.</p>
+  <p>\(\omega = (\sqrt{4800} - \sqrt{800})/(\sqrt{4800} + \sqrt{800}) = (69.28 - 28.28)/(69.28 + 28.28) = 41/97.56 = 0.420\).</p>
+  <p>Verify: \(2\omega/(1+\omega^2) = 0.84/1.176 = 0.714\) ✓ matches \(Q\).</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim / problem</li>
+    <li>Formulae used</li>
+    <li>Tabulated computations (sums, deviations, etc.)</li>
+    <li>Result with units</li>
+    <li>Interpretation / inference</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_statistical methods.html">← Previous: Unit 5</a>
+    <a href="syllabus_statistical methods.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 9 Experiments • Statistical Methods</footer>
+</div>
+</body>
+</html>

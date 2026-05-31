@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 9 Experiments | Discrete Distributions</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theoretical discrete distributions.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 9 Experiments</h1>
+    <p>Semester II, Course 3 (Practical) — 2 hrs/week, Credit 1. Fitting of discrete distributions by direct &amp; recurrence-relation methods.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Fitting of Binomial distribution — Direct method.</li>
+    <li>Fitting of Binomial distribution — Recurrence relation method.</li>
+    <li>Fitting of Poisson distribution — Direct method.</li>
+    <li>Fitting of Poisson distribution — Recurrence relation method.</li>
+    <li>Fitting of Negative Binomial distribution — Direct method.</li>
+    <li>Fitting of Negative Binomial distribution — Recurrence relation method.</li>
+    <li>Fitting of Geometric distribution — Direct method.</li>
+    <li>Fitting of Geometric distribution — Recurrence relation method.</li>
+    <li>Fitting of Hypergeometric distribution.</li>
+  </ol>
+
+  <h2>What Does "Fitting a Distribution" Mean?</h2>
+  <div class="concept">
+    <span class="label">PROCEDURE</span>
+    <ol>
+      <li>Compute observed frequencies \(f_x\) of \(x = 0, 1, 2, \ldots\) and total \(N = \sum f_x\).</li>
+      <li>Estimate the parameters from the data (e.g. \(\bar x\) for Poisson, \(\bar x / n\) for Binomial).</li>
+      <li>Calculate theoretical probabilities \(p(x)\).</li>
+      <li>Find expected frequencies \(\hat f_x = N \cdot p(x)\).</li>
+      <li>Compare observed and expected frequencies (often via χ²-test).</li>
+    </ol>
+  </div>
+
+  <!-- ============== EXP 1 ============== -->
+  <h2>Experiment 1 — Fitting Binomial (Direct Method)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Eight coins are tossed and the number of heads \(X\) is recorded; the experiment is repeated 256 times.</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+      <tr><th>f</th><td>2</td><td>6</td><td>30</td><td>52</td><td>67</td><td>56</td><td>32</td><td>10</td><td>1</td></tr>
+    </table>
+    <p>Fit a Binomial distribution.</p>
+  </div>
+  <p><strong>Solution:</strong></p>
+  <p>\(N = 256\); \(\sum f x = 0 + 6 + 60 + 156 + 268 + 280 + 192 + 70 + 8 = 1040\). Mean \(\bar x = 1040/256 = 4.0625\).</p>
+  <p>For Binomial \(B(n, p)\): \(\bar x = np\). Here \(n = 8\), so \(\hat p = 4.0625/8 = 0.5078\), \(q = 0.4922\).</p>
+  <p>Compute \(p(x) = \binom{8}{x}p^x q^{8-x}\) and expected frequencies \(\hat f_x = 256\, p(x)\):</p>
+  <table class="left">
+    <tr><th>x</th><th>p(x)</th><th>Expected f</th><th>Observed f</th></tr>
+    <tr><td>0</td><td>0.0036</td><td>0.92</td><td>2</td></tr>
+    <tr><td>1</td><td>0.0298</td><td>7.62</td><td>6</td></tr>
+    <tr><td>2</td><td>0.1075</td><td>27.52</td><td>30</td></tr>
+    <tr><td>3</td><td>0.2218</td><td>56.78</td><td>52</td></tr>
+    <tr><td>4</td><td>0.2861</td><td>73.24</td><td>67</td></tr>
+    <tr><td>5</td><td>0.2362</td><td>60.46</td><td>56</td></tr>
+    <tr><td>6</td><td>0.1219</td><td>31.20</td><td>32</td></tr>
+    <tr><td>7</td><td>0.0359</td><td>9.20</td><td>10</td></tr>
+    <tr><td>8</td><td>0.0046</td><td>1.18</td><td>1</td></tr>
+    <tr><th>Total</th><th>1.000</th><th>≈ 256</th><th>256</th></tr>
+  </table>
+
+  <!-- ============== EXP 2 ============== -->
+  <h2>Experiment 2 — Fitting Binomial (Recurrence Method)</h2>
+  <p>Use the same data. With \(\hat p = 0.5078,\; q = 0.4922\), \(p/q = 1.0317\).</p>
+  <div class="formula">
+    \[
+      P(X = x + 1) = \dfrac{n - x}{x + 1} \cdot \dfrac{p}{q} \cdot P(X = x).
+    \]
+  </div>
+  <p>Start with \(P(0) = q^8 = 0.4922^8 = 0.00355\). Then:</p>
+  <ul>
+    <li>\(P(1) = (8/1)(1.0317)(0.00355) = 0.0293\)</li>
+    <li>\(P(2) = (7/2)(1.0317)(0.0293) = 0.1058\)</li>
+    <li>\(P(3) = (6/3)(1.0317)(0.1058) = 0.2183\)</li>
+    <li>\(P(4) = (5/4)(1.0317)(0.2183) = 0.2816\)</li>
+    <li>...continue similarly to verify against direct method.</li>
+  </ul>
+  <p>The recurrence avoids repeated factorial computation.</p>
+
+  <!-- ============== EXP 3 ============== -->
+  <h2>Experiment 3 — Fitting Poisson (Direct Method)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Number of accidents per day at a junction in 100 days:</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>f</th><td>46</td><td>38</td><td>12</td><td>3</td><td>1</td><td>0</td></tr>
+    </table>
+    <p>Fit a Poisson distribution.</p>
+  </div>
+  <p><strong>Solution:</strong> \(N = 100\); \(\sum f x = 0 + 38 + 24 + 9 + 4 + 0 = 75\). Mean \(\bar x = 0.75 = \hat\lambda\).</p>
+  <p>\(P(X=x) = e^{-0.75}(0.75)^x / x!;\; e^{-0.75} = 0.4724\).</p>
+  <table class="left">
+    <tr><th>x</th><th>p(x)</th><th>Expected f = 100p(x)</th><th>Observed f</th></tr>
+    <tr><td>0</td><td>0.4724</td><td>47.24</td><td>46</td></tr>
+    <tr><td>1</td><td>0.3543</td><td>35.43</td><td>38</td></tr>
+    <tr><td>2</td><td>0.1329</td><td>13.29</td><td>12</td></tr>
+    <tr><td>3</td><td>0.0332</td><td>3.32</td><td>3</td></tr>
+    <tr><td>4</td><td>0.0062</td><td>0.62</td><td>1</td></tr>
+    <tr><td>5+</td><td>0.0010</td><td>0.10</td><td>0</td></tr>
+    <tr><th>Total</th><th>1.000</th><th>≈ 100</th><th>100</th></tr>
+  </table>
+  <p>Excellent fit — the data are clearly Poisson with \(\lambda \approx 0.75\).</p>
+
+  <!-- ============== EXP 4 ============== -->
+  <h2>Experiment 4 — Fitting Poisson (Recurrence Method)</h2>
+  <p>Same data; \(\hat\lambda = 0.75\). Recurrence:</p>
+  <div class="formula">
+    \[
+      P(X = x + 1) = \dfrac{\lambda}{x + 1} P(X = x), \qquad P(X=0) = e^{-0.75} = 0.4724.
+    \]
+  </div>
+  <ul>
+    <li>\(P(1) = (0.75/1)(0.4724) = 0.3543\)</li>
+    <li>\(P(2) = (0.75/2)(0.3543) = 0.1329\)</li>
+    <li>\(P(3) = (0.75/3)(0.1329) = 0.0332\)</li>
+    <li>\(P(4) = (0.75/4)(0.0332) = 0.0062\)</li>
+  </ul>
+  <p>Matches direct method ✓.</p>
+
+  <!-- ============== EXP 5 ============== -->
+  <h2>Experiment 5 — Fitting Negative Binomial (Direct Method)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Number of policies a salesman has to make to close 3 deals (using \(X\) = failures before 3rd success).
+    Frequencies recorded over 200 weeks:</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7+</td></tr>
+      <tr><th>f</th><td>10</td><td>27</td><td>40</td><td>45</td><td>34</td><td>22</td><td>12</td><td>10</td></tr>
+    </table>
+  </div>
+  <p><strong>Solution:</strong> Estimate parameters by method of moments. Compute sample mean and variance, equate:</p>
+  <p>Mean \(\hat \mu = rq/p\) and Variance \(\hat \sigma^2 = rq/p^2\). Solve: \(\hat p = \mu/\sigma^2\), \(\hat r = \mu^2/(\sigma^2 - \mu)\).</p>
+  <p>(Numerical mean ≈ 3.36, variance ≈ 3.30; here variance &lt; mean indicates Poisson is better. In a true NB sample variance &gt; mean.)</p>
+  <p>Once \(\hat r,\hat p,\hat q\) are known, compute \(P(X=x) = \binom{x+r-1}{x} p^r q^x\) and expected = \(N \cdot P(x)\).</p>
+
+  <!-- ============== EXP 6 ============== -->
+  <h2>Experiment 6 — Fitting Negative Binomial (Recurrence Method)</h2>
+  <div class="formula">
+    \[
+      P(X = x + 1) = \dfrac{(r + x) q}{x + 1} P(X = x), \qquad P(X = 0) = p^r.
+    \]
+  </div>
+  <p>For estimated \(\hat r = 3, \hat p = 0.5\) say: \(P(0) = 0.125;\; P(1) = (3 \cdot 0.5/1)(0.125) = 0.1875;\; P(2) = (4 \cdot 0.5/2)(0.1875) = 0.1875\), and so on. Then expected = \(N \cdot P(x)\).</p>
+
+  <!-- ============== EXP 7 ============== -->
+  <h2>Experiment 7 — Fitting Geometric (Direct Method)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Number of failures before the first success of a marketing call:</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5+</td></tr>
+      <tr><th>f</th><td>40</td><td>24</td><td>14</td><td>10</td><td>7</td><td>5</td></tr>
+    </table>
+  </div>
+  <p>\(N = 100;\; \sum f x = 0 + 24 + 28 + 30 + 28 + 25 = 135\). Mean \(\bar x = 1.35\).</p>
+  <p>For Geometric: mean = \(q/p\) ⇒ \(q = p \bar x\) and \(p + q = 1\) gives \(p = 1/(1 + \bar x) = 1/2.35 = 0.4255\); \(q = 0.5745\).</p>
+  <p>\(P(X=x) = q^x p\). Expected \(\hat f = 100\, P(x)\):</p>
+  <table class="left">
+    <tr><th>x</th><th>p(x)</th><th>Expected f</th><th>Observed f</th></tr>
+    <tr><td>0</td><td>0.4255</td><td>42.55</td><td>40</td></tr>
+    <tr><td>1</td><td>0.2444</td><td>24.44</td><td>24</td></tr>
+    <tr><td>2</td><td>0.1404</td><td>14.04</td><td>14</td></tr>
+    <tr><td>3</td><td>0.0807</td><td>8.07</td><td>10</td></tr>
+    <tr><td>4</td><td>0.0463</td><td>4.63</td><td>7</td></tr>
+    <tr><td>5+</td><td>0.0627</td><td>6.27</td><td>5</td></tr>
+  </table>
+
+  <!-- ============== EXP 8 ============== -->
+  <h2>Experiment 8 — Fitting Geometric (Recurrence Method)</h2>
+  <p>From \(P(X=0) = p\), recurrence is simply</p>
+  <div class="formula">
+    \[
+      P(X = x + 1) = q \cdot P(X = x).
+    \]
+  </div>
+  <p>For \(p = 0.4255,\; q = 0.5745\): \(P(0)=0.4255,\; P(1) = 0.2444,\; P(2) = 0.1404,\; P(3) = 0.0807, \ldots\) — matches.</p>
+
+  <!-- ============== EXP 9 ============== -->
+  <h2>Experiment 9 — Fitting Hypergeometric Distribution</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Lots of size 50 contain 10 defective items. From each lot, samples of 5 items are drawn (without replacement)
+    and number of defectives is observed. The frequencies over 500 lots are:</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><th>f</th><td>155</td><td>225</td><td>95</td><td>20</td><td>5</td><td>0</td></tr>
+    </table>
+  </div>
+  <p><strong>Solution:</strong> \(N = 50, M = 10, n = 5\) (parameters known from problem context).</p>
+  <p>\(P(X = x) = \dfrac{\binom{10}{x}\binom{40}{5-x}}{\binom{50}{5}} = \dfrac{\binom{10}{x}\binom{40}{5-x}}{2 118 760}\).</p>
+  <table class="left">
+    <tr><th>x</th><th>p(x)</th><th>Expected f</th><th>Observed f</th></tr>
+    <tr><td>0</td><td>0.3105</td><td>155.3</td><td>155</td></tr>
+    <tr><td>1</td><td>0.4313</td><td>215.7</td><td>225</td></tr>
+    <tr><td>2</td><td>0.2098</td><td>104.9</td><td>95</td></tr>
+    <tr><td>3</td><td>0.0442</td><td>22.1</td><td>20</td></tr>
+    <tr><td>4</td><td>0.0040</td><td>2.0</td><td>5</td></tr>
+    <tr><td>5</td><td>0.0001</td><td>0.05</td><td>0</td></tr>
+    <tr><th>Total</th><th>1.000</th><th>≈ 500</th><th>500</th></tr>
+  </table>
+  <p>Strong agreement — Hypergeometric is the right model.</p>
+
+  <h3>Recurrence (Optional)</h3>
+  <div class="formula">
+    \[
+      P(X = x + 1) = \dfrac{(M - x)(n - x)}{(x+1)(N - M - n + x + 1)} P(X = x).
+    \]
+  </div>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim</li>
+    <li>Formula and method (direct / recurrence)</li>
+    <li>Estimation of parameters</li>
+    <li>Calculation of expected frequencies</li>
+    <li>Comparison with observed frequencies</li>
+    <li>Goodness of fit comment (qualitative or χ²)</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_theoretical discrete distributions.html">← Previous: Unit 5</a>
+    <a href="syllabus_theoretical discrete distributions.html">Next: Official Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 9 Experiments • Theoretical Discrete Distributions</footer>
+</div>
+</body>
+</html>

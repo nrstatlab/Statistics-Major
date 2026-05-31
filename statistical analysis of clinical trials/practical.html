@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical — Course 15B Clinical Trials</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Work — Statistical Analysis of Clinical Trials</h1>
+    <p>Hands-on experiments covering sample size determination, logistic regression, crossover design analysis, parallel design analysis, and meta-analysis of clinical trials.</p>
+  </div>
+
+  <h2>List of Experiments</h2>
+  <div class="chips">
+    <span class="chip">Sample Size Determination</span>
+    <span class="chip">Multiple Logistic Regression</span>
+    <span class="chip">Crossover Design Analysis</span>
+    <span class="chip">Parallel Design Analysis</span>
+    <span class="chip">Meta-Analysis of Clinical Trials</span>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIMENT 1 -->
+  <!-- ============================================================ -->
+  <h2>Experiment 1: Determination of Sample Size</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>To determine the sample size required for a clinical trial comparing two independent groups
+    with (a) a dichotomous response variable and (b) a continuous response variable, given specified
+    significance level, power, and effect size.</p>
+  </div>
+
+  <h3>Part A: Dichotomous Response Variable</h3>
+  <p><strong>Scenario:</strong> A Phase III trial compares a new drug with a placebo for the prevention
+  of post-operative nausea and vomiting (PONV). The current standard has a response rate (no PONV) of
+  approximately \(p_C = 0.45\). The investigators consider the new drug clinically meaningful if it
+  increases the response rate to \(p_T = 0.65\). Design the trial at \(\alpha = 0.05\) (two-sided)
+  and 80% power.</p>
+
+  <div class="formula">
+    <span class="label">SAMPLE SIZE CALCULATION</span>
+    <p>\[
+    \bar{p} = \frac{p_T + p_C}{2} = \frac{0.65 + 0.45}{2} = 0.55, \quad
+    \bar{q} = 1 - 0.55 = 0.45
+    \]</p>
+    <p>\[
+    n = \frac{(z_{\alpha/2}\sqrt{2\bar{p}\bar{q}} + z_\beta\sqrt{p_T q_T + p_C q_C})^2}{(p_T - p_C)^2}
+    \]</p>
+    <p>\[
+    = \frac{(1.96\sqrt{2 \times 0.55 \times 0.45} + 0.842\sqrt{0.65 \times 0.35 + 0.45 \times 0.55})^2}{(0.20)^2}
+    \]</p>
+    <p>\[
+    = \frac{(1.96 \times 0.7036 + 0.842 \times 0.6892)^2}{0.04}
+    = \frac{(1.379 + 0.580)^2}{0.04}
+    = \frac{3.838}{0.04} = 95.9
+    \]</p>
+    <p>Rounding up: <strong>96 subjects per group</strong> (192 total).</p>
+    <p>Adjusting for 10% dropout: \(n_{\text{adj}} = 96/0.90 = 107\) per group (214 total).</p>
+  </div>
+
+  <h3>Part B: Continuous Response Variable</h3>
+  <p><strong>Scenario:</strong> A trial compares a new antihypertensive with a placebo. The primary
+  endpoint is the change in systolic blood pressure (SBP) from baseline to week 8. From previous
+  studies, \(\sigma = 12\) mmHg. The minimum clinically meaningful difference is \(\delta = 5\) mmHg.
+  Design at \(\alpha = 0.05\) (two-sided) and 90% power.</p>
+
+  <div class="formula">
+    <span class="label">SAMPLE SIZE CALCULATION</span>
+    <p>\[
+    n = \frac{2\sigma^2(z_{\alpha/2} + z_\beta)^2}{\delta^2}
+    = \frac{2 \times 144 \times (1.96 + 1.282)^2}{25}
+    \]</p>
+    <p>\[
+    = \frac{288 \times 10.507}{25} = \frac{3026.0}{25} = 121.0
+    \]</p>
+    <p>Rounding up: <strong>122 subjects per group</strong> (244 total).</p>
+    <p>With 10% dropout: \(122/0.90 = 136\) per group (272 total).</p>
+  </div>
+
+  <h3>R Code</h3>
+  <div class="formula">
+    <span class="label">R IMPLEMENTATION</span>
+    <pre><code># Part A: Dichotomous response
+p_T &lt;- 0.65; p_C &lt;- 0.45
+alpha &lt;- 0.05; power &lt;- 0.80
+n_dich &lt;- power.prop.test(p1 = p_T, p2 = p_C,
+           sig.level = alpha, power = power)$n
+cat("Dichotomous: n per group =", ceiling(n_dich), "\n")
+
+# Part B: Continuous response
+delta &lt;- 5; sigma &lt;- 12
+n_cont &lt;- power.t.test(delta = delta, sd = sigma,
+           sig.level = alpha, power = 0.90)$n
+cat("Continuous: n per group =", ceiling(n_cont), "\n")</code></pre>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIMENT 2 -->
+  <!-- ============================================================ -->
+  <h2>Experiment 2: Multiple Logistic Regression with Two or Three Variables</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>To perform multiple logistic regression analysis on clinical trial data with two or three
+    predictor variables, interpret the odds ratios, assess model fit, and evaluate the significance
+    of each predictor.</p>
+  </div>
+
+  <p><strong>Scenario:</strong> A clinical trial evaluates a new treatment for type 2 diabetes. The
+  outcome is whether the patient achieves glycaemic control (HbA1c &lt; 7%) at 6 months (Yes = 1,
+  No = 0). Three predictor variables are recorded:</p>
+  <ul>
+    <li>\(X_1\): Treatment group (1 = new drug, 0 = standard drug)</li>
+    <li>\(X_2\): Baseline HbA1c (continuous, %)</li>
+    <li>\(X_3\): Age (continuous, years)</li>
+  </ul>
+
+  <p><strong>Data (n = 80 patients, first 10 shown):</strong></p>
+  <table>
+    <tr><th>Patient</th><th>Control (Y)</th><th>Treatment (\(X_1\))</th><th>Baseline HbA1c (\(X_2\))</th><th>Age (\(X_3\))</th></tr>
+    <tr><td>1</td><td>1</td><td>1</td><td>8.2</td><td>52</td></tr>
+    <tr><td>2</td><td>0</td><td>0</td><td>9.1</td><td>61</td></tr>
+    <tr><td>3</td><td>1</td><td>1</td><td>7.8</td><td>45</td></tr>
+    <tr><td>4</td><td>0</td><td>0</td><td>8.9</td><td>58</td></tr>
+    <tr><td>5</td><td>1</td><td>1</td><td>8.0</td><td>49</td></tr>
+    <tr><td>6</td><td>0</td><td>0</td><td>9.5</td><td>67</td></tr>
+    <tr><td>7</td><td>1</td><td>1</td><td>7.5</td><td>42</td></tr>
+    <tr><td>8</td><td>0</td><td>0</td><td>8.7</td><td>55</td></tr>
+    <tr><td>9</td><td>1</td><td>0</td><td>8.1</td><td>48</td></tr>
+    <tr><td>10</td><td>0</td><td>1</td><td>9.3</td><td>63</td></tr>
+  </table>
+
+  <div class="formula">
+    <span class="label">LOGISTIC REGRESSION MODEL</span>
+    <p>\[
+    \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3
+    \]</p>
+    <p><strong>Expected results (illustrative):</strong></p>
+    <table>
+      <tr><th>Variable</th><th>\(\hat{\beta}\)</th><th>SE</th><th>OR = \(\exp(\hat{\beta})\)</th><th>95% CI for OR</th><th>p-value</th></tr>
+      <tr><td>Intercept</td><td>5.82</td><td>1.94</td><td>—</td><td>—</td><td>0.003</td></tr>
+      <tr><td>Treatment (\(X_1\))</td><td>1.24</td><td>0.52</td><td>3.46</td><td>(1.25, 9.57)</td><td>0.017</td></tr>
+      <tr><td>Baseline HbA1c (\(X_2\))</td><td>−0.89</td><td>0.25</td><td>0.41</td><td>(0.25, 0.67)</td><td>&lt;0.001</td></tr>
+      <tr><td>Age (\(X_3\))</td><td>−0.04</td><td>0.02</td><td>0.96</td><td>(0.92, 1.00)</td><td>0.046</td></tr>
+    </table>
+    <p><strong>Interpretation:</strong></p>
+    <ul>
+      <li>Treatment: Patients on the new drug have 3.46 times the odds of achieving glycaemic control
+      compared to the standard drug, after adjusting for baseline HbA1c and age (p = 0.017).</li>
+      <li>Baseline HbA1c: Each 1% increase in baseline HbA1c reduces the odds of control by 59%
+      (OR = 0.41, p &lt; 0.001). Patients starting with higher HbA1c are less likely to achieve control.</li>
+      <li>Age: Each year of age reduces the odds by 4% (OR = 0.96, p = 0.046), a borderline effect.</li>
+    </ul>
+  </div>
+
+  <h3>R Code</h3>
+  <div class="formula">
+    <span class="label">R IMPLEMENTATION</span>
+    <pre><code># Fit logistic regression model
+model &lt;- glm(Control ~ Treatment + BaselineHbA1c + Age,
+              data = trial_data, family = binomial)
+summary(model)
+
+# Odds ratios and 95% CI
+exp(cbind(OR = coef(model), confint(model)))
+
+# Hosmer-Lemeshow goodness of fit
+library(ResourceSelection)
+hoslem.test(trial_data$Control, fitted(model))
+
+# AUC (c-statistic)
+library(pROC)
+roc(trial_data$Control, fitted(model))$auc</code></pre>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIMENT 3 -->
+  <!-- ============================================================ -->
+  <h2>Experiment 3: Analysis of Clinical Trial Data using Crossover Design</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>To analyse data from a 2×2 crossover clinical trial using appropriate statistical methods,
+    test for treatment, period, and carry-over effects, and interpret the within-subject treatment
+    comparison.</p>
+  </div>
+
+  <p><strong>Scenario:</strong> A 2×2 crossover trial compares two formulations of a drug
+  (Formulation A = Test, Formulation B = Reference) in 20 healthy volunteers. The primary endpoint
+  is the maximum plasma concentration \(C_{\max}\) (ng/mL). Each period is 2 days with a 7-day
+  washout.</p>
+
+  <p><strong>Data:</strong></p>
+  <table>
+    <tr><th>Sequence</th><th>Subject</th><th>Period 1</th><th>Period 2</th><th>Diff (P1−P2)</th></tr>
+    <tr><td>AB</td><td>1</td><td>48.2 (A)</td><td>45.8 (B)</td><td>2.4</td></tr>
+    <tr><td>AB</td><td>2</td><td>52.1 (A)</td><td>49.3 (B)</td><td>2.8</td></tr>
+    <tr><td>AB</td><td>3</td><td>45.6 (A)</td><td>44.1 (B)</td><td>1.5</td></tr>
+    <tr><td>AB</td><td>4</td><td>51.8 (A)</td><td>48.7 (B)</td><td>3.1</td></tr>
+    <tr><td>AB</td><td>5</td><td>47.3 (A)</td><td>46.2 (B)</td><td>1.1</td></tr>
+    <tr><td>AB</td><td>6</td><td>53.4 (A)</td><td>50.1 (B)</td><td>3.3</td></tr>
+    <tr><td>AB</td><td>7</td><td>49.7 (A)</td><td>47.5 (B)</td><td>2.2</td></tr>
+    <tr><td>AB</td><td>8</td><td>46.8 (A)</td><td>45.0 (B)</td><td>1.8</td></tr>
+    <tr><td>AB</td><td>9</td><td>50.5 (A)</td><td>48.9 (B)</td><td>1.6</td></tr>
+    <tr><td>AB</td><td>10</td><td>48.9 (A)</td><td>46.4 (B)</td><td>2.5</td></tr>
+    <tr><td>BA</td><td>11</td><td>44.2 (B)</td><td>46.5 (A)</td><td>−2.3</td></tr>
+    <tr><td>BA</td><td>12</td><td>47.8 (B)</td><td>49.6 (A)</td><td>−1.8</td></tr>
+    <tr><td>BA</td><td>13</td><td>43.5 (B)</td><td>45.8 (A)</td><td>−2.3</td></tr>
+    <tr><td>BA</td><td>14</td><td>46.1 (B)</td><td>48.2 (A)</td><td>−2.1</td></tr>
+    <tr><td>BA</td><td>15</td><td>48.5 (B)</td><td>50.8 (A)</td><td>−2.3</td></tr>
+    <tr><td>BA</td><td>16</td><td>42.8 (B)</td><td>44.9 (A)</td><td>−2.1</td></tr>
+    <tr><td>BA</td><td>17</td><td>45.3 (B)</td><td>47.1 (A)</td><td>−1.8</td></tr>
+    <tr><td>BA</td><td>18</td><td>49.1 (B)</td><td>51.4 (A)</td><td>−2.3</td></tr>
+    <tr><td>BA</td><td>19</td><td>44.7 (B)</td><td>47.0 (A)</td><td>−2.3</td></tr>
+    <tr><td>BA</td><td>20</td><td>46.9 (B)</td><td>49.2 (A)</td><td>−2.3</td></tr>
+  </table>
+
+  <div class="formula">
+    <span class="label">CROSSOVER ANALYSIS</span>
+    <p><strong>Summary statistics:</strong></p>
+    <table>
+      <tr><th>Sequence</th><th>n</th><th>\(\bar{d}_i\) (Mean P1−P2)</th><th>\(s_i\) (SD of diffs)</th></tr>
+      <tr><td>AB</td><td>10</td><td>2.23</td><td>0.72</td></tr>
+      <tr><td>BA</td><td>10</td><td>−2.16</td><td>0.21</td></tr>
+    </table>
+    <p><strong>Treatment effect:</strong></p>
+    <p>\[
+    \hat{\tau}_A - \hat{\tau}_B = \frac{\bar{d}_1 - \bar{d}_2}{2}
+    = \frac{2.23 - (-2.16)}{2} = \frac{4.39}{2} = 2.195 \text{ ng/mL}
+    \]</p>
+    <p><strong>Standard error:</strong></p>
+    <p>Pooled SD: \(\hat{\sigma}_d = \sqrt{\frac{9 \times 0.518 + 9 \times 0.044}{18}} = \sqrt{0.281} = 0.530\)</p>
+    <p>\[
+    SE = \hat{\sigma}_d \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+    = 0.530 \times \sqrt{\frac{1}{10} + \frac{1}{10}}
+    = 0.530 \times 0.4472 = 0.237
+    \]</p>
+    <p>\[
+    t = \frac{2.195}{0.237} = 9.26, \quad df = 18, \quad p &lt; 0.001
+    \]</p>
+    <p><strong>95% CI for treatment difference:</strong></p>
+    <p>\[
+    2.195 \pm 2.101 \times 0.237 = 2.195 \pm 0.498 = (1.697, 2.693)
+    \]</p>
+    <p><strong>Carry-over test (Grizzle):</strong> Compare the period sums between sequences.</p>
+    <p>Mean(P1 + P2) for AB = 96.47; Mean(P1 + P2) for BA = 93.36. Difference = 3.11.</p>
+    <p>The carry-over test yields \(p = 0.12\) — no significant carry-over effect, so the within-subject
+    analysis is valid.</p>
+  </div>
+
+  <h3>R Code</h3>
+  <div class="formula">
+    <span class="label">R IMPLEMENTATION</span>
+    <pre><code># Crossover analysis using t-test on within-subject differences
+d_AB &lt;- c(2.4, 2.8, 1.5, 3.1, 1.1, 3.3, 2.2, 1.8, 1.6, 2.5)
+d_BA &lt;- c(-2.3, -1.8, -2.3, -2.1, -2.3, -2.1, -1.8, -2.3, -2.3, -2.3)
+
+# Treatment effect estimate
+treat_eff &lt;- (mean(d_AB) - mean(d_BA)) / 2
+cat("Treatment effect (A - B):", treat_eff, "\n")
+
+# Two-sample t-test on differences
+t.test(d_AB, d_BA, var.equal = TRUE)
+
+# Using crossover package
+library(crossover)
+# Or use lme4 for mixed model approach
+library(lme4)
+model &lt;- lmer(Cmax ~ Treatment + Period + Sequence +
+                (1|Subject), data = crossover_data)
+summary(model)</code></pre>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIMENT 4 -->
+  <!-- ============================================================ -->
+  <h2>Experiment 4: Analysis of Clinical Trial Data using Parallel Design</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>To analyse data from a parallel-group clinical trial, perform the two-sample t-test for
+    continuous outcomes and the chi-square test for categorical outcomes, construct confidence
+    intervals, and interpret the results in a clinical context.</p>
+  </div>
+
+  <p><strong>Scenario:</strong> A Phase III parallel-group trial compares a new antidiabetic drug
+  (Drug A) with the standard drug (Drug B) in 100 patients with type 2 diabetes. The primary
+  endpoint is the change in HbA1c (%) from baseline to 12 weeks.</p>
+
+  <p><strong>Data summary:</strong></p>
+  <table>
+    <tr><th></th><th>Drug A (n=50)</th><th>Drug B (n=50)</th></tr>
+    <tr><td>Mean ΔHbA1c (%)</td><td>−1.82</td><td>−1.24</td></tr>
+    <tr><td>SD</td><td>0.95</td><td>1.02</td></tr>
+  </table>
+
+  <div class="formula">
+    <span class="label">PARALLEL DESIGN ANALYSIS</span>
+    <p><strong>Two-sample t-test:</strong></p>
+    <p>\[
+    \text{Pooled variance: } s_p^2 = \frac{49 \times 0.9025 + 49 \times 1.0404}{98}
+    = \frac{44.22 + 50.98}{98} = 0.9714
+    \]</p>
+    <p>\[
+    s_p = 0.9856
+    \]</p>
+    <p>\[
+    t = \frac{-1.82 - (-1.24)}{0.9856 \times \sqrt{\frac{1}{50} + \frac{1}{50}}}
+    = \frac{-0.58}{0.9856 \times 0.2000} = \frac{-0.58}{0.1971} = -2.943
+    \]</p>
+    <p>With \(df = 98\), two-sided p-value = 0.004.</p>
+    <p><strong>95% CI for the difference:</strong></p>
+    <p>\[
+    -0.58 \pm 1.984 \times 0.1971 = -0.58 \pm 0.391 = (-0.971, -0.189)
+    \]</p>
+    <p><strong>Effect size (Cohen's d):</strong></p>
+    <p>\[
+    d = \frac{-0.58}{0.9856} = -0.588
+    \]</p>
+    <p>A medium-to-large effect size. Drug A produces a statistically significantly greater reduction
+    in HbA1c compared to Drug B, with the 95% CI indicating the true difference is between 0.19 and
+    0.97 percentage points.</p>
+    <p><strong>Categorical analysis (HbA1c &lt; 7% at week 12):</strong></p>
+    <table>
+      <tr><th></th><th>Controlled</th><th>Not Controlled</th><th>Total</th></tr>
+      <tr><td>Drug A</td><td>32</td><td>18</td><td>50</td></tr>
+      <tr><td>Drug B</td><td>21</td><td>29</td><td>50</td></tr>
+    </table>
+    <p>\[
+    \chi^2 = \frac{100 \times (32 \times 29 - 18 \times 21)^2}{50 \times 50 \times 53 \times 47}
+    = \frac{100 \times (928 - 378)^2}{6227500} = \frac{100 \times 302500}{6227500} = 4.86
+    \]</p>
+    <p>\(df = 1\), p = 0.028. Drug A has a significantly higher proportion of patients achieving
+    glycaemic control (64%) vs. Drug B (42%).</p>
+    <p>\[
+    \text{OR} = \frac{32 \times 29}{18 \times 21} = \frac{928}{378} = 2.45
+    \]</p>
+    <p>Patients on Drug A have 2.45 times the odds of achieving glycaemic control.</p>
+  </div>
+
+  <h3>R Code</h3>
+  <div class="formula">
+    <span class="label">R IMPLEMENTATION</span>
+    <pre><code># Continuous outcome: two-sample t-test
+t.test(HbA1c_change ~ Drug, data = parallel_data, var.equal = TRUE)
+
+# Effect size
+library(effsize)
+cohen.d(HbA1c_change ~ Drug, data = parallel_data)
+
+# Categorical outcome: chi-square test
+table &lt;- matrix(c(32, 18, 21, 29), nrow = 2, byrow = TRUE)
+chisq.test(table)
+
+# Odds ratio
+fisher.test(table)  # Also provides exact OR
+
+# Logistic regression adjusting for baseline HbA1c
+model &lt;- glm(Controlled ~ Drug + BaselineHbA1c,
+              data = parallel_data, family = binomial)
+summary(model)
+exp(cbind(OR = coef(model), confint(model)))</code></pre>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EXPERIMENT 5 -->
+  <!-- ============================================================ -->
+  <h2>Experiment 5: Meta-Analysis of Clinical Trials</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>To perform a meta-analysis of multiple clinical trials, compute pooled effect estimates
+    using both fixed-effect and random-effects models, assess heterogeneity, construct a forest
+    plot, and evaluate potential publication bias.</p>
+  </div>
+
+  <p><strong>Scenario:</strong> A meta-analysis examines the effect of aspirin vs. placebo on the
+  prevention of cardiovascular events (myocardial infarction, stroke, or cardiovascular death) in
+  high-risk patients. Six randomised controlled trials are identified.</p>
+
+  <p><strong>Study data:</strong></p>
+  <table>
+    <tr><th>Trial</th><th>Year</th><th>n (Aspirin)</th><th>Events (Aspirin)</th><th>n (Placebo)</th><th>Events (Placebo)</th></tr>
+    <tr><td>trial1</td><td>1988</td><td>3,171</td><td>148</td><td>3,168</td><td>186</td></tr>
+    <tr><td>trial2</td><td>1989</td><td>2,035</td><td>109</td><td>2,037</td><td>142</td></tr>
+    <tr><td>trial3</td><td>1991</td><td>2,530</td><td>183</td><td>2,540</td><td>212</td></tr>
+    <tr><td>trial4</td><td>1992</td><td>3,402</td><td>209</td><td>3,395</td><td>251</td></tr>
+    <tr><td>trial5</td><td>1994</td><td>5,139</td><td>298</td><td>5,127</td><td>347</td></tr>
+    <tr><td>trial6</td><td>1996</td><td>4,401</td><td>265</td><td>4,405</td><td>302</td></tr>
+  </table>
+
+  <div class="formula">
+    <span class="label">META-ANALYSIS CALCULATIONS</span>
+    <p><strong>Step 1: Compute OR and ln(OR) for each trial:</strong></p>
+    <p>For trial1: \(a = 148\), \(b = 3023\), \(c = 186\), \(d = 2982\).</p>
+    <p>\[
+    \text{OR}_1 = \frac{148 \times 2982}{3023 \times 186} = \frac{441336}{562278} = 0.785
+    \]</p>
+    <p>\[
+    \ln(\text{OR}_1) = -0.242, \quad SE_1 = \sqrt{\frac{1}{148} + \frac{1}{3023} + \frac{1}{186} + \frac{1}{2982}} = 0.112
+    \]</p>
+    <p><strong>Summary of all trials:</strong></p>
+    <table>
+      <tr><th>Trial</th><th>OR</th><th>ln(OR)</th><th>SE(ln OR)</th><th>Weight (FE)</th><th>Weight (RE)</th></tr>
+      <tr><td>trial1</td><td>0.785</td><td>−0.242</td><td>0.112</td><td>16.0%</td><td>17.1%</td></tr>
+      <tr><td>trial2</td><td>0.742</td><td>−0.298</td><td>0.130</td><td>11.9%</td><td>13.3%</td></tr>
+      <tr><td>trial3</td><td>0.838</td><td>−0.177</td><td>0.102</td><td>19.3%</td><td>19.6%</td></tr>
+      <tr><td>trial4</td><td>0.805</td><td>−0.217</td><td>0.096</td><td>21.8%</td><td>21.5%</td></tr>
+      <tr><td>trial5</td><td>0.837</td><td>−0.178</td><td>0.080</td><td>31.4%</td><td>28.3%</td></tr>
+      <tr><td>trial6</td><td>0.856</td><td>−0.155</td><td>0.087</td><td>26.5%</td><td>—</td></tr>
+    </table>
+    <p><strong>Step 2: Fixed-effect pooled estimate:</strong></p>
+    <p>\[
+    \hat{\theta}_{FE} = -0.199 \quad (\text{pooled ln(OR)})
+    \]</p>
+    <p>Pooled OR = \(\exp(-0.199) = 0.820\) (95% CI: 0.754–0.891), p &lt; 0.001.</p>
+    <p><strong>Step 3: Heterogeneity:</strong></p>
+    <p>\[
+    Q = 3.42, \quad df = 5, \quad p = 0.636
+    \]</p>
+    <p>\[
+    I^2 = 0\% \quad (95\% \text{ CI: } 0\%, 56\%)
+    \]</p>
+    <p>No significant heterogeneity — all trials show a consistent treatment effect.</p>
+    <p><strong>Step 4: Random-effects model:</strong></p>
+    <p>Since \(Q &lt; k - 1\), \(\hat{\tau}^2 = 0\), and the random-effects model gives identical
+    results to the fixed-effect model: pooled OR = 0.820 (95% CI: 0.754–0.891).</p>
+    <p><strong>Step 5: Publication bias:</strong></p>
+    <p>Egger's test: intercept = −0.42 (SE = 0.85), t = −0.49, p = 0.65. No evidence of
+    publication bias. The funnel plot is approximately symmetric.</p>
+  </div>
+
+  <h3>R Code</h3>
+  <div class="formula">
+    <span class="label">R IMPLEMENTATION</span>
+    <pre><code>library(meta)
+
+# Enter data
+trials &lt;- c("trial1", "trial2", "trial3", "trial4", "trial5", "trial6")
+n_trt &lt;- c(3171, 2035, 2530, 3402, 5139, 4401)
+e_trt &lt;- c(148, 109, 183, 209, 298, 265)
+n_ctrl &lt;- c(3168, 2037, 2540, 3395, 5127, 4405)
+e_ctrl &lt;- c(186, 142, 212, 251, 347, 302)
+
+# Meta-analysis (binary outcomes)
+meta_result &lt;- metabin(event.e = e_trt, n.e = n_trt,
+                        event.c = e_ctrl, n.c = n_ctrl,
+                        studlab = trials,
+                        sm = "OR",
+                        method = "MH",
+                        method.tau = "DL")
+
+# Print results
+print(meta_result)
+
+# Forest plot
+forest(meta_result)
+
+# Heterogeneity
+cat("I² =", meta_result$I2, "%\n")
+cat("Q =", meta_result$Q, ", p =", meta_result$p.val.Q, "\n")
+
+# Publication bias: funnel plot and Egger's test
+funnel(meta_result)
+metabias(meta_result, method = "egger")
+
+# Trim-and-fill
+tf &lt;- trimfill(meta_result)
+print(tf)
+funnel(tf)</code></pre>
+  </div>
+
+  <!-- PAGE NAVIGATION -->
+  <div class="page-nav">
+    <a href="unit5.html" class="prev">&larr; Unit 5: Surrogate End Points and Meta-Analysis</a>
+    <a href="index.html" class="next">Home &rarr;</a>
+  </div>
+
+</div>
+</body>
+</html>

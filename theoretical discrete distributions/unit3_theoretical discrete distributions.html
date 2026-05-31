@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 — Negative Binomial Distribution | Discrete Distributions</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theoretical discrete distributions.html">Home</a> &raquo; Unit 3</div>
+    <h1>Unit 3 — Negative Binomial Distribution</h1>
+    <p>Definition, PMF, mean &amp; variance via MGF, generating functions, additive property, skewness, kurtosis, recurrence and normal limit.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">Definition</span>
+    <span class="chip">PMF</span>
+    <span class="chip">Mean &amp; Variance</span>
+    <span class="chip">MGF / CF / CGF / PGF</span>
+    <span class="chip">Additive Property</span>
+    <span class="chip">Skewness &amp; Kurtosis</span>
+    <span class="chip">Recurrence</span>
+    <span class="chip">Normal Limit</span>
+  </div>
+
+  <!-- DEFINITION -->
+  <h2>1. Definition &amp; PMF</h2>
+
+  <div class="concept">
+    <span class="label">DEFINITION (Number of failures before \(r\) successes)</span>
+    <p>Let \(X\) = number of failures preceding the \(r\)-th success in a sequence of independent Bernoulli\((p)\)
+    trials. \(X\) follows the <strong>Negative Binomial distribution</strong> NB\((r, p)\) with PMF</p>
+    \[
+      P(X = x) \;=\; \binom{x + r - 1}{x} p^r q^x, \quad x = 0, 1, 2, \ldots
+    \]
+    <p>where \(q = 1 - p\). Some textbooks define \(Y = X + r\) = total number of trials; the two forms differ only by a shift.</p>
+  </div>
+
+  <p><strong>Validity:</strong>
+  \(\sum_{x=0}^{\infty} \binom{x+r-1}{x} q^x = (1-q)^{-r} = p^{-r}\), hence \(\sum P(X=x) = p^r \cdot p^{-r} = 1\) ✓.</p>
+
+  <h3>Special case: Geometric distribution</h3>
+  <p>When \(r = 1\), NB\((1, p)\) reduces to the Geometric distribution (Unit 4).</p>
+
+  <!-- MGF -->
+  <h2>2. MGF, Mean and Variance</h2>
+  <div class="formula">
+    <span class="label">MGF</span>
+    \[
+      M_X(t) \;=\; \sum_{x=0}^{\infty} \binom{x+r-1}{x} (qe^t)^x p^r
+                = \dfrac{p^r}{(1 - q e^t)^r}, \quad q e^t &lt; 1.
+    \]
+  </div>
+
+  <p>Differentiating once and setting \(t=0\):</p>
+  <p>\(M'_X(0) = \dfrac{rq}{p} = E(X)\).</p>
+  <p>Differentiating again: \(E(X^2) = \dfrac{rq(1+rq)}{p^2}\).</p>
+
+  <div class="formula">
+    <span class="label">MEAN &amp; VARIANCE</span>
+    \[
+      E(X) = \dfrac{rq}{p}, \qquad
+      \text{Var}(X) = \dfrac{rq}{p^2}.
+    \]
+  </div>
+  <p>Note that Var \(=\) Mean / \(p\), so variance &gt; mean (over-dispersed compared to Poisson).</p>
+
+  <!-- OTHER GFs -->
+  <h2>3. Other Generating Functions</h2>
+  <div class="formula">
+    \[
+      \phi_X(t) = \dfrac{p^r}{(1 - q e^{it})^r}, \qquad
+      K_X(t) = r\ln p - r \ln(1 - q e^t),
+    \]
+    \[
+      P_X(s) = \dfrac{p^r}{(1 - qs)^r}.
+    \]
+  </div>
+
+  <!-- ADDITIVE -->
+  <h2>4. Additive Property</h2>
+  <div class="formula">
+    <p>If \(X_1 \sim \text{NB}(r_1, p)\) and \(X_2 \sim \text{NB}(r_2, p)\) are independent (<strong>same \(p\)</strong>),</p>
+    \[
+      X_1 + X_2 \;\sim\; \text{NB}(r_1 + r_2,\; p).
+    \]
+  </div>
+  <p><strong>Proof:</strong> \(M_{X_1+X_2}(t) = M_{X_1}(t)\,M_{X_2}(t) = p^{r_1+r_2}/(1-qe^t)^{r_1+r_2}\) which is NB\((r_1+r_2, p)\).</p>
+
+  <!-- SKEWNESS / KURTOSIS -->
+  <h2>5. Skewness &amp; Kurtosis</h2>
+  <div class="formula">
+    \[
+      \mu_3 = \dfrac{rq(1 + q)}{p^3}, \qquad
+      \mu_4 = \dfrac{rq(p^2 + 6q + 3rq^2)}{p^4}.
+    \]
+    \[
+      \gamma_1 = \dfrac{1 + q}{\sqrt{rq}}, \qquad
+      \beta_2 = 3 + \dfrac{p^2 + 6q}{rq}.
+    \]
+  </div>
+  <p>Always positively skewed and leptokurtic; both decrease toward 0 as \(r\) grows.</p>
+
+  <!-- RECURRENCE -->
+  <h2>6. Recurrence Relation</h2>
+  <div class="formula">
+    \[
+      P(X = x + 1) \;=\; \dfrac{r + x}{x + 1} \cdot q \cdot P(X = x), \qquad P(X = 0) = p^r.
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>A salesman closes a deal with probability \(p = 0.4\) each call. Find probability that the
+    third sale (\(r=3\)) comes on the 7th call (i.e., 4 failures before).</p>
+    <p>\(X = 4\). \(P(X=4) = \binom{6}{4}(0.4)^3(0.6)^4 = 15 \times 0.064 \times 0.1296 = 0.1244\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>A coin (head probability 0.5) is tossed until 5 heads appear. What is the expected number of tails?</p>
+    <p>\(r = 5,\; p = 0.5,\; q = 0.5\). \(E(X) = rq/p = 5\). Variance = \(rq/p^2 = 10\).</p>
+  </div>
+
+  <!-- LIMITING TO NORMAL -->
+  <h2>7. Limiting Form: Negative Binomial → Normal</h2>
+  <div class="concept">
+    <span class="label">THEOREM</span>
+    <p>For large \(r\), the standardized variable</p>
+    \[
+      Z \;=\; \dfrac{X - rq/p}{\sqrt{rq/p^2}} \;\xrightarrow{d}\; N(0, 1).
+    \]
+    <p>This follows from the Central Limit Theorem since \(X\) can be expressed as a sum of \(r\)
+    i.i.d. geometric variables.</p>
+  </div>
+
+  <!-- KEY TAKEAWAYS -->
+  <h2>Key Take-aways from Unit 3</h2>
+  <ul>
+    <li>NB\((r, p)\) — number of failures before the \(r\)-th success.</li>
+    <li>PMF: \(P(X = x) = \binom{x+r-1}{x} p^r q^x\).</li>
+    <li>Mean = \(rq/p\); Variance = \(rq/p^2\) (variance &gt; mean).</li>
+    <li>MGF: \(p^r / (1 - qe^t)^r\); additive in \(r\) for fixed \(p\).</li>
+    <li>Always right-skewed; \(\gamma_1 = (1+q)/\sqrt{rq}\).</li>
+    <li>Recurrence: \(P(x+1) = \dfrac{(r+x) q}{(x+1)} P(x)\).</li>
+    <li>For large \(r\): approximately normal.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit2_theoretical discrete distributions.html">← Previous: Unit 2</a>
+    <a href="unit4_theoretical discrete distributions.html">Next: Unit 4 — Geometric →</a>
+  </div>
+
+  <footer>Unit 3 — Negative Binomial Distribution</footer>
+</div>
+</body>
+</html>

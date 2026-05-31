@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 10 Experiments | MS-Excel</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_statistical data analysis using ms excel.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 10 Experiments</h1>
+    <p>Semester IV, Course 10 (Practical) — 2 hrs/week, Credit 1. Hands-on Excel labs to be conducted in the Computer Lab (≥ 4 hrs / month).</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Central Tendency — calculate mean, median, mode for a given dataset.</li>
+    <li>Dispersion — compute variance, standard deviation, coefficient of variation.</li>
+    <li>Skewness and Kurtosis — interpret the distribution shape.</li>
+    <li>Correlation Analysis — simple correlation coefficient and correlation matrix for multiple variables (height, weight, age).</li>
+    <li>Simple Linear Regression — fit a regression line and estimate the dependent variable.</li>
+    <li>Z and t-tests — one-sample and two-sample tests (large &amp; small samples).</li>
+    <li>Paired t-test — before-and-after comparison.</li>
+    <li>F-test — equality of variances between two independent samples.</li>
+    <li>Chi-Square Test — goodness of fit.</li>
+    <li>ANOVA — one-way and two-way to test differences among groups.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Central Tendency</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Marks of 12 students entered in A2:A13: 45, 52, 38, 71, 64, 49, 58, 33, 67, 72, 55, 49.</p>
+  </div>
+  <p>Type these formulas in column C:</p>
+  <table class="left">
+    <tr><th>Cell</th><th>Formula</th><th>Result</th></tr>
+    <tr><td>C2</td><td><code>=AVERAGE(A2:A13)</code></td><td>54.42</td></tr>
+    <tr><td>C3</td><td><code>=MEDIAN(A2:A13)</code></td><td>53.5</td></tr>
+    <tr><td>C4</td><td><code>=MODE.SNGL(A2:A13)</code></td><td>49</td></tr>
+    <tr><td>C5</td><td><code>=GEOMEAN(A2:A13)</code></td><td>52.43</td></tr>
+    <tr><td>C6</td><td><code>=HARMEAN(A2:A13)</code></td><td>50.41</td></tr>
+  </table>
+  <p>Inference: AM &gt; GM &gt; HM as expected; mode (49) appears twice.</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Dispersion</h2>
+  <p>Using the same data:</p>
+  <table class="left">
+    <tr><th>Statistic</th><th>Formula</th><th>Result</th></tr>
+    <tr><td>Range</td><td><code>=MAX(A2:A13)-MIN(A2:A13)</code></td><td>39</td></tr>
+    <tr><td>Variance (sample)</td><td><code>=VAR.S(A2:A13)</code></td><td>156.45</td></tr>
+    <tr><td>SD (sample)</td><td><code>=STDEV.S(A2:A13)</code></td><td>12.51</td></tr>
+    <tr><td>CV (%)</td><td><code>=STDEV.S(A2:A13)/AVERAGE(A2:A13)*100</code></td><td>22.99</td></tr>
+    <tr><td>Q1</td><td><code>=QUARTILE.INC(A2:A13,1)</code></td><td>46.0</td></tr>
+    <tr><td>Q3</td><td><code>=QUARTILE.INC(A2:A13,3)</code></td><td>65.25</td></tr>
+    <tr><td>IQR</td><td><code>=QUARTILE.INC(A2:A13,3)-QUARTILE.INC(A2:A13,1)</code></td><td>19.25</td></tr>
+  </table>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Skewness and Kurtosis</h2>
+  <p>Same data:</p>
+  <ul>
+    <li><code>=SKEW(A2:A13)</code> → 0.07 (very close to zero ⇒ approximately symmetric).</li>
+    <li><code>=KURT(A2:A13)</code> → −0.84 (negative excess ⇒ platykurtic / flatter than normal).</li>
+  </ul>
+  <p>Run ToolPak Descriptive Statistics for a complete report; confirm SKEW and KURT values.</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Correlation Analysis &amp; Matrix</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Three variables — Height (cm) in A2:A11, Weight (kg) in B2:B11, Age (yrs) in C2:C11.</p>
+  </div>
+
+  <p><strong>Pairwise:</strong></p>
+  <ul>
+    <li><code>=CORREL(A2:A11, B2:B11)</code> → 0.85 (Height vs Weight).</li>
+    <li><code>=CORREL(A2:A11, C2:C11)</code> → 0.40 (Height vs Age).</li>
+    <li><code>=CORREL(B2:B11, C2:C11)</code> → 0.32 (Weight vs Age).</li>
+  </ul>
+
+  <p><strong>Correlation matrix via ToolPak:</strong> Data → Data Analysis → Correlation → Input A1:C11, Labels ticked, output starting in E1. Excel produces:</p>
+  <table class="left">
+    <tr><th></th><th>Height</th><th>Weight</th><th>Age</th></tr>
+    <tr><th>Height</th><td>1</td><td></td><td></td></tr>
+    <tr><th>Weight</th><td>0.85</td><td>1</td><td></td></tr>
+    <tr><th>Age</th><td>0.40</td><td>0.32</td><td>1</td></tr>
+  </table>
+
+  <p>Spearman rank ρ between Height &amp; Weight: in column D apply <code>=RANK.AVG(A2,$A$2:$A$11,1)</code>; in E similarly for B; then <code>=CORREL(D2:D11, E2:E11)</code>.</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Simple Linear Regression</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Study hours in A2:A11 = 2, 3, 4, 5, 6, 7, 8, 9, 10, 11. Marks in B2:B11 = 50, 55, 62, 66, 72, 75, 80, 85, 90, 95.</p>
+  </div>
+
+  <p><strong>Quick coefficients:</strong></p>
+  <ul>
+    <li><code>=SLOPE(B2:B11, A2:A11)</code> → 5.05</li>
+    <li><code>=INTERCEPT(B2:B11, A2:A11)</code> → 40.78</li>
+    <li><code>=RSQ(B2:B11, A2:A11)</code> → 0.997</li>
+    <li>Predict marks for 8.5 hours: <code>=FORECAST.LINEAR(8.5, B2:B11, A2:A11)</code> → 83.71</li>
+  </ul>
+
+  <p><strong>Full report via ToolPak:</strong> Data → Data Analysis → Regression → Input Y = B2:B11, Input X = A2:A11, tick Residuals &amp; Line Fit Plots. Output gives a high R² (0.997), F = 2693, p ≈ 0 ⇒ study hours significantly predict marks.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Z and t-Tests (One &amp; Two Sample)</h2>
+
+  <h3>One-sample Z (large sample)</h3>
+  <p>100 students mean IQ = 105, σ = 15. Test \(H_0: \mu = 100\).</p>
+  <p>If raw data are in A2:A101: <code>=Z.TEST(A2:A101, 100, 15)</code> → 0.0004 (one-tailed). Two-tailed p ≈ 0.0008 ⇒ reject H₀.</p>
+  <p>Alternative (manual): \(Z = (105 - 100)/(15/\sqrt{100}) = 3.33\). p = <code>=2*(1-NORM.S.DIST(3.33, TRUE))</code> = 0.00087.</p>
+
+  <h3>One-sample t (small sample)</h3>
+  <p>9 observations with mean 47.5, sample SD 4. Test \(H_0: \mu = 50\) at 5 %.</p>
+  <p>t-statistic: <code>=(47.5-50)/(4/SQRT(9))</code> = −1.875. df = 8.</p>
+  <p>Two-tailed p: <code>=T.DIST.2T(ABS(-1.875), 8)</code> = 0.0975 ⇒ accept H₀.</p>
+
+  <h3>Two-sample t (equal variances)</h3>
+  <p>Method A in A2:A11, Method B in B2:B13.</p>
+  <p><code>=T.TEST(A2:A11, B2:B13, 2, 2)</code> → returns two-tailed p-value directly.</p>
+  <p>For full t-statistic, df and CI use ToolPak → t-Test: Two-Sample Assuming Equal Variances.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Paired t-Test</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Weight of 8 patients before (A2:A9) and after (B2:B9) a diet program.</p>
+    <table class="left">
+      <tr><th>Before</th><td>72</td><td>78</td><td>69</td><td>80</td><td>85</td><td>76</td><td>82</td><td>74</td></tr>
+      <tr><th>After</th><td>70</td><td>76</td><td>67</td><td>78</td><td>83</td><td>74</td><td>79</td><td>72</td></tr>
+    </table>
+  </div>
+  <p><strong>Quick test:</strong> <code>=T.TEST(A2:A9, B2:B9, 2, 1)</code> → p ≈ 4.6E-7 ⇒ reject H₀.</p>
+  <p><strong>Full ToolPak report</strong> via Data Analysis → t-Test: Paired Two Sample for Means gives:</p>
+  <table class="left">
+    <tr><th>Statistic</th><th>Value</th></tr>
+    <tr><td>Mean (Before)</td><td>77.0</td></tr>
+    <tr><td>Mean (After)</td><td>74.875</td></tr>
+    <tr><td>Mean Difference</td><td>2.125</td></tr>
+    <tr><td>t Stat</td><td>17.0</td></tr>
+    <tr><td>df</td><td>7</td></tr>
+    <tr><td>p (two-tail)</td><td>~ 5 × 10⁻⁷</td></tr>
+    <tr><td>t Critical (two-tail)</td><td>2.365</td></tr>
+  </table>
+  <p>Conclusion: diet causes statistically significant weight reduction.</p>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — F-Test for Equality of Variances</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Diameters of bolts produced by two machines. Machine 1 (n₁ = 11) variance 25; Machine 2 (n₂ = 16) variance 16.</p>
+  </div>
+  <p>If raw data are in A2:A12 and B2:B17:</p>
+  <ul>
+    <li><code>=F.TEST(A2:A12, B2:B17)</code> → 0.51 (two-tailed) ⇒ accept H₀.</li>
+    <li><code>=VAR.S(A2:A12)/VAR.S(B2:B17)</code> → 25/16 = 1.5625 (F-statistic).</li>
+    <li>Critical F: <code>=F.INV.RT(0.025, 10, 15)</code> = 3.06. Since 1.5625 &lt; 3.06 ⇒ accept H₀.</li>
+  </ul>
+  <p><strong>ToolPak:</strong> Data Analysis → F-Test Two-Sample for Variances → gives F, p one-tail and F-Critical.</p>
+
+  <!-- EXP 9 -->
+  <h2>Experiment 9 — Chi-Square Goodness of Fit</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>A die is rolled 60 times. Observed faces 1–6: 8, 11, 9, 12, 10, 10. Expected (if fair): 10 each. Test fairness at 5 %.</p>
+  </div>
+  <p>Layout in Excel:</p>
+  <table class="left">
+    <tr><th>Face</th><th>O</th><th>E</th><th>(O−E)²/E</th></tr>
+    <tr><td>1</td><td>8</td><td>10</td><td>0.4</td></tr>
+    <tr><td>2</td><td>11</td><td>10</td><td>0.1</td></tr>
+    <tr><td>3</td><td>9</td><td>10</td><td>0.1</td></tr>
+    <tr><td>4</td><td>12</td><td>10</td><td>0.4</td></tr>
+    <tr><td>5</td><td>10</td><td>10</td><td>0</td></tr>
+    <tr><td>6</td><td>10</td><td>10</td><td>0</td></tr>
+    <tr><th>Σ</th><th>60</th><th>60</th><th>1.0</th></tr>
+  </table>
+  <p>χ² statistic = 1.0; <code>=CHISQ.TEST(B2:B7, C2:C7)</code> → p ≈ 0.96 ⇒ accept H₀; die is fair.</p>
+  <p>Critical χ²: <code>=CHISQ.INV.RT(0.05, 5)</code> = 11.07.</p>
+
+  <h3>Chi-Square Independence (extra)</h3>
+  <p>For a 2 × 2 contingency table (smoking vs cancer): compute expected counts from row/column totals, then <code>=CHISQ.TEST(observed_range, expected_range)</code>.</p>
+
+  <!-- EXP 10 -->
+  <h2>Experiment 10 — ANOVA (One-way and Two-way)</h2>
+
+  <h3>One-way ANOVA</h3>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Yields for 3 fertilizers, 4 plots each (columns A, B, C):</p>
+    <table class="left">
+      <tr><th>F1</th><th>F2</th><th>F3</th></tr>
+      <tr><td>22</td><td>30</td><td>20</td></tr>
+      <tr><td>26</td><td>34</td><td>22</td></tr>
+      <tr><td>24</td><td>32</td><td>24</td></tr>
+      <tr><td>28</td><td>36</td><td>22</td></tr>
+    </table>
+  </div>
+  <p>Data → Data Analysis → ANOVA: Single Factor → Input A1:C5 (with labels), α = 0.05.</p>
+  <p>Output:</p>
+  <table class="left">
+    <tr><th>Source</th><th>SS</th><th>df</th><th>MS</th><th>F</th><th>p-value</th><th>F crit</th></tr>
+    <tr><td>Between Groups</td><td>258.67</td><td>2</td><td>129.33</td><td>24.25</td><td>0.0003</td><td>4.26</td></tr>
+    <tr><td>Within Groups</td><td>48.00</td><td>9</td><td>5.33</td><td></td><td></td><td></td></tr>
+    <tr><th>Total</th><th>306.67</th><th>11</th><th></th><th></th><th></th><th></th></tr>
+  </table>
+  <p>F &gt; F crit ⇒ reject H₀; fertilizers differ. Critical Difference (Unit 4 of Course 8): \(t_{0.025, 9}\sqrt{2 \cdot 5.33 / 4} = 2.262 \cdot 1.633 = 3.69\).</p>
+
+  <h3>Two-way ANOVA (Without Replication — RBD-style)</h3>
+  <p>3 fertilizers × 4 varieties (one observation per cell).</p>
+  <p>Data → Data Analysis → ANOVA: Two-Factor Without Replication → Input range covers row labels and column labels.</p>
+  <p>Output gives separate F-tests for Rows (fertilizers) and Columns (varieties) along with their p-values.</p>
+
+  <h3>Two-way ANOVA (With Replication)</h3>
+  <p>If each cell has multiple observations (e.g., 3 reps per combination), choose "ANOVA: Two-Factor With Replication" and enter <em>Rows per sample</em> = 3. Output adds an Interaction row.</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title.</li>
+    <li>Aim.</li>
+    <li>Data table (with screenshot if possible).</li>
+    <li>Excel formulae used (or ToolPak menu path).</li>
+    <li>Output table.</li>
+    <li>Decision based on p-value and critical value.</li>
+    <li>Interpretation in plain language.</li>
+  </ol>
+
+  <div class="tip">
+    <strong>Note from Syllabus:</strong> MS-Excel practical problems must be done in the Computer Lab at least <strong>4 hours per month</strong>.
+  </div>
+
+  <div class="page-nav">
+    <a href="unit5_statistical data analysis using ms excel.html">← Previous: Unit 5</a>
+    <a href="syllabus_statistical data analysis using ms excel.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 10 Experiments • Statistical Data Analysis using MS-Excel</footer>
+</div>
+</body>
+</html>

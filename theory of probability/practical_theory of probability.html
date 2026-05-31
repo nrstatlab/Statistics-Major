@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 7 Experiments | Theory of Probability</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theory of probability.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 7 Experiments</h1>
+    <p>Semester I, Course 2 (Practical) — 2 hrs/week, Credit 1. Worked problems with full solutions.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Calculation of moments of a univariate random variable for a given pmf.</li>
+    <li>Calculation of coefficient of skewness and kurtosis for a given pmf.</li>
+    <li>Calculation of moments of a univariate random variable for a given pdf.</li>
+    <li>Calculation of coefficient of skewness and kurtosis for a given pdf.</li>
+    <li>Problems related to jpmf, mpmf and conditional pmf and its independence.</li>
+    <li>Problems related to jpdf, mpdf and conditional pdf and its independence.</li>
+    <li>Chebyshev's inequality — application-oriented problems.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Moments from a PMF</h2>
+  <div class="concept">
+    <span class="label">AIM</span>
+    <p>Compute mean, variance and the first four moments of a discrete random variable.</p>
+  </div>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>The PMF of \(X\) is given:</p>
+    <table class="left">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+      <tr><th>p(x)</th><td>0.10</td><td>0.20</td><td>0.30</td><td>0.25</td><td>0.15</td></tr>
+    </table>
+    <p>Compute \(\mu'_1, \mu'_2, \mu'_3, \mu'_4\) and central moments \(\mu_2,\mu_3,\mu_4\).</p>
+  </div>
+  <p><strong>Solution:</strong></p>
+  <table class="left">
+    <tr><th>x</th><th>p(x)</th><th>x p(x)</th><th>x² p(x)</th><th>x³ p(x)</th><th>x⁴ p(x)</th></tr>
+    <tr><td>0</td><td>0.10</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>0.20</td><td>0.20</td><td>0.20</td><td>0.20</td><td>0.20</td></tr>
+    <tr><td>2</td><td>0.30</td><td>0.60</td><td>1.20</td><td>2.40</td><td>4.80</td></tr>
+    <tr><td>3</td><td>0.25</td><td>0.75</td><td>2.25</td><td>6.75</td><td>20.25</td></tr>
+    <tr><td>4</td><td>0.15</td><td>0.60</td><td>2.40</td><td>9.60</td><td>38.40</td></tr>
+    <tr><th>Σ</th><th>1.00</th><th>2.15</th><th>6.05</th><th>18.95</th><th>63.65</th></tr>
+  </table>
+  <p>\(\mu = \mu'_1 = 2.15;\; \mu'_2 = 6.05;\; \mu'_3 = 18.95;\; \mu'_4 = 63.65\).</p>
+  <p>\(\mu_2 = 6.05 - 2.15^2 = 6.05 - 4.6225 = 1.4275\) (variance).</p>
+  <p>\(\mu_3 = 18.95 - 3(6.05)(2.15) + 2(2.15)^3 = 18.95 - 39.0225 + 19.8830 = -0.1895\).</p>
+  <p>\(\mu_4 = 63.65 - 4(18.95)(2.15) + 6(6.05)(2.15)^2 - 3(2.15)^4 = 63.65 - 162.97 + 167.831 - 64.0998 = 4.412\).</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Skewness &amp; Kurtosis from a PMF</h2>
+  <p>Continuing from Experiment 1 with the same PMF:</p>
+  <p>\(\beta_1 = \mu_3^2 / \mu_2^3 = 0.0359 / 2.908 = 0.01235\).</p>
+  <p>\(\gamma_1 = \mu_3 / \mu_2^{3/2} = -0.1895 / 1.7053 = -0.111\) (slightly left-skewed).</p>
+  <p>\(\beta_2 = \mu_4 / \mu_2^2 = 4.412 / 2.0378 = 2.165\) (Platykurtic since β₂ &lt; 3).</p>
+  <p>\(\gamma_2 = \beta_2 - 3 = -0.835\).</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Moments from a PDF</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>\(X\) has PDF \(f(x) = 6x(1-x),\; 0 \le x \le 1\) (Beta(2,2)). Compute first four raw moments.</p>
+  </div>
+  <p><strong>Solution:</strong></p>
+  <p>\(\mu'_r = \int_0^1 x^r \cdot 6x(1-x)\,dx = 6\int_0^1 x^{r+1} - x^{r+2}\,dx = 6\left[\dfrac{1}{r+2} - \dfrac{1}{r+3}\right] = \dfrac{6}{(r+2)(r+3)}\).</p>
+  <table class="left">
+    <tr><th>r</th><th>μ'<sub>r</sub></th></tr>
+    <tr><td>1</td><td>6/(3 · 4) = 0.5</td></tr>
+    <tr><td>2</td><td>6/(4 · 5) = 0.3</td></tr>
+    <tr><td>3</td><td>6/(5 · 6) = 0.2</td></tr>
+    <tr><td>4</td><td>6/(6 · 7) ≈ 0.1429</td></tr>
+  </table>
+  <p>\(\mu_2 = 0.3 - 0.25 = 0.05\) (variance).</p>
+  <p>\(\mu_3 = 0.2 - 3(0.3)(0.5) + 2(0.5)^3 = 0.2 - 0.45 + 0.25 = 0\).</p>
+  <p>\(\mu_4 = 0.1429 - 4(0.2)(0.5) + 6(0.3)(0.25) - 3(0.0625) = 0.1429 - 0.4 + 0.45 - 0.1875 = 0.0054\).</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Skewness &amp; Kurtosis from a PDF</h2>
+  <p>Using Experiment 3 results:</p>
+  <p>\(\beta_1 = 0\) (symmetric — confirms Beta(2,2) is symmetric about 0.5).</p>
+  <p>\(\beta_2 = 0.0054 / 0.0025 = 2.16\) (Platykurtic).</p>
+  <p>\(\gamma_2 = -0.84\).</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Joint, Marginal &amp; Conditional PMF; Independence</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>The joint PMF of \((X,Y)\) is:</p>
+    <table class="left">
+      <tr><th>X \ Y</th><th>1</th><th>2</th><th>3</th></tr>
+      <tr><td>0</td><td>1/12</td><td>2/12</td><td>1/12</td></tr>
+      <tr><td>1</td><td>2/12</td><td>3/12</td><td>3/12</td></tr>
+    </table>
+    <p>(a) Find marginal PMFs.<br>
+    (b) Find \(P(Y=2 | X=1)\).<br>
+    (c) Are \(X\) and \(Y\) independent?</p>
+  </div>
+  <p><strong>(a) Marginals:</strong></p>
+  <p>\(p_X(0) = 1/12 + 2/12 + 1/12 = 4/12 = 1/3\); \(p_X(1) = 2/12 + 3/12 + 3/12 = 8/12 = 2/3\).</p>
+  <p>\(p_Y(1) = 1/12 + 2/12 = 3/12 = 1/4\); \(p_Y(2) = 5/12\); \(p_Y(3) = 4/12 = 1/3\).</p>
+  <p><strong>(b) Conditional:</strong> \(P(Y=2|X=1) = (3/12)/(8/12) = 3/8\).</p>
+  <p><strong>(c) Independence check:</strong> \(p_X(0) p_Y(1) = (1/3)(1/4) = 1/12\), and \(p(0,1) = 1/12\) ✓.</p>
+  <p>But \(p_X(1) p_Y(3) = (2/3)(1/3) = 2/9 \ne 3/12 = 1/4\). Hence <strong>not independent</strong>.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Joint, Marginal &amp; Conditional PDF; Independence</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>\(f(x,y) = 4xy,\; 0 \le x,y \le 1\). Find marginals, conditional density, and check independence.</p>
+  </div>
+  <p><strong>Marginals:</strong></p>
+  <p>\(f_X(x) = \int_0^1 4xy\,dy = 4x \cdot 1/2 = 2x\) for \(0 \le x \le 1\).</p>
+  <p>\(f_Y(y) = 2y\) for \(0 \le y \le 1\) (by symmetry).</p>
+  <p><strong>Conditional:</strong> \(f_{Y|X}(y|x) = (4xy)/(2x) = 2y\).</p>
+  <p>Since \(f_{Y|X}(y|x) = f_Y(y)\) and \(f(x,y) = f_X(x) f_Y(y) = 2x \cdot 2y = 4xy\) ✓ — \(X\) and \(Y\) are <strong>independent</strong>.</p>
+
+  <h3>Second problem (Not independent)</h3>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>\(f(x,y) = x + y,\; 0 \le x,y \le 1\). Examine independence.</p>
+  </div>
+  <p>\(f_X(x) = x + 1/2;\; f_Y(y) = y + 1/2\). Product = \((x+1/2)(y+1/2) \ne x+y\). Hence <strong>not independent</strong>.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Chebyshev's Inequality Applications</h2>
+
+  <div class="example">
+    <span class="label">PROBLEM 1</span>
+    <p>The mean and SD of marks of 1 000 students are 60 and 8. Find a lower bound for the number of students
+    whose marks lie between 44 and 76.</p>
+  </div>
+  <p><strong>Solution:</strong> The interval \([44, 76]\) is \(\mu \pm 2\sigma\) (since \(2 \times 8 = 16\)).</p>
+  <p>\(P(|X - 60| &lt; 16) \ge 1 - 1/4 = 3/4 = 0.75\). So at least \(0.75 \times 1000 = \mathbf{750}\) students lie in this range.</p>
+
+  <div class="example">
+    <span class="label">PROBLEM 2</span>
+    <p>Determine sample size \(n\) so that the sample mean of i.i.d. variables (with \(\sigma^2 = 4\)) is within 0.5 of \(\mu\) with probability at least 0.95.</p>
+  </div>
+  <p><strong>Solution:</strong> \(\bar X_n\) has variance \(\sigma^2/n = 4/n\). Apply Chebyshev:</p>
+  <p>\(P(|\bar X - \mu| \ge 0.5) \le \dfrac{4/n}{0.25} = \dfrac{16}{n}\). For this to be \(\le 0.05\): \(n \ge 320\).</p>
+
+  <div class="tip">
+    <strong>Note:</strong> Chebyshev gives a conservative bound. Using a normal approximation (when justified)
+    typically gives much smaller required \(n\).
+  </div>
+
+  <h2>Lab Notebook Format (suggested)</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim of the experiment</li>
+    <li>Formulae used</li>
+    <li>Tabulated computations</li>
+    <li>Result with units and bounds</li>
+    <li>Interpretation / conclusion</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_theory of probability.html">← Previous: Unit 5</a>
+    <a href="syllabus_theory of probability.html">Next: Official Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 7 Experiments • Theory of Probability &amp; Mathematical Expectations</footer>
+</div>
+</body>
+</html>
