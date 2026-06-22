@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 — Data Visualization &amp; Frequency Analysis | MS-Excel</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_statistical data analysis using ms excel.html">Home</a> &raquo; Unit 2</div>
+    <h1>Unit 2 — Data Visualization &amp; Frequency Analysis</h1>
+    <p>Bar, Column, Line, Pie, Area, Scatter, Histogram; frequency tables via COUNT/COUNTIF/FREQUENCY; PivotTables and PivotCharts for summarisation.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">Charts &amp; Graphs</span>
+    <span class="chip">Histogram</span>
+    <span class="chip">COUNT family</span>
+    <span class="chip">FREQUENCY array</span>
+    <span class="chip">PivotTable</span>
+    <span class="chip">PivotChart</span>
+  </div>
+
+  <!-- 1. CHARTS -->
+  <h2>1. Creating Charts in Excel</h2>
+  <p>Select the data range → <strong>Insert</strong> tab → choose chart type → click. Customise with Chart Design and Format tabs.</p>
+
+  <h3>Common Chart Types and When to Use Each</h3>
+  <table class="left">
+    <tr><th>Chart</th><th>Best for</th></tr>
+    <tr><td>Column</td><td>Comparing values across categories (vertical bars)</td></tr>
+    <tr><td>Bar</td><td>Same as column but horizontal — useful for long category names</td></tr>
+    <tr><td>Line</td><td>Trends over time (continuous data)</td></tr>
+    <tr><td>Area</td><td>Cumulative trend (filled area beneath line)</td></tr>
+    <tr><td>Pie / Doughnut</td><td>Parts of a whole, ≤ 6 categories</td></tr>
+    <tr><td>Scatter (XY)</td><td>Relationship between two numeric variables</td></tr>
+    <tr><td>Bubble</td><td>Three-variable relationship (X, Y, size)</td></tr>
+    <tr><td>Histogram</td><td>Distribution of one continuous variable</td></tr>
+    <tr><td>Box &amp; Whisker</td><td>Five-number summary, outliers</td></tr>
+    <tr><td>Combo</td><td>Mix of bar + line, e.g., sales + growth rate</td></tr>
+  </table>
+
+  <h3>Chart Elements and Formatting</h3>
+  <ul>
+    <li><strong>Chart Title</strong> — describe what is shown.</li>
+    <li><strong>Axis titles</strong> — label both X and Y axes with units.</li>
+    <li><strong>Legend</strong> — names of series.</li>
+    <li><strong>Data labels</strong> — show numeric values on bars/points.</li>
+    <li><strong>Gridlines</strong> — keep light and minimal.</li>
+    <li><strong>Trendline</strong> — for scatter/line: linear, polynomial, exponential, etc.</li>
+  </ul>
+
+  <h3>Pie Chart Example</h3>
+  <p>For category totals (Food, Rent, Education, Savings):</p>
+  <ol>
+    <li>Enter categories in A2:A5 and values in B2:B5.</li>
+    <li>Select A2:B5 → Insert → Pie chart.</li>
+    <li>Right-click slice → Add Data Labels → choose Percentage.</li>
+    <li>Apply a meaningful title.</li>
+  </ol>
+
+  <h3>Histogram (built-in chart, Excel 2016+)</h3>
+  <ol>
+    <li>Select the data column.</li>
+    <li>Insert → Statistic Chart → Histogram.</li>
+    <li>Right-click the X-axis → Format Axis → choose Bin width or Number of bins.</li>
+  </ol>
+
+  <p>Alternative: Data → Data Analysis → Histogram (ToolPak). Provide Input Range and Bin Range; tick "Chart Output".</p>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Column chart)</span>
+    <p>Sales in 5 years 200, 250, 300, 280, 350 (B2:B6 with years in A2:A6). Select A2:B6 → Insert → Column. Result: 5 vertical bars showing growth.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Scatter with trend line)</span>
+    <p>Hours of study (A2:A10) vs marks (B2:B10). Select → Insert → Scatter → "Scatter with only markers". Right-click any point → Add Trendline → Linear → tick "Display Equation on chart" to see the regression equation.</p>
+  </div>
+
+  <!-- 2. FREQUENCY TABLES -->
+  <h2>2. Frequency Tables with COUNT Functions</h2>
+
+  <table class="left">
+    <tr><th>Function</th><th>Purpose</th><th>Example</th></tr>
+    <tr><td><code>=COUNT(range)</code></td><td>Count numeric values</td><td><code>=COUNT(A2:A100)</code></td></tr>
+    <tr><td><code>=COUNTA(range)</code></td><td>Count non-empty cells (text too)</td><td><code>=COUNTA(B2:B100)</code></td></tr>
+    <tr><td><code>=COUNTBLANK(range)</code></td><td>Count empty cells</td><td><code>=COUNTBLANK(C2:C100)</code></td></tr>
+    <tr><td><code>=COUNTIF(range, criteria)</code></td><td>Count cells meeting one condition</td><td><code>=COUNTIF(A2:A100, "&gt;50")</code></td></tr>
+    <tr><td><code>=COUNTIFS(r1,c1, r2,c2,…)</code></td><td>Multiple conditions</td><td><code>=COUNTIFS(A2:A100,"M", B2:B100,"&gt;35")</code></td></tr>
+  </table>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>Marks in A2:A50. To count students who passed (marks ≥ 35): <code>=COUNTIF(A2:A50, "&gt;=35")</code>.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Two conditions)</span>
+    <p>Count male students who scored ≥ 75: <code>=COUNTIFS(GenderRange, "M", MarksRange, "&gt;=75")</code>.</p>
+  </div>
+
+  <h2>3. FREQUENCY Function (for Grouped Data)</h2>
+  <div class="formula">
+    <code>=FREQUENCY(data_array, bins_array)</code>
+    <p>Returns counts of values falling in each bin (≤ bin boundary). Must be entered as an <strong>array formula</strong> (Excel 365 spills automatically; legacy Excel needs <kbd>Ctrl+Shift+Enter</kbd>).</p>
+  </div>
+
+  <h3>Procedure</h3>
+  <ol>
+    <li>Enter raw data in column A (say A2:A51).</li>
+    <li>Enter upper bin limits in column C (say C2:C8): 30, 40, 50, 60, 70, 80, 90.</li>
+    <li>Select cells D2:D9 (one extra for the "above last bin" overflow).</li>
+    <li>Type <code>=FREQUENCY(A2:A51, C2:C8)</code> and press <kbd>Ctrl+Shift+Enter</kbd> (legacy) — or just Enter in Excel 365.</li>
+    <li>Excel returns counts for each bin.</li>
+  </ol>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>30 students' marks (e.g., 45, 52, 38, …, 65). Bins (upper limits): 40, 50, 60, 70, 80. <code>=FREQUENCY(marks, bins)</code> returns counts for ≤ 40, (40, 50], (50, 60], (60, 70], (70, 80], &gt; 80 — e.g., 4, 8, 9, 6, 2, 1.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>Number of children per family: data in A2:A21; bins 0, 1, 2, 3 in C2:C5. FREQUENCY gives counts of 0, 1, 2, 3, 4+.</p>
+  </div>
+
+  <h2>4. PivotTables — Powerful Summarisation</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A <strong>PivotTable</strong> dynamically summarises large amounts of data by grouping rows, columns, and aggregating values (sum, count, average, etc.) — without writing formulas.</p>
+  </div>
+
+  <h3>Creating a PivotTable</h3>
+  <ol>
+    <li>Ensure the source has headers in row 1 and no blank columns.</li>
+    <li>Click anywhere in the data → Insert → PivotTable.</li>
+    <li>Choose location (New Worksheet recommended). Click OK.</li>
+    <li>Drag fields into the four areas:
+      <ul>
+        <li><strong>Rows</strong> — categorical variables to break down rows.</li>
+        <li><strong>Columns</strong> — categorical variables to break down columns.</li>
+        <li><strong>Values</strong> — numeric variable to aggregate (Sum, Count, Average, …).</li>
+        <li><strong>Filters</strong> — top-level filter dropdown.</li>
+      </ul>
+    </li>
+    <li>Right-click a value cell → Value Field Settings → choose aggregation function and number format.</li>
+  </ol>
+
+  <h3>Common Operations</h3>
+  <ul>
+    <li><strong>Group</strong> dates by Month/Quarter/Year: right-click a date row → Group.</li>
+    <li><strong>Slicer</strong>: PivotTable Analyze → Insert Slicer → adds filter buttons.</li>
+    <li><strong>Calculated Field</strong>: PivotTable Analyze → Fields, Items &amp; Sets → Calculated Field.</li>
+    <li><strong>Refresh</strong>: when source data changes, click Refresh (Alt+F5) or Refresh All.</li>
+  </ul>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>Sales data with columns: Date, Region, Product, Salesperson, Amount.</p>
+    <ul>
+      <li>Rows: Region; Columns: Product; Values: Sum of Amount.</li>
+      <li>Result: a matrix of total sales per region per product — instantly.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Average grade per section)</span>
+    <p>Student data with Section, Gender, Marks. PivotTable: Rows = Section, Columns = Gender, Values = Average of Marks. Drag and the cross-tab of mean marks appears.</p>
+  </div>
+
+  <h2>5. PivotCharts</h2>
+  <p>A PivotChart is a chart linked to a PivotTable — when you slice or filter the PivotTable, the chart updates automatically.</p>
+  <ol>
+    <li>Click inside the PivotTable.</li>
+    <li>PivotTable Analyze tab → PivotChart → choose chart type.</li>
+    <li>Resize and format like any chart.</li>
+    <li>Use Slicers to filter both table and chart together.</li>
+  </ol>
+
+  <h2>Best Practices for Visualization</h2>
+  <ul>
+    <li>Keep colours <strong>consistent</strong> — same colour for same category across charts.</li>
+    <li>Use <strong>data-ink</strong> sparingly — remove unnecessary gridlines, 3-D effects, shadows.</li>
+    <li>Sort bars / pie slices in <strong>descending</strong> order of magnitude.</li>
+    <li>Start a bar/column axis at <strong>zero</strong> — never truncate to exaggerate differences.</li>
+    <li>Provide a clear title and axis labels with units.</li>
+    <li>For more than 6 categories, use a bar/column chart instead of a pie.</li>
+  </ul>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>Excel offers many chart types — choose based on what the data communicates.</li>
+    <li>COUNT family counts values; COUNTIFS handles multi-condition tallies.</li>
+    <li>FREQUENCY array formula builds grouped frequency tables.</li>
+    <li>PivotTables let you summarise huge datasets quickly with drag-and-drop.</li>
+    <li>PivotCharts &amp; Slicers make interactive dashboards possible.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit1_statistical data analysis using ms excel.html">← Previous: Unit 1</a>
+    <a href="unit3_statistical data analysis using ms excel.html">Next: Unit 3 — Descriptive Stats →</a>
+  </div>
+
+  <footer>Unit 2 — Data Visualization &amp; Frequency Analysis</footer>
+</div>
+</body>
+</html>

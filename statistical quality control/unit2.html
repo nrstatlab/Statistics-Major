@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 — Control Charts for Variables | Statistical Quality Control</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index.html">Home</a> &raquo; Unit 2</div>
+    <h1>Unit 2 — Control Charts for Variables</h1>
+    <p>Construction of \(\bar{X}\) and R charts; \(\bar{X}\) and S charts — with and without specified standards.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">\(\bar{X}\) Chart</span>
+    <span class="chip">R Chart</span>
+    <span class="chip">S Chart</span>
+    <span class="chip">Standards Specified</span>
+    <span class="chip">Standards Unspecified</span>
+    <span class="chip">Control Limits</span>
+    <span class="chip">Subgroup Size</span>
+  </div>
+
+  <!-- 1. WHAT ARE VARIABLE CHARTS? -->
+  <h2>1. What Are Variable Control Charts?</h2>
+
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A <strong>variable control chart</strong> monitors a quality characteristic that is measured on a
+    <em>continuous scale</em> — length, weight, temperature, hardness, voltage, etc. Because the data are
+    quantitative, we track both the <strong>central tendency</strong> (mean) and the <strong>dispersion</strong>
+    (range or standard deviation) of the process.</p>
+  </div>
+
+  <h3>Why Two Charts?</h3>
+  <p>Tracking only the mean is insufficient — a process could have the right average but excessive variability,
+  and vice versa. Hence variable charts are always used in <strong>pairs</strong>:</p>
+  <ul>
+    <li><strong>\(\bar{X}\) chart</strong> (or &#x03BC; chart) — monitors the process mean.</li>
+    <li><strong>R chart</strong> or <strong>S chart</strong> — monitors the process variability.</li>
+  </ul>
+
+  <!-- 2. PRELIMINARIES -->
+  <h2>2. Preliminaries: Rational Subgroups and Constants</h2>
+
+  <h3>2.1 Rational Subgroup</h3>
+  <p>Samples (subgroups) of size \(n\) are taken at regular intervals. A <strong>rational subgroup</strong>
+  is one in which the items within a subgroup are produced under <em>essentially the same conditions</em>
+  (same operator, same machine setting, same short time window). This maximises the chance of detecting
+  between-subgroup shifts.</p>
+
+  <h3>2.2 Control Chart Constants</h3>
+  <p>For a normal population with standard deviation \(\sigma\), the sampling distributions of \(\bar{X}\),
+  \(R\), and \(S\) are related to \(\sigma\) through well-known constants that depend only on the subgroup size \(n\):</p>
+
+  <table class="left">
+    <tr><th>\(n\)</th><th>\(A_2\)</th><th>\(D_3\)</th><th>\(D_4\)</th><th>\(A_3\)</th><th>\(B_3\)</th><th>\(B_4\)</th><th>\(d_2\)</th><th>\(c_4\)</th></tr>
+    <tr><td>2</td><td>1.880</td><td>0</td><td>3.267</td><td>2.659</td><td>0</td><td>3.267</td><td>1.128</td><td>0.7979</td></tr>
+    <tr><td>3</td><td>1.023</td><td>0</td><td>2.575</td><td>1.954</td><td>0</td><td>2.568</td><td>1.693</td><td>0.8862</td></tr>
+    <tr><td>4</td><td>0.729</td><td>0</td><td>2.282</td><td>1.628</td><td>0</td><td>2.266</td><td>2.059</td><td>0.9213</td></tr>
+    <tr><td>5</td><td>0.577</td><td>0</td><td>2.114</td><td>1.427</td><td>0</td><td>2.089</td><td>2.326</td><td>0.9400</td></tr>
+    <tr><td>6</td><td>0.483</td><td>0</td><td>2.004</td><td>1.287</td><td>0.030</td><td>1.970</td><td>2.534</td><td>0.9515</td></tr>
+    <tr><td>7</td><td>0.419</td><td>0.076</td><td>1.924</td><td>1.182</td><td>0.118</td><td>1.882</td><td>2.704</td><td>0.9594</td></tr>
+    <tr><td>8</td><td>0.373</td><td>0.136</td><td>1.864</td><td>1.099</td><td>0.185</td><td>1.815</td><td>2.847</td><td>0.9650</td></tr>
+    <tr><td>9</td><td>0.337</td><td>0.184</td><td>1.816</td><td>1.032</td><td>0.239</td><td>1.761</td><td>2.970</td><td>0.9693</td></tr>
+    <tr><td>10</td><td>0.308</td><td>0.223</td><td>1.777</td><td>0.975</td><td>0.284</td><td>1.716</td><td>3.078</td><td>0.9727</td></tr>
+  </table>
+
+  <!-- 3. X-BAR AND R CHARTS — STANDARDS UNSPECIFIED -->
+  <h2>3. \(\bar{X}\) and R Charts — Standards Unspecified</h2>
+
+  <div class="concept">
+    <span class="label">SCENARIO</span>
+    <p>When no prior standard values of \(\mu\) and \(\sigma\) are given, we estimate them from the sample data
+    (typically 20–25 subgroups of size \(n\)).</p>
+  </div>
+
+  <h3>3.1 Computing \(\bar{X}\) and R for Each Subgroup</h3>
+  <p>For subgroup \(j\) of size \(n\), compute:</p>
+  <div class="formula">
+    \[
+      \bar{X}_j = \frac{1}{n}\sum_{i=1}^{n} X_{ij}, \qquad R_j = X_{\max,j} - X_{\min,j}.
+    \]
+  </div>
+
+  <h3>3.2 Grand Mean and Average Range</h3>
+  <div class="formula">
+    \[
+      \bar{\bar{X}} = \frac{1}{k}\sum_{j=1}^{k} \bar{X}_j, \qquad \bar{R} = \frac{1}{k}\sum_{j=1}^{k} R_j,
+    \]
+    <p>where \(k\) is the number of subgroups.</p>
+  </div>
+
+  <h3>3.3 Control Limits for R Chart</h3>
+  <div class="formula">
+    \[
+      \text{UCL}_R = D_4\,\bar{R}, \qquad \text{CL}_R = \bar{R}, \qquad \text{LCL}_R = D_3\,\bar{R}.
+    \]
+  </div>
+  <p>Always construct the R chart <em>first</em> and verify it is in control before constructing the \(\bar{X}\) chart, because the \(\bar{X}\) chart limits depend on \(\bar{R}\).</p>
+
+  <h3>3.4 Control Limits for \(\bar{X}\) Chart</h3>
+  <div class="formula">
+    \[
+      \text{UCL}_{\bar{X}} = \bar{\bar{X}} + A_2\,\bar{R}, \qquad
+      \text{CL}_{\bar{X}} = \bar{\bar{X}}, \qquad
+      \text{LCL}_{\bar{X}} = \bar{\bar{X}} - A_2\,\bar{R}.
+    \]
+  </div>
+
+  <h3>3.5 Estimating Process \(\sigma\)</h3>
+  <div class="formula">
+    \[
+      \hat{\sigma} = \frac{\bar{R}}{d_2}.
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — \(\bar{X}\) and R chart (standards unspecified)</span>
+    <p>20 subgroups of size \(n = 5\) from a steel-rod cutting process. Summary: \(\bar{\bar{X}} = 48.02\) mm,
+    \(\bar{R} = 3.84\) mm.</p>
+    <p>For \(n = 5\): \(A_2 = 0.577\), \(D_3 = 0\), \(D_4 = 2.114\).</p>
+    <p><strong>R chart:</strong> UCL = 2.114 × 3.84 = 8.12 mm; CL = 3.84; LCL = 0.</p>
+    <p><strong>\(\bar{X}\) chart:</strong> UCL = 48.02 + 0.577 × 3.84 = 48.02 + 2.22 = 50.24 mm;
+    CL = 48.02; LCL = 48.02 − 2.22 = 45.80 mm.</p>
+    <p>Process estimate: \(\hat{\sigma} = 3.84/2.326 = 1.651\) mm.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Out-of-control detection</span>
+    <p>Continuing the same data, subgroup 14 has \(\bar{X}_{14} = 51.30\) mm and \(R_{14} = 9.50\) mm.</p>
+    <p>The range \(R_{14} = 9.50\) exceeds UCL\(_R\) = 8.12 → R chart flags an out-of-control signal.
+    The mean \(\bar{X}_{14} = 51.30\) exceeds UCL\(_{\bar{X}}\) = 50.24 → \(\bar{X}\) chart also flags.
+    Investigate: the cutting tool was replaced at subgroup 14, causing both a shift in mean and increased variability
+    until the new tool settled in.</p>
+  </div>
+
+  <!-- 4. X-BAR AND R CHARTS — STANDARDS SPECIFIED -->
+  <h2>4. \(\bar{X}\) and R Charts — Standards Specified</h2>
+
+  <div class="concept">
+    <span class="label">SCENARIO</span>
+    <p>When the target (standard) values \(\mu_0\) and \(\sigma_0\) are specified by engineering design or historical
+    process capability, the control limits are computed directly from these standards rather than from sample data.</p>
+  </div>
+
+  <h3>4.1 Control Limits for \(\bar{X}\) Chart (Standards Given)</h3>
+  <div class="formula">
+    \[
+      \text{UCL}_{\bar{X}} = \mu_0 + \frac{3\sigma_0}{\sqrt{n}}, \qquad
+      \text{CL}_{\bar{X}} = \mu_0, \qquad
+      \text{LCL}_{\bar{X}} = \mu_0 - \frac{3\sigma_0}{\sqrt{n}}.
+    \]
+  </div>
+
+  <h3>4.2 Control Limits for R Chart (Standards Given)</h3>
+  <div class="formula">
+    \[
+      \text{UCL}_R = D_4\,d_2\,\sigma_0, \qquad
+      \text{CL}_R = d_2\,\sigma_0, \qquad
+      \text{LCL}_R = D_3\,d_2\,\sigma_0.
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — \(\bar{X}\) and R chart (standards specified)</span>
+    <p>Specified: \(\mu_0 = 50.00\) mm, \(\sigma_0 = 1.50\) mm, \(n = 5\).</p>
+    <p>\(d_2 = 2.326\), \(D_3 = 0\), \(D_4 = 2.114\).</p>
+    <p><strong>\(\bar{X}\) chart:</strong> UCL = 50 + 3(1.50)/\(\sqrt{5}\) = 50 + 2.012 = 52.01; CL = 50; LCL = 50 − 2.012 = 47.99.</p>
+    <p><strong>R chart:</strong> CL = 2.326 × 1.50 = 3.489; UCL = 2.114 × 3.489 = 7.375; LCL = 0.</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Process shift detection with standards</span>
+    <p>Using the same standards, a subgroup of 5 measurements yields \(\bar{X} = 52.50\) mm. This exceeds
+    UCL = 52.01 mm, so the process mean has shifted upward from the target \(\mu_0 = 50\). Investigation reveals
+    a new operator (Man) set the machine at a higher offset.</p>
+  </div>
+
+  <!-- 5. X-BAR AND S CHARTS -->
+  <h2>5. \(\bar{X}\) and S Charts</h2>
+
+  <div class="concept">
+    <span class="label">WHY USE S INSTEAD OF R?</span>
+    <p>For small subgroups (\(n \le 10\)), the range \(R\) is an efficient estimator of variability and is
+    easy to compute. For larger subgroups (\(n > 10\)), the standard deviation \(S\) is preferred because
+    it uses <em>all</em> the data and is more sensitive to individual outliers.</p>
+  </div>
+
+  <h3>5.1 Computing S for Each Subgroup</h3>
+  <div class="formula">
+    \[
+      S_j = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_{ij} - \bar{X}_j)^2}.
+    \]
+  </div>
+
+  <h3>5.2 \(\bar{X}\) and S Charts — Standards Unspecified</h3>
+  <p>Compute \(\bar{\bar{X}}\) and \(\bar{S} = \frac{1}{k}\sum_{j=1}^{k} S_j\).</p>
+  <div class="formula">
+    \[
+      \text{UCL}_{\bar{X}} = \bar{\bar{X}} + A_3\,\bar{S}, \qquad
+      \text{CL}_{\bar{X}} = \bar{\bar{X}}, \qquad
+      \text{LCL}_{\bar{X}} = \bar{\bar{X}} - A_3\,\bar{S}.
+    \]
+    \[
+      \text{UCL}_S = B_4\,\bar{S}, \qquad \text{CL}_S = \bar{S}, \qquad \text{LCL}_S = B_3\,\bar{S}.
+    \]
+  </div>
+
+  <p>Process \(\sigma\) estimate: \(\hat{\sigma} = \bar{S}/c_4\).</p>
+
+  <h3>5.3 \(\bar{X}\) and S Charts — Standards Specified</h3>
+  <div class="formula">
+    \[
+      \text{UCL}_{\bar{X}} = \mu_0 + \frac{3\sigma_0}{\sqrt{n}}, \qquad
+      \text{CL}_{\bar{X}} = \mu_0, \qquad
+      \text{LCL}_{\bar{X}} = \mu_0 - \frac{3\sigma_0}{\sqrt{n}}.
+    \]
+    \[
+      \text{UCL}_S = B_4\,c_4\,\sigma_0, \qquad
+      \text{CL}_S = c_4\,\sigma_0, \qquad
+      \text{LCL}_S = B_3\,c_4\,\sigma_0.
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — \(\bar{X}\) and S chart (standards unspecified)</span>
+    <p>25 subgroups of size \(n = 8\). \(\bar{\bar{X}} = 62.5\), \(\bar{S} = 2.40\).
+    For \(n = 8\): \(A_3 = 1.099\), \(B_3 = 0.185\), \(B_4 = 1.815\), \(c_4 = 0.9650\).</p>
+    <p><strong>S chart:</strong> UCL = 1.815 × 2.40 = 4.356; CL = 2.40; LCL = 0.185 × 2.40 = 0.444.</p>
+    <p><strong>\(\bar{X}\) chart:</strong> UCL = 62.5 + 1.099 × 2.40 = 62.5 + 2.638 = 65.138; CL = 62.5; LCL = 62.5 − 2.638 = 59.862.</p>
+    <p>\(\hat{\sigma} = 2.40/0.9650 = 2.487\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 2 — \(\bar{X}\) and S chart (standards specified)</span>
+    <p>Specified: \(\mu_0 = 200.0\) g, \(\sigma_0 = 3.0\) g, \(n = 9\). Constants: \(A_3 = 1.032\), \(B_3 = 0.239\), \(B_4 = 1.761\), \(c_4 = 0.9693\).</p>
+    <p><strong>\(\bar{X}\) chart:</strong> UCL = 200 + 3(3)/3 = 203.0; CL = 200; LCL = 197.0.</p>
+    <p><strong>S chart:</strong> CL = 0.9693 × 3.0 = 2.908; UCL = 1.761 × 2.908 = 5.121; LCL = 0.239 × 2.908 = 0.695.</p>
+  </div>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>Variable charts track continuous measurements; always use a <strong>pair</strong>: \(\bar{X}\) + R (or \(\bar{X}\) + S).</li>
+    <li><strong>R chart</strong> is simpler and adequate for \(n \le 10\); <strong>S chart</strong> is preferred for larger \(n\).</li>
+    <li><strong>Standards unspecified:</strong> limits use \(\bar{\bar{X}}\) and \(\bar{R}\) (or \(\bar{S}\)) estimated from data.</li>
+    <li><strong>Standards specified:</strong> limits use given \(\mu_0\) and \(\sigma_0\) directly.</li>
+    <li>Always check the variability chart (R or S) <em>first</em> before interpreting the \(\bar{X}\) chart.</li>
+    <li>Key constants: \(A_2, D_3, D_4\) for R charts; \(A_3, B_3, B_4\) for S charts; \(d_2, c_4\) for \(\sigma\) estimation.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit1.html">&#8592; Previous: Unit 1</a>
+    <a href="unit3.html">Next: Unit 3 — Control Charts for Attributes &#8594;</a>
+  </div>
+
+  <footer>Unit 2 — Control Charts for Variables</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 — Gamma &amp; Beta Distributions | Continuous Distributions</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theoretical continuous distributions.html">Home</a> &raquo; Unit 3</div>
+    <h1>Unit 3 — Gamma &amp; Beta Distributions</h1>
+    <p>Gamma — definition, moments, MGF, additive property, limiting form. Beta of first &amp; second kind — definition, mean, variance, harmonic mean.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">Gamma Function</span>
+    <span class="chip">Gamma Distribution</span>
+    <span class="chip">Additive Property</span>
+    <span class="chip">Limiting Form</span>
+    <span class="chip">Beta of First Kind</span>
+    <span class="chip">Beta of Second Kind</span>
+    <span class="chip">Harmonic Mean</span>
+  </div>
+
+  <!-- ============== GAMMA FUNCTION ============== -->
+  <h2>1. Preliminaries: Gamma Function</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>For \(\alpha &gt; 0\), the Gamma function is</p>
+    \[
+      \Gamma(\alpha) \;=\; \int_0^\infty x^{\alpha - 1} e^{-x}\,dx.
+    \]
+    <p>Properties:</p>
+    <ul>
+      <li>\(\Gamma(\alpha + 1) = \alpha\,\Gamma(\alpha)\) (recurrence).</li>
+      <li>\(\Gamma(n) = (n - 1)!\) for positive integer \(n\).</li>
+      <li>\(\Gamma(1/2) = \sqrt{\pi}\).</li>
+    </ul>
+  </div>
+
+  <!-- ============== GAMMA DISTRIBUTION ============== -->
+  <h2>2. Gamma Distribution</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A continuous r.v. \(X\) follows a <strong>Gamma distribution</strong> with parameters
+    \(\alpha &gt; 0\) (shape) and \(\lambda &gt; 0\) (rate) if its PDF is</p>
+    \[
+      f(x) \;=\; \dfrac{\lambda^\alpha}{\Gamma(\alpha)}\, x^{\alpha - 1}\, e^{-\lambda x}, \quad x \ge 0.
+    \]
+    <p>Notation: \(X \sim G(\alpha, \lambda)\). When \(\alpha = 1\), Gamma reduces to Exp\((\lambda)\).</p>
+  </div>
+
+  <h3>Moments &amp; MGF</h3>
+  <div class="formula">
+    <span class="label">MGF</span>
+    \[
+      M_X(t) \;=\; \left(\dfrac{\lambda}{\lambda - t}\right)^\alpha, \quad t &lt; \lambda.
+    \]
+  </div>
+  <div class="formula">
+    \[
+      E(X) = \dfrac{\alpha}{\lambda}, \qquad
+      \text{Var}(X) = \dfrac{\alpha}{\lambda^2}.
+    \]
+  </div>
+
+  <p>Higher raw moments: \(\mu'_r = \dfrac{\alpha(\alpha+1)\cdots(\alpha+r-1)}{\lambda^r} = \dfrac{\Gamma(\alpha+r)}{\lambda^r\, \Gamma(\alpha)}\).</p>
+
+  <h3>CF and CGF</h3>
+  <div class="formula">
+    \[
+      \phi_X(t) = \left(\dfrac{\lambda}{\lambda - it}\right)^{\alpha}, \qquad
+      K_X(t) = \alpha\bigl[\ln \lambda - \ln(\lambda - t)\bigr].
+    \]
+  </div>
+
+  <h3>Skewness and Kurtosis</h3>
+  <div class="formula">
+    \[
+      \gamma_1 = \dfrac{2}{\sqrt{\alpha}}, \qquad
+      \beta_2 = 3 + \dfrac{6}{\alpha}, \qquad
+      \gamma_2 = \dfrac{6}{\alpha}.
+    \]
+  </div>
+  <p>Always right-skewed and leptokurtic; both decrease as \(\alpha\) grows.</p>
+
+  <h3>Additive Property</h3>
+  <div class="formula">
+    <p>If \(X_1 \sim G(\alpha_1, \lambda)\) and \(X_2 \sim G(\alpha_2, \lambda)\) are independent <strong>(same \(\lambda\))</strong>, then</p>
+    \[
+      X_1 + X_2 \;\sim\; G(\alpha_1 + \alpha_2, \lambda).
+    \]
+  </div>
+  <p>Hence sum of \(n\) i.i.d. Exp\((\lambda)\) variables is \(G(n, \lambda)\).</p>
+
+  <figure class="figure">
+    <svg viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="170" x2="430" y2="170" stroke="#374151"/>
+      <line x1="40" y1="20"  x2="40"  y2="170" stroke="#374151"/>
+      <!-- α = 1 (=Exp): decreasing -->
+      <path d="M 40 30 Q 90 75 150 130 T 280 165 T 430 168" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+      <!-- α = 2: hump -->
+      <path d="M 40 170 Q 80 90 130 70 Q 200 110 280 150 Q 360 165 430 168" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+      <!-- α = 5: bell-like -->
+      <path d="M 40 170 Q 100 168 160 150 Q 220 80 260 70 Q 320 110 430 168" fill="none" stroke="#1e7fbf" stroke-width="2.5"/>
+      <text x="50" y="33" font-size="10" fill="#dc2626" font-weight="700">α=1 (Exponential)</text>
+      <text x="120" y="65" font-size="10" fill="#f59e0b" font-weight="700">α=2</text>
+      <text x="240" y="65" font-size="10" fill="#1e7fbf" font-weight="700">α=5</text>
+      <text x="38"  y="185" font-size="11" fill="#374151">0</text>
+      <text x="225" y="205" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">Gamma PDF for various shape α (λ=1)</text>
+    </svg>
+    <figcaption>Fig 3.1 — Larger α → more bell-like</figcaption>
+  </figure>
+
+  <h3>Limiting Form</h3>
+  <p>By CLT, for large \(\alpha\), the standardized Gamma converges to standard normal:</p>
+  <div class="formula">
+    \[
+      \dfrac{X - \alpha/\lambda}{\sqrt{\alpha}/\lambda} \;\xrightarrow{d}\; N(0, 1).
+    \]
+  </div>
+
+  <h3>Worked Examples</h3>
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>The waiting time for the third success in a Poisson process with rate \(\lambda = 2\) per hour
+    follows \(G(3, 2)\). Mean wait = 3/2 = 1.5 h; Variance = 3/4.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Probability)</span>
+    <p>For \(X \sim G(2, 1)\), find \(P(X &gt; 3)\).</p>
+    <p>\(f(x) = x e^{-x}\). \(P(X &gt; 3) = \int_3^\infty x e^{-x}\,dx = (3+1)e^{-3} = 4 e^{-3} \approx 0.1991\).</p>
+  </div>
+
+  <!-- ============== BETA FIRST KIND ============== -->
+  <h2>3. Beta Distribution of First Kind</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A continuous r.v. \(X\) follows a <strong>Beta distribution of the first kind</strong> with
+    parameters \(\alpha, \beta &gt; 0\) if its PDF is</p>
+    \[
+      f(x) \;=\; \dfrac{1}{B(\alpha, \beta)}\, x^{\alpha-1}\, (1-x)^{\beta-1}, \quad 0 \le x \le 1.
+    \]
+    <p>Where the <strong>Beta function</strong> \(B(\alpha, \beta) = \dfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}\).
+    Notation: \(X \sim \beta_1(\alpha, \beta)\).</p>
+  </div>
+
+  <h3>Mean, Variance &amp; Harmonic Mean</h3>
+  <div class="formula">
+    \[
+      E(X) = \dfrac{\alpha}{\alpha + \beta}, \qquad
+      \text{Var}(X) = \dfrac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
+    \]
+    \[
+      \text{HM} = \dfrac{\alpha - 1}{\alpha + \beta - 1}, \quad \alpha &gt; 1.
+    \]
+  </div>
+
+  <h3>Special cases</h3>
+  <ul>
+    <li>\(\alpha = \beta = 1\): Uniform(0,1).</li>
+    <li>\(\alpha = \beta\): symmetric about 0.5.</li>
+    <li>\(\alpha = \beta = 1/2\): Arcsine distribution.</li>
+  </ul>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>For \(\beta_1(2, 3)\): PDF \(f(x) = 12x(1-x)^2,\; 0 \le x \le 1\).<br>
+    Mean = 2/5 = 0.4; Variance = (2)(3)/(25 · 6) = 0.04; SD = 0.2.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Probability)</span>
+    <p>For \(\beta_1(2, 2)\): \(f(x) = 6x(1-x)\). \(P(X \le 0.5) = \int_0^{0.5} 6x(1-x)\,dx = 6[x^2/2 - x^3/3]_0^{0.5} = 6(0.125 - 0.0417) = 0.5\).</p>
+  </div>
+
+  <!-- ============== BETA SECOND KIND ============== -->
+  <h2>4. Beta Distribution of Second Kind</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A continuous r.v. \(Y\) follows a <strong>Beta distribution of the second kind</strong> with parameters
+    \(\alpha, \beta &gt; 0\) if its PDF is</p>
+    \[
+      f(y) \;=\; \dfrac{1}{B(\alpha, \beta)} \cdot \dfrac{y^{\alpha - 1}}{(1 + y)^{\alpha + \beta}}, \quad y \ge 0.
+    \]
+    <p>Notation: \(Y \sim \beta_2(\alpha, \beta)\). It can be obtained from Beta-I by the transformation \(Y = X/(1-X)\).</p>
+  </div>
+
+  <h3>Mean, Variance &amp; Harmonic Mean</h3>
+  <div class="formula">
+    \[
+      E(Y) = \dfrac{\alpha}{\beta - 1}, \quad \beta &gt; 1.
+    \]
+    \[
+      \text{Var}(Y) = \dfrac{\alpha(\alpha + \beta - 1)}{(\beta - 1)^2(\beta - 2)}, \quad \beta &gt; 2.
+    \]
+    \[
+      \text{HM} = \dfrac{\alpha - 1}{\beta}, \quad \alpha &gt; 1.
+    \]
+  </div>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>For \(\beta_2(2, 4)\): Mean \(= 2/3 \approx 0.667\); Variance \(= 2 \cdot 5 / (9 \cdot 2) = 0.556\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>For \(\beta_2(3, 5)\) — \(\alpha &gt; 1, \beta &gt; 2\): HM \(= 2/5 = 0.4\); Mean \(= 3/4 = 0.75\); Variance \(= 3 \cdot 7/(16 \cdot 3) = 0.4375\).</p>
+  </div>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>Gamma\((\alpha, \lambda)\): \(f(x) = \lambda^\alpha x^{\alpha-1} e^{-\lambda x}/\Gamma(\alpha)\); mean \(\alpha/\lambda\); var \(\alpha/\lambda^2\).</li>
+    <li>MGF \((\lambda/(\lambda-t))^\alpha\); additive over \(\alpha\) with same \(\lambda\); → Normal as \(\alpha\to\infty\).</li>
+    <li>Beta-I \((\alpha,\beta)\) on [0,1]: mean \(\alpha/(\alpha+\beta)\); HM \((\alpha-1)/(\alpha+\beta-1)\).</li>
+    <li>Beta-II on \([0,\infty)\): mean \(\alpha/(\beta-1)\); HM \((\alpha-1)/\beta\).</li>
+    <li>\(\alpha=\beta=1\) Beta-I = Uniform(0,1).</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit2_theoretical continuous distributions.html">← Previous: Unit 2</a>
+    <a href="unit4_theoretical continuous distributions.html">Next: Unit 4 — Normal →</a>
+  </div>
+
+  <footer>Unit 3 — Gamma &amp; Beta Distributions</footer>
+</div>
+</body>
+</html>

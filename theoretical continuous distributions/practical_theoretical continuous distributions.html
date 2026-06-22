@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 7 Experiments | Continuous Distributions</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theoretical continuous distributions.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 7 Experiments</h1>
+    <p>Semester II, Course 4 (Practical) — 2 hrs/week, Credit 1. Worked problems on continuous distributions.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>Calculation of moments of Uniform distribution.</li>
+    <li>Calculation of skewness and kurtosis of Uniform distribution.</li>
+    <li>Fitting of Exponential distribution.</li>
+    <li>Gamma distribution application-oriented problems.</li>
+    <li>Fitting of Normal distribution — Areas method.</li>
+    <li>Fitting of Normal distribution — Ordinates method.</li>
+    <li>Problems related to Standard Normal distribution.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — Moments of Uniform Distribution</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>For \(X \sim U(2, 8)\), calculate first four central moments.</p>
+  </div>
+  <p><strong>Solution:</strong> \(a = 2,\; b = 8;\; b - a = 6;\; \mu = (a+b)/2 = 5\).</p>
+  <p>\(\mu_2 = (b-a)^2/12 = 36/12 = 3\) (variance).</p>
+  <p>\(\mu_3 = 0\) (symmetric).</p>
+  <p>\(\mu_4 = (b-a)^4/80 = 1296/80 = 16.2\).</p>
+  <p>SD \(= \sqrt{3} = 1.732\); \(M\!D = (b-a)/4 = 1.5\).</p>
+
+  <h3>Second problem</h3>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>If \(X \sim U(0, 10)\), find \(E(X^3)\).</p>
+  </div>
+  <p>\(E(X^3) = \int_0^{10} x^3/10\,dx = (10^4)/(40) = 250\).</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — Skewness &amp; Kurtosis of Uniform</h2>
+  <p>For any \(U(a, b)\):</p>
+  <p>\(\beta_1 = \mu_3^2/\mu_2^3 = 0\) — perfectly symmetric.</p>
+  <p>\(\beta_2 = \mu_4 / \mu_2^2 = 16.2/9 = 1.8\) — strongly platykurtic. \(\gamma_2 = -1.2\).</p>
+  <p>The result is independent of \(a, b\) — uniform always has the same shape.</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Fitting Exponential Distribution</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Time (in minutes) between successive arrivals at a bank counter, recorded for 100 inter-arrival
+    intervals:</p>
+    <table class="left">
+      <tr><th>Class (min)</th><td>0–2</td><td>2–4</td><td>4–6</td><td>6–8</td><td>8–10</td><td>10+</td></tr>
+      <tr><th>Frequency f</th><td>40</td><td>25</td><td>16</td><td>10</td><td>6</td><td>3</td></tr>
+    </table>
+    <p>Fit an Exponential distribution.</p>
+  </div>
+
+  <p><strong>Step 1 — Estimate \(\lambda\):</strong> Compute mid-point times.</p>
+  <p>Mid-points: 1, 3, 5, 7, 9, 11. \(\bar x = (40 + 75 + 80 + 70 + 54 + 33)/100 = 352/100 = 3.52\). So \(\hat \lambda = 1/3.52 = 0.284\).</p>
+
+  <p><strong>Step 2 — Theoretical probabilities:</strong>
+  \(P(a \le X &lt; b) = e^{-\lambda a} - e^{-\lambda b}\).</p>
+
+  <table class="left">
+    <tr><th>Class</th><th>Probability</th><th>Expected f = 100·P</th><th>Observed f</th></tr>
+    <tr><td>0–2</td><td>1 − e<sup>−0.568</sup> = 0.434</td><td>43.4</td><td>40</td></tr>
+    <tr><td>2–4</td><td>e<sup>−0.568</sup> − e<sup>−1.136</sup> = 0.245</td><td>24.5</td><td>25</td></tr>
+    <tr><td>4–6</td><td>e<sup>−1.136</sup> − e<sup>−1.704</sup> = 0.139</td><td>13.9</td><td>16</td></tr>
+    <tr><td>6–8</td><td>e<sup>−1.704</sup> − e<sup>−2.272</sup> = 0.079</td><td>7.9</td><td>10</td></tr>
+    <tr><td>8–10</td><td>e<sup>−2.272</sup> − e<sup>−2.840</sup> = 0.045</td><td>4.5</td><td>6</td></tr>
+    <tr><td>10+</td><td>e<sup>−2.840</sup> = 0.058</td><td>5.8</td><td>3</td></tr>
+  </table>
+  <p>Reasonable agreement; an Exponential model is acceptable.</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Gamma Distribution Applications</h2>
+
+  <div class="example">
+    <span class="label">PROBLEM 1</span>
+    <p>Let \(X \sim G(3, 2)\) (waiting time for the third call when calls arrive at rate 2/hour).
+    Find \(P(X \le 1)\) and \(E(X)\).</p>
+  </div>
+  <p>\(E(X) = 3/2 = 1.5\) hours; \(\text{Var}(X) = 3/4 = 0.75\).</p>
+  <p>\(f(x) = 4 x^2 e^{-2x};\quad P(X \le 1) = \int_0^1 4 x^2 e^{-2x}\,dx\).</p>
+  <p>Using integration by parts (or recurrence): \(P(X \le 1) = 1 - e^{-2}(1 + 2 + 2) = 1 - 5e^{-2} \approx 0.3233\).</p>
+
+  <div class="example">
+    <span class="label">PROBLEM 2</span>
+    <p>If \(X_1 \sim G(2, 1)\) and \(X_2 \sim G(3, 1)\) are independent, find the distribution of \(X_1 + X_2\).</p>
+  </div>
+  <p>By the additive property (same \(\lambda\)): \(X_1 + X_2 \sim G(5, 1)\). Mean = 5; Variance = 5.</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — Fitting Normal (Areas Method)</h2>
+
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Heights (cm) of 200 students:</p>
+    <table class="left">
+      <tr><th>Class</th><td>150–155</td><td>155–160</td><td>160–165</td><td>165–170</td><td>170–175</td><td>175–180</td></tr>
+      <tr><th>f</th><td>10</td><td>40</td><td>60</td><td>50</td><td>30</td><td>10</td></tr>
+    </table>
+    <p>Fit a Normal distribution by the <em>areas method</em>.</p>
+  </div>
+
+  <p><strong>Step 1 — Mean &amp; SD:</strong> Mid-points 152.5, 157.5, 162.5, 167.5, 172.5, 177.5.</p>
+  <p>\(\bar x = (1525+6300+9750+8375+5175+1775)/200 = 32 900/200 = 164.5\).</p>
+  <p>\(\sum f x^2 = ...\); after computation, sample SD \(s \approx 6.2\). Use \(\hat\mu = 164.5,\; \hat\sigma = 6.2\).</p>
+
+  <p><strong>Step 2 — Class boundary z-values:</strong> \(z = (x - 164.5)/6.2\).</p>
+  <table class="left">
+    <tr><th>Boundary</th><th>z</th><th>Φ(z)</th></tr>
+    <tr><td>150</td><td>−2.34</td><td>0.0096</td></tr>
+    <tr><td>155</td><td>−1.53</td><td>0.0630</td></tr>
+    <tr><td>160</td><td>−0.73</td><td>0.2327</td></tr>
+    <tr><td>165</td><td>0.08</td><td>0.5319</td></tr>
+    <tr><td>170</td><td>0.89</td><td>0.8133</td></tr>
+    <tr><td>175</td><td>1.69</td><td>0.9545</td></tr>
+    <tr><td>180</td><td>2.50</td><td>0.9938</td></tr>
+  </table>
+
+  <p><strong>Step 3 — Class probabilities and expected frequencies:</strong></p>
+  <table class="left">
+    <tr><th>Class</th><th>P(class)</th><th>Expected = 200·P</th><th>Observed</th></tr>
+    <tr><td>150–155</td><td>0.0534</td><td>10.7</td><td>10</td></tr>
+    <tr><td>155–160</td><td>0.1697</td><td>33.9</td><td>40</td></tr>
+    <tr><td>160–165</td><td>0.2992</td><td>59.8</td><td>60</td></tr>
+    <tr><td>165–170</td><td>0.2814</td><td>56.3</td><td>50</td></tr>
+    <tr><td>170–175</td><td>0.1412</td><td>28.2</td><td>30</td></tr>
+    <tr><td>175–180</td><td>0.0393</td><td>7.9</td><td>10</td></tr>
+  </table>
+  <p>Reasonable normal fit.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Fitting Normal (Ordinates Method)</h2>
+  <p>Use the same \(\hat \mu, \hat \sigma\) as in Experiment 5. Instead of computing class probabilities,
+  evaluate the ordinate \(\phi((x_i - \hat\mu)/\hat\sigma)\) at the mid-point of each class and approximate</p>
+  <div class="formula">
+    \[
+      \hat f_i \;\approx\; \dfrac{N \cdot h}{\hat \sigma} \cdot \phi\!\left(\dfrac{x_i - \hat \mu}{\hat \sigma}\right),
+    \]
+    <p>where \(h\) is class width and \(\phi(z) = \dfrac{1}{\sqrt{2\pi}}e^{-z^2/2}\) is the standard normal PDF.</p>
+  </div>
+
+  <p>For our data \(N = 200, h = 5, \hat\sigma = 6.2\); coefficient \(N h/\hat\sigma = 161.29\).</p>
+  <table class="left">
+    <tr><th>Mid x</th><th>z</th><th>φ(z)</th><th>Expected f = 161.29 · φ(z)</th></tr>
+    <tr><td>152.5</td><td>−1.94</td><td>0.0608</td><td>9.81</td></tr>
+    <tr><td>157.5</td><td>−1.13</td><td>0.2107</td><td>33.99</td></tr>
+    <tr><td>162.5</td><td>−0.32</td><td>0.3790</td><td>61.13</td></tr>
+    <tr><td>167.5</td><td>0.48</td><td>0.3555</td><td>57.34</td></tr>
+    <tr><td>172.5</td><td>1.29</td><td>0.1736</td><td>28.00</td></tr>
+    <tr><td>177.5</td><td>2.10</td><td>0.0440</td><td>7.10</td></tr>
+  </table>
+  <p>Very close to the areas method; both methods give similar conclusions.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — Standard Normal Problems</h2>
+
+  <div class="example">
+    <span class="label">PROBLEM 1</span>
+    <p>Marks of 1000 students follow \(N(60, 100)\). How many students score between 50 and 75?</p>
+  </div>
+  <p>\(z_1 = (50-60)/10 = -1;\; z_2 = (75-60)/10 = 1.5\).</p>
+  <p>\(P = \Phi(1.5) - \Phi(-1) = 0.9332 - 0.1587 = 0.7745\). Number = 0.7745 × 1000 = <strong>774</strong>.</p>
+
+  <div class="example">
+    <span class="label">PROBLEM 2</span>
+    <p>The IQ of a population follows \(N(100, 225)\). Find the IQ value that is exceeded by only 5 % of the population.</p>
+  </div>
+  <p>Need \(P(X &gt; x) = 0.05\), i.e., \(\Phi(z) = 0.95\) ⇒ \(z = 1.645\).</p>
+  <p>\(x = \mu + z\sigma = 100 + 1.645 \times 15 = 124.7\). So an IQ of about <strong>125</strong> marks the top 5 %.</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title</li>
+    <li>Aim / problem statement</li>
+    <li>Distribution and parameter estimates</li>
+    <li>Tabulated computations</li>
+    <li>Result with units</li>
+    <li>Conclusion / interpretation</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_theoretical continuous distributions.html">← Previous: Unit 5</a>
+    <a href="syllabus_theoretical continuous distributions.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 7 Experiments • Theoretical Continuous Distributions</footer>
+</div>
+</body>
+</html>

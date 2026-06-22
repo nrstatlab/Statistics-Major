@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course Lab Manual | Statistical Quality Control</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index.html">Home</a> &raquo; Practical Course</div>
+    <h1>Practical Course — Lab Manual</h1>
+    <p>B.Sc. Statistics (Honours) — Semester VI, Course 14 A Practical (1 Credit)</p>
+  </div>
+
+  <h2>Laboratory Framework &amp; Guidelines</h2>
+  <div class="tip">
+    <strong>Lab Requirements:</strong> This practical component demands 2 hours per week in the computer lab. Every student must personally perform the calculations, construct control charts, compute acceptance sampling metrics, and document their findings in a dedicated practical record book.
+  </div>
+
+  <h2>Prescribed List of Experiments</h2>
+  <p>The following 9 experiments map directly to the core curriculum and form the evaluation framework for the practical semester examinations:</p>
+
+  <h3>Phase 1: Variable Control Charts</h3>
+
+  <div class="concept">
+    <h4>Experiment 1: Construction of Mean and R Charts</h4>
+    <p><strong>Objective:</strong> Construct the \(\bar{X}\) and \(R\) control charts for a variable-quality characteristic when standards are unspecified.</p>
+    <p><strong>Methodology:</strong> Collect 20–25 subgroups of size \(n = 4\) or 5. Compute \(\bar{X}_j\) and \(R_j\) for each subgroup. Calculate \(\bar{\bar{X}}\) and \(\bar{R}\). Use constants \(A_2\), \(D_3\), \(D_4\) to set control limits. Plot both charts and interpret.</p>
+    <div class="formula">
+      \[
+        \text{UCL}_{\bar{X}} = \bar{\bar{X}} + A_2 \bar{R}, \quad \text{LCL}_{\bar{X}} = \bar{\bar{X}} - A_2 \bar{R}; \qquad
+        \text{UCL}_R = D_4 \bar{R}, \quad \text{LCL}_R = D_3 \bar{R}.
+      \]
+    </div>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 2: Construction of Mean and Standard Deviation Charts</h4>
+    <p><strong>Objective:</strong> Construct the \(\bar{X}\) and \(S\) control charts when standards are unspecified.</p>
+    <p><strong>Methodology:</strong> Compute \(S_j\) for each subgroup. Calculate \(\bar{S}\). Use constants \(A_3\), \(B_3\), \(B_4\) to establish control limits. Compare with the \(\bar{X}\)-R chart results from Experiment 1.</p>
+    <div class="formula">
+      \[
+        \text{UCL}_{\bar{X}} = \bar{\bar{X}} + A_3 \bar{S}, \quad \text{LCL}_{\bar{X}} = \bar{\bar{X}} - A_3 \bar{S}; \qquad
+        \text{UCL}_S = B_4 \bar{S}, \quad \text{LCL}_S = B_3 \bar{S}.
+      \]
+    </div>
+  </div>
+
+  <h3>Phase 2: Attribute Control Charts</h3>
+
+  <div class="concept">
+    <h4>Experiment 3: Construction of p Chart for Fixed Sample Size</h4>
+    <p><strong>Objective:</strong> Monitor the fraction defective when all subgroups have the same size \(n\).</p>
+    <p><strong>Methodology:</strong> Count defectives \(d_j\) in each subgroup. Compute \(\bar{p} = \sum d_j / (kn)\). Set 3-sigma limits:</p>
+    <div class="formula">
+      \[
+        \text{UCL}_p = \bar{p} + 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}, \qquad \text{LCL}_p = \bar{p} - 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n}}.
+      \]
+    </div>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 4: Construction of p Chart for Variable Sample Size</h4>
+    <p><strong>Objective:</strong> Monitor the fraction defective when subgroup sizes differ.</p>
+    <p><strong>Methodology:</strong> Compute separate limits for each subgroup using its own \(n_j\). Alternatively, use the average sample size \(\bar{n}\) for approximate limits and verify borderline points with exact limits.</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 5: Construction of np Chart</h4>
+    <p><strong>Objective:</strong> Monitor the number of defectives when subgroup size \(n\) is constant.</p>
+    <p><strong>Methodology:</strong> Plot \(d_j\) directly. Compute limits:</p>
+    <div class="formula">
+      \[
+        \text{UCL}_{np} = n\bar{p} + 3\sqrt{n\bar{p}(1-\bar{p})}, \qquad \text{LCL}_{np} = n\bar{p} - 3\sqrt{n\bar{p}(1-\bar{p})}.
+      \]
+    </div>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 6: Construction of c Chart</h4>
+    <p><strong>Objective:</strong> Monitor the number of defects per constant inspection unit.</p>
+    <p><strong>Methodology:</strong> Compute \(\bar{c}\) and set limits:</p>
+    <div class="formula">
+      \[
+        \text{UCL}_c = \bar{c} + 3\sqrt{\bar{c}}, \qquad \text{LCL}_c = \bar{c} - 3\sqrt{\bar{c}}.
+      \]
+    </div>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 7: Construction of u Chart</h4>
+    <p><strong>Objective:</strong> Monitor defects per unit when inspection-unit size varies.</p>
+    <p><strong>Methodology:</strong> Compute \(\bar{u}\) and set limits for each subgroup of size \(n_j\):</p>
+    <div class="formula">
+      \[
+        \text{UCL}_u = \bar{u} + 3\sqrt{\frac{\bar{u}}{n_j}}, \qquad \text{LCL}_u = \bar{u} - 3\sqrt{\frac{\bar{u}}{n_j}}.
+      \]
+    </div>
+  </div>
+
+  <h3>Phase 3: Acceptance Sampling</h3>
+
+  <div class="concept">
+    <h4>Experiment 8: Single Sampling Plan (OC Curve, Producer's and Consumer's Risks, AOQ, AOQL, ATI)</h4>
+    <p><strong>Objective:</strong> For a given single sampling plan \((n, c)\), construct the OC curve and compute AOQ, AOQL, and ATI.</p>
+    <p><strong>Methodology:</strong> Compute \(P_a\) for a range of \(p\) values using the Poisson approximation. Plot the OC curve. Compute AOQ = \(P_a \cdot p\) and identify AOQL. Compute ATI = \(n + (1-P_a)(N-n)\). Identify producer's risk at AQL and consumer's risk at LTPD.</p>
+  </div>
+
+  <div class="concept">
+    <h4>Experiment 9: Determination of Single Sampling Plan by (a) Lot Quality Approach and (b) Average Quality Approach</h4>
+    <p><strong>Objective:</strong> Design a single sampling plan that meets specified risk requirements.</p>
+    <p><strong>Methodology (a):</strong> Given AQL, \(\alpha\), LTPD, \(\beta\) — compute the ratio \(R = \text{LTPD}/\text{AQL}\) and determine \((n, c)\) from standard tables.</p>
+    <p><strong>Methodology (b):</strong> Given AOQL and lot size \(N\) — determine \((n, c)\) using Dodge–Romig-type constants \(y_c\).</p>
+  </div>
+
+  <div class="page-nav">
+    <a href="index.html">&#8592; Back to Home Hub</a>
+    <a href="syllabus.html">View Official Syllabus Outline &#8594;</a>
+  </div>
+
+  <footer>Course 14 A Practical Lab Companion Framework</footer>
+</div>
+</body>
+</html>

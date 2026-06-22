@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 — Normal Distribution | Continuous Distributions</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_theoretical continuous distributions.html">Home</a> &raquo; Unit 4</div>
+    <h1>Unit 4 — Normal Distribution</h1>
+    <p>Definition, properties, importance, MGF, CF, CGF, additive property, skewness &amp; kurtosis, mean = median = mode, even/odd moments, linear combinations, points of inflexion.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">PDF</span>
+    <span class="chip">Properties</span>
+    <span class="chip">MGF / CF / CGF</span>
+    <span class="chip">Mean = Median = Mode</span>
+    <span class="chip">Moments</span>
+    <span class="chip">Skewness &amp; Kurtosis</span>
+    <span class="chip">Additive Property</span>
+    <span class="chip">Linear Combination</span>
+    <span class="chip">Points of Inflexion</span>
+  </div>
+
+  <h2>1. Definition &amp; PDF</h2>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>A continuous r.v. \(X\) follows a <strong>Normal distribution</strong> with mean \(\mu\) and variance \(\sigma^2\)
+    if its PDF is</p>
+    \[
+      f(x) \;=\; \dfrac{1}{\sigma \sqrt{2\pi}}\, \exp\!\left[-\dfrac{(x - \mu)^2}{2 \sigma^2}\right],
+      \quad -\infty &lt; x &lt; \infty.
+    \]
+    <p>Notation: \(X \sim N(\mu, \sigma^2)\).</p>
+  </div>
+
+  <figure class="figure">
+    <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="200" x2="450" y2="200" stroke="#374151" stroke-width="1.5"/>
+      <path d="M 30 200 Q 80 200 130 198 Q 165 195 195 150 Q 225 60 240 60 Q 255 60 285 150 Q 315 195 350 198 Q 400 200 450 200" fill="#1e7fbf" opacity="0.25" stroke="#1e7fbf" stroke-width="2.5"/>
+      <!-- Inflexion points at x = 240 ± 35 (i.e., μ ± σ) -->
+      <circle cx="205" cy="125" r="4" fill="#dc2626"/>
+      <circle cx="275" cy="125" r="4" fill="#dc2626"/>
+      <line x1="205" y1="125" x2="205" y2="200" stroke="#dc2626" stroke-dasharray="3,3" stroke-width="1.2"/>
+      <line x1="275" y1="125" x2="275" y2="200" stroke="#dc2626" stroke-dasharray="3,3" stroke-width="1.2"/>
+      <line x1="240" y1="60" x2="240" y2="200" stroke="#374151" stroke-dasharray="3,3" stroke-width="1.2"/>
+      <text x="240" y="50" font-size="11" fill="#0f4c81" text-anchor="middle" font-weight="700">Mean = Median = Mode</text>
+      <text x="195" y="218" font-size="11" fill="#dc2626" text-anchor="middle">μ−σ</text>
+      <text x="240" y="218" font-size="11" fill="#374151" text-anchor="middle">μ</text>
+      <text x="285" y="218" font-size="11" fill="#dc2626" text-anchor="middle">μ+σ</text>
+      <text x="220" y="115" font-size="10" fill="#dc2626">inflexion</text>
+      <text x="280" y="115" font-size="10" fill="#dc2626">inflexion</text>
+      <text x="240" y="245" font-size="13" fill="#0f4c81" text-anchor="middle" font-weight="700">Normal Probability Curve</text>
+    </svg>
+    <figcaption>Fig 4.1 — Bell shape; symmetric; inflexion points at μ ± σ</figcaption>
+  </figure>
+
+  <h2>2. Properties of the Normal Curve</h2>
+  <ol>
+    <li><strong>Bell-shaped</strong> and symmetric about \(\mu\).</li>
+    <li>Mean = Median = Mode = \(\mu\).</li>
+    <li>The curve has its maximum at \(x = \mu\), value \(\dfrac{1}{\sigma \sqrt{2\pi}}\).</li>
+    <li>Asymptotic to the X-axis as \(|x - \mu| \to \infty\).</li>
+    <li>Total area under curve = 1.</li>
+    <li>Two <strong>points of inflexion</strong> at \(x = \mu \pm \sigma\) (where curvature changes).</li>
+    <li>About 68.27 % of area in \(\mu \pm \sigma\), 95.45 % in \(\mu \pm 2\sigma\), 99.73 % in \(\mu \pm 3\sigma\).</li>
+    <li>Quartile deviation = \(\dfrac{2}{3}\sigma\); Mean deviation = \(\dfrac{4}{5}\sigma\) (approximately).</li>
+  </ol>
+
+  <h2>3. Importance of the Normal Distribution</h2>
+  <ol>
+    <li>Many natural phenomena are approximately normal: heights, weights, IQ, errors of measurement.</li>
+    <li><strong>Central Limit Theorem</strong> — sums and averages tend to normal regardless of original distribution.</li>
+    <li>Limiting form of Binomial, Poisson, NB and Gamma for large parameters.</li>
+    <li>Basis of most parametric inference: \(z\)-tests, \(t\)-tests, regression, ANOVA, control charts.</li>
+    <li>Two-parameter family — only mean &amp; variance need to be specified.</li>
+  </ol>
+
+  <h2>4. MGF, CF, CGF</h2>
+  <div class="formula">
+    <span class="label">MGF</span>
+    \[
+      M_X(t) \;=\; \exp\!\left(\mu t + \dfrac{\sigma^2 t^2}{2}\right).
+    \]
+  </div>
+  <div class="formula">
+    \[
+      \phi_X(t) = \exp\!\left(i\mu t - \dfrac{\sigma^2 t^2}{2}\right), \qquad
+      K_X(t) = \mu t + \dfrac{\sigma^2 t^2}{2}.
+    \]
+  </div>
+  <p>From CGF, only \(k_1 = \mu\) and \(k_2 = \sigma^2\) are non-zero — all higher cumulants vanish.</p>
+
+  <h2>5. Mean = Median = Mode</h2>
+  <p>By symmetry of \(f\) about \(x = \mu\), the median and mode are also \(\mu\). At the mode, \(f'(\mu) = 0\) and \(f(\mu) = 1/(\sigma\sqrt{2\pi})\).</p>
+
+  <h2>6. Moments about the Mean</h2>
+  <div class="formula">
+    <span class="label">Even moments</span>
+    \[
+      \mu_{2r} \;=\; (2r - 1)(2r - 3) \cdots 3 \cdot 1 \cdot \sigma^{2r} \;=\; \dfrac{(2r)!}{2^r\, r!}\sigma^{2r}.
+    \]
+    <span class="label">Odd moments</span>
+    \[
+      \mu_{2r+1} \;=\; 0 \quad \text{for every } r \ge 0.
+    \]
+  </div>
+  <p>So \(\mu_2 = \sigma^2,\;\mu_4 = 3\sigma^4,\;\mu_6 = 15\sigma^6\), etc.</p>
+
+  <h2>7. Skewness and Kurtosis</h2>
+  <div class="formula">
+    \[
+      \beta_1 = 0, \qquad \beta_2 = \dfrac{\mu_4}{\mu_2^2} = \dfrac{3\sigma^4}{\sigma^4} = 3.
+    \]
+    \[
+      \gamma_1 = 0, \qquad \gamma_2 = 0.
+    \]
+  </div>
+  <p>Normal is the benchmark for symmetric, mesokurtic shape.</p>
+
+  <h2>8. Additive Property</h2>
+  <div class="formula">
+    <p>If \(X_1 \sim N(\mu_1, \sigma_1^2)\) and \(X_2 \sim N(\mu_2, \sigma_2^2)\) are independent, then</p>
+    \[
+      X_1 + X_2 \;\sim\; N(\mu_1 + \mu_2, \;\sigma_1^2 + \sigma_2^2).
+    \]
+  </div>
+
+  <p><strong>Proof:</strong> \(M_{X_1+X_2}(t) = e^{\mu_1 t + \sigma_1^2 t^2/2} \cdot e^{\mu_2 t + \sigma_2^2 t^2/2} = e^{(\mu_1+\mu_2)t + (\sigma_1^2 + \sigma_2^2)t^2/2}\).</p>
+
+  <h2>9. Linear Combination of Normal Variates</h2>
+  <div class="formula">
+    <p>If \(X_i \sim N(\mu_i, \sigma_i^2)\) are independent and \(a_1, \ldots, a_n\) are constants, then</p>
+    \[
+      Y \;=\; \sum a_i X_i \;\sim\; N\!\left(\sum a_i \mu_i,\; \sum a_i^2 \sigma_i^2\right).
+    \]
+  </div>
+
+  <h2>10. Points of Inflexion</h2>
+  <p>From \(f''(x) = 0\), the curvature of the normal PDF changes sign at</p>
+  <div class="formula">
+    \[
+      x \;=\; \mu \pm \sigma.
+    \]
+  </div>
+  <p>The curve is concave between \(\mu - \sigma\) and \(\mu + \sigma\), and convex outside.</p>
+
+  <h2>11. Worked Examples</h2>
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Probability via standardization)</span>
+    <p>The marks of 1000 students follow \(N(60, 100)\). Find percentage of students scoring (i) above 75, (ii) between 50 and 70.</p>
+    <p>(i) \(z = (75 - 60)/10 = 1.5;\;\) \(P(Z &gt; 1.5) = 0.0668\) ≈ 6.68 %.</p>
+    <p>(ii) \(z_1 = -1, z_2 = 1;\;\) \(P(-1 &lt; Z &lt; 1) = 0.6827\) ≈ 68.27 %.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Linear combination)</span>
+    <p>Heights of men \(\sim N(170, 36)\) and of women \(\sim N(160, 25)\). Find distribution of the difference (man − woman) of one randomly chosen pair.</p>
+    <p>Difference \(\sim N(170 - 160, 36 + 25) = N(10, 61)\). SD \(= \sqrt{61} \approx 7.81\).</p>
+  </div>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li>Normal PDF has a bell shape, fully described by \(\mu\) and \(\sigma^2\).</li>
+    <li>MGF \(= e^{\mu t + \sigma^2 t^2/2}\); higher cumulants are zero.</li>
+    <li>Mean = Median = Mode; symmetric (\(\beta_1 = 0\)); mesokurtic (\(\beta_2 = 3\)).</li>
+    <li>Even moments \((2r-1)!!\,\sigma^{2r}\); odd moments zero.</li>
+    <li>Linear combination of independent normals is normal.</li>
+    <li>Points of inflexion at \(\mu \pm \sigma\); 68–95–99.7 rule for areas.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit3_theoretical continuous distributions.html">← Previous: Unit 3</a>
+    <a href="unit5_theoretical continuous distributions.html">Next: Unit 5 — Standard Normal &amp; Sampling →</a>
+  </div>
+
+  <footer>Unit 4 — Normal Distribution</footer>
+</div>
+</body>
+</html>
