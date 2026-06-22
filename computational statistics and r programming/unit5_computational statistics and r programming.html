@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 — Regression Modeling in R | R Programming</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_computational statistics and r programming.html">Home</a> &raquo; Unit 5</div>
+    <h1>Unit 5 — Regression Modeling in R</h1>
+    <p>Karl Pearson and Spearman rank correlation; simple linear regression via <code>lm()</code> — fitting, diagnostics, prediction.</p>
+  </div>
+
+  <h2>Topics Covered</h2>
+  <div class="chips">
+    <span class="chip">cor()</span>
+    <span class="chip">Pearson r</span>
+    <span class="chip">Spearman ρ</span>
+    <span class="chip">cor.test()</span>
+    <span class="chip">lm()</span>
+    <span class="chip">summary(lm)</span>
+    <span class="chip">predict()</span>
+    <span class="chip">Residual Diagnostics</span>
+  </div>
+
+  <!-- 1. CORRELATION -->
+  <h2>1. Correlation Analysis</h2>
+
+  <h3>1.1 Karl Pearson Correlation Coefficient</h3>
+  <p>Measures the strength of <strong>linear</strong> association between two numeric variables; range −1 to +1.</p>
+
+  <pre><code># Sample data
+hours &lt;- c(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+marks &lt;- c(50, 55, 62, 66, 72, 75, 80, 85, 90, 95)
+
+cor(hours, marks)                          # Pearson (default)
+# [1] 0.9991
+
+# Same explicitly
+cor(hours, marks, method = "pearson")</code></pre>
+
+  <h3>1.2 Spearman Rank Correlation</h3>
+  <p>Non-parametric; based on ranks; captures any <strong>monotonic</strong> relationship (linear or not). Robust to outliers.</p>
+
+  <pre><code>cor(hours, marks, method = "spearman")
+# [1] 1.000  (perfect monotone increase here)</code></pre>
+
+  <h3>1.3 Significance Test — <code>cor.test()</code></h3>
+  <pre><code>cor.test(hours, marks)
+# Returns: t-statistic, df, p-value, 95 % CI, sample estimate
+
+cor.test(hours, marks, method = "spearman")</code></pre>
+
+  <div class="out">	Pearson's product-moment correlation
+
+data:  hours and marks
+t = 67.91, df = 8, p-value = 1.3e-11
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9963  0.9998
+sample estimates:
+       cor: 0.9991</div>
+
+  <h3>1.4 Correlation Matrix for Multiple Variables</h3>
+  <pre><code>data(iris)
+round(cor(iris[, 1:4]), 3)
+#              Sepal.Length Sepal.Width Petal.Length Petal.Width
+# Sepal.Length        1.000      -0.118        0.872       0.818
+# Sepal.Width        -0.118       1.000       -0.428      -0.366
+# Petal.Length        0.872      -0.428        1.000       0.963
+# Petal.Width         0.818      -0.366        0.963       1.000
+
+# Visualise it
+# install.packages("corrplot")
+library(corrplot)
+corrplot(cor(iris[, 1:4]), method = "color",
+         addCoef.col = "black", tl.col = "black")</code></pre>
+
+  <h3>1.5 Karl Pearson Coefficient from Scratch</h3>
+  <pre><code>n &lt;- length(hours)
+num &lt;- n * sum(hours * marks) - sum(hours) * sum(marks)
+den &lt;- sqrt((n * sum(hours^2) - sum(hours)^2) *
+            (n * sum(marks^2) - sum(marks)^2))
+num / den                                  # equals cor(hours, marks)</code></pre>
+
+  <h3>1.6 Spearman from Scratch (using ranks)</h3>
+  <pre><code>rx &lt;- rank(hours)
+ry &lt;- rank(marks)
+cor(rx, ry)                                # equals Spearman ρ
+1 - 6 * sum((rx - ry)^2) / (n * (n^2 - 1))  # classical formula</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — Pearson r and its CI</span>
+    <pre><code>cor.test(iris$Sepal.Length, iris$Petal.Length)
+# t = 21.65, p &lt; 2.2e-16,  r = 0.872, 95 % CI (0.827, 0.906)</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Spearman with tied ranks</span>
+    <pre><code>x &lt;- c(80, 85, 85, 70, 90)        # tie at 85
+y &lt;- c(70, 80, 90, 60, 95)
+cor(x, y, method = "spearman")    # 0.975
+cor.test(x, y, method = "spearman")</code></pre>
+  </div>
+
+  <!-- 2. SIMPLE LINEAR REGRESSION -->
+  <h2>2. Simple Linear Regression with <code>lm()</code></h2>
+
+  <h3>2.1 Fitting the Model</h3>
+  <pre><code>fit &lt;- lm(marks ~ hours)             # formula: Y ~ X
+fit                                  # short print: coefficients only</code></pre>
+  <div class="out">Call:
+lm(formula = marks ~ hours)
+
+Coefficients:
+(Intercept)        hours
+     40.78         5.05</code></div>
+
+  <p>Fitted line: \(\hat Y = 40.78 + 5.05\, X\).</p>
+
+  <h3>2.2 Full Summary</h3>
+  <pre><code>summary(fit)</code></pre>
+  <div class="out">Call:
+lm(formula = marks ~ hours)
+
+Residuals:
+   Min     1Q Median     3Q    Max
+-1.097 -0.330  0.061  0.391  0.879
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  40.7818     0.4724   86.32  &lt;2e-16 ***
+hours         5.0545     0.0744   67.91  &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.679 on 8 degrees of freedom
+Multiple R-squared:  0.998,	Adjusted R-squared:  0.998
+F-statistic: 4612 on 1 and 8 DF,  p-value: 1.34e-11</div>
+
+  <ul>
+    <li><strong>Estimate</strong> — coefficient values.</li>
+    <li><strong>Std. Error</strong> — standard error of each coefficient.</li>
+    <li><strong>t value</strong> — Estimate / Std. Error.</li>
+    <li><strong>Pr(&gt;|t|)</strong> — p-value testing H₀: coefficient = 0.</li>
+    <li><strong>R-squared</strong> — proportion of variation explained.</li>
+    <li><strong>F-statistic</strong> — overall model significance.</li>
+  </ul>
+
+  <h3>2.3 Extracting Components</h3>
+  <pre><code>coef(fit)             # coefficients
+fitted(fit)           # predicted Y for the training data
+resid(fit)            # residuals
+fit$model             # data used
+confint(fit)          # 95 % CIs for coefficients
+anova(fit)            # ANOVA table
+
+# Specific bits
+summary(fit)$r.squared     # 0.998
+summary(fit)$sigma         # residual SE
+deviance(fit)              # SSE (sum of squared residuals)
+AIC(fit); BIC(fit)         # information criteria</code></pre>
+
+  <h3>2.4 Plotting the Regression Line</h3>
+  <pre><code>plot(hours, marks, pch = 19, col = "navy",
+     main = "Marks vs Study Hours",
+     xlab = "Hours", ylab = "Marks")
+abline(fit, col = "red", lwd = 2)
+text(3, 90, paste0("R² = ", round(summary(fit)$r.squared, 3)),
+     pos = 4, col = "darkred")</code></pre>
+
+  <h3>2.5 Prediction</h3>
+  <pre><code># Predict for new X
+newx &lt;- data.frame(hours = c(5, 7.5, 12))
+predict(fit, newx)                           # point estimates
+predict(fit, newx, interval = "confidence")  # CI for mean response
+predict(fit, newx, interval = "prediction")  # CI for individual response</code></pre>
+
+  <div class="out">     fit    lwr    upr
+1  66.05  65.36  66.74
+2  78.69  77.86  79.51
+3  101.43 99.86 103.00</code></div>
+
+  <p>Always be cautious extrapolating outside the observed range of X.</p>
+
+  <!-- 3. MULTIPLE LINEAR REGRESSION -->
+  <h2>3. Multiple Linear Regression (preview)</h2>
+  <pre><code>data(mtcars)
+fit2 &lt;- lm(mpg ~ wt + hp + cyl, data = mtcars)
+summary(fit2)</code></pre>
+
+  <p>Just add predictors with <code>+</code>. Use <code>*</code> for interactions; <code>poly(x, 2)</code> for polynomial terms.</p>
+
+  <pre><code>lm(mpg ~ wt + I(wt^2), data = mtcars)        # quadratic in wt
+lm(mpg ~ wt * hp, data = mtcars)             # main effects + wt:hp interaction</code></pre>
+
+  <!-- 4. DIAGNOSTICS -->
+  <h2>4. Residual Diagnostics</h2>
+  <pre><code>par(mfrow = c(2, 2))
+plot(fit)
+par(mfrow = c(1, 1))</code></pre>
+
+  <p>Four standard panels (recall Unit 3):</p>
+  <ol>
+    <li><strong>Residuals vs Fitted</strong> — linearity / homoscedasticity.</li>
+    <li><strong>Normal Q-Q</strong> — normality of residuals.</li>
+    <li><strong>Scale–Location</strong> — checks equal variance.</li>
+    <li><strong>Residuals vs Leverage</strong> — influential observations (Cook's distance).</li>
+  </ol>
+
+  <h3>Formal Checks</h3>
+  <pre><code>shapiro.test(resid(fit))             # Normality
+# install.packages("car")
+library(car)
+ncvTest(fit)                         # Heteroscedasticity
+durbinWatsonTest(fit)                # Auto-correlation of residuals
+vif(fit2)                            # Multicollinearity (multiple regression)</code></pre>
+
+  <h3>Cook's Distance — Influential Points</h3>
+  <pre><code>cooks &lt;- cooks.distance(fit2)
+plot(cooks, type = "h", main = "Cook's Distance", ylab = "")
+abline(h = 4 / nrow(mtcars), col = "red", lty = 2)
+# Rule of thumb: distance &gt; 4/n is suspect</code></pre>
+
+  <!-- 5. RANK REGRESSION -->
+  <h2>5. Comparing Pearson vs Spearman Visually</h2>
+  <pre><code># Generate non-linear monotone data
+x &lt;- 1:50
+y &lt;- exp(x/15) + rnorm(50, 0, 5)
+
+cor(x, y)                                 # Pearson — weaker (linear only)
+cor(x, y, method = "spearman")            # Spearman — closer to 1
+
+plot(x, y, pch = 19, col = "navy",
+     main = "Pearson sees the noise, Spearman sees the order")
+abline(lm(y ~ x), col = "red", lwd = 2)   # poor linear fit
+lines(x, exp(x/15), col = "darkgreen", lwd = 2, lty = 2)  # true curve</code></pre>
+
+  <!-- 6. WORKFLOW -->
+  <h2>6. Standard Regression Workflow</h2>
+  <ol>
+    <li><strong>Explore</strong> the data: <code>summary()</code>, <code>cor()</code>, scatter plots.</li>
+    <li><strong>Fit</strong> the model with <code>lm()</code>.</li>
+    <li><strong>Examine</strong> <code>summary()</code> — coefficient p-values, R², overall F.</li>
+    <li><strong>Diagnose</strong> residuals with <code>plot(fit)</code>.</li>
+    <li><strong>Refine</strong> — drop non-significant predictors, transform variables (<code>log()</code>, <code>sqrt()</code>), add interactions or polynomial terms.</li>
+    <li><strong>Validate</strong> — predict on held-out data; compute RMSE / MAE.</li>
+    <li><strong>Report</strong> — equation, R², residual SE, key p-values, plot the line + CI.</li>
+  </ol>
+
+  <pre><code># Train-test split &amp; RMSE
+set.seed(1)
+idx   &lt;- sample(seq_len(nrow(mtcars)), 0.7 * nrow(mtcars))
+train &lt;- mtcars[idx, ]
+test  &lt;- mtcars[-idx, ]
+
+fit &lt;- lm(mpg ~ wt + hp, data = train)
+pred &lt;- predict(fit, newdata = test)
+rmse &lt;- sqrt(mean((test$mpg - pred)^2))
+rmse</code></pre>
+
+  <div class="example">
+    <span class="label">EXAMPLE 1 — End-to-end on cars</span>
+    <pre><code>fit &lt;- lm(mpg ~ wt, data = mtcars)
+summary(fit)
+plot(mtcars$wt, mtcars$mpg, pch = 19, col = "darkblue",
+     main = "MPG vs Weight (mtcars)")
+abline(fit, col = "red", lwd = 2)
+
+new &lt;- data.frame(wt = c(2.5, 3.5))
+predict(fit, new, interval = "prediction")  # predict MPG for new weights</code></pre>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 — Polynomial regression</span>
+    <pre><code>x &lt;- 1:50
+y &lt;- 0.5 * x^2 + 3 * x + rnorm(50, 0, 20)
+
+fit_lin  &lt;- lm(y ~ x)
+fit_quad &lt;- lm(y ~ poly(x, 2))
+summary(fit_lin)$adj.r.squared       # lower
+summary(fit_quad)$adj.r.squared      # higher
+
+plot(x, y, pch = 19, col = "navy")
+abline(fit_lin, col = "red", lwd = 2)
+lines(x, predict(fit_quad), col = "green", lwd = 2)
+legend("topleft", c("Linear","Quadratic"),
+       col = c("red","green"), lty = 1, lwd = 2, bty = "n")</code></pre>
+  </div>
+
+  <h2>7. Useful Helper Functions</h2>
+  <table class="left">
+    <tr><th>Function</th><th>Use</th></tr>
+    <tr><td><code>coef(fit)</code></td><td>Coefficients</td></tr>
+    <tr><td><code>fitted(fit)</code></td><td>Predicted values</td></tr>
+    <tr><td><code>resid(fit)</code></td><td>Residuals</td></tr>
+    <tr><td><code>summary(fit)</code></td><td>Full summary</td></tr>
+    <tr><td><code>anova(fit)</code></td><td>ANOVA decomposition</td></tr>
+    <tr><td><code>confint(fit)</code></td><td>95 % CIs for coefficients</td></tr>
+    <tr><td><code>predict(fit, new, interval)</code></td><td>Prediction with CI</td></tr>
+    <tr><td><code>plot(fit)</code></td><td>4 diagnostic plots</td></tr>
+    <tr><td><code>step(fit)</code></td><td>Stepwise variable selection (AIC)</td></tr>
+    <tr><td><code>update(fit, . ~ . - x)</code></td><td>Drop a term from a fitted model</td></tr>
+  </table>
+
+  <h2>Key Take-aways</h2>
+  <ul>
+    <li><code>cor()</code> for correlation; default Pearson; use <code>method = "spearman"</code> for rank.</li>
+    <li><code>cor.test()</code> tests H₀: ρ = 0 and gives a CI.</li>
+    <li><code>lm(y ~ x)</code> fits a linear model; <code>summary()</code> reports coefficients, R², F-test.</li>
+    <li><code>predict()</code> with <code>interval = "confidence"</code> or <code>"prediction"</code>.</li>
+    <li><code>plot(fit)</code> gives four standard residual diagnostics.</li>
+    <li>Spearman is robust to non-linearity and outliers; use when linearity / normality fail.</li>
+  </ul>
+
+  <div class="page-nav">
+    <a href="unit4_computational statistics and r programming.html">← Previous: Unit 4</a>
+    <a href="practical_computational statistics and r programming.html">Next: Practical Course →</a>
+  </div>
+
+  <footer>Unit 5 — Regression Modeling in R</footer>
+</div>
+</body>
+</html>

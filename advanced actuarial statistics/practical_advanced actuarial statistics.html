@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course | Advanced Actuarial Statistics</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_advanced actuarial statistics.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 10 Experiments</h1>
+    <p>Hands-on actuarial computations using life-table data, force-of-mortality functions and recursion.</p>
+  </div>
+
+  <h2>Notation Used Throughout</h2>
+  <table class="left">
+    <tr><th>Symbol</th><th>Meaning</th></tr>
+    <tr><td>\(l_x\)</td><td>Number of lives age \(x\) per starting cohort (radix usually 10,000 or 100,000).</td></tr>
+    <tr><td>\(q_x\)</td><td>\((l_x - l_{x+1})/l_x\); probability of dying in year of age \(x\).</td></tr>
+    <tr><td>\(p_x\)</td><td>\(1 - q_x\); probability of surviving from \(x\) to \(x+1\).</td></tr>
+    <tr><td>\(i, v, \delta\)</td><td>Effective annual rate, discount factor \(v = 1/(1+i)\), force of interest \(\delta = \ln(1+i)\).</td></tr>
+  </table>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1: Fitting Gompertz's Law</h2>
+
+  <div class="concept">
+    <span class="label">OBJECTIVE</span>
+    <p>Estimate the Gompertz parameters \(B, c\) from a set of empirical \(\mu_x\) values.</p>
+  </div>
+
+  <h3>Data &amp; Procedure</h3>
+  <ol>
+    <li>Take \(\mu_x\) at three or four ages (say \(x = 40, 50, 60, 70\)).</li>
+    <li>Linearise: \(\ln\mu_x = \ln B + x \ln c\). Plot \(\ln\mu_x\) versus \(x\).</li>
+    <li>Slope of the line = \(\ln c\); intercept = \(\ln B\).</li>
+  </ol>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>Data: \(\mu_{40} = 0.003\), \(\mu_{50} = 0.008\), \(\mu_{60} = 0.020\), \(\mu_{70} = 0.052\).</p>
+    <p>\(\ln\mu_x\): -5.809, -4.828, -3.912, -2.957. Differences ≈ +0.95 per 10-year jump, so
+    \(\ln c \approx 0.095\), giving \(c = e^{0.095} = 1.0997 \approx 1.10\).</p>
+    <p>\(\ln B = \ln\mu_{40} - 40\ln c = -5.809 - 40 \times 0.095 = -9.609\), so \(B = e^{-9.609} = 0.0000671\).</p>
+    <p>Gompertz fit: \(\mu_x \approx 0.0000671 \times 1.10^x\).</p>
+  </div>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2: Construction of a Life Table from \(q_x\)</h2>
+
+  <ol>
+    <li>Start with a radix, e.g. \(l_0 = 10{,}000\).</li>
+    <li>Apply \(l_{x+1} = l_x \cdot (1 - q_x)\) recursively.</li>
+    <li>Tabulate \(l_x\) and \(d_x = l_x - l_{x+1}\) for the ages required.</li>
+  </ol>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>\(q_{30} = 0.002, q_{31} = 0.0022, q_{32} = 0.0024\); \(l_{30} = 9700\).</p>
+    <p>\(l_{31} = 9700 \times 0.998 = 9680.6\); \(l_{32} = 9680.6 \times 0.9978 = 9659.3\);
+    \(l_{33} = 9659.3 \times 0.9976 = 9636.1\).</p>
+    <p>Deaths: \(d_{30} = 19.4, d_{31} = 21.3, d_{32} = 23.2\).</p>
+  </div>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3: Computation of \(A_x\) by Recursion</h2>
+
+  <p>Use \(A_x = v\,q_x + v\,p_x\,A_{x+1}\), starting from an assumed limiting age \(\omega\) with
+  \(A_\omega = v\), and recurse downwards.</p>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>\(\omega = 100\), \(i = 0.05\), so \(v = 0.9524\). Take \(q_{97} = 0.40, q_{98} = 0.50, q_{99} = 0.60\).</p>
+    <p>\(A_{100} = 0.9524.\)</p>
+    <p>\(A_{99} = 0.9524 \times 0.60 + 0.9524 \times 0.40 \times 0.9524 = 0.5714 + 0.3629 = 0.9343.\)</p>
+    <p>\(A_{98} = 0.9524 \times 0.50 + 0.9524 \times 0.50 \times 0.9343 = 0.4762 + 0.4450 = 0.9212.\)</p>
+    <p>\(A_{97} = 0.9524 \times 0.40 + 0.9524 \times 0.60 \times 0.9212 = 0.3810 + 0.5265 = 0.9075.\)</p>
+  </div>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4: \(\bar A_x\) via the UDD Factor</h2>
+
+  <p>If \(A_x\) and \(i\) are known, compute \(\bar A_x = (i/\delta)\,A_x\).</p>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>\(A_{55} = 0.2750\), \(i = 0.06\); \(\delta = \ln 1.06 = 0.05827\); \(i/\delta = 1.02971\).</p>
+    <p>\(\bar A_{55} = 1.02971 \times 0.2750 = 0.28317.\)</p>
+  </div>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5: Computation of \(\ddot a_x\)</h2>
+
+  <p>Use the identity \(\ddot a_x = (1 - A_x)/d\), where \(d = 1 - v\).</p>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>\(A_{55} = 0.2750, i = 0.06\); \(d = 0.06/1.06 = 0.05660\).</p>
+    <p>\(\ddot a_{55} = (1 - 0.2750)/0.05660 = 0.7250/0.05660 = 12.81.\)</p>
+    <p>\(a_{55} = \ddot a_{55} - 1 = 11.81\); \(\bar a_{55} \approx \ddot a_{55} - 0.5 = 12.31\).</p>
+  </div>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6: Net Annual Premium</h2>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>Whole-life on (55), discrete contract, sum assured ₹10 lakh. From Experiment 5: \(A_{55} = 0.2750\),
+    \(\ddot a_{55} = 12.81\).</p>
+    <p>\(P_{55} = 0.2750/12.81 = 0.02147\) per ₹1.</p>
+    <p>Annual premium = ₹10,00,000 × 0.02147 = ₹21,470.</p>
+  </div>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7: Reserve \({}_tV_x\) Computation</h2>
+
+  <p>Use \({}_tV_x = A_{x+t} - P_x \cdot \ddot a_{x+t}\).</p>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>From Experiment 6: \(P_{55} = 0.02147\). At duration 5: \(A_{60} = 0.3300, \ddot a_{60} = 11.83\).</p>
+    <p>\({}_5V_{55} = 0.3300 - 0.02147 \times 11.83 = 0.3300 - 0.2540 = 0.0760.\)</p>
+    <p>For a ₹10 lakh policy the duration-5 reserve is ₹76,000.</p>
+  </div>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8: Thiele's Recursion (Reserve build-up)</h2>
+
+  <p>Verify \({}_{t+1}V = [({}_tV + P)(1+i) - q_{x+t}\,b]/p_{x+t}\).</p>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>Whole-life on (55): \(P_{55} = 0.02147\), \(i = 0.06\), \(q_{55} = 0.008\), \(b = 1\), \({}_0V = 0\).</p>
+    <p>\((0 + 0.02147)(1.06) = 0.02276.\)</p>
+    <p>\(q_{55}\,b = 0.008.\)</p>
+    <p>\({}_1V = (0.02276 - 0.008)/0.992 = 0.01476/0.992 = 0.01488.\)</p>
+    <p>Iterate to build the entire reserve schedule year by year.</p>
+  </div>
+
+  <!-- EXP 9 -->
+  <h2>Experiment 9: Joint-Life and Last-Survivor APVs</h2>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>Couple (65, 60). Independent lives. \(A_{65} = 0.40, A_{60} = 0.28, A_{65:60} = 0.46\). Compute:</p>
+    <p>\(A_{\overline{65:60}} = A_{65} + A_{60} - A_{65:60} = 0.40 + 0.28 - 0.46 = 0.22\).</p>
+    <p>Reversionary annuity (pays widow only after husband dies): given \(\ddot a_{65:60} = 10.9\),
+    \(\ddot a_{60} = 14.8\), \(\ddot a_{65|60} = 14.8 - 10.9 = 3.9\).</p>
+  </div>
+
+  <!-- EXP 10 -->
+  <h2>Experiment 10: Gross-Premium Reserve with Expenses</h2>
+
+  <div class="example">
+    <span class="label">WORKED EXAMPLE</span>
+    <p>20-year endowment on (40), sum assured 1. Expense assumption: initial expense \(E_0 = 0.04\) (4% of SA),
+    renewal expense \(E_m = 0.005\) per year, premium-related expense \(e_p = 5\%\) of each premium.</p>
+    <p>From Unit 4: \(A_{40:\overline{20}|} = 0.336\), \(\ddot a_{40:\overline{20}|} = 11.45\), net premium
+    \(P = 0.02934\).</p>
+    <p>Gross premium \(G\):</p>
+    <p>\(G(1 - 0.05) \times 11.45 = 0.336 + 0.04 + 0.005 \times 11.45\)</p>
+    <p>\(G \times 10.8775 = 0.336 + 0.04 + 0.05725 = 0.43325\)</p>
+    <p>\(G = 0.43325/10.8775 = 0.03984.\)</p>
+    <p>So the gross premium (0.03984) is 36% higher than the net premium (0.02934) — the loading covers
+    the initial 4% expense, ongoing 0.5% maintenance, and 5%-of-premium commission.</p>
+  </div>
+
+  <div class="page-nav">
+    <a href="unit5_advanced actuarial statistics.html">&#8592; Previous: Unit 5</a>
+    <a href="syllabus_advanced actuarial statistics.html">Next: Syllabus &#8594;</a>
+  </div>
+
+  <footer>Practical Course — Advanced Actuarial Statistics</footer>
+</div>
+</body>
+</html>

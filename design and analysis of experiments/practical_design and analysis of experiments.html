@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practical Course — 8 Experiments | Design &amp; Analysis of Experiments</title>
+<link rel="stylesheet" href="css/styles.css">
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="banner">
+    <div class="crumbs"><a href="index_design and analysis of experiments.html">Home</a> &raquo; Practical</div>
+    <h1>Practical Course — 8 Experiments</h1>
+    <p>Semester IV, Course 8 (Practical) — 2 hrs/week, Credit 1. Worked problems on ANOVA and design analysis.</p>
+  </div>
+
+  <h2>List of Practical Experiments (Official Syllabus)</h2>
+  <ol>
+    <li>ANOVA — one-way classification with equal observations.</li>
+    <li>ANOVA — one-way classification with unequal observations.</li>
+    <li>ANOVA — two-way classification.</li>
+    <li>Analysis of CRD and critical differences.</li>
+    <li>Analysis of RBD, critical differences, and relative efficiency of CRD with RBD.</li>
+    <li>Estimation of single missing observation in RBD.</li>
+    <li>Analysis of LSD and efficiency of LSD over CRD and RBD.</li>
+    <li>Estimation of single missing observation in LSD.</li>
+  </ol>
+
+  <!-- EXP 1 -->
+  <h2>Experiment 1 — One-way ANOVA (Equal n)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Yields for 3 fertilizers, 4 reps each (data from Unit 1):</p>
+    <table class="left">
+      <tr><th>F1</th><td>22</td><td>26</td><td>24</td><td>28</td></tr>
+      <tr><th>F2</th><td>30</td><td>34</td><td>32</td><td>36</td></tr>
+      <tr><th>F3</th><td>20</td><td>22</td><td>24</td><td>22</td></tr>
+    </table>
+  </div>
+  <p><strong>Solution:</strong> SS<sub>T</sub> = 306.67, SS<sub>Tr</sub> = 258.67, SS<sub>E</sub> = 48. df = (2, 9). F = 24.25 &gt; 4.26 ⇒ reject; fertilizers differ.</p>
+
+  <!-- EXP 2 -->
+  <h2>Experiment 2 — One-way ANOVA (Unequal n)</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>3 varieties: V1 (3): 20, 24, 22; V2 (4): 28, 30, 32, 34; V3 (2): 18, 20.</p>
+  </div>
+  <p>SS<sub>T</sub> = 272, SS<sub>Tr</sub> = 242, SS<sub>E</sub> = 30. df = (2, 6). F = 24.2 &gt; 5.14 ⇒ reject \(H_0\).</p>
+
+  <!-- EXP 3 -->
+  <h2>Experiment 3 — Two-way ANOVA</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>3 fertilizers × 4 varieties (data from Unit 1).</p>
+  </div>
+  <p>SS<sub>R</sub> = 74.67, SS<sub>C</sub> = 60, SS<sub>E</sub> ≈ 0. (Linear data give zero error.) For non-linear data the residual is non-zero — apply F-tests.</p>
+
+  <!-- EXP 4 -->
+  <h2>Experiment 4 — Analysis of CRD &amp; Critical Differences</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>Same data as Experiment 1 (3 fertilizers × 4 reps). Compute CD and decide which pairs differ.</p>
+  </div>
+  <p>MS<sub>E</sub> = 5.33, df<sub>E</sub> = 9, \(t_{0.025, 9} = 2.262\). CD = \(2.262\sqrt{2(5.33)/4} = 3.69\).</p>
+  <p>Means: \(\bar y_1 = 25, \bar y_2 = 33, \bar y_3 = 22\). Differences: |25 − 33| = 8 (differ); |25 − 22| = 3 (≤ CD ⇒ no diff); |33 − 22| = 11 (differ).</p>
+
+  <!-- EXP 5 -->
+  <h2>Experiment 5 — RBD Analysis &amp; RE vs CRD</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>3 treatments × 4 blocks. SS<sub>Tr</sub> = 60, SS<sub>Bl</sub> = 24, SS<sub>E</sub> = 12, df<sub>E</sub> = 6, MS<sub>E</sub> = 2.</p>
+  </div>
+  <p>F<sub>Tr</sub> = (60/2)/2 = 15 ⇒ significant. CD = \(t_{0.025,6}\sqrt{2 \cdot 2/4} = 2.447 \cdot 1 = 2.447\).</p>
+  <p><strong>RE of RBD over CRD:</strong></p>
+  <p>MS<sub>E</sub><sup>CRD</sup> = (24 + 12)/(3 + 6) = 36/9 = 4. RE = 4/2 = 2.0 → RBD twice as efficient.</p>
+
+  <!-- EXP 6 -->
+  <h2>Experiment 6 — Missing Value in RBD</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>3 treatments × 3 blocks. Value at T2-B3 missing.</p>
+    <table class="left">
+      <tr><th></th><th>B1</th><th>B2</th><th>B3</th></tr>
+      <tr><th>T1</th><td>10</td><td>12</td><td>14</td></tr>
+      <tr><th>T2</th><td>14</td><td>16</td><td>?</td></tr>
+      <tr><th>T3</th><td>8</td><td>10</td><td>12</td></tr>
+    </table>
+  </div>
+  <p>\(T'_2 = 30, B'_3 = 26, G' = 96, t = b = 3\).</p>
+  <p>\(\hat y = [3(30) + 3(26) - 96]/[(2)(2)] = (90 + 78 - 96)/4 = 72/4 = 18\).</p>
+  <p>Insert 18 and proceed with RBD analysis; reduce error df by 1.</p>
+
+  <!-- EXP 7 -->
+  <h2>Experiment 7 — LSD Analysis &amp; Efficiency vs CRD/RBD</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>5 × 5 LSD with SS<sub>R</sub> = 30, SS<sub>C</sub> = 25, SS<sub>Tr</sub> = 200, SS<sub>E</sub> = 60, df<sub>E</sub> = 12.</p>
+  </div>
+  <p>MS<sub>E</sub><sup>LSD</sup> = 5. F<sub>Tr</sub> = (200/4)/5 = 10 &gt; 3.26 ⇒ treatments differ.</p>
+  <p>CD = \(t_{0.025, 12}\sqrt{2 \cdot 5/5} = 2.179\sqrt{2} = 3.08\).</p>
+  <p><strong>RE of LSD over CRD:</strong> MS<sub>E</sub><sup>CRD</sup> = (30 + 25 + 60)/20 = 5.75. RE = 5.75/5 = 1.15 (15 % gain).</p>
+  <p><strong>RE of LSD over RBD (cols as blocks):</strong> MS<sub>E</sub><sup>RBD</sup> = (30 + 60)/16 = 5.625. RE = 5.625/5 = 1.125 (12.5 % gain).</p>
+  <p><strong>RE of LSD over RBD (rows as blocks):</strong> MS<sub>E</sub><sup>RBD</sup> = (25 + 60)/16 = 5.31. RE = 5.31/5 = 1.06 (6 % gain).</p>
+
+  <!-- EXP 8 -->
+  <h2>Experiment 8 — Missing Value in LSD</h2>
+  <div class="example">
+    <span class="label">PROBLEM</span>
+    <p>4 × 4 LSD: row total \(R' = 65\), column total \(C' = 70\), treatment total \(T' = 60\), grand total \(G' = 240\), \(t = 4\).</p>
+  </div>
+  <p>\(\hat y = [4(65 + 70 + 60) - 2(240)] / [(3)(2)] = (780 - 480)/6 = 50\).</p>
+  <p>Insert 50 and analyse LSD; reduce error df by 1.</p>
+
+  <h2>Lab Notebook Format</h2>
+  <ol>
+    <li>Experiment number and title.</li>
+    <li>Aim and design used (CRD/RBD/LSD).</li>
+    <li>Data table.</li>
+    <li>Total sums of squares and partition.</li>
+    <li>ANOVA table with F values.</li>
+    <li>Conclusion (with critical differences if treatment effect is significant).</li>
+    <li>Relative efficiency where required.</li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="unit5_design and analysis of experiments.html">← Previous: Unit 5</a>
+    <a href="syllabus_design and analysis of experiments.html">Next: Syllabus →</a>
+  </div>
+
+  <footer>Practical Course — 8 Experiments • Design and Analysis of Experiments</footer>
+</div>
+</body>
+</html>
