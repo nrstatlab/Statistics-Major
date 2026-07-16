@@ -84,7 +84,7 @@ kurtosis(x)                   #  2.43
 library(psych)
 describe(iris[, 1:4])</code></pre>
 
-  <p><strong>Interpretation:</strong> Sepal.Length is approximately symmetric (skew ≈ 0.31) and platykurtic (β₂ ≈ 2.4 &lt; 3).</p>
+  <p><strong>Interpretation:</strong> Sepal.Length is mildly right-skewed (skew ≈ 0.31) and platykurtic (β₂ ≈ 2.43 &lt; 3).</p>
 
   <!-- EXP 3 -->
   <h2>Experiment 3 — Frequency Analysis &amp; Chi-Square</h2>
@@ -97,13 +97,13 @@ table(iris$Species, big)</code></pre>
   <div class="out">              big
               Long Short
   setosa         0    50
-  versicolor    44     6
+  versicolor    34    16
   virginica     50     0</div>
 
   <h3>3b — Chi-Square Test of Independence</h3>
   <pre><code>tbl &lt;- table(iris$Species, big)
 chisq.test(tbl)
-#  X-squared = 122.85, df = 2, p-value &lt; 2.2e-16
+#  X-squared = 105.84, df = 2, p-value &lt; 2.2e-16
 # Strong association ⇒ reject H0 of independence</code></pre>
 
   <h3>3c — Goodness-of-fit (fair die simulation)</h3>
@@ -137,12 +137,124 @@ par(mfrow = c(1, 1))</code></pre>
 shapiro.test(iris$Sepal.Length)
 #  p-value = 0.0102 ⇒ borderline; histogram looks roughly normal but tails differ</code></pre>
 
+  <figure class="figure" style="max-width:860px;">
+    <svg viewBox="0 0 900 250" role="img" aria-label="Expected output of experiment 4: histogram with normal curve, boxplots by species, and Q-Q plot">
+      <g font-family="Segoe UI, Arial, sans-serif" fill="#334155">
+        <g font-size="13" text-anchor="middle" font-weight="600" fill="#0f4c81">
+          <text x="150" y="22">Histogram + normal curve</text>
+          <text x="450" y="22">Boxplot by Species</text>
+          <text x="750" y="22">Q-Q plot (p = 0.0102)</text>
+        </g>
+        <!-- P1 histogram of Sepal.Length -->
+        <g fill="#add8e6" stroke="#fff" stroke-width="1">
+          <rect x="30" y="188" width="20" height="12"/><rect x="50" y="160" width="20" height="40"/>
+          <rect x="70" y="120" width="20" height="80"/><rect x="90" y="95" width="20" height="105"/>
+          <rect x="110" y="105" width="20" height="95"/><rect x="130" y="130" width="20" height="70"/>
+          <rect x="150" y="112" width="20" height="88"/><rect x="170" y="125" width="20" height="75"/>
+          <rect x="190" y="145" width="20" height="55"/><rect x="210" y="162" width="20" height="38"/>
+          <rect x="230" y="178" width="20" height="22"/><rect x="250" y="190" width="20" height="10"/>
+        </g>
+        <path d="M30,196 C70,188 85,115 130,105 C160,99 175,102 200,125 C235,158 255,186 275,194"
+              fill="none" stroke="#dc2626" stroke-width="2.5"/>
+        <line x1="25" y1="200" x2="280" y2="200" stroke="#94a3b8" stroke-width="1.5"/>
+        <!-- P2 boxplots -->
+        <g stroke="#0f4c81" stroke-width="2">
+          <line x1="370" y1="200" x2="370" y2="133"/>
+          <line x1="450" y1="173" x2="450" y2="80"/>
+          <line x1="530" y1="142" x2="530" y2="39"/>
+        </g>
+        <g stroke="#0f4c81" stroke-width="2">
+          <rect x="348" y="160" width="44" height="18" fill="#ffd6e0"/>
+          <rect x="428" y="111" width="44" height="31" fill="#bfe3f7"/>
+          <rect x="508" y="84" width="44" height="31" fill="#c9f2d0"/>
+        </g>
+        <g stroke="#dc2626" stroke-width="2.5">
+          <line x1="348" y1="169" x2="392" y2="169"/>
+          <line x1="428" y1="129" x2="472" y2="129"/>
+          <line x1="508" y1="102" x2="552" y2="102"/>
+        </g>
+        <circle cx="530" cy="173" r="4" fill="none" stroke="#dc2626" stroke-width="1.8"/>
+        <line x1="330" y1="200" x2="570" y2="200" stroke="#94a3b8" stroke-width="1.5"/>
+        <g font-size="11" text-anchor="middle" fill="#64748b">
+          <text x="370" y="216">setosa</text><text x="450" y="216">versicolor</text><text x="530" y="216">virginica</text>
+        </g>
+        <!-- P3 QQ plot -->
+        <line x1="630" y1="192" x2="870" y2="48" stroke="#dc2626" stroke-width="2"/>
+        <g fill="#0f2a5c">
+          <circle cx="638" cy="196" r="3.5"/><circle cx="658" cy="182" r="3.5"/><circle cx="678" cy="168" r="3.5"/>
+          <circle cx="698" cy="158" r="3.5"/><circle cx="718" cy="145" r="3.5"/><circle cx="738" cy="133" r="3.5"/>
+          <circle cx="758" cy="124" r="3.5"/><circle cx="778" cy="112" r="3.5"/><circle cx="798" cy="103" r="3.5"/>
+          <circle cx="818" cy="88" r="3.5"/><circle cx="838" cy="72" r="3.5"/><circle cx="858" cy="46" r="3.5"/>
+        </g>
+        <line x1="620" y1="200" x2="880" y2="200" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="450" y="240" font-size="12" text-anchor="middle" fill="#64748b">Three views of the same question: is the variable (roughly) normal, and how do groups differ?</text>
+      </g>
+    </svg>
+    <figcaption>What your screen should show in Experiment 4: the histogram with a normal overlay, side-by-side boxplots revealing the species shift (with virginica's low outlier), and a Q-Q plot whose points hug the line except in the tails — matching the borderline Shapiro-Wilk p-value.</figcaption>
+  </figure>
+
+  <h2>Choosing the Right Test (Experiments 3, 5, 6, 7)</h2>
+  <figure class="figure" style="max-width:860px;">
+    <svg viewBox="0 0 820 320" role="img" aria-label="Decision tree for choosing a statistical test">
+      <g font-family="Segoe UI, Arial, sans-serif" fill="#334155" font-size="12.5">
+        <!-- root -->
+        <rect x="300" y="12" width="220" height="34" rx="8" fill="#0f4c81"/>
+        <text x="410" y="34" text-anchor="middle" fill="#fff" font-weight="600">What is your question?</text>
+        <!-- arrows to level 2 -->
+        <g stroke="#94a3b8" stroke-width="1.8" fill="#94a3b8">
+          <line x1="345" y1="46" x2="115" y2="84"/><path d="M115,84 l10,-7 -3,10 z"/>
+          <line x1="410" y1="46" x2="410" y2="84"/><path d="M410,84 l-5,-9 h10 z"/>
+          <line x1="475" y1="46" x2="705" y2="84"/><path d="M705,84 l-10,-7 3,10 z"/>
+        </g>
+        <!-- level 2 -->
+        <rect x="15" y="86" width="200" height="48" rx="8" fill="#e6f1fb" stroke="#0f4c81" stroke-width="1.5"/>
+        <text x="115" y="106" text-anchor="middle">Two categorical variables</text>
+        <text x="115" y="122" text-anchor="middle">associated?</text>
+        <rect x="310" y="86" width="200" height="48" rx="8" fill="#e6f1fb" stroke="#0f4c81" stroke-width="1.5"/>
+        <text x="410" y="106" text-anchor="middle">Compare means / medians</text>
+        <text x="410" y="122" text-anchor="middle">across groups?</text>
+        <rect x="605" y="86" width="200" height="48" rx="8" fill="#e6f1fb" stroke="#0f4c81" stroke-width="1.5"/>
+        <text x="705" y="106" text-anchor="middle">Relationship between two</text>
+        <text x="705" y="122" text-anchor="middle">numeric variables?</text>
+        <!-- middle: normality check -->
+        <line x1="410" y1="134" x2="410" y2="168" stroke="#94a3b8" stroke-width="1.8"/>
+        <path d="M410,168 l-5,-9 h10 z" fill="#94a3b8"/>
+        <rect x="300" y="170" width="220" height="40" rx="8" fill="#fff8e1" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="410" y="187" text-anchor="middle">Normality OK?</text>
+        <text x="410" y="202" text-anchor="middle" font-size="11.5">shapiro.test(), Q-Q plot (Exp 4)</text>
+        <!-- branches from normality -->
+        <g stroke="#94a3b8" stroke-width="1.8" fill="#94a3b8">
+          <line x1="355" y1="210" x2="320" y2="246"/><path d="M320,246 l9,-6 -2,10 z"/>
+          <line x1="465" y1="210" x2="500" y2="246"/><path d="M500,246 l-9,-6 2,10 z"/>
+          <line x1="115" y1="134" x2="115" y2="246"/><path d="M115,246 l-5,-9 h10 z"/>
+          <line x1="705" y1="134" x2="705" y2="246"/><path d="M705,246 l-5,-9 h10 z"/>
+        </g>
+        <text x="325" y="235" font-size="11.5" fill="#059669" font-weight="600">yes</text>
+        <text x="482" y="235" font-size="11.5" fill="#dc2626" font-weight="600">no</text>
+        <!-- leaves -->
+        <rect x="15" y="248" width="200" height="52" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+        <text x="115" y="269" text-anchor="middle" font-weight="600">chisq.test(table)</text>
+        <text x="115" y="286" text-anchor="middle" font-size="11.5">fisher.test if counts &lt; 5 · Exp 3</text>
+        <rect x="240" y="248" width="160" height="52" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+        <text x="320" y="269" text-anchor="middle" font-weight="600">t.test() / aov()</text>
+        <text x="320" y="286" text-anchor="middle" font-size="11.5">+ TukeyHSD · Exp 5</text>
+        <rect x="420" y="248" width="160" height="52" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+        <text x="500" y="269" text-anchor="middle" font-weight="600">wilcox.test()</text>
+        <text x="500" y="286" text-anchor="middle" font-size="11.5">non-parametric · Exp 6</text>
+        <rect x="605" y="248" width="200" height="52" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+        <text x="705" y="269" text-anchor="middle" font-weight="600">cor.test(), lm()</text>
+        <text x="705" y="286" text-anchor="middle" font-size="11.5">then plot(fit) · Exp 7</text>
+      </g>
+    </svg>
+    <figcaption>The decision every lab report should make explicit: what the question is, whether assumptions hold, and which R function follows. Quote this reasoning in the Interpretation section of your notebook.</figcaption>
+  </figure>
+
   <!-- EXP 5 -->
   <h2>Experiment 5 — Hypothesis Testing (t-tests &amp; ANOVA)</h2>
 
   <h3>One-sample t-test</h3>
   <pre><code>x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
-t.test(x, mu = 50)              # p = 0.469 ⇒ accept H0</code></pre>
+t.test(x, mu = 50)              # p = 0.4601 ⇒ fail to reject H0</code></pre>
 
   <h3>Two-sample t-test (Welch)</h3>
   <pre><code>setosa     &lt;- iris$Sepal.Length[iris$Species == "setosa"]
@@ -170,13 +282,14 @@ summary(fit2)</code></pre>
   <h3>Wilcoxon Signed-Rank (one-sample / paired)</h3>
   <pre><code># One-sample
 x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
-wilcox.test(x, mu = 50)                    # p = 0.464
+wilcox.test(x, mu = 50)                    # V = 28.5, p = 0.511
+# (R warns about ties — with tied ranks it uses a normal approximation)
 
 # Paired sleep data
 wilcox.test(extra ~ group, data = sleep, paired = TRUE)</code></pre>
 
   <h3>Wilcoxon Rank-Sum (two-sample)</h3>
-  <pre><code>wilcox.test(setosa, versicolor)            # p &lt; 2.2e-16 ⇒ groups differ</code></pre>
+  <pre><code>wilcox.test(setosa, versicolor)            # W = 168.5, p = 8.3e-14 ⇒ groups differ</code></pre>
 
   <h3>Compare with parametric alternative</h3>
   <pre><code>t_result &lt;- t.test(setosa, versicolor)
@@ -199,7 +312,7 @@ summary(fit)</code></pre>
             Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)  37.285      1.878   19.86  &lt;2e-16 ***
 wt           -5.344      0.559   -9.56  1.29e-10 ***
-Multiple R-squared: 0.753</code></div>
+Multiple R-squared: 0.753</div>
 
   <h3>Scatter with fitted line</h3>
   <pre><code>plot(mtcars$wt, mtcars$mpg, pch = 19, col = "navy",
@@ -222,8 +335,8 @@ predict(fit, new, interval = "prediction")</code></pre>
 
   <div class="out">     fit    lwr    upr
 1  23.92  17.55  30.29
-2  18.58  12.33  24.84
-3  13.24   6.96  19.52</div>
+2  18.58  12.25  24.90
+3  13.24   6.75  19.72</div>
 
   <h2>Lab Notebook Format</h2>
   <ol>
