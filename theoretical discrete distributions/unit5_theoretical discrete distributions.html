@@ -60,6 +60,41 @@
   <p>The factor \(\dfrac{N-n}{N-1}\) is called the <strong>finite population correction (FPC)</strong>.
   It reduces the variance below the binomial value when sampling without replacement.</p>
 
+  <figure class="figure">
+    <svg viewBox="0 0 480 215" xmlns="http://www.w3.org/2000/svg" aria-label="Hypergeometric versus binomial PMF at the same mean, showing the hypergeometric is narrower">
+      <rect x="150" y="16" width="14" height="12" fill="#1e7fbf"/>
+      <text x="169" y="26" font-size="11" fill="#374151">Hypergeometric(20, 8, 6), Var = 1.06</text>
+      <rect x="150" y="32" width="14" height="12" fill="#f59e0b"/>
+      <text x="169" y="42" font-size="11" fill="#374151">Binomial(6, 0.4), Var = 1.44</text>
+      <line x1="40" y1="170" x2="440" y2="170" stroke="#374151"/>
+      <line x1="40" y1="50" x2="40" y2="170" stroke="#374151"/>
+      <rect x="50" y="162" width="20" height="8" fill="#1e7fbf"/>
+      <rect x="72" y="155" width="20" height="15" fill="#f59e0b"/>
+      <text x="71" y="185" font-size="11" fill="#374151" text-anchor="middle">0</text>
+      <rect x="105" y="116" width="20" height="54" fill="#1e7fbf"/>
+      <rect x="127" y="108" width="20" height="62" fill="#f59e0b"/>
+      <text x="126" y="185" font-size="11" fill="#374151" text-anchor="middle">1</text>
+      <rect x="160" y="52" width="20" height="118" fill="#1e7fbf"/>
+      <rect x="182" y="67" width="20" height="103" fill="#f59e0b"/>
+      <text x="181" y="185" font-size="11" fill="#374151" text-anchor="middle">2</text>
+      <rect x="215" y="65" width="20" height="105" fill="#1e7fbf"/>
+      <rect x="237" y="79" width="20" height="91" fill="#f59e0b"/>
+      <text x="236" y="185" font-size="11" fill="#374151" text-anchor="middle">3</text>
+      <rect x="270" y="131" width="20" height="39" fill="#1e7fbf"/>
+      <rect x="292" y="124" width="20" height="46" fill="#f59e0b"/>
+      <text x="291" y="185" font-size="11" fill="#374151" text-anchor="middle">4</text>
+      <rect x="325" y="164" width="20" height="6" fill="#1e7fbf"/>
+      <rect x="347" y="158" width="20" height="12" fill="#f59e0b"/>
+      <text x="346" y="185" font-size="11" fill="#374151" text-anchor="middle">5</text>
+      <rect x="402" y="169" width="20" height="1" fill="#f59e0b"/>
+      <text x="401" y="185" font-size="11" fill="#374151" text-anchor="middle">6</text>
+      <text x="240" y="205" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">Same mean (2.4), but the hypergeometric is more concentrated</text>
+    </svg>
+    <figcaption>Fig 5.1 — Sampling <em>without</em> replacement (hypergeometric, blue) gives the same mean as
+    sampling <em>with</em> replacement (binomial, amber) but a smaller variance — the FPC factor
+    \((N-n)/(N-1) = 14/19 \approx 0.74\) here. As \(N\) grows the two distributions coincide.</figcaption>
+  </figure>
+
   <p><strong>Sketch of mean derivation:</strong> Express \(X = \sum_{i=1}^{n} I_i\) where \(I_i = 1\) if the
   \(i\)-th item drawn is a success. By symmetry \(E(I_i) = M/N\), so \(E(X) = n M/N\).</p>
 
