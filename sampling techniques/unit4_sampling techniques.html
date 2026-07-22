@@ -141,19 +141,23 @@
   <p>Variance ordering for linear trend:</p>
   <div class="formula">
     \[
-      \text{Var}_{StRS, prop} \;\le\; \text{Var}_{SRSWOR} \;\le\; \text{Var}_{SYS}.
+      \text{Var}_{StRS, prop} \;\le\; \text{Var}_{SYS} \;\le\; \text{Var}_{SRSWOR}.
     \]
-    <p>Stratified is best for a linear trend; systematic is worst (because all \(n\) units lie on parallel rays of the trend).</p>
+    <p>Stratified (one unit per stratum) is best for a linear trend and SRSWOR is worst; systematic sits in
+    between. In fact \(\text{Var}_{SYS} = n\,\text{Var}_{StRS,prop}\) and \(\text{Var}_{SRSWOR} = \tfrac{N+1}{k+1}\text{Var}_{SYS}\),
+    so systematic sampling always beats SRSWOR here — spreading the sample evenly across the ordered trend
+    captures its full range better than a purely random draw.</p>
   </div>
 
-  <p>However, in practice, populations rarely follow exact linear trends; for many real data sets <strong>systematic ≈ stratified</strong> in performance.</p>
+  <p>Since populations rarely follow an exact linear trend, in practice <strong>systematic ≈ stratified</strong>
+  for many real data sets. (Systematic is only poor when the population is <em>periodic</em> with period equal to \(k\).)</p>
 
   <h3>1.4 Comparison with SRSWOR &amp; Stratified</h3>
   <table class="left">
     <tr><th>Aspect</th><th>SRSWOR</th><th>Stratified</th><th>Systematic</th></tr>
     <tr><td>Sample selection</td><td>Random</td><td>Random in each stratum</td><td>One random start, every k-th</td></tr>
     <tr><td>Variance for homogeneous pop.</td><td>Same</td><td>Same</td><td>Same</td></tr>
-    <tr><td>Variance with linear trend</td><td>Moderate</td><td>Best</td><td>Worst</td></tr>
+    <tr><td>Variance with linear trend</td><td>Worst</td><td>Best</td><td>Intermediate (beats SRSWOR)</td></tr>
     <tr><td>Variance with periodic pop.</td><td>Same</td><td>Same</td><td>Can be very bad</td></tr>
     <tr><td>Operational ease</td><td>Moderate</td><td>Hard (frame, allocation)</td><td>Easiest</td></tr>
   </table>
@@ -261,7 +265,7 @@
   <h2>Key Take-aways</h2>
   <ul>
     <li>Systematic: \(N = nk\); pick every k-th unit after a random start.</li>
-    <li>Variance for linear trend: StRS &lt; SRSWOR &lt; SYS in pure formula but systematic often best in practice.</li>
+    <li>Variance for linear trend: StRS &lt; SYS &lt; SRSWOR — stratified is best and systematic beats SRSWOR (systematic only fails for periodic populations).</li>
     <li>Cluster sampling: sample whole groups; cheap but less precise.</li>
     <li>Multistage: cluster of clusters; backbone of national surveys.</li>
     <li>Quota: non-random; useful for quick surveys but not for inference.</li>
