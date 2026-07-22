@@ -286,33 +286,42 @@
     <li>Forms the foundation of <strong>statistical inference</strong> (z-tests, confidence intervals).</li>
   </ul>
 
-  <figure class="figure">
-    <svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">
-      <!-- Three panels: skewed -> moderately normal -> normal -->
-      <g transform="translate(10,20)">
-        <line x1="10" y1="160" x2="150" y2="160" stroke="#374151"/>
-        <line x1="10" y1="20" x2="10" y2="160" stroke="#374151"/>
-        <path d="M 10 160 L 25 40 L 30 30 L 38 50 L 50 80 L 70 110 L 100 140 L 150 158 L 150 160 Z" fill="#dc2626" opacity="0.4" stroke="#dc2626"/>
-        <text x="80" y="180" font-size="11" fill="#374151" text-anchor="middle">Population (skewed)</text>
-        <text x="80" y="195" font-size="10" fill="#6b7280" text-anchor="middle">n = 1</text>
+  <figure class="figure" style="max-width:660px;">
+    <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" aria-label="Central limit theorem: as sample size grows, the distribution of the sample mean changes from skewed to a smooth normal bell">
+      <!-- Panel 1: skewed population, n=1 -->
+      <g transform="translate(8,8)" font-family="Segoe UI, Arial, sans-serif">
+        <polygon points="10,175 24,150 32,95 38,62 46,58 58,78 74,108 94,138 118,158 145,170 160,174 160,175 10,175" fill="#dc2626" opacity="0.35"/>
+        <polyline points="10,175 24,150 32,95 38,62 46,58 58,78 74,108 94,138 118,158 145,170 160,174" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <line x1="10" y1="175" x2="162" y2="175" stroke="#374151"/><line x1="10" y1="30" x2="10" y2="175" stroke="#374151"/>
+        <text x="86" y="194" font-size="11" fill="#0f4c81" text-anchor="middle" font-weight="700">Population</text>
+        <text x="86" y="208" font-size="10" fill="#6b7280" text-anchor="middle">n = 1 (skewed)</text>
       </g>
-      <g transform="translate(180,20)">
-        <line x1="10" y1="160" x2="150" y2="160" stroke="#374151"/>
-        <line x1="10" y1="20" x2="10" y2="160" stroke="#374151"/>
-        <path d="M 10 160 Q 30 140 60 60 T 110 80 Q 130 130 150 158 L 10 160 Z" fill="#f59e0b" opacity="0.45" stroke="#f59e0b"/>
-        <text x="80" y="180" font-size="11" fill="#374151" text-anchor="middle">Sample mean dist.</text>
-        <text x="80" y="195" font-size="10" fill="#6b7280" text-anchor="middle">n = 5</text>
+      <!-- Panel 2: n=5 -->
+      <g transform="translate(196,8)" font-family="Segoe UI, Arial, sans-serif">
+        <polygon points="10,175 28,168 46,138 62,98 76,66 88,56 100,62 115,86 132,124 148,158 160,172 160,175 10,175" fill="#f59e0b" opacity="0.4"/>
+        <polyline points="10,175 28,168 46,138 62,98 76,66 88,56 100,62 115,86 132,124 148,158 160,172" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <line x1="10" y1="175" x2="162" y2="175" stroke="#374151"/><line x1="10" y1="30" x2="10" y2="175" stroke="#374151"/>
+        <text x="86" y="194" font-size="11" fill="#0f4c81" text-anchor="middle" font-weight="700">Mean of n = 5</text>
+        <text x="86" y="208" font-size="10" fill="#6b7280" text-anchor="middle">less skewed</text>
       </g>
-      <g transform="translate(360,20)">
-        <line x1="10" y1="160" x2="150" y2="160" stroke="#374151"/>
-        <line x1="10" y1="20" x2="10" y2="160" stroke="#374151"/>
-        <path d="M 10 160 Q 50 158 80 30 Q 110 158 150 160 Z" fill="#1e7fbf" opacity="0.5" stroke="#1e7fbf"/>
-        <text x="80" y="180" font-size="11" fill="#374151" text-anchor="middle">Sample mean dist.</text>
-        <text x="80" y="195" font-size="10" fill="#6b7280" text-anchor="middle">n = 30 → Normal</text>
+      <!-- Panel 3: n=30, normal -->
+      <g transform="translate(384,8)" font-family="Segoe UI, Arial, sans-serif">
+        <polygon points="10,175 30,172 48,160 63,132 75,96 85,66 90,58 95,66 105,96 117,132 132,160 150,172 160,175 10,175" fill="#1e7fbf" opacity="0.45"/>
+        <polyline points="10,175 30,172 48,160 63,132 75,96 85,66 90,58 95,66 105,96 117,132 132,160 150,172 160,175" fill="none" stroke="#1e7fbf" stroke-width="2"/>
+        <line x1="10" y1="175" x2="162" y2="175" stroke="#374151"/><line x1="10" y1="30" x2="10" y2="175" stroke="#374151"/>
+        <text x="86" y="194" font-size="11" fill="#0f4c81" text-anchor="middle" font-weight="700">Mean of n = 30</text>
+        <text x="86" y="208" font-size="10" fill="#065f46" text-anchor="middle">≈ Normal bell</text>
       </g>
-      <text x="270" y="218" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">As n grows, the distribution of X̄ approaches Normal — CLT</text>
+      <!-- arrows between panels -->
+      <g stroke="#94a3b8" stroke-width="2" fill="#94a3b8">
+        <line x1="176" y1="95" x2="200" y2="95"/><path d="M206,95 l-9,-5 v10 z"/>
+        <line x1="364" y1="95" x2="388" y2="95"/><path d="M394,95 l-9,-5 v10 z"/>
+      </g>
+      <text x="280" y="240" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">As n grows, the distribution of X̄ approaches Normal — the CLT</text>
     </svg>
-    <figcaption>Fig 5.1 — Central Limit Theorem in action</figcaption>
+    <figcaption>Fig 5.1 — Even a strongly skewed population (left) produces a sampling distribution of the mean
+    that becomes ever more symmetric and bell-shaped as \(n\) increases, converging to \(N(\mu,\sigma^2/n)\).
+    This is why normal-based inference works so widely.</figcaption>
   </figure>
 
   <div class="example">
