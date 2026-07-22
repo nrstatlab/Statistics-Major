@@ -97,7 +97,7 @@
   <div class="formula">
     \[
       \mu_3 = \dfrac{rq(1 + q)}{p^3}, \qquad
-      \mu_4 = \dfrac{rq(p^2 + 6q + 3rq^2)}{p^4}.
+      \mu_4 = \dfrac{rq(p^2 + 6q + 3rq)}{p^4}.
     \]
     \[
       \gamma_1 = \dfrac{1 + q}{\sqrt{rq}}, \qquad
@@ -105,6 +105,65 @@
     \]
   </div>
   <p>Always positively skewed and leptokurtic; both decrease toward 0 as \(r\) grows.</p>
+
+  <figure class="figure">
+    <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg" aria-label="Negative binomial PMF for small r (right-skewed) versus large r (approaching normal)">
+      <g transform="translate(10,10)">
+        <line x1="20" y1="170" x2="270" y2="170" stroke="#374151"/>
+        <line x1="20" y1="20" x2="20" y2="170" stroke="#374151"/>
+        <rect x="22" y="58" width="16" height="112" fill="#7c3aed"/>
+        <rect x="42" y="36" width="16" height="134" fill="#7c3aed"/>
+        <rect x="62" y="49" width="16" height="121" fill="#7c3aed"/>
+        <rect x="82" y="73" width="16" height="97" fill="#7c3aed"/>
+        <rect x="102" y="97" width="16" height="73" fill="#7c3aed"/>
+        <rect x="122" y="118" width="16" height="52" fill="#7c3aed"/>
+        <rect x="142" y="133" width="16" height="37" fill="#7c3aed"/>
+        <rect x="162" y="145" width="16" height="25" fill="#7c3aed"/>
+        <rect x="182" y="153" width="16" height="17" fill="#7c3aed"/>
+        <rect x="202" y="159" width="16" height="11" fill="#7c3aed"/>
+        <rect x="222" y="163" width="16" height="7" fill="#7c3aed"/>
+        <rect x="242" y="165" width="16" height="5" fill="#7c3aed"/>
+        <text x="140" y="190" font-size="11" fill="#374151" text-anchor="middle">x → number of failures</text>
+        <text x="140" y="210" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">NB(r = 2, p = 0.4)</text>
+        <text x="140" y="226" font-size="10" fill="#6b7280" text-anchor="middle">Strongly right-skewed</text>
+      </g>
+      <g transform="translate(280,10)">
+        <line x1="20" y1="170" x2="260" y2="170" stroke="#374151"/>
+        <line x1="20" y1="20" x2="20" y2="170" stroke="#374151"/>
+        <rect x="22" y="169" width="7" height="1" fill="#1e7fbf"/>
+        <rect x="31" y="164" width="7" height="6" fill="#1e7fbf"/>
+        <rect x="40" y="155" width="7" height="15" fill="#1e7fbf"/>
+        <rect x="49" y="140" width="7" height="30" fill="#1e7fbf"/>
+        <rect x="58" y="121" width="7" height="49" fill="#1e7fbf"/>
+        <rect x="67" y="99" width="7" height="71" fill="#1e7fbf"/>
+        <rect x="76" y="78" width="7" height="92" fill="#1e7fbf"/>
+        <rect x="85" y="60" width="7" height="110" fill="#1e7fbf"/>
+        <rect x="94" y="46" width="7" height="124" fill="#1e7fbf"/>
+        <rect x="103" y="38" width="7" height="132" fill="#1e7fbf"/>
+        <rect x="112" y="35" width="7" height="135" fill="#1e7fbf"/>
+        <rect x="121" y="38" width="7" height="132" fill="#1e7fbf"/>
+        <rect x="130" y="44" width="7" height="126" fill="#1e7fbf"/>
+        <rect x="139" y="54" width="7" height="116" fill="#1e7fbf"/>
+        <rect x="148" y="65" width="7" height="105" fill="#1e7fbf"/>
+        <rect x="157" y="78" width="7" height="92" fill="#1e7fbf"/>
+        <rect x="166" y="91" width="7" height="79" fill="#1e7fbf"/>
+        <rect x="175" y="103" width="7" height="67" fill="#1e7fbf"/>
+        <rect x="184" y="114" width="7" height="56" fill="#1e7fbf"/>
+        <rect x="193" y="124" width="7" height="46" fill="#1e7fbf"/>
+        <rect x="202" y="133" width="7" height="37" fill="#1e7fbf"/>
+        <rect x="211" y="140" width="7" height="30" fill="#1e7fbf"/>
+        <rect x="220" y="146" width="7" height="24" fill="#1e7fbf"/>
+        <rect x="229" y="152" width="7" height="18" fill="#1e7fbf"/>
+        <rect x="238" y="156" width="7" height="14" fill="#1e7fbf"/>
+        <text x="140" y="190" font-size="11" fill="#374151" text-anchor="middle">x → number of failures</text>
+        <text x="140" y="210" font-size="12" fill="#0f4c81" text-anchor="middle" font-weight="700">NB(r = 8, p = 0.4)</text>
+        <text x="140" y="226" font-size="10" fill="#6b7280" text-anchor="middle">Approaches normal shape</text>
+      </g>
+    </svg>
+    <figcaption>Fig 3.1 — Negative binomial PMF (number of failures before the \(r\)-th success). As \(r\)
+    increases the skew \(\gamma_1 = (1+q)/\sqrt{rq}\) shrinks and the distribution becomes bell-shaped,
+    consistent with the normal limit in Section 7.</figcaption>
+  </figure>
 
   <!-- RECURRENCE -->
   <h2>6. Recurrence Relation</h2>
