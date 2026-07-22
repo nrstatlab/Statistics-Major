@@ -155,8 +155,8 @@
 
   <div class="example">
     <span class="label">EXAMPLE 1 (Population mean)</span>
-    <p>\(N = 6\) units with values \(Y = 4, 6, 8, 10, 12, 14\). \(\bar Y = 9,\; \sigma^2 = (40 + 16 + 4 + 4 + 16 + 40)/6 = 120/6 = 20,\; S^2 = (120)/5 = 24\).</p>
-    <p>SRSWR with \(n = 2\): \(\text{Var}(\bar y) = 20/2 = 10\). SRSWOR with \(n = 2\): \((6-2)/(6 \cdot 2) \cdot 24 = (4/12) \cdot 24 = 8\). WOR is more precise.</p>
+    <p>\(N = 6\) units with values \(Y = 4, 6, 8, 10, 12, 14\). \(\bar Y = 9\); deviations \(\pm5, \pm3, \pm1\), so \(\sum(Y_i - \bar Y)^2 = 25 + 9 + 1 + 1 + 9 + 25 = 70\). Hence \(\sigma^2 = 70/6 = 11.67,\; S^2 = 70/5 = 14\).</p>
+    <p>SRSWR with \(n = 2\): \(\text{Var}(\bar y) = 11.67/2 = 5.83\). SRSWOR with \(n = 2\): \((6-2)/(6 \cdot 2) \cdot 14 = (4/12) \cdot 14 = 4.67\). WOR is more precise.</p>
   </div>
   <div class="example">
     <span class="label">EXAMPLE 2 (Total)</span>
@@ -279,12 +279,12 @@
     <span class="label">DATA</span>
     <p>Diseased plants in 24 areas: 1, 4, 1, 2, 5, 1, 1, 1, 7, 2, 3, 3, 2, 2, 3, 1, 2, 7, 2, 6, 3, 5, 3, 4.
     Select a sample of size 6 by SRSWR and SRSWOR; compare with the population mean.</p>
-    <p>Population mean \(= \dfrac{\sum y_i}{24} = 2.93\).</p>
+    <p>Population mean \(= \dfrac{\sum y_i}{24} = \dfrac{71}{24} = 2.96\).</p>
     <p><strong>SRSWR</strong> (2-digit reading; repeats allowed) → areas 02, 10, 11, 12, 17, 17 with values
-    4, 2, 3, 3, 2, 2 → sample mean \(= \dfrac{16}{6} = 2.63\).</p>
+    4, 2, 3, 3, 2, 2 → sample mean \(= \dfrac{16}{6} = 2.67\).</p>
     <p><strong>SRSWOR</strong> (repeats not allowed) → areas 01, 04, 12, 19, 20, 22 with values
-    1, 2, 3, 2, 6, 5 → sample mean \(= \dfrac{19}{6} = 3.13\).</p>
-    <p>Both sample means (2.63, 3.13) are close to the population mean (2.93) — illustrating that the
+    1, 2, 3, 2, 6, 5 → sample mean \(= \dfrac{19}{6} = 3.17\).</p>
+    <p>Both sample means (2.67, 3.17) are close to the population mean (2.96) — illustrating that the
     sample mean estimates the population mean.</p>
   </div>
 
