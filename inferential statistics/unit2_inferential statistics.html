@@ -130,26 +130,26 @@
 
   <figure class="figure">
     <svg viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg">
-      <!-- Two overlapping bell curves: H0 centred at 200, H1 at 290 -->
+      <!-- Two computed Gaussian curves: H0 centred at x=175, H1 at x=305 (1σ = 40px) -->
       <line x1="20" y1="180" x2="460" y2="180" stroke="#374151" stroke-width="1.5"/>
-      <!-- H0 curve: centred 180 -->
-      <path d="M 30 180 Q 80 178 130 175 Q 160 170 180 70 Q 200 170 230 175 Q 280 178 330 180" fill="#1e7fbf" opacity="0.3" stroke="#1e7fbf"/>
-      <!-- H1 curve: centred 290 -->
-      <path d="M 170 180 Q 220 178 270 175 Q 300 170 320 70 Q 340 170 370 175 Q 420 178 470 180" fill="#dc2626" opacity="0.3" stroke="#dc2626"/>
-      <!-- Critical line at c = 250 -->
-      <line x1="260" y1="180" x2="260" y2="35" stroke="#374151" stroke-dasharray="4,3"/>
-      <!-- Type I (α): right tail of H0 to the right of c -->
-      <path d="M 260 180 Q 280 178 330 180 L 260 180 Z" fill="#f59e0b" opacity="0.7"/>
-      <!-- Type II (β): left tail of H1 to the left of c -->
-      <path d="M 170 180 Q 220 178 260 178 L 260 180 L 170 180 Z" fill="#059669" opacity="0.6"/>
-      <text x="180" y="60" font-size="11" fill="#1e7fbf" font-weight="700" text-anchor="middle">H₀ distribution</text>
-      <text x="320" y="60" font-size="11" fill="#dc2626" font-weight="700" text-anchor="middle">H₁ distribution</text>
-      <text x="285" y="170" font-size="11" fill="#f59e0b" font-weight="700">α</text>
-      <text x="225" y="170" font-size="11" fill="#059669" font-weight="700">β</text>
-      <text x="262" y="200" font-size="11" fill="#374151" text-anchor="middle">c (cutoff)</text>
+      <!-- Type II (β): area under H1 to the LEFT of the cutoff -->
+      <polygon fill="#059669" opacity="0.45" points="173.0,180 173.0,179.5 179.0,179.2 185.0,178.7 191.0,177.9 197.0,176.9 203.0,175.4 209.0,173.3 215.0,170.5 221.0,166.8 227.0,162.1 233.0,156.3 239.0,149.2 240,180"/>
+      <!-- Type I (α): area under H0 to the RIGHT of the cutoff -->
+      <polygon fill="#f59e0b" opacity="0.6" points="240,180 241.0,149.2 247.0,156.3 253.0,162.1 259.0,166.8 265.0,170.5 271.0,173.3 277.0,175.4 283.0,176.9 289.0,177.9 295.0,178.7 301.0,179.2 307.0,179.5 307.0,180"/>
+      <!-- H0 curve outline -->
+      <polyline fill="none" stroke="#1e7fbf" stroke-width="2" points="43.0,179.5 55.0,178.7 67.0,176.9 79.0,173.3 91.0,166.8 103.0,156.3 115.0,141.0 127.0,121.6 139.0,100.0 151.0,79.8 163.0,65.3 175.0,60.0 187.0,65.3 199.0,79.8 211.0,100.0 223.0,121.6 235.0,141.0 247.0,156.3 259.0,166.8 271.0,173.3 283.0,176.9 295.0,178.7 307.0,179.5"/>
+      <!-- H1 curve outline -->
+      <polyline fill="none" stroke="#dc2626" stroke-width="2" points="173.0,179.5 185.0,178.7 197.0,176.9 209.0,173.3 221.0,166.8 233.0,156.3 245.0,141.0 257.0,121.6 269.0,100.0 281.0,79.8 293.0,65.3 305.0,60.0 317.0,65.3 329.0,79.8 341.0,100.0 353.0,121.6 365.0,141.0 377.0,156.3 389.0,166.8 401.0,173.3 413.0,176.9 425.0,178.7 437.0,179.5"/>
+      <!-- Critical cutoff line at c = 240 -->
+      <line x1="240" y1="180" x2="240" y2="45" stroke="#374151" stroke-dasharray="4,3"/>
+      <text x="150" y="52" font-size="11" fill="#1e7fbf" font-weight="700" text-anchor="middle">H₀ distribution</text>
+      <text x="330" y="52" font-size="11" fill="#dc2626" font-weight="700" text-anchor="middle">H₁ distribution</text>
+      <text x="268" y="176" font-size="12" fill="#b45309" font-weight="700">α</text>
+      <text x="212" y="176" font-size="12" fill="#047857" font-weight="700">β</text>
+      <text x="240" y="200" font-size="11" fill="#374151" text-anchor="middle">c (cutoff)</text>
       <text x="240" y="225" font-size="13" fill="#0f4c81" text-anchor="middle" font-weight="700">Type I (α) and Type II (β) Errors</text>
     </svg>
-    <figcaption>Fig 2.2 — Smaller α (move c right) means larger β; trade-off resolved by larger n</figcaption>
+    <figcaption>Fig 2.2 — α is the H₀ tail beyond the cutoff; β is the H₁ tail before it. Moving c right shrinks α but enlarges β; larger n separates the curves and reduces both.</figcaption>
   </figure>
 
   <div class="example">
