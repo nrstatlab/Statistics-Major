@@ -229,13 +229,13 @@
     <p>A researcher compares the effectiveness of two teaching methods on student test scores.</p>
     <p>Method A: \(n_1 = 30\), \(\bar{x}_1 = 72.5\), \(s_1 = 8.3\)</p>
     <p>Method B: \(n_2 = 28\), \(\bar{x}_2 = 67.8\), \(s_2 = 9.1\)</p>
-    <p>Pooled variance: \(s_p^2 = \frac{29 \times 68.89 + 27 \times 82.81}{56} = \frac{1997.81 + 2235.87}{56} = 75.49\), so \(s_p = 8.69\)</p>
-    <p>Test statistic: \(t = \frac{72.5 - 67.8}{8.69\sqrt{\frac{1}{30}+\frac{1}{28}}} = \frac{4.7}{8.69 \times 0.2659} = \frac{4.7}{2.311} = 2.034\)</p>
+    <p>Pooled variance: \(s_p^2 = \frac{29 \times 68.89 + 27 \times 82.81}{56} = \frac{1997.81 + 2235.87}{56} = \frac{4233.68}{56} = 75.60\), so \(s_p = 8.695\)</p>
+    <p>Test statistic: \(t = \frac{72.5 - 67.8}{8.695\sqrt{\frac{1}{30}+\frac{1}{28}}} = \frac{4.7}{8.695 \times 0.2628} = \frac{4.7}{2.285} = 2.057\)</p>
     <p>With 56 degrees of freedom, the critical value at \(\alpha = 0.05\) (two-tailed) is approximately
-    \(\pm 2.003\). Since \(|t| = 2.034 > 2.003\), we reject \(H_0\). There is a statistically significant
+    \(\pm 2.003\). Since \(|t| = 2.057 > 2.003\), we reject \(H_0\). There is a statistically significant
     difference between the two teaching methods at the 5% level. The 95% confidence interval for the
-    difference is \(4.7 \pm 2.003 \times 2.311 = [0.07,\; 9.33]\), suggesting Method A scores between
-    0.07 and 9.33 points higher than Method B.</p>
+    difference is \(4.7 \pm 2.003 \times 2.285 = [0.12,\; 9.28]\), suggesting Method A scores between
+    0.12 and 9.28 points higher than Method B.</p>
   </div>
 
   <div class="example">
@@ -251,9 +251,11 @@
     </table>
     <p>Expected frequency for each cell: \(E_{ij} = \frac{R_i \times C_j}{N}\). For example,
     \(E_{11} = \frac{100 \times 80}{300} = 26.67\).</p>
-    <p>\(\chi^2 = \frac{(40-26.67)^2}{26.67} + \frac{(30-33.33)^2}{33.33} + \frac{(30-40)^2}{40} + \ldots = 6.66 + 0.33 + 2.50 + 0.42 + 2.25 + 0.00 + 4.17 + 4.17 + 9.00 = 29.50\)</p>
+    <p>The row totals are all 100 and the column totals are 80, 100, 120, so the expected values are
+    26.67, 33.33, 40 in every row. Summing \((O-E)^2/E\) over all nine cells:</p>
+    <p>\(\chi^2 = 6.67 + 0.33 + 2.50 + 0.10 + 4.08 + 2.50 + 5.10 + 2.08 + 10.00 \approx 33.38\)</p>
     <p>With \((3-1)(3-1) = 4\) degrees of freedom, the critical value at \(\alpha = 0.05\) is 9.488.
-    Since \(29.50 \gg 9.488\), we strongly reject \(H_0\). Brand preference is highly dependent on
+    Since \(33.38 \gg 9.488\), we strongly reject \(H_0\). Brand preference is highly dependent on
     age group. Younger consumers prefer Brand A, middle-aged consumers prefer Brand B, and older
     consumers prefer Brand C.</p>
   </div>
@@ -321,13 +323,13 @@
       <tr><th>Area (X)</th><th>1000</th><th>1200</th><th>1500</th><th>1800</th><th>2000</th><th>2500</th></tr>
       <tr><th>Price (Y)</th><th>25</th><th>32</th><th>38</th><th>45</th><th>52</th><th>60</th></tr>
     </table>
-    <p>\(\bar{x} = 1666.67\), \(\bar{y} = 42.0\), \(S_{xy} = 61666.67\), \(S_{xx} = 1466666.67\)</p>
-    <p>\(\hat{\beta}_1 = \frac{61666.67}{1466666.67} = 0.04205\), \(\hat{\beta}_0 = 42 - 0.04205 \times 1666.67 = -28.08\)</p>
-    <p>Regression equation: \(\hat{Y} = -28.08 + 0.04205 X\)</p>
-    <p>Interpretation: For every additional square foot, the price increases by approximately ₹0.042 lakh
-    (₹4,205). The intercept (-28.08) has no practical meaning (a house with zero area). \(R^2 = 0.986\),
-    meaning 98.6% of the variation in price is explained by area. The correlation coefficient is
-    \(r = 0.993\), indicating a very strong positive linear relationship.</p>
+    <p>\(\bar{x} = 1666.67\), \(\bar{y} = 42.0\), \(S_{xy} = 35400\), \(S_{xx} = 1513333.33\)</p>
+    <p>\(\hat{\beta}_1 = \frac{35400}{1513333.33} = 0.02339\), \(\hat{\beta}_0 = 42 - 0.02339 \times 1666.67 = 3.01\)</p>
+    <p>Regression equation: \(\hat{Y} = 3.01 + 0.02339 X\)</p>
+    <p>Interpretation: For every additional square foot, the price increases by approximately ₹0.0234 lakh
+    (₹2,339). The intercept (3.01) has no practical meaning on its own (it is the extrapolated price of a
+    house with zero area). \(R^2 = 0.988\), meaning 98.8% of the variation in price is explained by area.
+    The correlation coefficient is \(r = 0.994\), indicating a very strong positive linear relationship.</p>
   </div>
 
   <div class="example">
