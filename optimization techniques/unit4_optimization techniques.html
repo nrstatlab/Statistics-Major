@@ -123,8 +123,8 @@
       <tr><th>A₃</th><td>1</td><td>7</td><td>3</td><td>1</td></tr>
       <tr><th>Col max</th><th>4</th><th>7</th><th>4</th><th></th></tr>
     </table>
-    <p>Maxmin = max(3, 2, 1) = 3 (row A₁). Minimax = min(4, 7, 4) = 4 (col B₁ or B₃). 3 ≠ 4 — no saddle point yet... let me recheck. Actually the saddle point requires the row minimum to also be the column maximum at the same cell.</p>
-    <p>Let me revise with a clearer example:</p>
+    <p>Maxmin = max(3, 2, 1) = 3 (row A₁). Minimax = min(4, 7, 4) = 4 (col B₁ or B₃). Since Maxmin = 3 ≠ 4 = Minimax, this matrix has <em>no</em> saddle point — a saddle point requires a cell that is simultaneously the minimum of its row and the maximum of its column, i.e. Maxmin = Minimax.</p>
+    <p>Now consider a matrix that <em>does</em> have a saddle point:</p>
     <table class="left">
       <tr><th></th><th>B₁</th><th>B₂</th><th>B₃</th><th>Row min</th></tr>
       <tr><th>A₁</th><td>-2</td><td>15</td><td>-2</td><td>-2</td></tr>
@@ -341,7 +341,19 @@
       <li>E₄ = -2q + 6(1-q) = 6 - 8q</li>
     </ul>
     <p>Plot from q = 0 to q = 1. Take the upper envelope and find its lowest point. Find intersection of dominant lines.</p>
-    <p>The lowest point of the upper envelope is at intersection of E₂ and E₃: \(3 - q = 2 + q\) ⇒ \(q^* = 0.5\), value = 2.5. Active rows: A₂ and A₃ — solve 2×2 game over these.</p>
+    <p>Note first that E₂ = 3 − q lies entirely below E₁ = 4 − 2q on \([0,1]\) (their difference E₁ − E₂ = 1 − q ≥ 0), so E₂ never reaches the upper envelope and A₂ is not active. The upper envelope is formed by E₄ (for small \(q\)), then E₁, then E₃; its lowest point is at the intersection of E₁ and E₃:</p>
+    <div class="formula">
+      \[
+        4 - 2q \;=\; 2 + q \;\;\Rightarrow\;\; q^* = \tfrac{2}{3}, \qquad v = 2 + \tfrac{2}{3} = \tfrac{8}{3} \approx 2.67 .
+      \]
+    </div>
+    <p>Active rows: A₁ and A₃ — solve the 2×2 game over these:</p>
+    <table class="left">
+      <tr><th></th><th>B₁</th><th>B₂</th></tr>
+      <tr><th>A₁</th><td>2</td><td>4</td></tr>
+      <tr><th>A₃</th><td>3</td><td>2</td></tr>
+    </table>
+    <p>Here \(a = 2, b = 4, c = 3, d = 2\), denominator \((a+d) - (b+c) = 4 - 7 = -3\). Then \(p = (d-c)/\text{den} = (2-3)/(-3) = 1/3\) (A plays A₁ with prob 1/3, A₃ with 2/3), \(q = (d-b)/\text{den} = (2-4)/(-3) = 2/3\) ✓, and \(v = (ad-bc)/\text{den} = (4-12)/(-3) = 8/3 \approx 2.67\). A guarantees exactly 8/3 against either column, confirming the value.</p>
   </div>
 
   <!-- 9. RELATION TO LP -->
