@@ -199,9 +199,7 @@
     <tr><th colspan="2">c<sub>j</sub>−Z<sub>j</sub></th><th></th><th>0</th><th>−1</th><th>−3</th><th>0</th><th></th></tr>
   </table>
 
-  <p>All \(c_j - z_j \le 0\) ⇒ optimal. \(x_1 = 4, x_2 = 0, Z = 12\).</p>
-
-  <p>Wait — the column for \(x_2\) shows c−z = −1, so it's negative. So actually we have to verify: any positive entry? No, all are 0 or negative. So we stop.</p>
+  <p>All \(c_j - z_j \le 0\) (the largest is \(0\), and \(x_2\)'s entry is \(-1\)), so no non-basic variable can improve \(Z\) — the tableau is optimal.</p>
 
   <p><strong>Optimal solution:</strong> \(x_1 = 4,\; x_2 = 0,\; s_1 = 0, s_2 = 2;\; Z_{\max} = 12\).</p>
 
@@ -239,7 +237,7 @@
   <h3>Add slacks \(s_1, s_2, s_3\) and start with BFS \(s_1 = 60, s_2 = 40, s_3 = 80\), Z = 0.</h3>
   <p>Most positive \(c_j - z_j\) = 4 ⇒ \(x_2\) enters. Ratios 60/4 = 15, 40/1 = 40, 80/3 ≈ 26.67. Smallest is 15 ⇒ \(s_1\) leaves. Pivot, iterate, and eventually find optimum.</p>
 
-  <p>(Result: \(x_1 = 0, x_2 = 12, x_3 = 14, Z = 90\) after two further iterations. Detailed tableau steps follow the same procedure as Section 7.)</p>
+  <p>(Result after two further iterations: \(x_1 = 0,\; x_2 = 20/3 \approx 6.67,\; x_3 = 50/3 \approx 16.67,\; Z = 230/3 \approx 76.67\), with the first two constraints binding. Detailed tableau steps follow the same procedure as Section 7.)</p>
 
   <!-- 10. INTERPRETATION -->
   <h2>10. Interpreting the Final Tableau</h2>

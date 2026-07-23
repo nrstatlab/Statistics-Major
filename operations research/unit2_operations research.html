@@ -176,25 +176,24 @@
         <li>\(4 x_1 + 3 x_2 = 60\) through (15, 0) and (0, 20)</li>
       </ul>
     </li>
-    <li>Feasible region lies <strong>above</strong> all three lines and in the first quadrant — it's unbounded above and to the right.</li>
+    <li>Feasible region lies <strong>above</strong> all three lines and in the first quadrant — it's unbounded above and to the right. (The third constraint \(4 x_1 + 3 x_2 \ge 60\) turns out to be <em>redundant</em>: it is satisfied automatically wherever the other two hold.)</li>
     <li>Find vertices that border the feasible region:
       <ul>
-        <li>\(P_1 = (0, 30)\)</li>
+        <li>\(P_1 = (0, 30)\) — where \(3 x_1 + x_2 = 30\) meets the \(x_2\)-axis</li>
         <li>\(P_2 = (4, 18)\) — intersection of \(3 x_1 + x_2 = 30\) and \(x_1 + 2 x_2 = 40\)</li>
-        <li>\(P_3 = (6, 12)\) — intersection of \(x_1 + 2 x_2 = 40\) and \(4 x_1 + 3 x_2 = 60\)</li>
-        <li>\(P_4 = (15, 0)\)</li>
+        <li>\(P_3 = (40, 0)\) — where \(x_1 + 2 x_2 = 40\) meets the \(x_1\)-axis</li>
       </ul>
+      <p>(The points \((6, 12)\) and \((15, 0)\) lie <em>below</em> the line \(x_1 + 2 x_2 = 40\) — e.g. at \((6,12)\), \(x_1 + 2x_2 = 30 &lt; 40\) — so they are infeasible and are not corner points of the region.)</p>
     </li>
-    <li>Compute Z at each:
+    <li>Compute Z at each feasible vertex:
       <table class="left">
         <tr><th>Vertex</th><th>Z = 20x₁ + 10x₂</th></tr>
         <tr><td>(0, 30)</td><td>300</td></tr>
-        <tr><td>(4, 18)</td><td>260</td></tr>
-        <tr><td>(6, 12)</td><td><strong>240 (min)</strong></td></tr>
-        <tr><td>(15, 0)</td><td>300</td></tr>
+        <tr><td>(4, 18)</td><td><strong>260 (min)</strong></td></tr>
+        <tr><td>(40, 0)</td><td>800</td></tr>
       </table>
     </li>
-    <li><strong>Optimal:</strong> \(x_1 = 6,\; x_2 = 12,\; Z_{\min} = 240\).</li>
+    <li><strong>Optimal:</strong> \(x_1 = 4,\; x_2 = 18,\; Z_{\min} = 260\).</li>
   </ol>
 
   <!-- 6. SPECIAL CASES -->
@@ -206,7 +205,7 @@
   <div class="example">
     <span class="label">EXAMPLE 1</span>
     <p>Max \(Z = 4 x_1 + 6 x_2\) subject to \(2 x_1 + 3 x_2 \le 24,\; x_1 + 4 x_2 \le 20, \;x_1, x_2 \ge 0\).</p>
-    <p>The line \(Z = 4 x_1 + 6 x_2\) is parallel to constraint \(2 x_1 + 3 x_2 = 24\). All points on the edge from (12, 0) to (4.8, 4.8) give \(Z = 48\) — infinitely many optimal solutions.</p>
+    <p>The line \(Z = 4 x_1 + 6 x_2\) is parallel to constraint \(2 x_1 + 3 x_2 = 24\) (both have slope \(-2/3\)). All points on the edge from (12, 0) to (7.2, 3.2) — the intersection of \(2 x_1 + 3 x_2 = 24\) and \(x_1 + 4 x_2 = 20\) — give \(Z = 48\), so there are infinitely many optimal solutions.</p>
   </div>
 
   <h3>6.2 Unbounded Solution</h3>
