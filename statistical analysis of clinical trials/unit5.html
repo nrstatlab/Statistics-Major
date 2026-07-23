@@ -111,7 +111,7 @@
     </ul>
     <p>Freedman recommended that PTE should be at least 0.50–0.75 for a surrogate to be considered
     adequate. However, PTE is unstable with small samples and can be outside [0, 1] due to sampling
-    variability.</li>
+    variability.</p>
   </div>
 
   <h3>1.3 Design Considerations for Trials Using Surrogate Endpoints</h3>
@@ -563,21 +563,22 @@
     <p>\(df = 4\), \(p = 0.096\) (borderline significant). \(I^2 = (7.877 - 4)/7.877 \times 100 = 49.2\%\)
     (moderate heterogeneity).</p>
     <p><strong>Random-effects meta-analysis:</strong></p>
+    <p>The DerSimonian-Laird denominator is \(C = \sum w_i - \sum w_i^2 / \sum w_i = 432.2 - 93.1 = 339.1\), so</p>
     <p>\[
-    \hat{\tau}^2 = \frac{7.877 - 4}{109.3} = 0.0354
+    \hat{\tau}^2 = \frac{7.877 - 4}{339.1} = 0.0114
     \]</p>
-    <p>Random-effects weights (balanced): 82.4, 69.8, 42.3, 71.3, 79.5 (total = 345.3).</p>
+    <p>Random-effects weights \(w_i^* = 1/(\sigma_i^2 + \hat{\tau}^2)\): 49.3, 42.9, 28.9, 43.7, 47.5 (total = 212.3).</p>
     <p>\[
-    \hat{\theta}_{RE} = -0.398, \quad SE = 0.0577
+    \hat{\theta}_{RE} = -0.410, \quad SE = \sqrt{1/212.3} = 0.0686
     \]</p>
-    <p>Pooled HR: 0.672 (95% CI: 0.600–0.752), p &lt; 0.001.</p>
-    <p><strong>Prediction interval:</strong></p>
+    <p>Pooled HR: 0.664 (95% CI: 0.580–0.759), p &lt; 0.001.</p>
+    <p><strong>Prediction interval</strong> (using \(t_{k-2,\,0.025} = t_{3,\,0.025} = 3.182\)):</p>
     <p>\[
-    -0.398 \pm 2.776 \times \sqrt{0.00333 + 0.0354} = -0.398 \pm 0.549 = (-0.947, 0.151)
+    -0.410 \pm 3.182 \times \sqrt{0.00471 + 0.0114} = -0.410 \pm 0.404 = (-0.814, -0.006)
     \]</p>
-    <p>On HR scale: (0.388, 1.163). The prediction interval slightly crosses 1.0, indicating that
-    while the average effect is clearly beneficial, there is moderate heterogeneity and the effect
-    could vary across populations.</p>
+    <p>On HR scale: (0.443, 0.994). The prediction interval stays just below 1.0, so a future trial
+    is still expected to show benefit — but its upper limit lies close to the null, reflecting the
+    moderate heterogeneity across populations.</p>
     <p><strong>Conclusion:</strong> Statins reduce the risk of major cardiovascular events by
     approximately 33% in primary prevention (pooled HR = 0.67, 95% CI: 0.60–0.75). The moderate
     heterogeneity (\(I^2 = 49\%\)) reflects differences in patient populations (e.g., JUPITER
