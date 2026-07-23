@@ -183,7 +183,8 @@
 
   <div class="example">
     <span class="label">EXAMPLE 2 — Effect of changing \(c\) on AOQL</span>
-    <p>For \(n = 100\): with \(c = 1\), AOQL ≈ 1.1%; with \(c = 3\), AOQL ≈ 1.94%; with \(c = 5\), AOQL ≈ 2.8%.
+    <p>For \(n = 100\), using AOQL ≈ \(y_c/n\) with the Dodge–Romig constants (\(y_1 = 0.840\), \(y_3 = 1.946\),
+    \(y_5 = 3.17\)): with \(c = 1\), AOQL ≈ 0.84%; with \(c = 3\), AOQL ≈ 1.94%; with \(c = 5\), AOQL ≈ 3.17%.
     Increasing the acceptance number raises AOQL (worse outgoing quality guarantee) but reduces the number of lots
     rejected — a trade-off between quality assurance and inspection cost.</p>
   </div>
@@ -222,21 +223,24 @@
   <div class="example">
     <span class="label">EXAMPLE 1 — Lot quality approach</span>
     <p>Given: AQL = \(p_1 = 0.01\), \(\alpha = 0.05\), LTPD = \(p_2 = 0.05\), \(\beta = 0.10\).</p>
-    <p>Ratio \(R = 0.05/0.01 = 5.0\).</p>
-    <p>From Poisson OC table: for \(c = 3\), \(\lambda_1 = 0.818\) (gives \(P_a = 0.95\)) and \(\lambda_2 = 6.681\)
-    (gives \(P_a = 0.10\)). Check: \(\lambda_2/\lambda_1 = 6.681/0.818 = 8.17\) — not equal to 5.0, so try \(c = 2\).</p>
-    <p>For \(c = 2\): \(\lambda_1 = 0.418\), \(\lambda_2 = 5.322\). Ratio = 12.7 — too large.</p>
-    <p>For \(c = 4\): \(\lambda_1 = 1.286\), \(\lambda_2 = 8.0\). Ratio = 6.22.</p>
-    <p>For \(c = 5\): \(\lambda_1 = 1.783\), \(\lambda_2 = 9.275\). Ratio = 5.20 ≈ 5.0. Close!</p>
-    <p>Then \(n = \lambda_1/p_1 = 1.783/0.01 = 178\). Plan: \(n = 178\), \(c = 5\).</p>
+    <p>Required ratio \(R = p_2/p_1 = 0.05/0.01 = 5.0\).</p>
+    <p>From the Poisson unity (Cameron) table, \(\lambda_1 = np\) gives \(P_a = 0.95\) and \(\lambda_2 = np\) gives \(P_a = 0.10\):</p>
+    <table class="left">
+      <tr><th>\(c\)</th><th>\(\lambda_1\) (\(P_a=0.95\))</th><th>\(\lambda_2\) (\(P_a=0.10\))</th><th>\(\lambda_2/\lambda_1\)</th></tr>
+      <tr><td>2</td><td>0.818</td><td>5.322</td><td>6.51</td></tr>
+      <tr><td>3</td><td>1.366</td><td>6.681</td><td>4.89</td></tr>
+      <tr><td>4</td><td>1.970</td><td>7.994</td><td>4.06</td></tr>
+    </table>
+    <p>The target ratio 5.0 falls between \(c = 2\) (6.51) and \(c = 3\) (4.89); \(c = 3\) is the closest, so take \(c = 3\).</p>
+    <p>Then fix \(n\) from the producer's point: \(n = \lambda_1/p_1 = 1.366/0.01 = 136.6 \approx 137\). (Consumer check: \(\lambda_2/p_2 = 6.681/0.05 = 133.6\), consistent.) <strong>Plan: \(n = 137\), \(c = 3\).</strong></p>
   </div>
 
   <div class="example">
     <span class="label">EXAMPLE 2 — Lot quality approach (different specifications)</span>
-    <p>Given: AQL = 2%, \(\alpha = 0.05\), LTPD = 8%, \(\beta = 0.10\). Ratio \(R = 4\).</p>
-    <p>From tables, \(c = 5\) gives \(\lambda_1 = 1.783\), \(\lambda_2 = 9.275\), ratio ≈ 5.2 (too high).
-    Try \(c = 7\): \(\lambda_1 = 2.806\), \(\lambda_2 = 11.77\), ratio ≈ 4.2 (close to 4.0).</p>
-    <p>\(n = \lambda_1/p_1 = 2.806/0.02 = 140\). Plan: \(n = 140\), \(c = 7\).</p>
+    <p>Given: AQL = \(p_1 = 0.02\), \(\alpha = 0.05\), LTPD = \(p_2 = 0.08\), \(\beta = 0.10\). Required ratio \(R = 0.08/0.02 = 4.0\).</p>
+    <p>From the Cameron table: \(c = 4\) gives \(\lambda_1 = 1.970\), \(\lambda_2 = 7.994\), ratio ≈ 4.06 (essentially 4.0);
+    \(c = 5\) gives ratio ≈ 3.55 (too low). So take \(c = 4\).</p>
+    <p>\(n = \lambda_1/p_1 = 1.970/0.02 = 98.5 \approx 99\). (Consumer check: \(\lambda_2/p_2 = 7.994/0.08 = 99.9\), consistent.) <strong>Plan: \(n = 99\), \(c = 4\).</strong></p>
   </div>
 
   <h3>6.2 Average Quality Approach</h3>

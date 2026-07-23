@@ -130,7 +130,7 @@
     <p>Plan: \(n = 50\), \(c = 2\). Compute \(P_a\) for \(p = 0.02\):</p>
     <p>\(P_a = P(X \le 2) = \binom{50}{0}(0.02)^0(0.98)^{50} + \binom{50}{1}(0.02)^1(0.98)^{49} + \binom{50}{2}(0.02)^2(0.98)^{48}\).</p>
     <p>\(= 0.3642 + 0.3716 + 0.1858 = 0.9216\).</p>
-    <p>For \(p = 0.08\): \(P_a \approx 0.067\) — the plan strongly discriminates between 2% and 8% defective lots.</p>
+    <p>For \(p = 0.08\): \(P_a \approx 0.226\) — the plan discriminates well between 2% and 8% defective lots (compare the Poisson value 0.238 in Example 2).</p>
   </div>
 
   <div class="example">
@@ -249,7 +249,7 @@
     <span class="label">EXAMPLE 2 — ATI comparison</span>
     <p>For the same plan, at two different quality levels:</p>
     <ul>
-      <li>Good quality (\(p = 0.005\), \(P_a = 0.998\)): ATI = 80 + 0.002 × 1920 = 83.8 ≈ \(n\).</li>
+      <li>Good quality (\(p = 0.005\), \(\lambda = 0.4\), \(P_a = 0.992\)): ATI = 80 + 0.008 × 1920 = 95.4 ≈ \(n\).</li>
       <li>Bad quality (\(p = 0.05\), \(P_a = 0.238\)): ATI = 80 + 0.762 × 1920 = 1543.0 ≈ \(N\).</li>
     </ul>
     <p>When the supplier's quality is good, most lots are accepted and ATI is close to \(n\). When quality is poor,
