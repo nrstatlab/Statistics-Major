@@ -13,7 +13,7 @@
   <div class="banner">
     <div class="crumbs"><a href="index_actuarial statistics.html">Home</a> &raquo; Unit 3</div>
     <h1>Unit 3 — Survival Distribution &amp; Life Tables</h1>
-    <p>Age at death, survival function, time-until-death, curate future lifetime, force of mortality; life tables &amp; deterministic survivorship group; fractional-age assumptions; analytical laws of mortality.</p>
+    <p>Age at death, survival function, time-until-death, curtate future lifetime, force of mortality; life tables &amp; deterministic survivorship group; fractional-age assumptions; analytical laws of mortality.</p>
   </div>
 
   <h2>Topics Covered</h2>
@@ -21,7 +21,7 @@
     <span class="chip">Age at Death X</span>
     <span class="chip">Survival Function s(x)</span>
     <span class="chip">Future Lifetime T(x)</span>
-    <span class="chip">Curate Lifetime K(x)</span>
+    <span class="chip">Curtate Lifetime K(x)</span>
     <span class="chip">Force of Mortality μ(x)</span>
     <span class="chip">Life Table</span>
     <span class="chip">Fractional Age</span>
@@ -90,18 +90,18 @@
     <p>where \(\mu(x+t)\) is the force of mortality at age \(x+t\) — see Section 5.</p>
   </div>
 
-  <!-- 4. CURATE FUTURE LIFETIME K(x) -->
-  <h2>4. Curate Future Lifetime K(x)</h2>
+  <!-- 4. CURTATE FUTURE LIFETIME K(x) -->
+  <h2>4. Curtate Future Lifetime K(x)</h2>
   <div class="concept">
     <span class="label">DEFINITION</span>
-    <p>The <strong>curate future lifetime</strong> \(K(x) = \lfloor T(x) \rfloor\) is the integer part of \(T(x)\) — the number of complete future years the life will live.</p>
+    <p>The <strong>curtate future lifetime</strong> \(K(x) = \lfloor T(x) \rfloor\) is the integer part of \(T(x)\) — the number of complete future years the life will live.</p>
     <p>\(K(x)\) is a discrete r.v. taking values \(0, 1, 2, \ldots\) with PMF:</p>
     \[
       P(K(x) = k) \;=\; {}_kp_x \cdot q_{x+k} \;=\; {}_{k|}q_x.
     \]
   </div>
 
-  <h3>Expected Curate Lifetime — \(e_x\)</h3>
+  <h3>Expected Curtate Lifetime — \(e_x\)</h3>
   <div class="formula">
     \[
       e_x \;=\; E(K(x)) \;=\; \sum_{k=1}^{\infty} {}_kp_x.
@@ -306,7 +306,7 @@
   <h2>Key Take-aways</h2>
   <ul>
     <li>Age at death \(X\) has survival function \(s(x) = P(X &gt; x)\); related to force of mortality by \(s(x) = \exp(-\int_0^x \mu)\).</li>
-    <li>For a life aged \(x\): future lifetime \(T(x)\) is continuous, curate lifetime \(K(x) = \lfloor T(x) \rfloor\) is discrete.</li>
+    <li>For a life aged \(x\): future lifetime \(T(x)\) is continuous, curtate lifetime \(K(x) = \lfloor T(x) \rfloor\) is discrete.</li>
     <li>Notation: \(_tp_x, _tq_x, _{s|t}q_x\) — all expressible via \(s(x)\) or life-table \(l_x\).</li>
     <li>Force of mortality \(\mu(x)\) is the instantaneous death rate; constant for exponential lifetimes.</li>
     <li>Life-table columns: \(l_x, d_x, q_x, p_x, L_x, T_x, e_x^\circ\); related by deterministic recursion.</li>

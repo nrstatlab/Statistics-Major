@@ -219,10 +219,10 @@
     <p>An insurer issues 1 000 one-year term policies, each with face amount ₹1 00 000. Probability of claim is 0.002 per policy (independent).</p>
     <p>\(B_i = 100{,}000\) (constant); \(I_i \sim \) Bernoulli(0.002); \(n = 1000\).</p>
     <p>\(E(S) = 1000 \cdot 0.002 \cdot 100{,}000 = ₹2{,}00{,}000\).</p>
-    <p>\(\text{Var}(I_i) = 0.002 \cdot 0.998 = 0.001996;\;\) \(\text{Var}(X_i) = 100000^2 \cdot 0.001996 = 1.996 \times 10^{10}\); \(\text{Var}(S) = 1000 \cdot 1.996 \times 10^{10} = 1.996 \times 10^{13}\); \(\sigma_S \approx 4{,}468{,}780\).</p>
+    <p>\(\text{Var}(I_i) = 0.002 \cdot 0.998 = 0.001996;\;\) \(\text{Var}(X_i) = 100000^2 \cdot 0.001996 = 1.996 \times 10^{7}\); \(\text{Var}(S) = 1000 \cdot 1.996 \times 10^{7} = 1.996 \times 10^{10}\); \(\sigma_S = \sqrt{1.996 \times 10^{10}} \approx 141{,}280\).</p>
     <p>Probability that aggregate claims exceed ₹3 00 000:</p>
-    <p>\(P(S &gt; 300000) \approx P\!\left(Z &gt; \dfrac{300000 - 200000}{4468780}\right) = P(Z &gt; 0.0224) = 0.491\).</p>
-    <p>(Wait — this is suspicious; let's recompute: actually \(\sigma_S \approx \sqrt{1.996 \times 10^{13}} \approx 4{,}468\). That's ₹44 680 → \(Z = 100000/44680 = 2.24,\; p = 0.0125\). Let's redo: \(\sigma_S = \sqrt{1.996 \times 10^{13}}\). \(\sqrt{1.996} \approx 1.413\); \(\sqrt{10^{13}} = 10^{6.5} = 3{,}162{,}277\). So \(\sigma_S = 1.413 \times 3{,}162{,}277 \approx 4{,}468{,}300\). \(Z = 100000/4468300 = 0.0224\). Indeed \(p \approx 0.491\). The variance is huge because of the rare-event nature; many more policies would be needed for the CLT to give a sharp answer.)</p>
+    <p>\(P(S &gt; 300000) \approx P\!\left(Z &gt; \dfrac{300000 - 200000}{141280}\right) = P(Z &gt; 0.708) = 0.24\).</p>
+    <p>The variance is driven by the rare but large ₹1 00 000 payouts, so \(S\) is quite spread out relative to its mean of ₹2 00 000 — a much larger portfolio would be needed for the CLT to give a sharp tail estimate.</p>
   </div>
 
   <div class="example">
