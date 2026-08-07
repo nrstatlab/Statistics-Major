@@ -13,8 +13,17 @@
   <div class="banner">
     <div class="crumbs"><a href="index_computational statistics and r programming.html">Home</a> &raquo; Practical</div>
     <h1>Practical Course — 7 Experiments</h1>
-    <p>Semester V, Course 11 (Practical) — 2 hrs/week, Credit 1. Hands-on R labs to be done in the Computer Lab (≥ 4 hrs/month).</p>
+    <p>Semester V, Course 11 (Practical) — 2 hrs/week, Credit 1. Each experiment is set out in the
+    standard lab-record format: <strong>1. Problem, 2. Aim, 3. Procedure (with formula/R script and a
+    blank working table), 4. Calculation, 5. Result.</strong> Labs are done in the Computer Lab
+    (≥ 4 hrs/month) using R.</p>
   </div>
+
+  <div class="tip"><strong>How to use this manual:</strong> In the lab, type the R script from the
+  Procedure, copy the <em>blank working table</em> into your record book and fill it with the values the
+  console returns (shown in the Calculation section). The Result states the decision and its
+  interpretation. Use built-in datasets (<code>iris</code>, <code>mtcars</code>, <code>airquality</code>,
+  <code>ToothGrowth</code>, <code>sleep</code>) or a CSV from the UCI ML Repository.</p></div>
 
   <h2>List of Practical Experiments (Official Syllabus)</h2>
   <ol>
@@ -27,116 +36,201 @@
     <li>Linear Regression Modeling — fit a simple linear model, plot residuals, predict new values.</li>
   </ol>
 
-  <div class="tip">
-    Use built-in R datasets (<code>iris</code>, <code>mtcars</code>, <code>airquality</code>, <code>ToothGrowth</code>) or download CSV from the UCI ML Repository for these experiments.
-  </div>
-
-  <!-- EXP 1 -->
+  <!-- ============================================================ EXP 1 -->
   <h2>Experiment 1 — Data Import &amp; Preprocessing</h2>
-  <div class="example">
-    <span class="label">AIM</span>
-    <p>Import a dataset, examine its structure, handle missing values, perform sub-setting.</p>
-  </div>
 
-  <pre><code># Built-in dataset
-data(airquality)
-str(airquality)              # 153 obs of 6 vars; NAs in Ozone and Solar.R
+  <h3>1. Problem</h3>
+  <p>Import the built-in <code>airquality</code> dataset (153 observations, 6 variables), examine its
+  structure, count and handle the missing values, and create subsets.</p>
 
-# Or read a CSV (uncomment and edit path)
-# air &lt;- read.csv("airquality.csv")
+  <h3>2. Aim</h3>
+  <p>To read a dataset into R, inspect it, deal with missing values (drop or impute), and perform
+  sub-setting.</p>
 
-# Check missing values
-colSums(is.na(airquality))   # Ozone:37, Solar.R:7
-
-# Drop rows with any NA
-clean &lt;- na.omit(airquality)
-nrow(clean)                   # 111
-
-# Replace Ozone NAs with mean
-airquality$Ozone[is.na(airquality$Ozone)] &lt;- mean(airquality$Ozone, na.rm = TRUE)
-
-# Subset: rows where temperature &gt; 80
-hot &lt;- subset(airquality, Temp &gt; 80)
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>Load the data and inspect it with <code>str()</code>.</li>
+    <li>Count missing values per column with <code>colSums(is.na(...))</code>.</li>
+    <li>Drop rows with any NA (<code>na.omit</code>) and/or impute the mean.</li>
+    <li>Subset rows meeting a condition and save the cleaned file.</li>
+  </ol>
+  <pre><code>data(airquality)
+str(airquality)                 # 153 obs of 6 vars; NAs in Ozone and Solar.R
+colSums(is.na(airquality))      # count NAs per column
+clean &lt;- na.omit(airquality)    # drop rows with any NA
+nrow(clean)
+airquality$Ozone[is.na(airquality$Ozone)] &lt;- mean(airquality$Ozone, na.rm = TRUE)  # mean-impute
+hot &lt;- subset(airquality, Temp &gt; 80)   # subset
 nrow(hot)
-
-# Save preprocessed data
 write.csv(clean, "airquality_clean.csv", row.names = FALSE)</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>Total observations</td><td></td></tr>
+    <tr><td>NAs in Ozone</td><td></td></tr>
+    <tr><td>NAs in Solar.R</td><td></td></tr>
+    <tr><td>Rows after <code>na.omit</code></td><td></td></tr>
+  </table>
 
-  <!-- EXP 2 -->
-  <h2>Experiment 2 — Descriptive Statistics Computation</h2>
-  <pre><code>data(iris)
-x &lt;- iris$Sepal.Length
+  <h3>4. Calculation</h3>
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>Total observations</td><td>153</td></tr>
+    <tr><td>NAs in Ozone</td><td>37</td></tr>
+    <tr><td>NAs in Solar.R</td><td>7</td></tr>
+    <tr><td>Rows after <code>na.omit</code></td><td>111</td></tr>
+  </table>
 
-mean(x)                       # 5.84
-median(x)                     # 5.80
-var(x)                        # 0.686
-sd(x)                         # 0.828
-range(x)                      # 4.3  7.9
-quantile(x)                   # min, Q1, Q2, Q3, max
-IQR(x)                        # 1.3
+  <h3>5. Result</h3>
+  <p>The dataset has 153 rows with 37 + 7 missing values; <code>na.omit</code> leaves 111 complete rows,
+  and mean-imputation preserves all 153 rows. The cleaned data are saved for later experiments.</p>
 
-# Skewness &amp; Kurtosis
-library(moments)
-skewness(x)                   #  0.31
-kurtosis(x)                   #  2.43
+  <!-- ============================================================ EXP 2 -->
+  <h2>Experiment 2 — Descriptive Statistics</h2>
 
-# Full report
-library(psych)
-describe(iris[, 1:4])</code></pre>
+  <h3>1. Problem</h3>
+  <p>For <code>iris$Sepal.Length</code> (150 observations), compute the standard descriptive statistics
+  and the shape measures (skewness, kurtosis), then interpret.</p>
 
-  <p><strong>Interpretation:</strong> Sepal.Length is mildly right-skewed (skew ≈ 0.31) and platykurtic (β₂ ≈ 2.43 &lt; 3).</p>
+  <h3>2. Aim</h3>
+  <p>To summarise a numeric variable in R with measures of location, dispersion and shape.</p>
 
-  <!-- EXP 3 -->
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>Compute <code>mean</code>, <code>median</code>, <code>var</code>, <code>sd</code>,
+        <code>range</code>, <code>IQR</code>.</li>
+    <li>Load <code>moments</code> for <code>skewness()</code> and <code>kurtosis()</code>.</li>
+    <li>Optionally use <code>psych::describe()</code> for a full report.</li>
+  </ol>
+  <div class="formula">\[ \bar x = \frac{\sum x}{n}, \quad s^2 = \frac{\sum(x-\bar x)^2}{n-1}, \quad
+  \sqrt{b_1} = \frac{m_3}{m_2^{3/2}}, \quad b_2 = \frac{m_4}{m_2^{2}} \]</div>
+  <pre><code>data(iris); x &lt;- iris$Sepal.Length
+mean(x); median(x); var(x); sd(x); range(x); IQR(x)
+library(moments); skewness(x); kurtosis(x)</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Statistic</th><th>R function</th><th>Value</th></tr>
+    <tr><td>Mean</td><td><code>mean(x)</code></td><td></td></tr>
+    <tr><td>Median</td><td><code>median(x)</code></td><td></td></tr>
+    <tr><td>Variance</td><td><code>var(x)</code></td><td></td></tr>
+    <tr><td>Std. deviation</td><td><code>sd(x)</code></td><td></td></tr>
+    <tr><td>IQR</td><td><code>IQR(x)</code></td><td></td></tr>
+    <tr><td>Skewness</td><td><code>skewness(x)</code></td><td></td></tr>
+    <tr><td>Kurtosis</td><td><code>kurtosis(x)</code></td><td></td></tr>
+  </table>
+
+  <h3>4. Calculation</h3>
+  <table class="left">
+    <tr><th>Statistic</th><th>R function</th><th>Value</th></tr>
+    <tr><td>Mean</td><td><code>mean(x)</code></td><td>5.84</td></tr>
+    <tr><td>Median</td><td><code>median(x)</code></td><td>5.80</td></tr>
+    <tr><td>Variance</td><td><code>var(x)</code></td><td>0.686</td></tr>
+    <tr><td>Std. deviation</td><td><code>sd(x)</code></td><td>0.828</td></tr>
+    <tr><td>IQR</td><td><code>IQR(x)</code></td><td>1.3</td></tr>
+    <tr><td>Skewness</td><td><code>skewness(x)</code></td><td>0.31</td></tr>
+    <tr><td>Kurtosis</td><td><code>kurtosis(x)</code></td><td>2.43</td></tr>
+  </table>
+
+  <h3>5. Result</h3>
+  <p>Sepal.Length has mean 5.84 and SD 0.83. It is mildly right-skewed (skewness ≈ 0.31 &gt; 0) and
+  platykurtic (kurtosis ≈ 2.43 &lt; 3), so it is slightly flatter than a normal curve.</p>
+
+  <!-- ============================================================ EXP 3 -->
   <h2>Experiment 3 — Frequency Analysis &amp; Chi-Square</h2>
 
-  <h3>3a — One-way frequency table</h3>
-  <pre><code># Categorise iris by petal length (long if &gt; 4)
-big &lt;- ifelse(iris$Petal.Length &gt; 4, "Long", "Short")
-table(iris$Species, big)</code></pre>
+  <h3>1. Problem</h3>
+  <p>Cross-classify iris flowers by Species and by whether the petal is "Long" (Petal.Length &gt; 4) or
+  "Short", and test whether Species and petal category are independent.</p>
 
+  <h3>2. Aim</h3>
+  <p>To build a contingency table and apply the chi-square test of independence (and, as a variant, a
+  goodness-of-fit test).</p>
+
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>Create the categorical variable and the two-way table with <code>table()</code>.</li>
+    <li>Apply <code>chisq.test()</code> and read \(\chi^2\), df and the p-value.</li>
+    <li>For goodness of fit, tabulate simulated die rolls and test against a uniform expectation.</li>
+  </ol>
+  <div class="formula">\[ \chi^2 = \sum \frac{(O-E)^2}{E}, \qquad df = (r-1)(c-1) \]</div>
+  <pre><code>big &lt;- ifelse(iris$Petal.Length &gt; 4, "Long", "Short")
+tbl &lt;- table(iris$Species, big); tbl
+chisq.test(tbl)
+# Goodness of fit
+set.seed(7); rolls &lt;- sample(1:6, 120, replace = TRUE)
+chisq.test(table(rolls))        # expected: uniform 1/6 each</code></pre>
+  <p><strong>Blank working table</strong> (contingency counts + test):</p>
+  <table class="left">
+    <tr><th>Species</th><th>Long</th><th>Short</th></tr>
+    <tr><td>setosa</td><td></td><td></td></tr>
+    <tr><td>versicolor</td><td></td><td></td></tr>
+    <tr><td>virginica</td><td></td><td></td></tr>
+    <tr><th>χ²</th><td colspan="2"></td></tr>
+    <tr><th>df / p</th><td colspan="2"></td></tr>
+  </table>
+
+  <h3>4. Calculation</h3>
   <div class="out">              big
               Long Short
   setosa         0    50
   versicolor    34    16
   virginica     50     0</div>
+  <table class="left">
+    <tr><th>Species</th><th>Long</th><th>Short</th></tr>
+    <tr><td>setosa</td><td>0</td><td>50</td></tr>
+    <tr><td>versicolor</td><td>34</td><td>16</td></tr>
+    <tr><td>virginica</td><td>50</td><td>0</td></tr>
+    <tr><th>χ²</th><td colspan="2">105.84</td></tr>
+    <tr><th>df / p</th><td colspan="2">2 / &lt; 2.2 × 10⁻¹⁶</td></tr>
+  </table>
 
-  <h3>3b — Chi-Square Test of Independence</h3>
-  <pre><code>tbl &lt;- table(iris$Species, big)
-chisq.test(tbl)
-#  X-squared = 105.84, df = 2, p-value &lt; 2.2e-16
-# Strong association ⇒ reject H0 of independence</code></pre>
+  <h3>5. Result</h3>
+  <p>\(\chi^2 = 105.84\), df = 2, p &lt; 2.2 × 10⁻¹⁶, so \(H_0\) (independence) is rejected: petal
+  category is strongly associated with Species.</p>
 
-  <h3>3c — Goodness-of-fit (fair die simulation)</h3>
-  <pre><code>set.seed(7); rolls &lt;- sample(1:6, 120, replace = TRUE)
-observed &lt;- table(rolls); observed
-chisq.test(observed)           # expected: uniform 1/6 each</code></pre>
+  <!-- ============================================================ EXP 4 -->
+  <h2>Experiment 4 — Basic Visualizations &amp; Normality</h2>
 
-  <!-- EXP 4 -->
-  <h2>Experiment 4 — Basic Visualizations</h2>
+  <h3>1. Problem</h3>
+  <p>Visualise <code>iris</code> variables with histograms and boxplots, and assess the normality of
+  Sepal.Length using a Q-Q plot and the Shapiro–Wilk test.</p>
 
-  <h3>Histograms</h3>
+  <h3>2. Aim</h3>
+  <p>To produce diagnostic plots and a formal normality test to judge whether a variable is normally
+  distributed.</p>
+
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>Draw a histogram with a fitted normal curve and a species boxplot.</li>
+    <li>Draw a Q-Q plot and add the reference line.</li>
+    <li>Run <code>shapiro.test()</code> and record the p-value.</li>
+  </ol>
   <pre><code>par(mfrow = c(1, 2))
-hist(iris$Sepal.Length, breaks = 15, col = "lightblue",
-     main = "Histogram of Sepal Length",
-     xlab = "Sepal length (cm)", freq = FALSE)
-curve(dnorm(x, mean(iris$Sepal.Length), sd(iris$Sepal.Length)),
-      add = TRUE, col = "red", lwd = 2)
+hist(iris$Sepal.Length, breaks = 15, col = "lightblue", freq = FALSE,
+     main = "Histogram of Sepal Length", xlab = "Sepal length (cm)")
+curve(dnorm(x, mean(iris$Sepal.Length), sd(iris$Sepal.Length)), add = TRUE, col = "red", lwd = 2)
+boxplot(Sepal.Length ~ Species, data = iris, notch = TRUE,
+        col = c("pink","skyblue","lightgreen"), main = "Sepal Length by Species")
+par(mfrow = c(1, 1))
+qqnorm(iris$Sepal.Length); qqline(iris$Sepal.Length, col = "red", lwd = 2)
+shapiro.test(iris$Sepal.Length)</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Check</th><th>Value / observation</th></tr>
+    <tr><td>Shapiro–Wilk p-value</td><td></td></tr>
+    <tr><td>Q-Q plot (points on line?)</td><td></td></tr>
+    <tr><td>Normality decision</td><td></td></tr>
+  </table>
 
-hist(iris$Petal.Length, breaks = 15, col = "lightgreen",
-     main = "Histogram of Petal Length", xlab = "Petal length (cm)")
-par(mfrow = c(1, 1))</code></pre>
-
-  <h3>Boxplots</h3>
-  <pre><code>boxplot(Sepal.Length ~ Species, data = iris,
-        col  = c("pink","skyblue","lightgreen"),
-        main = "Sepal Length by Species",
-        notch = TRUE)</code></pre>
-
-  <h3>Normality check — Q-Q plot &amp; Shapiro-Wilk</h3>
-  <pre><code>qqnorm(iris$Sepal.Length); qqline(iris$Sepal.Length, col = "red", lwd = 2)
-shapiro.test(iris$Sepal.Length)
-#  p-value = 0.0102 ⇒ borderline; histogram looks roughly normal but tails differ</code></pre>
-
+  <h3>4. Calculation</h3>
+  <div class="out">shapiro.test(iris$Sepal.Length)
+  W = 0.97609, p-value = 0.01018</div>
+  <table class="left">
+    <tr><th>Check</th><th>Value / observation</th></tr>
+    <tr><td>Shapiro–Wilk p-value</td><td>0.0102</td></tr>
+    <tr><td>Q-Q plot (points on line?)</td><td>hug the line except in the tails</td></tr>
+    <tr><td>Normality decision</td><td>borderline (p slightly &lt; 0.05)</td></tr>
+  </table>
   <figure class="figure" style="max-width:860px;">
     <svg viewBox="0 0 900 250" role="img" aria-label="Expected output of experiment 4: histogram with normal curve, boxplots by species, and Q-Q plot">
       <g font-family="Segoe UI, Arial, sans-serif" fill="#334155">
@@ -190,8 +284,13 @@ shapiro.test(iris$Sepal.Length)
         <text x="450" y="240" font-size="12" text-anchor="middle" fill="#64748b">Three views of the same question: is the variable (roughly) normal, and how do groups differ?</text>
       </g>
     </svg>
-    <figcaption>What your screen should show in Experiment 4: the histogram with a normal overlay, side-by-side boxplots revealing the species shift (with virginica's low outlier), and a Q-Q plot whose points hug the line except in the tails — matching the borderline Shapiro-Wilk p-value.</figcaption>
+    <figcaption>What your screen should show in Experiment 4: the histogram with a normal overlay, side-by-side boxplots revealing the species shift (with virginica's low outlier), and a Q-Q plot whose points hug the line except in the tails — matching the borderline Shapiro–Wilk p-value.</figcaption>
   </figure>
+
+  <h3>5. Result</h3>
+  <p>The histogram is roughly bell-shaped, the boxplots show Sepal.Length rising from setosa to
+  virginica, and the Q-Q plot points hug the line except at the tails. Shapiro–Wilk p = 0.0102 (just
+  below 0.05), so normality is borderline — a caution to consider non-parametric tests.</p>
 
   <h2>Choosing the Right Test (Experiments 3, 5, 6, 7)</h2>
   <figure class="figure" style="max-width:860px;">
@@ -249,108 +348,170 @@ shapiro.test(iris$Sepal.Length)
     <figcaption>The decision every lab report should make explicit: what the question is, whether assumptions hold, and which R function follows. Quote this reasoning in the Interpretation section of your notebook.</figcaption>
   </figure>
 
-  <!-- EXP 5 -->
+  <!-- ============================================================ EXP 5 -->
   <h2>Experiment 5 — Hypothesis Testing (t-tests &amp; ANOVA)</h2>
 
-  <h3>One-sample t-test</h3>
+  <h3>1. Problem</h3>
+  <p>Carry out (a) a one-sample t-test of \(H_0:\mu = 50\) on ten measurements, (b) a two-sample (Welch)
+  t-test comparing setosa vs versicolor Sepal.Length, (c) a paired t-test on the <code>sleep</code> data,
+  and (d) a one-way ANOVA of Sepal.Length by Species.</p>
+
+  <h3>2. Aim</h3>
+  <p>To perform parametric tests of means (one-sample, two-sample, paired) and ANOVA in R and report the
+  p-values.</p>
+
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>One-sample: <code>t.test(x, mu = 50)</code>.</li>
+    <li>Two-sample Welch: <code>t.test(setosa, versicolor)</code>.</li>
+    <li>Paired: <code>t.test(extra ~ group, data = sleep, paired = TRUE)</code>.</li>
+    <li>ANOVA: <code>aov(Sepal.Length ~ Species, data = iris)</code> then <code>TukeyHSD</code>.</li>
+  </ol>
+  <div class="formula">\[ t = \frac{\bar x - \mu_0}{s/\sqrt n}, \qquad
+  F = \frac{MS_{between}}{MS_{within}} \]</div>
   <pre><code>x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
-t.test(x, mu = 50)              # p = 0.4601 ⇒ fail to reject H0</code></pre>
-
-  <h3>Two-sample t-test (Welch)</h3>
-  <pre><code>setosa     &lt;- iris$Sepal.Length[iris$Species == "setosa"]
+t.test(x, mu = 50)
+setosa     &lt;- iris$Sepal.Length[iris$Species == "setosa"]
 versicolor &lt;- iris$Sepal.Length[iris$Species == "versicolor"]
-t.test(setosa, versicolor)        # p &lt; 2.2e-16 ⇒ reject H0</code></pre>
+t.test(setosa, versicolor)
+data(sleep); t.test(extra ~ group, data = sleep, paired = TRUE)
+summary(aov(Sepal.Length ~ Species, data = iris)); TukeyHSD(aov(Sepal.Length ~ Species, data = iris))</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Decision</th></tr>
+    <tr><td>One-sample t (mu = 50)</td><td></td><td></td><td></td></tr>
+    <tr><td>Two-sample t (setosa vs versicolor)</td><td></td><td></td><td></td></tr>
+    <tr><td>Paired t (sleep)</td><td></td><td></td><td></td></tr>
+    <tr><td>One-way ANOVA (Species)</td><td></td><td></td><td></td></tr>
+  </table>
 
-  <h3>Paired t-test (sleep dataset)</h3>
-  <pre><code>data(sleep)
-t.test(extra ~ group, data = sleep, paired = TRUE)
-#  t = -4.062, df = 9, p-value = 0.00283 ⇒ Drug effect significant</code></pre>
+  <h3>4. Calculation</h3>
+  <table class="left">
+    <tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Decision</th></tr>
+    <tr><td>One-sample t (mu = 50)</td><td>t = 0.772, df = 9</td><td>0.4601</td><td>Fail to reject \(H_0\)</td></tr>
+    <tr><td>Two-sample t (setosa vs versicolor)</td><td>t = −10.5</td><td>&lt; 2.2 × 10⁻¹⁶</td><td>Reject \(H_0\)</td></tr>
+    <tr><td>Paired t (sleep)</td><td>t = −4.062, df = 9</td><td>0.00283</td><td>Reject \(H_0\)</td></tr>
+    <tr><td>One-way ANOVA (Species)</td><td>large F</td><td>&lt; 2 × 10⁻¹⁶</td><td>Reject \(H_0\); all 3 pairs differ (Tukey)</td></tr>
+  </table>
 
-  <h3>One-way ANOVA</h3>
-  <pre><code>fit &lt;- aov(Sepal.Length ~ Species, data = iris)
-summary(fit)
-TukeyHSD(fit)                     # all 3 pairs significant</code></pre>
+  <h3>5. Result</h3>
+  <p>The ten measurements are consistent with \(\mu = 50\) (p = 0.46), but Species means of Sepal.Length
+  differ strongly (two-sample and ANOVA p &lt; 10⁻¹⁵), and the sleep drug has a significant paired effect
+  (p = 0.0028).</p>
 
-  <h3>Two-way ANOVA</h3>
-  <pre><code>data(ToothGrowth)
-fit2 &lt;- aov(len ~ supp * factor(dose), data = ToothGrowth)
-summary(fit2)</code></pre>
-
-  <!-- EXP 6 -->
+  <!-- ============================================================ EXP 6 -->
   <h2>Experiment 6 — Non-Parametric Tests</h2>
 
-  <h3>Wilcoxon Signed-Rank (one-sample / paired)</h3>
-  <pre><code># One-sample
-x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
-wilcox.test(x, mu = 50)                    # V = 28.5, p = 0.511
-# (R warns about ties — with tied ranks it uses a normal approximation)
+  <h3>1. Problem</h3>
+  <p>Repeat the location comparisons of Experiment 5 without the normality assumption: a one-sample
+  Wilcoxon signed-rank test, a paired signed-rank test on <code>sleep</code>, and a Wilcoxon rank-sum
+  (Mann–Whitney) test for setosa vs versicolor; compare the last with its parametric counterpart.</p>
 
-# Paired sleep data
-wilcox.test(extra ~ group, data = sleep, paired = TRUE)</code></pre>
+  <h3>2. Aim</h3>
+  <p>To apply rank-based non-parametric tests and contrast them with the parametric t-tests.</p>
 
-  <h3>Wilcoxon Rank-Sum (two-sample)</h3>
-  <pre><code>wilcox.test(setosa, versicolor)            # W = 168.5, p = 8.3e-14 ⇒ groups differ</code></pre>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>One-sample signed-rank: <code>wilcox.test(x, mu = 50)</code>.</li>
+    <li>Paired signed-rank: <code>wilcox.test(extra ~ group, data = sleep, paired = TRUE)</code>.</li>
+    <li>Rank-sum: <code>wilcox.test(setosa, versicolor)</code>.</li>
+    <li>Tabulate the t-test and Wilcoxon p-values side by side.</li>
+  </ol>
+  <pre><code>x &lt;- c(48, 52, 49, 53, 51, 47, 55, 50, 49, 52)
+wilcox.test(x, mu = 50)                       # V = 28.5, p = 0.511
+wilcox.test(extra ~ group, data = sleep, paired = TRUE)
+wilcox.test(setosa, versicolor)               # W = 168.5, p = 8.3e-14
+data.frame(Test = c("Welch t","Wilcoxon"),
+           p = c(t.test(setosa, versicolor)$p.value, wilcox.test(setosa, versicolor)$p.value))</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Decision</th></tr>
+    <tr><td>One-sample Wilcoxon (mu = 50)</td><td></td><td></td><td></td></tr>
+    <tr><td>Wilcoxon rank-sum (setosa vs versicolor)</td><td></td><td></td><td></td></tr>
+    <tr><td>Welch t (same pair, for comparison)</td><td></td><td></td><td></td></tr>
+  </table>
 
-  <h3>Compare with parametric alternative</h3>
-  <pre><code>t_result &lt;- t.test(setosa, versicolor)
-w_result &lt;- wilcox.test(setosa, versicolor)
+  <h3>4. Calculation</h3>
+  <table class="left">
+    <tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Decision</th></tr>
+    <tr><td>One-sample Wilcoxon (mu = 50)</td><td>V = 28.5</td><td>0.511</td><td>Fail to reject \(H_0\)</td></tr>
+    <tr><td>Wilcoxon rank-sum (setosa vs versicolor)</td><td>W = 168.5</td><td>8.3 × 10⁻¹⁴</td><td>Reject \(H_0\)</td></tr>
+    <tr><td>Welch t (same pair, for comparison)</td><td>t = −10.5</td><td>&lt; 2.2 × 10⁻¹⁶</td><td>Reject \(H_0\)</td></tr>
+  </table>
 
-data.frame(
-  Test  = c("Welch t-test","Wilcoxon"),
-  p_val = c(t_result$p.value, w_result$p.value)
-)
-# Both reject H0; Wilcoxon is appropriate when normality is doubtful.</code></pre>
+  <h3>5. Result</h3>
+  <p>The non-parametric tests agree with the parametric ones: no shift from 50 in the one-sample case
+  (p = 0.51), but a strong setosa–versicolor difference (p ≈ 10⁻¹⁴). Wilcoxon is preferred when
+  normality is doubtful, as flagged in Experiment 4.</p>
 
-  <!-- EXP 7 -->
+  <!-- ============================================================ EXP 7 -->
   <h2>Experiment 7 — Linear Regression Modeling</h2>
-  <pre><code># Simple linear regression: MPG vs Weight
-data(mtcars)
-fit &lt;- lm(mpg ~ wt, data = mtcars)
-summary(fit)</code></pre>
 
+  <h3>1. Problem</h3>
+  <p>Using <code>mtcars</code>, model fuel economy (<code>mpg</code>) as a linear function of weight
+  (<code>wt</code>), check the residuals, and predict mpg for weights 2.5, 3.5 and 4.5 (× 1000 lbs).</p>
+
+  <h3>2. Aim</h3>
+  <p>To fit a simple linear regression, assess it (\(R^2\), residual diagnostics) and forecast with
+  prediction intervals.</p>
+
+  <h3>3. Procedure</h3>
+  <ol>
+    <li>Fit with <code>lm(mpg ~ wt)</code> and read the coefficients and \(R^2\) from <code>summary()</code>.</li>
+    <li>Plot the scatter with the fitted line; run <code>plot(fit)</code> and <code>shapiro.test(resid(fit))</code>.</li>
+    <li>Predict with <code>predict(fit, newdata, interval = "prediction")</code>.</li>
+  </ol>
+  <div class="formula">\[ \widehat{mpg} = a + b\cdot wt, \qquad b = \frac{\sum(x-\bar x)(y-\bar y)}{\sum(x-\bar x)^2} \]</div>
+  <pre><code>data(mtcars); fit &lt;- lm(mpg ~ wt, data = mtcars); summary(fit)
+plot(mtcars$wt, mtcars$mpg, pch = 19, col = "navy"); abline(fit, col = "red", lwd = 2)
+par(mfrow = c(2, 2)); plot(fit); par(mfrow = c(1, 1))
+predict(fit, data.frame(wt = c(2.5, 3.5, 4.5)), interval = "prediction")</code></pre>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>Intercept \(a\)</td><td></td></tr>
+    <tr><td>Slope \(b\) (wt)</td><td></td></tr>
+    <tr><td>\(R^2\)</td><td></td></tr>
+    <tr><td>Predicted mpg at wt = 2.5 / 3.5 / 4.5</td><td></td></tr>
+  </table>
+
+  <h3>4. Calculation</h3>
   <div class="out">Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)  37.285      1.878   19.86  &lt;2e-16 ***
 wt           -5.344      0.559   -9.56  1.29e-10 ***
 Multiple R-squared: 0.753</div>
-
-  <h3>Scatter with fitted line</h3>
-  <pre><code>plot(mtcars$wt, mtcars$mpg, pch = 19, col = "navy",
-     main = "MPG vs Weight",
-     xlab = "Weight (1000 lbs)", ylab = "Miles per Gallon")
-abline(fit, col = "red", lwd = 2)</code></pre>
-
-  <h3>Residual diagnostics</h3>
-  <pre><code>par(mfrow = c(2, 2))
-plot(fit)
-par(mfrow = c(1, 1))
-
-shapiro.test(resid(fit))   # check residual normality
-hist(resid(fit), breaks = 12, col = "lightgray",
-     main = "Distribution of Residuals", xlab = "Residual")</code></pre>
-
-  <h3>Predict new values</h3>
-  <pre><code>new &lt;- data.frame(wt = c(2.5, 3.5, 4.5))
-predict(fit, new, interval = "prediction")</code></pre>
-
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>Intercept \(a\)</td><td>37.285</td></tr>
+    <tr><td>Slope \(b\) (wt)</td><td>−5.344</td></tr>
+    <tr><td>\(R^2\)</td><td>0.753</td></tr>
+    <tr><td>Predicted mpg at wt = 2.5 / 3.5 / 4.5</td><td>23.92 / 18.58 / 13.24</td></tr>
+  </table>
   <div class="out">     fit    lwr    upr
 1  23.92  17.55  30.29
 2  18.58  12.25  24.90
 3  13.24   6.75  19.72</div>
 
-  <h2>Lab Notebook Format</h2>
+  <h3>5. Result</h3>
+  <p>The fitted line is \(\widehat{mpg} = 37.285 - 5.344\,wt\): each extra 1000 lbs lowers mpg by about
+  5.34. The model is highly significant (p = 1.3 × 10⁻¹⁰) and explains 75.3 % of the variation
+  (\(R^2 = 0.753\)). Predicted mpg falls from 23.9 (2.5) to 13.2 (4.5) as weight rises.</p>
+
+  <!-- ============================================================ -->
+  <h2>Lab Record Format (to be followed for every experiment)</h2>
   <ol>
-    <li>Experiment number and title.</li>
-    <li>Aim of the experiment.</li>
-    <li>R script (chunks) used.</li>
-    <li>Output (console) snippet.</li>
-    <li>Plot screenshots.</li>
-    <li>Interpretation in plain language.</li>
-    <li>Reference to underlying theory (from earlier units).</li>
+    <li><strong>1. Problem</strong> — the dataset and the task.</li>
+    <li><strong>2. Aim</strong> — the statistic, test or model the experiment produces.</li>
+    <li><strong>3. Procedure</strong> — numbered steps, the formula, the R script, and a blank working table.</li>
+    <li><strong>4. Calculation</strong> — the console output and the filled table.</li>
+    <li><strong>5. Result</strong> — the decision (from the p-value / \(R^2\)) and plain-language interpretation.</li>
   </ol>
 
   <div class="tip">
-    <strong>Note from syllabus:</strong> Practical problems must be done in the Computer Lab at least 4 hours per month using R. Use real datasets (UCI ML Repository) or built-in datasets (<code>mtcars</code>, <code>airquality</code>, <code>iris</code>, etc.) for variety.
+    <strong>Note from syllabus:</strong> Practical problems must be done in the Computer Lab at least
+    4 hours per month using R. Use real datasets (UCI ML Repository) or built-in datasets
+    (<code>mtcars</code>, <code>airquality</code>, <code>iris</code>, etc.) for variety.
   </div>
 
   <div class="page-nav">
