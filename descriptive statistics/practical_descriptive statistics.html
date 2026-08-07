@@ -51,7 +51,6 @@
   in a given research situation.</p>
 
   <h3>3. Procedure</h3>
-  <p>This is a design exercise, so it uses guidelines rather than a numerical formula.</p>
   <ol>
     <li>Begin with a short cover note stating the purpose and assuring confidentiality.</li>
     <li>Keep questions short, simple and unambiguous; avoid technical jargon.</li>
@@ -63,10 +62,7 @@
     <li>Pilot-test the draft on a few respondents and revise before full deployment.</li>
   </ol>
 
-  <h3>4. Calculation</h3>
-  <p>Not applicable — this is a qualitative (design) experiment with no numerical calculation.</p>
-
-  <h3>5. Result</h3>
+  <h3>4. Result</h3>
   <div class="example">
     <span class="label">SITUATION (a)</span>
     <h4>Survey on Reading Habits of College Students</h4>
@@ -144,8 +140,9 @@
     <tr><th>Total</th><th></th><th>25</th></tr>
   </table>
   <p>Check: \(4 + 7 + 8 + 4 + 2 = 25 = N\) ✓.</p>
-  <p><strong>(b) Grouped</strong> — Sturges' rule: \(k = 1 + 3.322\,\log_{10} 30 = 1 + 3.322(1.477) \approx 5.9 \approx 6\).
-  Taking \(h = 10\) gives the classes below (frequencies obtained by tallying the marks):</p>
+  <p><strong>(b) Grouped</strong> — Sturges' rule gives \(k = 1 + 3.322\,\log_{10} 30 = 1 + 3.322(1.477) \approx 5.9\)
+  (about 6 classes). Rounding the width to a convenient \(h = 10\) over the range 30–80 yields 5 classes
+  (frequencies obtained by tallying the marks):</p>
   <table class="left">
     <tr><th>Marks (class)</th><th>Frequency (f)</th></tr>
     <tr><td>30–40</td><td>4</td></tr>
@@ -345,11 +342,17 @@
   </ol>
   <div class="formula">
     \[
+      Q_1 = L + \frac{\tfrac{N}{4} - C}{f}\times h, \qquad
+      Q_3 = L + \frac{\tfrac{3N}{4} - C}{f}\times h
+    \]
+    \[
       \text{QD} = \frac{Q_3 - Q_1}{2}, \qquad
       \text{MD} = \frac{\sum f|x-\bar{x}|}{N}, \qquad
       \sigma = \sqrt{\frac{\sum fx^2}{N} - \bar{x}^2}, \qquad
       \text{CV} = \frac{\sigma}{\bar{x}}\times 100
     \]
+    <p>where \(L\) is the lower boundary of the quartile class, \(C\) the cumulative frequency of the
+    class before it, \(f\) its frequency and \(h\) the class width.</p>
   </div>
   <p><strong>Blank working table</strong> (fill in the deviation and squared columns; \(\bar{x}=31.25\)):</p>
   <table class="left">
@@ -494,6 +497,8 @@
   </table>
   <p>Moments about \(A = 25\): \(\mu'_1 = 0,\ \mu'_2 = 6000/50 = 120,\ \mu'_3 = 0,\ \mu'_4 = 1\,800\,000/50 = 36\,000\).</p>
   <p>Since \(\mu'_1 = 0\), the central moments equal these: \(\mu_2 = 120,\ \mu_3 = 0,\ \mu_4 = 36\,000\).</p>
+  <p>Uncorrected coefficients: \(\beta_1 = \dfrac{\mu_3^2}{\mu_2^3} = 0\) and
+  \(\beta_2 = \dfrac{36\,000}{120^2} = \dfrac{36\,000}{14\,400} = 2.5\).</p>
   <p><strong>Sheppard's corrections</strong> with \(h = 10\):</p>
   <ul>
     <li>\(\mu_2^{*} = 120 - \dfrac{10^2}{12} = 120 - 8.33 = 111.67\).</li>
@@ -503,9 +508,9 @@
   <p>\(\beta_1 = 0\); \(\quad \beta_2 = \dfrac{30\,291.67}{111.67^2} = \dfrac{30\,291.67}{12\,470.18} \approx 2.43\).</p>
 
   <h3>5. Result</h3>
-  <p>Uncorrected: \(\mu_2 = 120,\ \mu_4 = 36\,000\). After Sheppard's correction:
+  <p>Uncorrected: \(\mu_2 = 120,\ \mu_4 = 36\,000,\ \beta_2 = 2.5\). After Sheppard's correction:
   \(\mu_2^{*} = 111.67,\ \mu_4^{*} = 30\,291.67\), giving \(\beta_1 = 0\) and
-  \(\beta_2 \approx 2.43\) (&lt; 3, platykurtic).</p>
+  \(\beta_2 \approx 2.43\) (both &lt; 3, platykurtic).</p>
 
   <!-- ============================ EXP 9 ============================ -->
   <h2>Experiment 9 — Karl Pearson's and Bowley's Coefficients of Skewness</h2>
