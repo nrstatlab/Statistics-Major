@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practical — Project Work | Research Methodology</title>
+<title>Practical Course — 9 Experiments | Research Methodology</title>
 <link rel="stylesheet" href="css/styles.css">
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -12,295 +12,438 @@
 
   <div class="banner">
     <div class="crumbs"><a href="index.html">Home</a> &raquo; Practical</div>
-    <h1>Practical — Project Work</h1>
-    <p>Develop a questionnaire, collect survey data pertaining to a research problem, interpret the results and draw inferences.</p>
+    <h1>Practical Course — 9 Experiments</h1>
+    <p>Semester VI, Course 15 A (Practical) — Project work. Each experiment is set out in the standard
+    lab-record format: <strong>1. Problem, 2. Aim, 3. Procedure (questionnaire, sampling, analysis plan
+    with formula and a blank working table), 4. Calculation, 5. Result.</strong></p>
   </div>
 
-  <h2>List of Experiments</h2>
+  <div class="tip"><strong>How to use this manual:</strong> Each experiment is a small survey project.
+  Design the questionnaire and collect data as described in the Procedure, then record your results in
+  the <em>blank working table</em>. The Calculation section shows an <em>illustrative</em> worked example
+  (with sample summary statistics) demonstrating the primary test; replace it with your own data. The
+  Result interprets the finding. Analyse with R, SPSS or MS Excel.</div>
 
-  <div class="concept">
-    <span class="label">NOTE</span>
-    <p>Each experiment requires the student to design a questionnaire, collect data from an appropriate
-    sample, perform statistical analysis using software (R, SPSS, or MS Excel), interpret the results,
-    and write a brief report following the format discussed in Unit 5.</p>
-  </div>
+  <h2>List of Practical Experiments</h2>
+  <ol>
+    <li>Gender discrimination in private vs. government sector.</li>
+    <li>Unemployment duration and mental health.</li>
+    <li>Impact of subsidy removal on household expenditure.</li>
+    <li>Online shopping behaviour among college students.</li>
+    <li>Customer satisfaction with public transport.</li>
+    <li>Awareness and usage of digital payment systems.</li>
+    <li>Study habits and academic performance.</li>
+    <li>Food consumption patterns and nutritional awareness.</li>
+    <li>Impact of work-from-home on employee productivity.</li>
+  </ol>
 
-  <!-- EXPERIMENT 1 -->
-  <h2>Experiment 1: Gender Discrimination in Private vs. Government Sector</h2>
+  <!-- ============================================================ EXP 1 -->
+  <h2>Experiment 1 — Gender Discrimination: Private vs. Government Sector</h2>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To study whether there is a significant difference in the perception and experience of gender
-    discrimination between employees in the private sector and the government sector.</p>
-  </div>
+  <h3>1. Problem</h3>
+  <p>Is there a significant difference in perceived gender discrimination between private-sector and
+  government-sector employees?</p>
 
-  <h3>Questionnaire Design</h3>
-  <p>Develop a questionnaire with the following sections:</p>
-  <ul>
-    <li><strong>Screening:</strong> Current employment status, sector of employment.</li>
-    <li><strong>Workplace Experience:</strong> 10-item Likert scale measuring perceived discrimination
-    (e.g., "I have been passed over for promotion because of my gender"; "My salary is fair compared
-    to colleagues of the opposite gender" — reverse coded). Rating: 1 (Strongly Disagree) to 5 (Strongly Agree).</li>
-    <li><strong>Career Progression:</strong> Number of promotions, current designation level, years of experience.</li>
-    <li><strong>Demographics:</strong> Age, gender, education, annual income range.</li>
-  </ul>
+  <h3>2. Aim</h3>
+  <p>To test \(H_0:\mu_{\text{private}} = \mu_{\text{govt}}\) against \(H_1:\mu_{\text{private}} \ne
+  \mu_{\text{govt}}\) for the mean discrimination score.</p>
 
-  <h3>Data Collection</h3>
-  <p>Stratified random sampling: 50 private sector + 50 government sector employees. Total: 100 respondents.</p>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> screening (sector); a 10-item Likert discrimination scale (1–5,
+        reverse-code positive items) giving a total score of 10–50; career progression; demographics.</li>
+    <li><strong>Sampling:</strong> stratified random — 50 private + 50 government = 100 respondents.</li>
+    <li><strong>Analysis:</strong> descriptive statistics per sector; two-sample \(t\)-test on the total
+        score; supporting chi-square (sector × experienced discrimination) and logistic regression.</li>
+  </ol>
+  <div class="formula">\[ t = \frac{\bar x_1 - \bar x_2}{s_p\sqrt{\tfrac1{n_1}+\tfrac1{n_2}}}, \qquad
+  s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Sector</th><th>\(n\)</th><th>Mean</th><th>SD</th></tr>
+    <tr><td>Private</td><td></td><td></td><td></td></tr>
+    <tr><td>Government</td><td></td><td></td><td></td></tr>
+    <tr><th>t / df / p</th><td colspan="3"></td></tr>
+  </table>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Compute the total discrimination score for each respondent (sum of 10 Likert items, range 10–50).</li>
-    <li>Descriptive statistics: Mean, SD, median for each sector.</li>
-    <li>Two-sample t-test: \(H_0: \mu_{\text{private}} = \mu_{\text{govt}}\) vs. \(H_1: \mu_{\text{private}} \neq \mu_{\text{govt}}\).</li>
-    <li>Chi-square test: Association between sector and whether the respondent has personally experienced discrimination (Yes/No).</li>
-    <li>Logistic regression: Probability of experiencing discrimination as a function of sector, gender, and experience.</li>
-  </ul>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative sample statistics:</em> Private \(n_1 = 50,\ \bar x_1 = 32,\ s_1 = 6\);
+  Government \(n_2 = 50,\ \bar x_2 = 28,\ s_2 = 5\).</p>
+  <table class="left">
+    <tr><th>Sector</th><th>\(n\)</th><th>Mean</th><th>SD</th></tr>
+    <tr><td>Private</td><td>50</td><td>32</td><td>6</td></tr>
+    <tr><td>Government</td><td>50</td><td>28</td><td>5</td></tr>
+    <tr><th>t / df / p</th><td colspan="3">3.62 / 98 / 0.0005</td></tr>
+  </table>
+  <p>\(s_p = \sqrt{(49\cdot36 + 49\cdot25)/98} = 5.52\); \(t = 4/(5.52\times0.2) = 3.62\).</p>
 
-  <h3>Expected Report Structure</h3>
-  <p>Title, abstract, introduction (1 page), methodology (1 page), results with tables (2 pages),
-  conclusions (0.5 page), questionnaire appendix.</p>
+  <h3>5. Result</h3>
+  <p>\(t = 3.62,\ p = 0.0005 &lt; 0.05\): \(H_0\) is rejected — perceived discrimination is significantly
+  higher in the private sector in this illustrative sample.</p>
 
-  <!-- EXPERIMENT 2 -->
-  <h2>Experiment 2: Unemployment Rates and Mental Health</h2>
+  <!-- ============================================================ EXP 2 -->
+  <h2>Experiment 2 — Unemployment Duration and Mental Health</h2>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To investigate the relationship between unemployment duration and mental health outcomes,
-    and to compare the psychological impact across demographic groups.</p>
-  </div>
+  <h3>1. Problem</h3>
+  <p>Does longer unemployment worsen mental health (PHQ-9 depression score)?</p>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Employment Status:</strong> Current status, duration of unemployment, reason for job loss.</li>
-    <li><strong>Financial Impact:</strong> Percentage change in income, debt status.</li>
-    <li><strong>Mental Health:</strong> Use the validated PHQ-9 depression screening scale (9 items, score 0–27).</li>
-    <li><strong>Coping:</strong> Checklist of coping strategies, access to mental health support.</li>
-    <li><strong>Demographics:</strong> Age, gender, education, previous occupation, location.</li>
-  </ul>
+  <h3>2. Aim</h3>
+  <p>To compare PHQ-9 scores between recently and long-term unemployed groups and to measure the
+  correlation between unemployment duration and PHQ-9.</p>
 
-  <h3>Data Collection</h3>
-  <p>Purposive sampling of 100 unemployed individuals (50 recently unemployed &lt;6 months, 50 long-term unemployed ≥6 months).</p>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> employment status and duration; financial impact; validated PHQ-9
+        (0–27); coping strategies; demographics.</li>
+    <li><strong>Sampling:</strong> purposive — 50 recently unemployed (&lt;6 months) + 50 long-term
+        (≥6 months).</li>
+    <li><strong>Analysis:</strong> two-sample \(t\)-test on PHQ-9; Pearson correlation and simple
+        regression of PHQ-9 on duration; chi-square on severity category × group.</li>
+  </ol>
+  <div class="formula">\[ r = \frac{\sum(x-\bar x)(y-\bar y)}{\sqrt{\sum(x-\bar x)^2\sum(y-\bar y)^2}},
+  \qquad t_r = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Analysis</th><th>Statistic</th><th>p</th></tr>
+    <tr><td>t-test (recent vs long-term)</td><td></td><td></td></tr>
+    <tr><td>Pearson r (duration vs PHQ-9)</td><td></td><td></td></tr>
+  </table>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Descriptive statistics: Mean PHQ-9 score by duration group.</li>
-    <li>Two-sample t-test: Compare PHQ-9 scores between recently and long-term unemployed.</li>
-    <li>Pearson correlation between unemployment duration (months) and PHQ-9 score.</li>
-    <li>Simple linear regression: PHQ-9 score = \(\beta_0 + \beta_1 \times \text{Duration}\).</li>
-    <li>Chi-square test: Association between severity category (minimal/mild/moderate/severe depression) and duration group.</li>
-  </ul>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> recent \(\bar x = 8,\ s = 4,\ n = 50\); long-term \(\bar x = 13,\ s = 5,\
+  n = 50\); duration–PHQ-9 correlation \(r = 0.62\ (n = 50)\).</p>
+  <table class="left">
+    <tr><th>Analysis</th><th>Statistic</th><th>p</th></tr>
+    <tr><td>t-test (recent vs long-term)</td><td>t = 5.52 (df 98)</td><td>&lt; 0.001</td></tr>
+    <tr><td>Pearson r (duration vs PHQ-9)</td><td>r = 0.62, t = 5.48</td><td>&lt; 0.001</td></tr>
+  </table>
 
-  <!-- EXPERIMENT 3 -->
-  <h2>Experiment 3: Impact of Subsidy Removal on Household Expenditure</h2>
+  <h3>5. Result</h3>
+  <p>Long-term unemployed show significantly higher PHQ-9 scores (\(t = 5.52\)), and duration correlates
+  moderately-strongly with depression (\(r = 0.62\)) — longer unemployment is associated with poorer
+  mental health.</p>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To assess the differential impact of subsidy removal on the service class and the unorganised
-    sector workers, and to identify coping mechanisms adopted by affected households.</p>
-  </div>
+  <!-- ============================================================ EXP 3 -->
+  <h2>Experiment 3 — Impact of Subsidy Removal on Household Expenditure</h2>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Background:</strong> Employment sector (service/unorganised), household size, monthly income before and after subsidy removal.</li>
-    <li><strong>Expenditure Change:</strong> Monthly cooking fuel expenditure before and after; total household expenditure change; percentage of income spent on fuel.</li>
-    <li><strong>Coping Strategies:</strong> Checklist (reduced consumption, switched to cheaper fuel, took loan, reduced other expenses, no change).</li>
-    <li><strong>Perceived Impact:</strong> 5-point Likert item: "The subsidy removal has severely affected my household budget."</li>
-    <li><strong>Demographics:</strong> Age, gender, education, location.</li>
-  </ul>
+  <h3>1. Problem</h3>
+  <p>Does subsidy removal raise fuel expenditure more for unorganised-sector workers than for the service
+  class?</p>
 
-  <h3>Data Collection</h3>
-  <p>Stratified sampling: 75 service class + 75 unorganised sector workers. Total: 150 respondents.</p>
+  <h3>2. Aim</h3>
+  <p>To compare the percentage increase in fuel expenditure between the two sectors and identify coping
+  strategies.</p>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Compute percentage increase in fuel expenditure: \(\frac{\text{After} - \text{Before}}{\text{Before}} \times 100\).</li>
-    <li>Descriptive statistics: Mean % increase by sector.</li>
-    <li>Two-sample t-test: Compare % increase between service class and unorganised sector.</li>
-    <li>Chi-square test: Association between sector and coping strategy.</li>
-    <li>Mann-Whitney U test: Compare perceived impact scores (ordinal data) between sectors.</li>
-  </ul>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> sector, household size, income before/after; fuel expenditure
+        before/after; coping-strategy checklist; a 5-point impact Likert item; demographics.</li>
+    <li><strong>Sampling:</strong> stratified — 75 service + 75 unorganised = 150.</li>
+    <li><strong>Analysis:</strong> percentage increase \(=\frac{\text{after}-\text{before}}{\text{before}}\times100\);
+        two-sample \(t\)-test; chi-square (sector × coping strategy); Mann–Whitney U on the ordinal impact score.</li>
+  </ol>
+  <div class="formula">\[ \%\,\text{increase} = \frac{\text{after} - \text{before}}{\text{before}}\times100,
+  \qquad t = \frac{\bar x_1 - \bar x_2}{\sqrt{s_1^2/n_1 + s_2^2/n_2}} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Sector</th><th>\(n\)</th><th>Mean % increase</th><th>SD</th></tr>
+    <tr><td>Service class</td><td></td><td></td><td></td></tr>
+    <tr><td>Unorganised</td><td></td><td></td><td></td></tr>
+    <tr><th>t / p</th><td colspan="3"></td></tr>
+  </table>
 
-  <!-- EXPERIMENT 4 -->
-  <h2>Experiment 4: Online Shopping Behaviour Among College Students</h2>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> service \(\bar x = 25\%,\ s = 8,\ n = 75\); unorganised \(\bar x = 40\%,\
+  s = 12,\ n = 75\).</p>
+  <table class="left">
+    <tr><th>Sector</th><th>\(n\)</th><th>Mean % increase</th><th>SD</th></tr>
+    <tr><td>Service class</td><td>75</td><td>25</td><td>8</td></tr>
+    <tr><td>Unorganised</td><td>75</td><td>40</td><td>12</td></tr>
+    <tr><th>t / p</th><td colspan="3">9.01 / &lt; 0.001</td></tr>
+  </table>
+  <p>\(t = (40-25)/\sqrt{8^2/75 + 12^2/75} = 15/1.665 = 9.01\).</p>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To study the factors influencing online shopping frequency and expenditure among college students
-    and to examine gender differences in shopping preferences.</p>
-  </div>
+  <h3>5. Result</h3>
+  <p>The unorganised sector faces a significantly larger fuel-expenditure increase (\(t = 9.01,\
+  p &lt; 0.001\)) — subsidy removal is regressive, hitting informal workers hardest.</p>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Shopping Behaviour:</strong> Frequency of online purchases per month, average monthly online expenditure, preferred platforms, preferred payment method.</li>
-    <li><strong>Factors:</strong> 8-item Likert scale rating the importance of price, convenience, variety, delivery speed, return policy, reviews, brand, and recommendations (1 = Not important to 5 = Very important).</li>
-    <li><strong>Product Categories:</strong> Checklist of categories purchased online (electronics, clothing, food, books, etc.).</li>
-    <li><strong>Demographics:</strong> Age, gender, course of study, monthly pocket money.</li>
-  </ul>
+  <!-- ============================================================ EXP 4 -->
+  <h2>Experiment 4 — Online Shopping Behaviour Among College Students</h2>
 
-  <h3>Data Collection</h3>
-  <p>Convenience sampling of 100 college students (50 male, 50 female) from the campus.</p>
+  <h3>1. Problem</h3>
+  <p>Do male and female students differ in monthly online expenditure, and what drives spending?</p>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Descriptive statistics: Mean expenditure by gender, frequency distribution of product categories.</li>
-    <li>Two-sample t-test: Compare monthly online expenditure between male and female students.</li>
-    <li>Chi-square test: Association between gender and preferred product category.</li>
-    <li>Multiple regression: Monthly expenditure as a function of pocket money, frequency, and gender.</li>
-    <li>Factor analysis: Identify underlying dimensions of the 8 importance factors.</li>
-  </ul>
+  <h3>2. Aim</h3>
+  <p>To compare mean online expenditure by gender and model expenditure from pocket money, frequency and
+  gender.</p>
 
-  <!-- EXPERIMENT 5 -->
-  <h2>Experiment 5: Customer Satisfaction with Public Transport</h2>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> purchase frequency, average monthly spend, platform/payment
+        preference; 8-item importance Likert scale; product-category checklist; demographics.</li>
+    <li><strong>Sampling:</strong> convenience — 50 male + 50 female = 100 students.</li>
+    <li><strong>Analysis:</strong> two-sample \(t\)-test on expenditure; chi-square (gender × category);
+        multiple regression; factor analysis of the 8 importance items.</li>
+  </ol>
+  <div class="formula">\[ t = \frac{\bar x_1 - \bar x_2}{\sqrt{s_1^2/n_1 + s_2^2/n_2}} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Gender</th><th>\(n\)</th><th>Mean spend (₹)</th><th>SD</th></tr>
+    <tr><td>Male</td><td></td><td></td><td></td></tr>
+    <tr><td>Female</td><td></td><td></td><td></td></tr>
+    <tr><th>t / p</th><td colspan="3"></td></tr>
+  </table>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To measure customer satisfaction with public bus transport and identify the key determinants
-    of overall satisfaction using regression analysis.</p>
-  </div>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> male \(\bar x = 1500,\ s = 600,\ n = 50\); female \(\bar x = 1800,\ s = 700,\
+  n = 50\).</p>
+  <table class="left">
+    <tr><th>Gender</th><th>\(n\)</th><th>Mean spend (₹)</th><th>SD</th></tr>
+    <tr><td>Male</td><td>50</td><td>1500</td><td>600</td></tr>
+    <tr><td>Female</td><td>50</td><td>1800</td><td>700</td></tr>
+    <tr><th>t / p</th><td colspan="3">2.30 / 0.024</td></tr>
+  </table>
+  <p>\(t = 300/\sqrt{600^2/50 + 700^2/50} = 300/130.4 = 2.30\) (df ≈ 96).</p>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Usage:</strong> Frequency of bus usage, typical route, time of travel.</li>
-    <li><strong>Satisfaction Scale:</strong> 10 items on a 5-point Likert scale covering: punctuality, cleanliness, comfort, safety, fare affordability, route coverage, frequency, driver behaviour, seat availability, and overall satisfaction.</li>
-    <li><strong>Suggestions:</strong> Open-ended question for improvement suggestions.</li>
-    <li><strong>Demographics:</strong> Age, gender, occupation, income.</li>
-  </ul>
+  <h3>5. Result</h3>
+  <p>Female students spend significantly more online (\(t = 2.30,\ p = 0.024 &lt; 0.05\)) in this
+  illustrative sample.</p>
 
-  <h3>Data Collection</h3>
-  <p>Intercept survey at 5 major bus stops. Systematic sampling: every 5th passenger. Target: 150 respondents.</p>
+  <!-- ============================================================ EXP 5 -->
+  <h2>Experiment 5 — Customer Satisfaction with Public Transport</h2>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Compute Cronbach's alpha for the 10-item satisfaction scale.</li>
-    <li>Descriptive statistics: Mean satisfaction score for each item and overall.</li>
-    <li>Multiple regression: Overall satisfaction as dependent variable; 9 specific satisfaction items as predictors.</li>
-    <li>Identify which specific aspects (punctuality, cleanliness, etc.) are the strongest predictors of overall satisfaction.</li>
-    <li>ANOVA: Compare overall satisfaction across age groups or occupation categories.</li>
-  </ul>
+  <h3>1. Problem</h3>
+  <p>How satisfied are passengers with public bus transport, and which service aspects most drive overall
+  satisfaction?</p>
 
-  <!-- EXPERIMENT 6 -->
-  <h2>Experiment 6: Awareness and Usage of Digital Payment Systems</h2>
+  <h3>2. Aim</h3>
+  <p>To assess the reliability of the satisfaction scale and identify the strongest predictors of overall
+  satisfaction.</p>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To study the awareness, adoption, and barriers to digital payment systems among different
-    age groups and to identify factors predicting usage.</p>
-  </div>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> usage pattern; a 10-item 5-point satisfaction scale (punctuality,
+        cleanliness, comfort, safety, fare, coverage, frequency, driver behaviour, seat availability,
+        overall); open suggestion; demographics.</li>
+    <li><strong>Sampling:</strong> systematic intercept — every 5th passenger at 5 stops, ~150 respondents.</li>
+    <li><strong>Analysis:</strong> Cronbach's \(\alpha\) for the scale; multiple regression (overall ~ 9
+        aspects); ANOVA across age/occupation groups.</li>
+  </ol>
+  <div class="formula">\[ \alpha = \frac{k}{k-1}\left(1 - \frac{\sum s_i^2}{s_T^2}\right) \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>\(k\) (items)</td><td></td></tr>
+    <tr><td>\(\sum s_i^2\) / \(s_T^2\)</td><td></td></tr>
+    <tr><td>Cronbach's \(\alpha\)</td><td></td></tr>
+  </table>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Awareness:</strong> Checklist of digital payment methods known (UPI, cards, wallets, net banking, none).</li>
-    <li><strong>Usage:</strong> Frequency of digital payments per week, average transaction amount, preferred method.</li>
-    <li><strong>Barriers:</strong> 6-item Likert scale: security concerns, lack of smartphone, poor internet, preference for cash, merchant non-acceptance, complexity.</li>
-    <li><strong>Demographics:</strong> Age, gender, education, income, urban/rural.</li>
-  </ul>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> \(k = 10\), sum of item variances \(\sum s_i^2 = 12\), total-score variance
+  \(s_T^2 = 45\).</p>
+  <table class="left">
+    <tr><th>Quantity</th><th>Value</th></tr>
+    <tr><td>\(k\)</td><td>10</td></tr>
+    <tr><td>\(\sum s_i^2\) / \(s_T^2\)</td><td>12 / 45</td></tr>
+    <tr><td>\(\alpha = \tfrac{10}{9}(1 - 12/45)\)</td><td>0.815</td></tr>
+  </table>
 
-  <h3>Data Collection</h3>
-  <p>Quota sampling: 50 respondents each from age groups 18–25, 26–40, 41–60, 60+. Total: 200 respondents.</p>
+  <h3>5. Result</h3>
+  <p>Cronbach's \(\alpha = 0.815\) (&gt; 0.7) indicates good internal consistency, so the satisfaction
+  scale is reliable and the regression on its components is meaningful.</p>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Descriptive statistics: Awareness percentage for each method by age group.</li>
-    <li>Chi-square test: Association between age group and usage (user/non-user).</li>
-    <li>One-way ANOVA: Compare mean frequency of digital payments across age groups. Post-hoc Tukey test.</li>
-    <li>Binary logistic regression: Usage (Yes/No) as dependent variable; age, education, income, urban/rural as predictors.</li>
-  </ul>
+  <!-- ============================================================ EXP 6 -->
+  <h2>Experiment 6 — Awareness and Usage of Digital Payment Systems</h2>
 
-  <!-- EXPERIMENT 7 -->
-  <h2>Experiment 7: Study Habits and Academic Performance</h2>
+  <h3>1. Problem</h3>
+  <p>Does the adoption of digital payments differ across age groups?</p>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To examine the relationship between study habits (hours, method, environment) and academic
-    performance, and to identify the strongest predictors of GPA.</p>
-  </div>
+  <h3>2. Aim</h3>
+  <p>To test the association between age group and digital-payment usage.</p>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Study Habits:</strong> Daily study hours, study method (self-study / group / tutoring), study location (library / hostel / home), use of online resources (Yes/No).</li>
-    <li><strong>Sleep and Health:</strong> Average sleep hours, exercise frequency, screen time.</li>
-    <li><strong>Academic Performance:</strong> Current GPA, attendance percentage.</li>
-    <li><strong>Demographics:</strong> Age, gender, year of study, stream.</li>
-  </ul>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> awareness checklist (UPI, cards, wallets, net banking); usage
+        frequency and amount; 6-item barrier Likert scale; demographics (age, urban/rural).</li>
+    <li><strong>Sampling:</strong> quota — 50 each from ages 18–25, 26–40, 41–60, 60+ = 200.</li>
+    <li><strong>Analysis:</strong> chi-square (age group × user/non-user); one-way ANOVA on frequency;
+        binary logistic regression for usage.</li>
+  </ol>
+  <div class="formula">\[ \chi^2 = \sum \frac{(O-E)^2}{E}, \qquad df = (r-1)(c-1) \]</div>
+  <p><strong>Blank working table</strong> (users / non-users by age):</p>
+  <table class="left">
+    <tr><th>Age group</th><th>Users</th><th>Non-users</th></tr>
+    <tr><td>18–25</td><td></td><td></td></tr>
+    <tr><td>26–40</td><td></td><td></td></tr>
+    <tr><td>41–60</td><td></td><td></td></tr>
+    <tr><td>60+</td><td></td><td></td></tr>
+    <tr><th>χ² / df / p</th><td colspan="2"></td></tr>
+  </table>
 
-  <h3>Data Collection</h3>
-  <p>Simple random sampling from the class register. Target: 80 students.</p>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative observed counts:</em></p>
+  <table class="left">
+    <tr><th>Age group</th><th>Users</th><th>Non-users</th></tr>
+    <tr><td>18–25</td><td>45</td><td>5</td></tr>
+    <tr><td>26–40</td><td>40</td><td>10</td></tr>
+    <tr><td>41–60</td><td>30</td><td>20</td></tr>
+    <tr><td>60+</td><td>15</td><td>35</td></tr>
+    <tr><th>χ² / df / p</th><td colspan="2">46.15 / 3 / &lt; 0.001</td></tr>
+  </table>
+  <p>Expected users per group \(= 50\times130/200 = 32.5\); summing \((O-E)^2/E\) gives \(\chi^2 = 46.15\).</p>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Pearson correlation: Study hours vs. GPA, sleep hours vs. GPA.</li>
-    <li>Multiple regression: GPA = \(\beta_0 + \beta_1 \times \text{StudyHours} + \beta_2 \times \text{SleepHours} + \beta_3 \times \text{Attendance}\).</li>
-    <li>Two-sample t-test: GPA comparison between students who use online resources and those who don't.</li>
-    <li>One-way ANOVA: GPA by study method (self-study / group / tutoring).</li>
-  </ul>
+  <h3>5. Result</h3>
+  <p>\(\chi^2 = 46.15,\ df = 3,\ p &lt; 0.001\): usage depends strongly on age — adoption falls sharply
+  in older groups.</p>
 
-  <!-- EXPERIMENT 8 -->
-  <h2>Experiment 8: Food Consumption Patterns and Nutritional Awareness</h2>
+  <!-- ============================================================ EXP 7 -->
+  <h2>Experiment 7 — Study Habits and Academic Performance</h2>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To study the food consumption patterns and nutritional awareness among urban and rural households,
-    and to assess the relationship between nutritional knowledge and dietary quality.</p>
-  </div>
+  <h3>1. Problem</h3>
+  <p>How do study habits (hours, method, environment) relate to academic performance (GPA)?</p>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>Dietary Pattern:</strong> Frequency of consuming fruits, vegetables, dairy, fast food, and sugary drinks per week.</li>
-    <li><strong>Nutritional Knowledge:</strong> 10-item true/false quiz on basic nutrition facts (e.g., "Vitamin C helps absorb iron" — True).</li>
-    <li><strong>Dietary Quality Score:</strong> Computed from consumption frequency (higher = healthier diet).</li>
-    <li><strong>Demographics:</strong> Age, gender, education, income, urban/rural, household size.</li>
-  </ul>
+  <h3>2. Aim</h3>
+  <p>To measure the correlation between study hours and GPA and identify the strongest predictors of GPA.</p>
 
-  <h3>Data Collection</h3>
-  <p>Stratified sampling: 75 urban + 75 rural respondents. Total: 150.</p>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> daily study hours, method, location, online-resource use; sleep,
+        exercise, screen time; GPA, attendance; demographics.</li>
+    <li><strong>Sampling:</strong> simple random from the class register, ~80 students.</li>
+    <li><strong>Analysis:</strong> Pearson correlation (study hours vs GPA); multiple regression
+        (GPA ~ study hours + sleep + attendance); \(t\)-test and ANOVA on method groups.</li>
+  </ol>
+  <div class="formula">\[ t_r = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}, \qquad
+  \widehat{\text{GPA}} = \beta_0 + \beta_1\,\text{Hours} + \beta_2\,\text{Sleep} + \beta_3\,\text{Attendance} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Analysis</th><th>Statistic</th><th>p</th></tr>
+    <tr><td>Pearson r (hours vs GPA)</td><td></td><td></td></tr>
+  </table>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Descriptive statistics: Mean knowledge score and dietary quality score by location.</li>
-    <li>Two-sample t-test: Compare knowledge scores between urban and rural respondents.</li>
-    <li>Pearson correlation: Knowledge score vs. dietary quality score.</li>
-    <li>Simple regression: Dietary quality = \(\beta_0 + \beta_1 \times \text{KnowledgeScore}\).</li>
-    <li>Chi-square test: Association between education level and passing the nutrition quiz (score ≥ 7/10).</li>
-  </ul>
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> study hours vs GPA correlation \(r = 0.68\ (n = 80)\).</p>
+  <table class="left">
+    <tr><th>Analysis</th><th>Statistic</th><th>p</th></tr>
+    <tr><td>Pearson r (hours vs GPA)</td><td>r = 0.68, t = 8.19 (df 78)</td><td>&lt; 0.001</td></tr>
+  </table>
+  <p>\(t_r = 0.68\sqrt{78}/\sqrt{1 - 0.68^2} = 8.19\).</p>
 
-  <!-- EXPERIMENT 9 -->
-  <h2>Experiment 9: Impact of Work-From-Home on Employee Productivity</h2>
+  <h3>5. Result</h3>
+  <p>Study hours correlate strongly with GPA (\(r = 0.68,\ p &lt; 0.001\)); \(r^2 = 0.46\), so about
+  46 % of GPA variation is explained by study time alone.</p>
 
-  <div class="concept">
-    <span class="label">OBJECTIVE</span>
-    <p>To study the impact of work-from-home (WFH) on self-rated productivity, work-life balance,
-    and job satisfaction, and to compare outcomes across industries.</p>
-  </div>
+  <!-- ============================================================ EXP 8 -->
+  <h2>Experiment 8 — Food Consumption Patterns and Nutritional Awareness</h2>
 
-  <h3>Questionnaire Design</h3>
-  <ul>
-    <li><strong>WFH Status:</strong> Currently WFH (fully / hybrid / office), duration of WFH arrangement.</li>
-    <li><strong>Productivity:</strong> Self-rated productivity change compared to office (5-point scale: much lower to much higher).</li>
-    <li><strong>Work-Life Balance:</strong> 5-item Likert scale (e.g., "I can manage my personal responsibilities better while WFH").</li>
-    <li><strong>Job Satisfaction:</strong> Single-item 5-point Likert: "Overall, I am satisfied with my current work arrangement."</li>
-    <li><strong>Challenges:</strong> Checklist (internet issues, distractions, isolation, overwork, lack of equipment, none).</li>
-    <li><strong>Demographics:</strong> Age, gender, industry, designation, years of experience.</li>
-  </ul>
+  <h3>1. Problem</h3>
+  <p>Do urban and rural respondents differ in nutritional knowledge, and does knowledge relate to dietary
+  quality?</p>
 
-  <h3>Data Collection</h3>
-  <p>Online survey distributed through LinkedIn and company email lists. Target: 120 respondents across at least 3 industries (IT, education, finance).</p>
+  <h3>2. Aim</h3>
+  <p>To compare nutrition-quiz scores between urban and rural groups and correlate knowledge with dietary
+  quality.</p>
 
-  <h3>Statistical Analysis</h3>
-  <ul>
-    <li>Descriptive statistics: Distribution of productivity change ratings.</li>
-    <li>Chi-square test: Association between WFH status and productivity change.</li>
-    <li>One-way ANOVA: Compare mean work-life balance score across industries.</li>
-    <li>Ordinal logistic regression: Productivity change (ordinal) as dependent variable; WFH status, industry, experience as predictors.</li>
-    <li>Cronbach's alpha for the 5-item work-life balance scale.</li>
-  </ul>
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> weekly consumption frequencies (fruit, vegetables, dairy, fast
+        food, sugary drinks); a 10-item true/false nutrition quiz; a computed dietary-quality score;
+        demographics.</li>
+    <li><strong>Sampling:</strong> stratified — 75 urban + 75 rural = 150.</li>
+    <li><strong>Analysis:</strong> two-sample \(t\)-test on knowledge; Pearson correlation (knowledge vs
+        dietary quality); simple regression; chi-square (education × pass/fail).</li>
+  </ol>
+  <div class="formula">\[ t = \frac{\bar x_1 - \bar x_2}{\sqrt{s_1^2/n_1 + s_2^2/n_2}} \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Location</th><th>\(n\)</th><th>Mean knowledge</th><th>SD</th></tr>
+    <tr><td>Urban</td><td></td><td></td><td></td></tr>
+    <tr><td>Rural</td><td></td><td></td><td></td></tr>
+    <tr><th>t / p</th><td colspan="3"></td></tr>
+  </table>
 
-  <!-- PAGE NAVIGATION -->
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> urban \(\bar x = 7.2,\ s = 1.5,\ n = 75\); rural \(\bar x = 6.1,\ s = 1.8,\
+  n = 75\).</p>
+  <table class="left">
+    <tr><th>Location</th><th>\(n\)</th><th>Mean knowledge</th><th>SD</th></tr>
+    <tr><td>Urban</td><td>75</td><td>7.2</td><td>1.5</td></tr>
+    <tr><td>Rural</td><td>75</td><td>6.1</td><td>1.8</td></tr>
+    <tr><th>t / p</th><td colspan="3">4.07 / &lt; 0.001</td></tr>
+  </table>
+  <p>\(t = (7.2-6.1)/\sqrt{1.5^2/75 + 1.8^2/75} = 1.1/0.271 = 4.07\).</p>
+
+  <h3>5. Result</h3>
+  <p>Urban respondents score significantly higher on nutrition knowledge (\(t = 4.07,\ p &lt; 0.001\)),
+  consistent with better dietary quality where knowledge is higher.</p>
+
+  <!-- ============================================================ EXP 9 -->
+  <h2>Experiment 9 — Impact of Work-From-Home on Employee Productivity</h2>
+
+  <h3>1. Problem</h3>
+  <p>Does work-from-home affect productivity and work-life balance, and do outcomes differ across
+  industries?</p>
+
+  <h3>2. Aim</h3>
+  <p>To compare the mean work-life-balance score across industries (IT, education, finance) by one-way
+  ANOVA.</p>
+
+  <h3>3. Procedure</h3>
+  <ol>
+    <li><strong>Questionnaire:</strong> WFH status and duration; self-rated productivity change; a 5-item
+        work-life-balance Likert scale; single-item job satisfaction; challenge checklist; demographics.</li>
+    <li><strong>Sampling:</strong> online survey, ~120 respondents across ≥3 industries.</li>
+    <li><strong>Analysis:</strong> chi-square (WFH status × productivity change); one-way ANOVA on
+        work-life balance across industries; ordinal logistic regression; Cronbach's \(\alpha\).</li>
+  </ol>
+  <div class="formula">\[ F = \frac{MS_{\text{between}}}{MS_{\text{within}}}, \qquad
+  SS_{\text{between}} = \sum_g n_g(\bar x_g - \bar{\bar x})^2 \]</div>
+  <p><strong>Blank working table</strong>:</p>
+  <table class="left">
+    <tr><th>Industry</th><th>\(n\)</th><th>Mean WLB</th><th>SD</th></tr>
+    <tr><td>IT</td><td></td><td></td><td></td></tr>
+    <tr><td>Education</td><td></td><td></td><td></td></tr>
+    <tr><td>Finance</td><td></td><td></td><td></td></tr>
+    <tr><th>F / df / p</th><td colspan="3"></td></tr>
+  </table>
+
+  <h3>4. Calculation</h3>
+  <p><em>Illustrative:</em> IT \(\bar x = 18,\ s = 4,\ n = 40\); Education \(\bar x = 20,\ s = 3.5,\
+  n = 40\); Finance \(\bar x = 16,\ s = 4.5,\ n = 40\).</p>
+  <table class="left">
+    <tr><th>Industry</th><th>\(n\)</th><th>Mean WLB</th><th>SD</th></tr>
+    <tr><td>IT</td><td>40</td><td>18</td><td>4.0</td></tr>
+    <tr><td>Education</td><td>40</td><td>20</td><td>3.5</td></tr>
+    <tr><td>Finance</td><td>40</td><td>16</td><td>4.5</td></tr>
+    <tr><th>F / df / p</th><td colspan="3">9.90 / (2, 117) / &lt; 0.001</td></tr>
+  </table>
+  <p>\(\bar{\bar x} = 18\); \(SS_B = 40(0^2 + 2^2 + 2^2) = 320\), \(MS_B = 160\);
+  \(SS_W = 39(16 + 12.25 + 20.25) = 1891.5\), \(MS_W = 16.17\); \(F = 160/16.17 = 9.90\).</p>
+
+  <h3>5. Result</h3>
+  <p>\(F = 9.90,\ p &lt; 0.001\): work-life balance under WFH differs significantly across industries
+  (highest for education, lowest for finance in this illustrative sample). A Tukey post-hoc test would
+  identify which pairs differ.</p>
+
+  <!-- ============================================================ -->
+  <h2>Lab Record Format (to be followed for every experiment)</h2>
+  <ol>
+    <li><strong>1. Problem</strong> — the research question.</li>
+    <li><strong>2. Aim</strong> — the objective and hypothesis to be tested.</li>
+    <li><strong>3. Procedure</strong> — questionnaire design, sampling method, analysis plan, formula, and a blank working table.</li>
+    <li><strong>4. Calculation</strong> — the analysis of the collected data (an illustrative worked example is shown; replace it with your own data).</li>
+    <li><strong>5. Result</strong> — the inference, with interpretation in the research context.</li>
+  </ol>
+
+  <div class="tip"><strong>Report structure for each project:</strong> title, abstract, introduction,
+  methodology, results (with tables), conclusions, and the questionnaire as an appendix.</div>
+
   <div class="page-nav">
-    <a href="unit5.html" class="prev">&larr; Unit 5: Report Writing and Presentation</a>
-    <a href="index.html" class="next">Home &rarr;</a>
+    <a href="unit5.html">← Previous: Unit 5</a>
+    <a href="index.html">Home →</a>
   </div>
 
+  <footer>Practical Course — 9 Experiments • Statistical Techniques for Research Methodology</footer>
 </div>
 </body>
 </html>
