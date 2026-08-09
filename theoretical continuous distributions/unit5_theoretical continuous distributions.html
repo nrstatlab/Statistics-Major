@@ -301,6 +301,43 @@
     <li>For large df: \(t \to Z\); \((\chi^2 - n)/\sqrt{2n} \to Z\).</li>
   </ul>
 
+  <h2>7. Limiting Cases of the Sampling Distributions</h2>
+
+  <div class="concept">
+    <span class="label">STUDENT'S t → NORMAL</span>
+    <p>As the degrees of freedom \(n \to \infty\), Student's \(t\) tends to the standard normal:</p>
+    \[
+      t_n \;=\; \dfrac{Z}{\sqrt{\chi^2_n / n}} \;\xrightarrow{d}\; N(0, 1).
+    \]
+    <p><strong>Reason:</strong> \(\chi^2_n / n\) is the mean of \(n\) i.i.d. terms \(Z_i^2\) (each with
+    mean 1), so by the law of large numbers \(\chi^2_n / n \to 1\); the denominator \(\to 1\) and hence
+    \(t_n \to Z\). The heavy tails of \(t\) thin out to match the normal (in practice \(t_n \approx Z\)
+    for \(n \ge 30\)).</p>
+  </div>
+
+  <div class="concept">
+    <span class="label">CHI-SQUARE → NORMAL</span>
+    <p>As \(n \to \infty\),</p>
+    \[
+      \dfrac{\chi^2_n - n}{\sqrt{2n}} \;\xrightarrow{d}\; N(0, 1),
+      \qquad\text{equivalently}\qquad \chi^2_n \approx N(n,\, 2n).
+    \]
+    <p><strong>Reason:</strong> \(\chi^2_n = \sum_{i=1}^{n} Z_i^2\) is a sum of \(n\) i.i.d. variables,
+    each with mean 1 and variance 2, so the Central Limit Theorem applies. (Fisher's sharper
+    approximation: \(\sqrt{2\chi^2_n} \approx N(\sqrt{2n - 1},\, 1)\).)</p>
+  </div>
+
+  <div class="concept">
+    <span class="label">F → CHI-SQUARE</span>
+    <p>For fixed numerator degrees of freedom \(n_1\), as the denominator df \(n_2 \to \infty\),</p>
+    \[
+      n_1\, F_{n_1, n_2} \;\xrightarrow{d}\; \chi^2_{n_1}.
+    \]
+    <p><strong>Reason:</strong> \(F_{n_1, n_2} = \dfrac{\chi^2_{n_1}/n_1}{\chi^2_{n_2}/n_2}\); as
+    \(n_2 \to \infty\), \(\chi^2_{n_2}/n_2 \to 1\), so \(F_{n_1, n_2} \to \chi^2_{n_1}/n_1\). If in
+    addition \(n_1 \to \infty\), then \(F_{n_1, n_2} \to 1\).</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Standard Normal: mean 0, variance 1; central role in inference.</li>
@@ -309,6 +346,7 @@
     <li>\(t_n\): bell-shaped, heavy tails; used when \(\sigma\) is unknown.</li>
     <li>\(F_{n_1, n_2}\): ratio of variances; used in ANOVA &amp; regression.</li>
     <li>Together \(Z, t, F, \chi^2\) form the foundation of classical statistical inference.</li>
+    <li>Limiting cases: \(t_n \to N(0,1)\) and \((\chi^2_n - n)/\sqrt{2n} \to N(0,1)\) as df \(\to \infty\); \(n_1 F_{n_1,n_2} \to \chi^2_{n_1}\) as \(n_2 \to \infty\).</li>
   </ul>
 
   <div class="page-nav">
