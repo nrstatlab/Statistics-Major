@@ -197,6 +197,45 @@
     i.i.d. geometric variables.</p>
   </div>
 
+  <!-- LIMITING TO POISSON -->
+  <h2>8. Limiting Form: Negative Binomial → Poisson</h2>
+  <div class="concept">
+    <span class="label">THEOREM</span>
+    <p>Let \(X \sim\) NB\((r, p)\) (number of failures before the \(r\)-th success). As \(r \to \infty\)
+    and \(p \to 1\) (so that \(q = 1 - p \to 0\)) in such a way that \(rq \to \lambda\), a finite
+    constant, the distribution of \(X\) tends to the <strong>Poisson</strong> distribution with mean
+    \(\lambda\):</p>
+    \[
+      P(X = x) \;\longrightarrow\; \dfrac{e^{-\lambda}\lambda^{x}}{x!}, \qquad x = 0, 1, 2, \dots
+    \]
+    <p>(Since \(p \to 1\), the mean \(rq/p \to \lambda\) as well.)</p>
+  </div>
+  <div class="formula">
+    <span class="label">PROOF (via PGF)</span>
+    <p>The probability generating function of NB\((r, p)\) is</p>
+    \[
+      G_X(s) = \left(\dfrac{p}{1 - qs}\right)^{r} = \left(\dfrac{1 - q}{1 - qs}\right)^{r}.
+    \]
+    <p>Taking logarithms and expanding for small \(q\),</p>
+    \[
+      \ln G_X(s) = r\big[\ln(1 - q) - \ln(1 - qs)\big]
+                 = r\big[(-q) - (-qs)\big] + O(rq^{2})
+                 = rq(s - 1) + O(rq^{2}).
+    \]
+    <p>As \(r \to \infty,\ q \to 0\) with \(rq \to \lambda\) (hence \(rq^{2} \to 0\)),</p>
+    \[
+      \ln G_X(s) \to \lambda(s - 1), \qquad\text{so}\qquad G_X(s) \to e^{\lambda(s - 1)},
+    \]
+    <p>which is the PGF of Poisson\((\lambda)\). By the uniqueness of generating functions,
+    \(X \xrightarrow{d} \text{Poisson}(\lambda)\). \(\blacksquare\)</p>
+  </div>
+  <div class="example">
+    <span class="label">NUMERICAL CHECK</span>
+    <p>For \(r = 200,\ p = 0.985\ (q = 0.015,\ rq = 3)\), the NB probabilities for \(x = 0, 1, 2, 3, 4\)
+    are \(0.049, 0.146, 0.220, 0.222, 0.169\) — matching the Poisson\((3)\) values
+    \(0.050, 0.149, 0.224, 0.224, 0.168\) very closely.</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways from Unit 3</h2>
   <ul>
@@ -207,6 +246,7 @@
     <li>Always right-skewed; \(\gamma_1 = (1+q)/\sqrt{rq}\).</li>
     <li>Recurrence: \(P(x+1) = \dfrac{(r+x) q}{(x+1)} P(x)\).</li>
     <li>For large \(r\): approximately normal.</li>
+    <li>Limiting forms: \(\to\) Normal for large \(r\); \(\to\) Poisson\((\lambda)\) as \(r\to\infty,\ q\to 0,\ rq\to\lambda\).</li>
   </ul>
 
   <div class="page-nav">
