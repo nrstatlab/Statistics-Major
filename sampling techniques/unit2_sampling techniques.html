@@ -143,6 +143,92 @@
   <h3>4.6 Standard Error</h3>
   <p>\(\text{SE}(\bar y) = \sqrt{\text{Var}(\bar y)}\).</p>
 
+  <h3>4.7 Theorems — Unbiasedness and Variance of the Sample Mean (with Proofs)</h3>
+
+  <div class="concept">
+    <span class="label">SET-UP (INCLUSION-INDICATOR METHOD)</span>
+    <p>Let the population be \(Y_1, Y_2, \dots, Y_N\) with mean
+    \(\bar Y = \dfrac{1}{N}\sum_{i=1}^{N} Y_i\), population variance
+    \(\sigma^2 = \dfrac{1}{N}\sum_{i=1}^{N}(Y_i - \bar Y)^2\) and population mean square
+    \(S^2 = \dfrac{1}{N-1}\sum_{i=1}^{N}(Y_i - \bar Y)^2\).</p>
+    <p>Draw an SRSWOR of size \(n\). For each population unit define the <em>inclusion indicator</em></p>
+    \[
+      a_i = \begin{cases} 1, & \text{if unit } i \text{ is in the sample},\\ 0, & \text{otherwise},\end{cases}
+      \qquad \sum_{i=1}^{N} a_i = n, \qquad
+      \bar y = \frac{1}{n}\sum_{i=1}^{N} a_i\, Y_i .
+    \]
+    <p>Because every unit is equally likely to be included, and every pair equally likely to be included
+    together,</p>
+    \[
+      E(a_i) = \pi_i = \frac{n}{N}, \qquad
+      E(a_i a_j) = \pi_{ij} = \frac{n(n-1)}{N(N-1)} \;\;(i \neq j).
+    \]
+    <p>(\(\pi_i\) follows since unit \(i\) lies in \(\binom{N-1}{n-1}\) of the \(\binom{N}{n}\) equally
+    likely samples: \(\binom{N-1}{n-1}/\binom{N}{n} = n/N\); \(\pi_{ij}\) follows similarly.)</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">THEOREM 1 — UNBIASEDNESS</span>
+    <p>In simple random sampling (with or without replacement), the sample mean \(\bar y\) is an
+    <strong>unbiased estimator</strong> of the population mean \(\bar Y\); that is,
+    \(E(\bar y) = \bar Y\).</p>
+  </div>
+  <p><strong>Proof (SRSWOR).</strong> Using \(\bar y = \dfrac{1}{n}\sum_{i=1}^{N} a_i Y_i\) and the
+  linearity of expectation,</p>
+  \[
+    E(\bar y) = \frac{1}{n}\sum_{i=1}^{N} Y_i\, E(a_i)
+             = \frac{1}{n}\sum_{i=1}^{N} Y_i\cdot\frac{n}{N}
+             = \frac{1}{N}\sum_{i=1}^{N} Y_i = \bar Y .
+  \]
+  <p><strong>Proof (SRSWR).</strong> Here \(y_1, \dots, y_n\) are independent and identically distributed,
+  each taking any population value \(Y_i\) with probability \(1/N\), so
+  \(E(y_j) = \dfrac{1}{N}\sum_{i=1}^{N} Y_i = \bar Y\). Hence
+  \(E(\bar y) = \dfrac{1}{n}\sum_{j=1}^{n} E(y_j) = \bar Y\). \(\blacksquare\)</p>
+
+  <div class="formula">
+    <span class="label">THEOREM 2 — VARIANCE OF THE SAMPLE MEAN</span>
+    <p>In SRSWOR of size \(n\) from \(N\) units,</p>
+    \[
+      \text{Var}(\bar y) = \frac{N-n}{N\,n}\, S^2 = \frac{S^2}{n}\left(1 - \frac{n}{N}\right),
+    \]
+    <p>where \(\dfrac{N-n}{N}\) is the finite population correction. In SRSWR,
+    \(\text{Var}(\bar y) = \dfrac{\sigma^2}{n}\).</p>
+  </div>
+  <p><strong>Proof (SRSWOR).</strong> From the indicators,</p>
+  \[
+    \text{Var}(a_i) = \pi_i(1-\pi_i) = \frac{n}{N}\cdot\frac{N-n}{N},
+    \qquad
+    \text{Cov}(a_i,a_j) = \pi_{ij} - \pi_i\pi_j = -\frac{n(N-n)}{N^{2}(N-1)}\;\;(i\neq j).
+  \]
+  <p>Therefore</p>
+  \[
+    \text{Var}(\bar y) = \frac{1}{n^{2}}\!\left[\sum_{i=1}^{N} Y_i^{2}\,\text{Var}(a_i)
+      + \sum_{i\neq j} Y_i Y_j\,\text{Cov}(a_i,a_j)\right]
+    = \frac{N-n}{n\,N^{2}}\!\left[\sum_i Y_i^{2} - \frac{1}{N-1}\sum_{i\neq j} Y_i Y_j\right].
+  \]
+  <p>Writing \(\sum_{i\neq j} Y_i Y_j = \big(\sum_i Y_i\big)^{2} - \sum_i Y_i^{2}\) and simplifying,</p>
+  \[
+    \sum_i Y_i^{2} - \frac{1}{N-1}\!\left[\Big(\textstyle\sum_i Y_i\Big)^{2} - \sum_i Y_i^{2}\right]
+    = \frac{N\sum_i Y_i^{2} - \big(\sum_i Y_i\big)^{2}}{N-1}
+    = \frac{N\sum_i (Y_i-\bar Y)^{2}}{N-1} = N\,S^{2},
+  \]
+  <p>since \(N\sum Y_i^{2} - (\sum Y_i)^{2} = N\sum (Y_i-\bar Y)^{2} = N(N-1)S^{2}\). Substituting,</p>
+  \[
+    \text{Var}(\bar y) = \frac{N-n}{n\,N^{2}}\cdot N\,S^{2} = \frac{N-n}{N\,n}\,S^{2}.
+  \]
+  <p><strong>Proof (SRSWR).</strong> The \(y_j\) are i.i.d. with common variance
+  \(\text{Var}(y_j) = \dfrac{1}{N}\sum_{i=1}^{N}(Y_i-\bar Y)^2 = \sigma^{2}\); by independence
+  \(\text{Var}(\bar y) = \dfrac{1}{n^{2}}\sum_{j=1}^{n}\text{Var}(y_j) = \dfrac{\sigma^{2}}{n}\).
+  \(\blacksquare\)</p>
+
+  <div class="example">
+    <span class="label">NUMERICAL CHECK</span>
+    <p>For \(N = 6\), \(Y = 4, 6, 8, 10, 12, 14\), \(n = 2\): \(\bar Y = 9\), \(S^2 = 14\). Averaging
+    \(\bar y\) over all \(\binom{6}{2} = 15\) samples gives \(E(\bar y) = 9 = \bar Y\) (Theorem 1), and the
+    variance of those 15 sample means is \(14/3 = 4.67\), exactly
+    \(\dfrac{N-n}{N\,n}S^2 = \dfrac{4}{12}\cdot 14 = \dfrac{14}{3}\) (Theorem 2).</p>
+  </div>
+
   <h3>SRSWR vs SRSWOR — Variance Comparison</h3>
   <p>For \(n &gt; 1\): \(\text{Var}_{WOR}(\bar y) &lt; \text{Var}_{WR}(\bar y)\) — SRSWOR is more efficient than SRSWR.</p>
 
