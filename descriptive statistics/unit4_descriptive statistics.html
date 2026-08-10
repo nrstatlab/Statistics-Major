@@ -412,6 +412,47 @@
     <tr><td>Standard Deviation</td><td>Yes</td><td>Yes</td><td>Yes (best)</td></tr>
   </table>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Coefficient of Variation (CV)</h3>
+  <div class="concept">
+    <p>The <strong>coefficient of variation</strong> is a <em>relative</em> (unit-free) measure of
+    dispersion, used to compare the variability of two or more series measured in different units or
+    having very different means.</p>
+    <div class="formula">
+      \[ \text{CV} = \dfrac{\sigma}{\bar x}\times 100\ \%. \]
+    </div>
+    <p>A smaller CV indicates greater consistency (less relative variability). Because it is
+    scale-free, CV — not the raw SD — is the correct tool for comparing, say, heights (cm) with weights
+    (kg), or two portfolios with different average returns.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Series A: mean 50, SD 10 \(\Rightarrow\) CV \(= 10/50\times100 = 20\%\). Series B: mean 80, SD 12
+    \(\Rightarrow\) CV \(= 12/80\times100 = 15\%\). Although B has the larger SD, it is <em>relatively</em>
+    more consistent (lower CV).</p>
+  </div>
+
+  <h3>B. Lorenz Curve and Gini Coefficient</h3>
+  <div class="concept">
+    <p>The <strong>Lorenz curve</strong> plots the cumulative share of a variable (e.g. income) against
+    the cumulative share of the population, both from lowest to highest. The <em>line of equal
+    distribution</em> is the 45° diagonal; the farther the Lorenz curve bows below it, the greater the
+    inequality.</p>
+    <p>The <strong>Gini coefficient</strong> measures this gap: it is twice the area between the diagonal
+    and the Lorenz curve, ranging from 0 (perfect equality) to 1 (perfect inequality). For \(n\) values
+    \(x_1,\dots,x_n\) with mean \(\bar x\),</p>
+    <div class="formula">
+      \[ G = \dfrac{\displaystyle\sum_{i=1}^{n}\sum_{j=1}^{n}|x_i - x_j|}{2\,n^{2}\,\bar x}. \]
+    </div>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Incomes of five persons: 10, 20, 30, 40, 50 (mean = 30). The mean absolute difference gives
+    \(G = 0.267\), a moderate level of inequality. If all incomes were equal, \(G = 0\).</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways from Unit 4</h2>
   <ul>

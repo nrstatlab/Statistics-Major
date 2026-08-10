@@ -242,6 +242,47 @@
     <tr><td>Two independent samples (general)</td><td>Mann–Whitney U / Wald–Wolfowitz</td><td>Two-sample t</td></tr>
   </table>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Kruskal–Wallis Test (Non-parametric One-way ANOVA)</h3>
+  <div class="concept">
+    <p>The <strong>Kruskal–Wallis</strong> test compares the locations of \(k \ge 3\) independent groups
+    without assuming normality — the rank-based analogue of one-way ANOVA. Pool all \(N\) observations,
+    rank them, and let \(R_j\) be the rank-sum of group \(j\) (size \(n_j\)).</p>
+    <div class="formula">
+      \[ H = \dfrac{12}{N(N+1)}\sum_{j=1}^{k}\dfrac{R_j^{2}}{n_j} - 3(N+1),
+         \qquad H \overset{H_0}{\sim} \chi^2_{k-1}\ \text{(large samples)}. \]
+    </div>
+    <p>Reject \(H_0\) (equal locations) when \(H\) exceeds \(\chi^2_{k-1}\) at level \(\alpha\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Three groups — A: 12, 15, 18; B: 20, 22, 25; C: 8, 10, 14 (\(N = 9\)). Ranking all nine gives
+    rank-sums \(R_A = 14,\ R_B = 24,\ R_C = 7\). Then</p>
+    <p>\(H = \dfrac{12}{9\cdot10}\!\left(\dfrac{14^2}{3}+\dfrac{24^2}{3}+\dfrac{7^2}{3}\right) - 3(10)
+    = 6.49\). Since \(6.49 &gt; \chi^2_{2,\,0.05} = 5.99\), the groups differ significantly.</p>
+  </div>
+
+  <h3>B. Kolmogorov–Smirnov (K–S) Test</h3>
+  <div class="concept">
+    <p>The <strong>Kolmogorov–Smirnov</strong> test checks goodness of fit by comparing the empirical CDF
+    \(F_n(x)\) with a fully specified theoretical CDF \(F_0(x)\) (one-sample), using the largest vertical
+    gap:</p>
+    <div class="formula">
+      \[ D = \max_x \big|F_n(x) - F_0(x)\big|. \]
+    </div>
+    <p>Reject \(H_0\) (data follow \(F_0\)) if \(D\) exceeds the tabulated critical value \(D_{\alpha,n}\).
+    Unlike the \(\chi^2\) goodness-of-fit test, K–S needs no class grouping and works well for small,
+    continuous samples. (A two-sample version compares two empirical CDFs.)</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Test whether 0.15, 0.32, 0.48, 0.61, 0.83 come from Uniform\((0,1)\). Comparing the step ECDF with
+    \(F_0(x) = x\) gives \(D = 0.19\). Since \(0.19 &lt; D_{0.05,\,5} = 0.563\), \(H_0\) is not rejected —
+    the data are consistent with the uniform.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Non-parametric tests are distribution-free; trade some power for robustness.</li>

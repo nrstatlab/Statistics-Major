@@ -289,6 +289,33 @@
     <p>\(F(x,y) = (1-e^{-x})(1-e^{-y})\). Marginals: each is Exp(1); they are independent (product form).</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Transformation of Two Random Variables (Jacobian Method)</h3>
+  <div class="concept">
+    <p>If \((X, Y)\) has joint pdf \(f_{X,Y}(x,y)\) and we define new variables
+    \(U = g_1(X,Y),\ V = g_2(X,Y)\) through a one-to-one transformation with inverse
+    \(x = h_1(u,v),\ y = h_2(u,v)\), then the joint pdf of \((U,V)\) is</p>
+    <div class="formula">
+      \[ f_{U,V}(u,v) = f_{X,Y}\big(h_1(u,v),\, h_2(u,v)\big)\,\big|J\big|,
+         \qquad J = \begin{vmatrix} \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\
+         \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v} \end{vmatrix}, \]
+    </div>
+    <p>where \(J\) is the <strong>Jacobian</strong> of the inverse transformation. The marginal of \(U\)
+    (or \(V\)) is then obtained by integrating out the other variable.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE — Sum of two i.i.d. exponentials</span>
+    <p>Let \(X, Y\) be i.i.d. Exp\((\lambda)\), so \(f(x,y) = \lambda^2 e^{-\lambda(x+y)}\) for
+    \(x,y \ge 0\). Put \(U = X + Y,\ V = X\). Then \(x = v,\ y = u - v\), so \(J = 1\) and</p>
+    <p>\(f_{U,V}(u,v) = \lambda^2 e^{-\lambda u}\) for \(0 \le v \le u\). Integrating over \(v\) from
+    \(0\) to \(u\):</p>
+    \[ f_U(u) = \int_0^{u}\lambda^2 e^{-\lambda u}\,dv = \lambda^2 u\, e^{-\lambda u}, \quad u \ge 0, \]
+    <p>which is the Gamma\((2, \lambda)\) density. Hence the sum of two i.i.d. exponentials is
+    Gamma-distributed — a result the Jacobian method delivers cleanly.</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways from Unit 3</h2>
   <ul>

@@ -230,6 +230,41 @@
     two-tailed 5% test.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Simultaneous-Equation Models</h3>
+  <div class="concept">
+    <p>In many economic systems variables are <strong>jointly determined</strong> — e.g. price and
+    quantity are fixed together by demand and supply. Such a system is a set of
+    <strong>structural equations</strong>; a variable that is explained within the system is
+    <em>endogenous</em>, one determined outside it is <em>exogenous</em>.</p>
+    <div class="formula">
+      \[ \text{Demand: } Q = \alpha_0 + \alpha_1 P + \alpha_2 I + u_1, \qquad
+         \text{Supply: } Q = \beta_0 + \beta_1 P + u_2. \]
+    </div>
+    <p><strong>Simultaneity bias:</strong> because \(P\) is correlated with the disturbances, applying OLS
+    to a structural equation gives biased and inconsistent estimates. Solving the system for the
+    endogenous variables in terms of exogenous ones gives the <em>reduced form</em>, whose OLS estimates
+    are consistent.</p>
+  </div>
+  <div class="concept">
+    <span class="label">THE IDENTIFICATION PROBLEM</span>
+    <p>Whether the structural parameters can be recovered from the reduced form is the
+    <strong>identification</strong> problem. The <em>order condition</em> (necessary): an equation is
+    identified if the number of exogenous variables excluded from it is at least
+    \((\text{number of endogenous variables}) - 1\), i.e. \(K - k \ge m - 1\).</p>
+    <ul>
+      <li>\(K - k = m - 1\): <em>exactly identified</em> — use Indirect Least Squares (ILS).</li>
+      <li>\(K - k &gt; m - 1\): <em>over-identified</em> — use Two-Stage Least Squares (2SLS).</li>
+      <li>\(K - k &lt; m - 1\): <em>under-identified</em> — parameters cannot be recovered.</li>
+    </ul>
+    <p><strong>2SLS</strong> replaces the endogenous regressor by its fitted value from a first-stage
+    regression on all exogenous variables (instruments), then applies OLS — removing the correlation with
+    the disturbance. In the demand–supply example, income \(I\) (excluded from supply) identifies the
+    supply equation.</p>
+  </div>
+
   <h2>Key Take-aways from Unit 5</h2>
   <ul>
     <li>Autocorrelation = correlated disturbances over time; AR(1) is the canonical model.</li>

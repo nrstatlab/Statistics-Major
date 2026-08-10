@@ -245,6 +245,34 @@
     <p><strong>S chart:</strong> CL = 0.9693 × 3.0 = 2.908; UCL = 1.761 × 2.908 = 5.121; LCL = 0.239 × 2.908 = 0.695.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Process Capability Analysis (\(C_p\), \(C_{pk}\))</h3>
+  <div class="concept">
+    <p>Control charts show whether a process is <em>in control</em> (stable); <strong>capability
+    indices</strong> show whether a stable process can actually meet the customer's specification limits
+    (LSL, USL). They compare the specification width to the process spread \(6\sigma\).</p>
+    <div class="formula">
+      \[ C_p = \dfrac{\text{USL} - \text{LSL}}{6\sigma}, \qquad
+         C_{pk} = \min\!\left(\dfrac{\text{USL} - \mu}{3\sigma},\ \dfrac{\mu - \text{LSL}}{3\sigma}\right). \]
+    </div>
+    <ul>
+      <li>\(C_p\) measures <em>potential</em> capability (assumes the process is centred); a value
+      \(\ge 1.33\) is generally required.</li>
+      <li>\(C_{pk}\) measures <em>actual</em> capability, penalising off-centre processes. Always
+      \(C_{pk} \le C_p\), with equality only when the process is perfectly centred.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Specifications LSL = 46, USL = 54; process \(\mu = 51,\ \sigma = 1\).</p>
+    <p>\(C_p = (54-46)/(6\cdot1) = 1.333\) (potentially capable), but
+    \(C_{pk} = \min\!\big((54-51)/3,\ (51-46)/3\big) = \min(1.0,\ 1.667) = 1.0\). The process is
+    off-centre (mean shifted toward the USL), so its actual capability (1.0) is well below its
+    potential (1.33) — re-centring to \(\mu = 50\) would raise \(C_{pk}\) to 1.33.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Variable charts track continuous measurements; always use a <strong>pair</strong>: \(\bar{X}\) + R (or \(\bar{X}\) + S).</li>

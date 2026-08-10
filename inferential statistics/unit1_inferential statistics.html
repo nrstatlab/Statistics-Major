@@ -254,6 +254,44 @@
     <p>\(0.6 \pm 1.96\sqrt{0.6 \cdot 0.4 / 400} = 0.6 \pm 0.048 = (0.552,\; 0.648)\).</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Sufficiency and the Factorization Theorem</h3>
+  <div class="concept">
+    <p>A statistic \(T = T(X_1,\dots,X_n)\) is <strong>sufficient</strong> for a parameter \(\theta\) if
+    the conditional distribution of the sample given \(T\) does not depend on \(\theta\) — i.e. \(T\)
+    captures <em>all</em> the information the data carry about \(\theta\).</p>
+    <div class="formula">
+      <span class="label">FISHER–NEYMAN FACTORIZATION THEOREM</span>
+      \[ L(\theta) = f(x_1,\dots,x_n;\theta) = g\big(T(x);\theta\big)\, h(x_1,\dots,x_n), \]
+      <p>i.e. \(T\) is sufficient for \(\theta\) <strong>iff</strong> the likelihood factors into a part
+      \(g\) depending on the data only through \(T\) and \(\theta\), times a part \(h\) free of
+      \(\theta\).</p>
+    </div>
+    <p><strong>Example.</strong> For \(X_1,\dots,X_n \sim\) Poisson\((\lambda)\),
+    \(L(\lambda) = e^{-n\lambda}\lambda^{\sum x_i}/\prod x_i!\). Here
+    \(g = e^{-n\lambda}\lambda^{\sum x_i}\) depends on the data only through \(T = \sum X_i\), and
+    \(h = 1/\prod x_i!\) is free of \(\lambda\); hence \(\sum X_i\) (equivalently \(\bar X\)) is
+    sufficient for \(\lambda\).</p>
+  </div>
+
+  <h3>B. Minimum-Variance Unbiased Estimator (MVUE)</h3>
+  <div class="concept">
+    <p>Among all unbiased estimators of \(\theta\), the one with the smallest variance is the
+    <strong>MVUE</strong>. Two theorems locate it:</p>
+    <ul>
+      <li><strong>Rao–Blackwell theorem:</strong> if \(U\) is any unbiased estimator and \(T\) is
+      sufficient, then \(U^{*} = E(U \mid T)\) is unbiased and has variance \(\le\) that of \(U\).
+      Conditioning on a sufficient statistic never increases variance — so a good estimator should be a
+      function of \(T\).</li>
+      <li><strong>Lehmann–Scheffé theorem:</strong> if \(T\) is <em>complete</em> and sufficient, then any
+      unbiased function of \(T\) is the <em>unique</em> MVUE.</li>
+    </ul>
+    <p><strong>Example.</strong> For Poisson\((\lambda)\), \(\bar X\) is an unbiased function of the
+    complete sufficient statistic \(\sum X_i\); by Lehmann–Scheffé it is the MVUE of \(\lambda\).</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways</h2>
   <ul>

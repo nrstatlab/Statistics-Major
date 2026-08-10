@@ -151,6 +151,38 @@
     <p>By memoryless: \(P(X &gt; 1200 | X &gt; 500) = P(X &gt; 700) = e^{-700/1000} = e^{-0.7} \approx 0.4966\).</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Weibull Distribution</h3>
+  <div class="concept">
+    <p>The <strong>Weibull</strong> distribution generalises the exponential by allowing the failure
+    rate to change with time — the workhorse of reliability and life-testing. With shape \(k &gt; 0\) and
+    scale \(\lambda &gt; 0\):</p>
+    <div class="formula">
+      \[ f(x) = \dfrac{k}{\lambda}\left(\dfrac{x}{\lambda}\right)^{k-1} e^{-(x/\lambda)^{k}},\quad x \ge 0;
+         \qquad F(x) = 1 - e^{-(x/\lambda)^{k}}. \]
+    </div>
+    <p>\(k = 1\) gives the exponential (constant hazard); \(k &gt; 1\) an increasing hazard (wear-out);
+    \(k &lt; 1\) a decreasing hazard (infant mortality). Mean \(= \lambda\,\Gamma(1 + 1/k)\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>For \(k = 2,\ \lambda = 10\): \(P(X &gt; 10) = e^{-(10/10)^{2}} = e^{-1} = 0.368\).</p>
+  </div>
+
+  <h3>B. Laplace (Double-Exponential) Distribution</h3>
+  <div class="concept">
+    <p>The <strong>Laplace</strong> distribution is a two-sided exponential — an exponential decay on
+    each side of a centre \(\mu\):</p>
+    <div class="formula">
+      \[ f(x) = \dfrac{1}{2b}\,e^{-|x-\mu|/b}, \quad -\infty &lt; x &lt; \infty,\ b &gt; 0. \]
+    </div>
+    <p>It is symmetric about \(\mu\) (so mean = median = mode = \(\mu\)), with variance \(2b^{2}\) and
+    heavier tails than the normal. The difference of two i.i.d. exponentials follows a Laplace
+    distribution.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Exp\((\lambda)\): \(f(x) = \lambda e^{-\lambda x}\); CDF \(= 1 - e^{-\lambda x}\).</li>

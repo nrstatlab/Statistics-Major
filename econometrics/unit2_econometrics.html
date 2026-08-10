@@ -243,6 +243,30 @@
     <p>So \(\hat Y = 0.667 + 1.5 X\) — confirming the matrix algebra mirrors the scalar formulas.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Dummy (Indicator) Variables</h3>
+  <div class="concept">
+    <p>A <strong>dummy variable</strong> takes only the values 0 and 1 to bring a <em>qualitative</em>
+    factor (sex, region, season, before/after a policy) into a regression. For a two-category factor,</p>
+    <div class="formula">
+      \[ Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + u_i, \qquad
+         D_i = \begin{cases}1 & \text{category present}\\ 0 & \text{otherwise.}\end{cases} \]
+    </div>
+    <p>Here \(\beta_2\) is the <em>difference in intercept</em> between the two groups (a shift in level);
+    the group with \(D = 0\) is the <strong>base (reference) category</strong>. A factor with \(m\)
+    categories needs \(m - 1\) dummies — including all \(m\) plus an intercept causes perfect
+    collinearity, the <strong>dummy-variable trap</strong>. Interacting a dummy with \(X\) (a term
+    \(D_i X_i\)) lets the <em>slope</em> differ between groups as well.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>\(\widehat{\text{Wage}} = 8 + 1.5\,\text{Educ} + 3\,D\) with \(D = 1\) for urban workers. Urban
+    workers earn, on average, 3 units more than rural workers with the same education; rural is the base
+    category.</p>
+  </div>
+
   <h2>Key Take-aways from Unit 2</h2>
   <ul>
     <li>Two-variable model: \(Y_i = \beta_0 + \beta_1 X_i + u_i\); OLS gives

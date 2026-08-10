@@ -165,6 +165,72 @@
     <p>Difference \(\sim N(170 - 160, 36 + 25) = N(10, 61)\). SD \(= \sqrt{61} \approx 7.81\).</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Cauchy Distribution</h3>
+  <div class="concept">
+    <p>The <strong>Cauchy</strong> distribution is bell-shaped like the normal but has such heavy tails
+    that <em>none of its moments exist</em> (not even the mean). With location \(\mu\) and scale
+    \(\lambda &gt; 0\):</p>
+    <div class="formula">
+      \[ f(x) = \dfrac{1}{\pi\lambda\left[1 + \left(\dfrac{x-\mu}{\lambda}\right)^{2}\right]},
+         \quad -\infty &lt; x &lt; \infty. \]
+    </div>
+    <p>Its median and mode are \(\mu\); its quartiles are \(\mu \pm \lambda\). The standard Cauchy
+    (\(\mu=0,\lambda=1\)) arises as the ratio \(Z_1/Z_2\) of two independent standard normals, and equals
+    Student's \(t\) with 1 degree of freedom. Because the mean does not exist, the sample mean of Cauchy
+    data does <em>not</em> settle down — the CLT does not apply.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>For the standard Cauchy, \(P(|X| &lt; 1) = \dfrac{1}{\pi}\big[\arctan(1) - \arctan(-1)\big]
+    = \dfrac{1}{\pi}\cdot\dfrac{\pi}{2} = 0.5\): half the probability lies within one scale unit of the
+    centre.</p>
+  </div>
+
+  <h3>B. Lognormal Distribution</h3>
+  <div class="concept">
+    <p>A positive variable \(X\) is <strong>lognormal</strong> if \(\ln X \sim N(\mu, \sigma^{2})\). It
+    models positively-skewed quantities (incomes, share prices, particle sizes). Its density and moments
+    are</p>
+    <div class="formula">
+      \[ f(x) = \dfrac{1}{x\sigma\sqrt{2\pi}}\,\exp\!\left[-\dfrac{(\ln x - \mu)^2}{2\sigma^2}\right],\ x&gt;0;
+         \qquad E(X) = e^{\mu + \sigma^2/2}, \quad \text{median} = e^{\mu}. \]
+    </div>
+    <p>Because \(E(X) &gt; \) median \(&gt;\) mode, the distribution is right-skewed.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>If \(\ln X \sim N(0, 0.25)\) (so \(\sigma = 0.5\)): median \(= e^{0} = 1\) and mean
+    \(= e^{0 + 0.125} = 1.133\) — the mean exceeds the median, confirming right skew.</p>
+  </div>
+
+  <h3>C. Bivariate Normal Distribution</h3>
+  <div class="concept">
+    <p>The pair \((X, Y)\) is <strong>bivariate normal</strong> with means \(\mu_X, \mu_Y\), variances
+    \(\sigma_X^2, \sigma_Y^2\) and correlation \(\rho\) if</p>
+    <div class="formula">
+      \[ f(x,y) = \dfrac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}
+         \exp\!\left\{-\dfrac{1}{2(1-\rho^2)}\!\left[\dfrac{(x-\mu_X)^2}{\sigma_X^2}
+         - \dfrac{2\rho(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \dfrac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right\}. \]
+    </div>
+    <p>Key properties: both marginals are normal; each conditional distribution is normal with</p>
+    <div class="formula">
+      \[ E(Y\mid X=x) = \mu_Y + \rho\dfrac{\sigma_Y}{\sigma_X}(x - \mu_X), \qquad
+         \text{Var}(Y\mid X=x) = \sigma_Y^2(1 - \rho^2). \]
+    </div>
+    <p>The conditional mean is the population <em>regression line</em> of \(Y\) on \(X\). For the
+    bivariate normal — and only here in general — <strong>zero correlation implies independence</strong>
+    (\(\rho = 0 \Leftrightarrow X, Y\) independent).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>With \(\mu_X=10,\mu_Y=20,\sigma_X=2,\sigma_Y=3,\rho=0.6\): at \(x = 12\),
+    \(E(Y\mid X=12) = 20 + 0.6\cdot\dfrac{3}{2}(12-10) = 21.8\) and
+    \(\text{Var}(Y\mid X=12) = 9(1-0.36) = 5.76\).</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Normal PDF has a bell shape, fully described by \(\mu\) and \(\sigma^2\).</li>

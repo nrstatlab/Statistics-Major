@@ -256,6 +256,44 @@
     <p>Mean = \(np = 5\); Variance = \(npq = 3.75\); SD = 1.936.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Multinomial Distribution</h3>
+  <div class="concept">
+    <span class="label">DEFINITION</span>
+    <p>The <strong>multinomial distribution</strong> generalises the binomial to more than two outcomes.
+    In \(n\) independent trials, each trial results in exactly one of \(k\) mutually exclusive categories
+    with probabilities \(p_1, p_2, \dots, p_k\) (\(\sum p_i = 1\)). If \(X_i\) is the number of trials
+    falling in category \(i\), then</p>
+    <div class="formula">
+      \[ P(X_1 = x_1, \dots, X_k = x_k) = \dfrac{n!}{x_1!\,x_2!\cdots x_k!}\,
+         p_1^{x_1} p_2^{x_2}\cdots p_k^{x_k}, \qquad \sum_{i=1}^{k} x_i = n. \]
+    </div>
+    <p>With \(k = 2\) this reduces to the binomial. Each marginal is binomial:
+    \(X_i \sim B(n, p_i)\).</p>
+  </div>
+  <div class="formula">
+    <span class="label">MOMENTS</span>
+    \[ E(X_i) = n p_i, \qquad \text{Var}(X_i) = n p_i (1 - p_i), \qquad
+       \text{Cov}(X_i, X_j) = -\,n p_i p_j \;\;(i \neq j). \]
+    <p>The covariance is <em>negative</em>: since the counts must add to \(n\), a large count in one
+    category forces smaller counts elsewhere.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>A fair die is rolled 12 times. The probability that each face appears exactly twice is</p>
+    <p>\(P = \dfrac{12!}{(2!)^{6}}\left(\dfrac{1}{6}\right)^{12} = 7\,484\,400 \times \dfrac{1}{6^{12}}
+    = 0.00344\).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2</span>
+    <p>Items are Good, Minor-defect or Major-defect with probabilities \(0.5, 0.3, 0.2\). In a sample of
+    10, the probability of exactly 5 Good, 3 Minor and 2 Major is</p>
+    <p>\(P = \dfrac{10!}{5!\,3!\,2!}(0.5)^5(0.3)^3(0.2)^2 = 2520 \times 0.03125 \times 0.027 \times 0.04
+    = 0.0851\).</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways from Unit 1</h2>
   <ul>

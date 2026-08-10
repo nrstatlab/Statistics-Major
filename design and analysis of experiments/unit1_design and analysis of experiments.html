@@ -189,6 +189,53 @@
     <p>\(F_C = (30/2)/(60/6) = 15/10 = 1.5;\; F_{0.05, 2, 6} = 5.14\) ⇒ accept (no subject effect).</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Factorial Experiments (\(2^2\) and \(2^3\))</h3>
+  <div class="concept">
+    <p>In a <strong>factorial experiment</strong> several factors are varied together, so that both their
+    individual (<em>main</em>) effects and their <em>interactions</em> can be estimated from the same
+    trials — far more efficient than studying one factor at a time. In a \(2^k\) design each of \(k\)
+    factors is set at two levels, <em>low</em> and <em>high</em>.</p>
+    <p>For a \(2^2\) design with factors A and B, the four treatment combinations are written
+    \((1),\ a,\ b,\ ab\) (a letter present = that factor at its high level). The effects are contrasts:</p>
+    <div class="formula">
+      \[ A = \tfrac{1}{2r}\big[a + ab - b - (1)\big], \quad
+         B = \tfrac{1}{2r}\big[b + ab - a - (1)\big], \quad
+         AB = \tfrac{1}{2r}\big[(1) + ab - a - b\big], \]
+      \[ SS_{\text{effect}} = \dfrac{(\text{contrast})^{2}}{2^{k}\,r}. \]
+    </div>
+    <p>A significant <strong>interaction</strong> means the effect of one factor depends on the level of
+    the other — then the main effects must not be interpreted in isolation.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE (\(2^2\), single replicate)</span>
+    <p>Yields: \((1) = 20,\ a = 40,\ b = 30,\ ab = 54\).</p>
+    <ul>
+      <li>Contrasts: \(A = (40+54)-(30+20) = 44\); \(B = (30+54)-(40+20) = 24\);
+      \(AB = (20+54)-(40+30) = 4\).</li>
+      <li>Effects: \(A = 44/2 = 22,\ B = 24/2 = 12,\ AB = 4/2 = 2\).</li>
+      <li>Sums of squares (\(2^k r = 4\)): \(SS_A = 44^2/4 = 484,\ SS_B = 24^2/4 = 144,\ SS_{AB} = 4^2/4 = 4\).</li>
+    </ul>
+    <p>Factor A has the dominant effect; the interaction is negligible.</p>
+  </div>
+  <div class="concept">
+    <span class="label">YATES' ALGORITHM</span>
+    <p>Yates' algorithm computes all contrasts systematically. List the responses in standard order
+    \((1), a, b, ab\) and repeat, \(k\) times, the operation "sum the pairs, then difference the pairs":</p>
+    <table class="left">
+      <tr><th>Std order</th><th>Response</th><th>Column 1</th><th>Column 2 (contrast)</th><th>Identifies</th></tr>
+      <tr><td>(1)</td><td>20</td><td>60</td><td>144</td><td>Grand total</td></tr>
+      <tr><td>a</td><td>40</td><td>84</td><td>44</td><td>A</td></tr>
+      <tr><td>b</td><td>30</td><td>20</td><td>24</td><td>B</td></tr>
+      <tr><td>ab</td><td>54</td><td>24</td><td>4</td><td>AB</td></tr>
+    </table>
+    <p>The final column reproduces the contrasts (44, 24, 4) and the grand total (144). The same
+    "add-then-subtract" scheme with three passes handles a \(2^3\) design (factors A, B, C and
+    interactions AB, AC, BC, ABC).</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>ANOVA partitions total variation into sources; tests via F-ratio.</li>
