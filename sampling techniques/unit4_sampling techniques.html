@@ -262,6 +262,33 @@
     <p>Exit poll instructions: "interview 50 men and 50 women voters from each constituency". No random scheme — interviewer picks who is convenient.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Probability Proportional to Size (PPS) Sampling</h3>
+  <div class="concept">
+    <p>In <strong>PPS sampling</strong>, units are selected with probabilities proportional to a known
+    <em>size measure</em> \(X_i\) (e.g. villages chosen with probability proportional to population, or
+    shops to floor area). Large units — which usually contribute most to the total — get a higher chance
+    of selection, improving efficiency when \(Y_i\) is roughly proportional to \(X_i\).</p>
+    <p>Selection probability of unit \(i\): \( \pi_i = X_i / \sum_{k} X_k. \)</p>
+    <div class="formula">
+      <span class="label">HANSEN–HURWITZ ESTIMATOR (PPS with replacement)</span>
+      \[ \hat Y_{HH} = \dfrac{1}{n}\sum_{i=1}^{n}\dfrac{y_i}{p_i}, \qquad p_i = \dfrac{X_i}{\sum_k X_k}, \]
+      <p>which is unbiased for the population total \(Y\); dividing the summand by the size restores an
+      unbiased scale.</p>
+    </div>
+    <p><strong>Selection methods:</strong> (i) <em>Cumulative-total method</em> — cumulate the sizes,
+    draw a random number in \((0, \sum X_k]\), and pick the unit whose cumulative interval contains it;
+    (ii) <em>Lahiri's method</em> — a rejection scheme that avoids cumulation.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Four villages with populations 200, 300, 100, 400 (total 1000) have selection probabilities
+    \(0.20, 0.30, 0.10, 0.40\). Cumulative totals are 200, 500, 600, 1000; a random number 640 falls in
+    the interval \((600, 1000]\), so the fourth village is selected.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>Systematic: \(N = nk\); pick every k-th unit after a random start.</li>

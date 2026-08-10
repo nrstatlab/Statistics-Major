@@ -260,6 +260,32 @@
     <li>Compare and conclude.</li>
   </ol>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Generalized Likelihood Ratio Test (LRT)</h3>
+  <div class="concept">
+    <p>The Neyman–Pearson lemma gives the most powerful test only for a <em>simple-vs-simple</em>
+    hypothesis. The <strong>likelihood ratio test</strong> extends the idea to composite hypotheses and
+    multiple parameters. To test \(H_0:\theta\in\Theta_0\) against \(H_1:\theta\in\Theta\), form</p>
+    <div class="formula">
+      \[ \lambda = \dfrac{\displaystyle\sup_{\theta\in\Theta_0} L(\theta)}{\displaystyle\sup_{\theta\in\Theta} L(\theta)},
+         \qquad 0 \le \lambda \le 1. \]
+    </div>
+    <p>The numerator maximises the likelihood under the restriction \(H_0\); the denominator maximises it
+    without restriction. Small \(\lambda\) means the data fit far better under \(H_1\), so we
+    <strong>reject \(H_0\) when \(\lambda \le \lambda_0\)</strong> (equivalently \(-2\ln\lambda\) large).</p>
+    <div class="formula">
+      <span class="label">WILKS' THEOREM (large samples)</span>
+      \[ -2\ln\lambda \;\xrightarrow{d}\; \chi^2_{r}, \]
+      <p>where \(r\) is the number of independent restrictions imposed by \(H_0\). This provides the
+      critical value when the exact distribution of \(\lambda\) is intractable.</p>
+    </div>
+    <p><strong>Example.</strong> For a normal sample with unknown mean and variance, the LRT of
+    \(H_0:\mu=\mu_0\) reduces exactly to the one-sample <em>t</em>-test — the familiar test is the
+    likelihood ratio test in disguise.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>\(H_0\) (no effect) vs \(H_1\) (effect); only \(H_0\) is tested directly.</li>

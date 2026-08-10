@@ -288,6 +288,36 @@
     rejecting good lots.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+
+  <h3>A. Double Sampling Plan</h3>
+  <div class="concept">
+    <p>A <strong>double sampling plan</strong> allows a second sample before deciding on a lot. It is
+    defined by \((n_1, c_1, r_1;\ n_2, c_2)\):</p>
+    <ol>
+      <li>Draw a first sample of \(n_1\); let \(d_1\) be the number of defectives.</li>
+      <li>If \(d_1 \le c_1\), <strong>accept</strong> the lot; if \(d_1 \ge r_1\), <strong>reject</strong> it.</li>
+      <li>If \(c_1 &lt; d_1 &lt; r_1\), draw a second sample of \(n_2\); accept if the
+      <em>combined</em> defectives \(d_1 + d_2 \le c_2\), otherwise reject.</li>
+    </ol>
+    <p>A clear first sample often decides the lot on a small \(n_1\), so on average <em>fewer items are
+    inspected</em> than under a single plan of equal protection. This average is the <strong>Average
+    Sample Number</strong>:</p>
+    <div class="formula">
+      \[ \text{ASN} = n_1 + n_2\,P(\text{second sample needed}),\qquad
+         P(\text{2nd}) = P(c_1 &lt; d_1 &lt; r_1). \]
+    </div>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Plan \((n_1 = 50, c_1 = 1, r_1 = 4;\ n_2 = 50, c_2 = 4)\) at \(p = 0.05\) (so \(m_1 = n_1 p = 2.5\),
+    Poisson). Probability of needing a second sample \(= P(2 \le d_1 \le 3) = 0.470\), so</p>
+    <p>\(\text{ASN} = 50 + 50(0.470) = 73.5\) items — on average below the 100 that a comparable single
+    plan of \(n = 50 + 50\) would always inspect. A note on <em>sequential sampling</em>: taking this
+    idea to the limit (deciding after each item) minimises ASN further.</p>
+  </div>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>A single sampling plan is defined by \((n, c)\): inspect \(n\); accept if defectives \(\le c\).</li>

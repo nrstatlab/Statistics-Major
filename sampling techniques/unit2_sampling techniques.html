@@ -303,6 +303,53 @@
     <p>If \(N = 10\,000, n = 100, m = 18\): \(\hat p = 0.18\). With FPC ≈ 1, \(\widehat{\text{Var}} \approx 0.18(0.82)/99 = 0.00149\); SE = 0.0386.</p>
   </div>
 
+  <!-- ============ SOME MORE RELATED TOPICS ============ -->
+  <h2>Some more related topics to this unit</h2>
+  <p>When an <strong>auxiliary variable</strong> \(X\), correlated with the study variable \(Y\) and with
+  known population mean \(\bar X\), is available, estimation can be sharpened using the ratio and
+  regression methods.</p>
+
+  <h3>A. Ratio Method of Estimation</h3>
+  <div class="concept">
+    <p>The <strong>ratio estimator</strong> of the population mean is</p>
+    <div class="formula">
+      \[ \hat{\bar Y}_R = \dfrac{\bar y}{\bar x}\,\bar X = \hat R\,\bar X,
+         \qquad \hat R = \dfrac{\bar y}{\bar x}. \]
+    </div>
+    <p>It is (slightly) biased but often far more precise than \(\bar y\) when \(Y\) is roughly
+    proportional to \(X\) (the regression line passes near the origin). Its approximate variance is</p>
+    <div class="formula">
+      \[ \text{Var}(\hat{\bar Y}_R) \approx \dfrac{N-n}{Nn}\cdot\dfrac{1}{N-1}
+         \sum_{i=1}^{N}\big(Y_i - R\,X_i\big)^2, \qquad R = \dfrac{\bar Y}{\bar X}. \]
+    </div>
+    <p>The ratio estimator beats the mean-per-unit estimator when the correlation
+    \(\rho &gt; \tfrac12\,(C_x/C_y)\) (ratio of coefficients of variation).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>A sample of 5 gives \(y = 9,11,14,8,13\) and \(x = 10,12,15,9,14\), with known
+    \(\bar X = 12.5\). Then \(\bar y = 11,\ \bar x = 12\), so \(\hat R = 11/12 = 0.917\) and
+    \(\hat{\bar Y}_R = 0.917\times12.5 = 11.46\).</p>
+  </div>
+
+  <h3>B. Regression Method of Estimation</h3>
+  <div class="concept">
+    <p>The <strong>linear regression estimator</strong> corrects \(\bar y\) using the deviation of the
+    sample auxiliary mean from its known population value:</p>
+    <div class="formula">
+      \[ \hat{\bar Y}_{lr} = \bar y + b\,(\bar X - \bar x), \qquad
+         b = \dfrac{\sum (x_i-\bar x)(y_i-\bar y)}{\sum (x_i-\bar x)^2}. \]
+    </div>
+    <p>Its approximate variance is \(\text{Var}(\hat{\bar Y}_{lr}) \approx \dfrac{N-n}{Nn}\,S_y^2(1-\rho^2)\),
+    so it is never worse than the mean-per-unit estimator and is at least as efficient as the ratio
+    estimator. The ratio estimator is the special case \(b = \hat R\) (line through the origin).</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>For the data above, \(b = \dfrac{\sum(x-\bar x)(y-\bar y)}{\sum(x-\bar x)^2} = 1.0\), so
+    \(\hat{\bar Y}_{lr} = 11 + 1.0\,(12.5 - 12) = 11.5\).</p>
+  </div>
+
   <h2>Summary Formulas</h2>
   <table class="left">
     <tr><th>Quantity</th><th>SRSWR</th><th>SRSWOR</th></tr>
