@@ -110,6 +110,44 @@
     good lots) to \(P_a \approx 0\) (for very bad lots). The steeper the fall, the better the plan's discriminatory power.</li>
   </ul>
 
+  <figure class="figure">
+    <svg viewBox="0 0 470 250" xmlns="http://www.w3.org/2000/svg" aria-label="Operating characteristic curve for the plan n equals 50, c equals 2, marking producer's and consumer's risk">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="240" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#0f4c81">OC Curve — plan n = 50, c = 2</text>
+        <line x1="55" y1="30" x2="55" y2="210" stroke="#374151" stroke-width="1.3"/>
+        <line x1="55" y1="210" x2="445" y2="210" stroke="#374151" stroke-width="1.3"/>
+        <g font-size="10" fill="#374151" text-anchor="end">
+          <text x="50" y="34">1.0</text><text x="50" y="79">0.75</text><text x="50" y="124">0.5</text>
+          <text x="50" y="169">0.25</text><text x="50" y="214">0</text>
+        </g>
+        <text x="20" y="120" font-size="10" fill="#64748b" transform="rotate(-90 20 120)">P(accept) Pₐ</text>
+        <!-- risk guide lines -->
+        <line x1="108.6" y1="44.5" x2="108.6" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="55" y1="44.5" x2="108.6" y2="44.5" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="322.9" y1="187.6" x2="322.9" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="55" y1="187.6" x2="322.9" y2="187.6" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- OC curve -->
+        <polyline points="55,30 68.4,30.4 81.8,32.6 108.6,44.5 135.4,64.4 162.1,88.2 188.9,112.1 215.7,133.8 269.3,167.1 322.9,187.6 376.4,198.8 430,204.7" fill="none" stroke="#1e7fbf" stroke-width="2.5"/>
+        <circle cx="108.6" cy="44.5" r="4" fill="#059669"/>
+        <circle cx="322.9" cy="187.6" r="4" fill="#dc2626"/>
+        <g font-size="9.5" fill="#374151">
+          <text x="114" y="42">AQL = 0.02, Pₐ = 0.92</text>
+          <text x="114" y="55" fill="#059669">producer's risk α ≈ 0.08</text>
+          <text x="200" y="184">LTPD = 0.10, Pₐ ≈ 0.12</text>
+          <text x="200" y="197" fill="#dc2626">consumer's risk β</text>
+        </g>
+        <g font-size="10" fill="#374151" text-anchor="middle">
+          <text x="108.6" y="224">0.02</text><text x="215.7" y="224">0.06</text><text x="322.9" y="224">0.10</text><text x="430" y="224">0.14</text>
+        </g>
+        <text x="250" y="242" text-anchor="middle" font-size="10" fill="#64748b">Lot fraction defective p →</text>
+      </g>
+    </svg>
+    <figcaption>Fig 4.1 — The OC curve shows the probability of accepting a lot as its quality \(p\)
+    worsens. Good lots (low \(p\)) are almost always accepted; bad lots almost always rejected. The
+    <span style="color:#059669">producer's risk α</span> is the chance of rejecting a good (AQL) lot; the
+    <span style="color:#dc2626">consumer's risk β</span> is the chance of accepting a bad (LTPD) lot.</figcaption>
+  </figure>
+
   <h3>4.2 OC Curve for a Single Sampling Plan (\(n, c\))</h3>
   <p>Using the Binomial model, for a lot with fraction defective \(p\):</p>
   <div class="formula">
