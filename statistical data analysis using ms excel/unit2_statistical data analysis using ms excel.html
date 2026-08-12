@@ -82,6 +82,127 @@
     <p>Hours of study (A2:A10) vs marks (B2:B10). Select → Insert → Scatter → "Scatter with only markers". Right-click any point → Add Trendline → Linear → tick "Display Equation on chart" to see the regression equation.</p>
   </div>
 
+  <h3>Visual Examples — What Each Chart Looks Like</h3>
+  <p>The pictures below are drawn from the same small datasets used above, so you can match each chart to
+  the numbers behind it.</p>
+
+  <figure class="figure" style="max-width:420px;">
+    <svg viewBox="0 0 340 200" role="img" aria-label="Column chart of yearly sales 200, 250, 300, 280, 350">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="175" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#0f4c81">Column chart — Yearly Sales</text>
+        <line x1="40" y1="165" x2="315" y2="165" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="40" y1="25" x2="40" y2="165" stroke="#94a3b8" stroke-width="1.5"/>
+        <g fill="#0f4c81">
+          <rect x="52" y="87.9" width="34" height="77.1"/>
+          <rect x="102" y="68.6" width="34" height="96.4"/>
+          <rect x="152" y="49.3" width="34" height="115.7"/>
+          <rect x="202" y="57" width="34" height="108"/>
+          <rect x="252" y="30" width="34" height="135"/>
+        </g>
+        <g font-size="10" text-anchor="middle" fill="#334155">
+          <text x="69" y="83">200</text><text x="119" y="63.6">250</text><text x="169" y="44.3">300</text>
+          <text x="219" y="52">280</text><text x="269" y="25">350</text>
+        </g>
+        <g font-size="10" text-anchor="middle" fill="#64748b">
+          <text x="69" y="178">2021</text><text x="119" y="178">2022</text><text x="169" y="178">2023</text>
+          <text x="219" y="178">2024</text><text x="269" y="178">2025</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Bar <em>height</em> = value. Use a column/bar chart to <strong>compare a quantity across
+    categories or years</strong>.</figcaption>
+  </figure>
+
+  <figure class="figure" style="max-width:420px;">
+    <svg viewBox="0 0 340 200" role="img" aria-label="Line chart of the same yearly sales showing the trend">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="175" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#0f4c81">Line chart — Sales Trend</text>
+        <line x1="40" y1="165" x2="315" y2="165" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="40" y1="25" x2="40" y2="165" stroke="#94a3b8" stroke-width="1.5"/>
+        <polyline points="69,87.9 119,68.6 169,49.3 219,57 269,30" fill="none" stroke="#0f4c81" stroke-width="2.5"/>
+        <g fill="#0f4c81">
+          <circle cx="69" cy="87.9" r="3.5"/><circle cx="119" cy="68.6" r="3.5"/><circle cx="169" cy="49.3" r="3.5"/>
+          <circle cx="219" cy="57" r="3.5"/><circle cx="269" cy="30" r="3.5"/>
+        </g>
+        <g font-size="10" text-anchor="middle" fill="#64748b">
+          <text x="69" y="178">2021</text><text x="119" y="178">2022</text><text x="169" y="178">2023</text>
+          <text x="219" y="178">2024</text><text x="269" y="178">2025</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Same five numbers, joined by a line. Use a line chart to show a <strong>trend or movement
+    over time</strong> (continuous data).</figcaption>
+  </figure>
+
+  <figure class="figure" style="max-width:420px;">
+    <svg viewBox="0 0 340 210" role="img" aria-label="Pie chart of budget shares Food 40 percent, Rent 30 percent, Education 20 percent, Savings 10 percent">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="170" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#0f4c81">Pie chart — Monthly Budget</text>
+        <path d="M90,100 L90,35 A65,65 0 0,1 128.2,152.6 Z" fill="#0f4c81"/>
+        <path d="M90,100 L128.2,152.6 A65,65 0 0,1 28.2,120.1 Z" fill="#f59e0b"/>
+        <path d="M90,100 L28.2,120.1 A65,65 0 0,1 51.8,47.4 Z" fill="#059669"/>
+        <path d="M90,100 L51.8,47.4 A65,65 0 0,1 90,35 Z" fill="#dc2626"/>
+        <g font-size="11" fill="#334155">
+          <rect x="200" y="52" width="12" height="12" fill="#0f4c81"/><text x="218" y="62">Food — 40%</text>
+          <rect x="200" y="77" width="12" height="12" fill="#f59e0b"/><text x="218" y="87">Rent — 30%</text>
+          <rect x="200" y="102" width="12" height="12" fill="#059669"/><text x="218" y="112">Education — 20%</text>
+          <rect x="200" y="127" width="12" height="12" fill="#dc2626"/><text x="218" y="137">Savings — 10%</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Values 4000, 3000, 2000, 1000 shown as slices. Use a pie chart for <strong>parts of a
+    whole</strong> (≤ 6 categories that add to 100%).</figcaption>
+  </figure>
+
+  <figure class="figure" style="max-width:420px;">
+    <svg viewBox="0 0 340 200" role="img" aria-label="Scatter plot of study hours versus marks with an upward trend line">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="175" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#0f4c81">Scatter — Hours vs Marks</text>
+        <line x1="45" y1="160" x2="315" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="45" y1="22" x2="45" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="55" y1="156.7" x2="300" y2="28.9" stroke="#dc2626" stroke-width="2"/>
+        <g fill="#0f2a5c">
+          <circle cx="55" cy="160" r="3.5"/><circle cx="90" cy="141.4" r="3.5"/><circle cx="125" cy="115.4" r="3.5"/>
+          <circle cx="160" cy="100.6" r="3.5"/><circle cx="195" cy="78.3" r="3.5"/><circle cx="230" cy="67.1" r="3.5"/>
+          <circle cx="265" cy="48.6" r="3.5"/><circle cx="300" cy="30" r="3.5"/>
+        </g>
+        <text x="180" y="185" text-anchor="middle" font-size="10" fill="#64748b">Study hours →</text>
+        <text x="18" y="95" text-anchor="middle" font-size="10" fill="#64748b" transform="rotate(-90 18 95)">Marks →</text>
+      </g>
+    </svg>
+    <figcaption>Each dot is one student (hours, marks); the red line is the fitted trend. Use a scatter
+    plot to show the <strong>relationship between two numeric variables</strong>.</figcaption>
+  </figure>
+
+  <figure class="figure" style="max-width:420px;">
+    <svg viewBox="0 0 340 200" role="img" aria-label="Histogram of marks with bin frequencies 4, 8, 9, 6, 2, 1">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="175" y="16" text-anchor="middle" font-size="12" font-weight="600" fill="#0f4c81">Histogram — Distribution of Marks</text>
+        <line x1="45" y1="160" x2="290" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="45" y1="25" x2="45" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+        <g fill="#5b9bd5" stroke="#ffffff" stroke-width="1">
+          <rect x="45" y="104.4" width="40" height="55.6"/>
+          <rect x="85" y="48.9" width="40" height="111.1"/>
+          <rect x="125" y="35" width="40" height="125"/>
+          <rect x="165" y="76.7" width="40" height="83.3"/>
+          <rect x="205" y="132.2" width="40" height="27.8"/>
+          <rect x="245" y="146.1" width="40" height="13.9"/>
+        </g>
+        <g font-size="10" text-anchor="middle" fill="#334155">
+          <text x="65" y="100">4</text><text x="105" y="44">8</text><text x="145" y="30">9</text>
+          <text x="185" y="72">6</text><text x="225" y="128">2</text><text x="265" y="142">1</text>
+        </g>
+        <g font-size="9" text-anchor="middle" fill="#64748b">
+          <text x="65" y="174">≤40</text><text x="105" y="174">40–50</text><text x="145" y="174">50–60</text>
+          <text x="185" y="174">60–70</text><text x="225" y="174">70–80</text><text x="265" y="174">&gt;80</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Bars <em>touch</em> (the variable is continuous) and their heights are the class
+    frequencies 4, 8, 9, 6, 2, 1. Use a histogram to show the <strong>shape of one continuous
+    variable's distribution</strong>.</figcaption>
+  </figure>
+
   <!-- 2. FREQUENCY TABLES -->
   <h2>2. Frequency Tables with COUNT Functions</h2>
 
