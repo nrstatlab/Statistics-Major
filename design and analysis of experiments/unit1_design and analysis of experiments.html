@@ -236,6 +236,43 @@
     interactions AB, AC, BC, ABC).</p>
   </div>
 
+  <figure class="figure" style="max-width:640px;">
+    <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" aria-label="Interaction plots: parallel lines mean no interaction; crossing lines mean a strong interaction">
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="145" y="18" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f4c81">No interaction (parallel)</text>
+        <text x="415" y="18" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f4c81">Interaction (lines cross)</text>
+        <!-- Panel A axes -->
+        <line x1="40" y1="30" x2="40" y2="205" stroke="#374151" stroke-width="1.2"/>
+        <line x1="40" y1="205" x2="255" y2="205" stroke="#374151" stroke-width="1.2"/>
+        <!-- Panel A lines -->
+        <polyline points="90,180 210,100" fill="none" stroke="#1e7fbf" stroke-width="2.3"/>
+        <polyline points="90,140 210,60" fill="none" stroke="#f59e0b" stroke-width="2.3"/>
+        <g><circle cx="90" cy="180" r="3.5" fill="#1e7fbf"/><circle cx="210" cy="100" r="3.5" fill="#1e7fbf"/>
+           <circle cx="90" cy="140" r="3.5" fill="#f59e0b"/><circle cx="210" cy="60" r="3.5" fill="#f59e0b"/></g>
+        <g font-size="10" fill="#64748b" text-anchor="middle"><text x="90" y="220">A low</text><text x="210" y="220">A high</text></g>
+        <!-- Panel B axes -->
+        <line x1="320" y1="30" x2="320" y2="205" stroke="#374151" stroke-width="1.2"/>
+        <line x1="320" y1="205" x2="535" y2="205" stroke="#374151" stroke-width="1.2"/>
+        <!-- Panel B lines (cross) -->
+        <polyline points="370,180 490,60" fill="none" stroke="#1e7fbf" stroke-width="2.3"/>
+        <polyline points="370,100 490,140" fill="none" stroke="#f59e0b" stroke-width="2.3"/>
+        <g><circle cx="370" cy="180" r="3.5" fill="#1e7fbf"/><circle cx="490" cy="60" r="3.5" fill="#1e7fbf"/>
+           <circle cx="370" cy="100" r="3.5" fill="#f59e0b"/><circle cx="490" cy="140" r="3.5" fill="#f59e0b"/></g>
+        <g font-size="10" fill="#64748b" text-anchor="middle"><text x="370" y="220">A low</text><text x="490" y="220">A high</text></g>
+        <!-- shared y label + legend -->
+        <text x="18" y="118" font-size="10" fill="#64748b" transform="rotate(-90 18 118)">Mean response</text>
+        <g font-size="10">
+          <line x1="180" y1="238" x2="202" y2="238" stroke="#1e7fbf" stroke-width="2.3"/><text x="206" y="242" fill="#334155">B low</text>
+          <line x1="270" y1="238" x2="292" y2="238" stroke="#f59e0b" stroke-width="2.3"/><text x="296" y="242" fill="#334155">B high</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Fig 1.1 — Interaction plot: mean response against factor A, with a separate line for each
+    level of B. <strong>Parallel</strong> lines (left) mean the effect of A is the same at both levels of
+    B — <em>no interaction</em>. Lines that <strong>cross or diverge</strong> (right) mean the effect of A
+    depends on B — a <em>significant interaction</em>, so the main effects must not be read in isolation.</figcaption>
+  </figure>
+
   <h2>Key Take-aways</h2>
   <ul>
     <li>ANOVA partitions total variation into sources; tests via F-ratio.</li>
