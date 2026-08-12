@@ -225,6 +225,67 @@
     <p><strong>Critical path: A → C → F</strong>; activities B, D, E, G have positive total float.</p>
   </div>
 
+  <figure class="figure" style="max-width:640px;">
+    <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" aria-label="Activity-on-arrow network for the CPM example with the critical path A-C-F highlighted">
+      <defs>
+        <marker id="ah" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#64748b"/></marker>
+        <marker id="ahr" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#dc2626"/></marker>
+      </defs>
+      <g font-family="Segoe UI, Arial, sans-serif">
+        <text x="260" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#0f4c81">Network diagram — critical path A → C → F (14 days)</text>
+        <!-- non-critical arrows -->
+        <g stroke="#64748b" stroke-width="1.6">
+          <line x1="71.1" y1="148" x2="165.3" y2="195.2" marker-end="url(#ah)"/>
+          <line x1="200.3" y1="195.5" x2="311.3" y2="126.6" marker-end="url(#ah)"/>
+          <line x1="202.4" y1="209.8" x2="308.8" y2="239.1" marker-end="url(#ah)"/>
+          <line x1="345.2" y1="235.4" x2="446.4" y2="171.7" marker-end="url(#ah)"/>
+        </g>
+        <!-- critical arrows -->
+        <g stroke="#dc2626" stroke-width="2.6">
+          <line x1="71.1" y1="132" x2="165.3" y2="84.8" marker-end="url(#ahr)"/>
+          <line x1="202.4" y1="79.8" x2="308.8" y2="109.1" marker-end="url(#ahr)"/>
+          <line x1="347.1" y1="120.7" x2="444.1" y2="153" marker-end="url(#ahr)"/>
+        </g>
+        <!-- activity labels -->
+        <g font-size="10.5" font-weight="600">
+          <text x="104" y="98" fill="#dc2626">A, 3</text>
+          <text x="104" y="184" fill="#64748b">B, 5</text>
+          <text x="250" y="86" fill="#dc2626">C, 7</text>
+          <text x="262" y="152" fill="#64748b">D, 3</text>
+          <text x="250" y="236" fill="#64748b">E, 5</text>
+          <text x="402" y="126" fill="#dc2626">F, 4</text>
+          <text x="406" y="206" fill="#64748b">G, 2</text>
+        </g>
+        <!-- nodes -->
+        <g>
+          <circle cx="55" cy="140" r="18" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+          <circle cx="185" cy="75" r="18" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+          <circle cx="185" cy="205" r="18" fill="#fff" stroke="#64748b" stroke-width="1.6"/>
+          <circle cx="330" cy="115" r="18" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+          <circle cx="330" cy="245" r="18" fill="#fff" stroke="#64748b" stroke-width="1.6"/>
+          <circle cx="465" cy="160" r="18" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+        </g>
+        <g font-size="13" font-weight="700" text-anchor="middle" fill="#0f4c81">
+          <text x="55" y="145">1</text><text x="185" y="80">2</text><text x="185" y="210">3</text>
+          <text x="330" y="120">4</text><text x="330" y="250">5</text><text x="465" y="165">6</text>
+        </g>
+        <!-- (E, L) event times -->
+        <g font-size="9.5" text-anchor="middle" fill="#334155">
+          <text x="55" y="172">(0, 0)</text><text x="185" y="49">(3, 3)</text><text x="185" y="234">(5, 7)</text>
+          <text x="330" y="89">(10, 10)</text><text x="330" y="274">(10, 12)</text><text x="465" y="189">(14, 14)</text>
+        </g>
+        <!-- legend -->
+        <line x1="330" y1="26" x2="352" y2="26" stroke="#dc2626" stroke-width="2.6"/>
+        <text x="356" y="30" font-size="9.5" fill="#334155">critical path (E = L, zero float)</text>
+      </g>
+    </svg>
+    <figcaption>Fig 5.1 — The activity-on-arrow network. Each node is an event labelled with its
+    (earliest, latest) time; each arrow is an activity with its duration. The <span
+    style="color:#dc2626">red path A → C → F</span> is critical — its events have E = L (zero float), and
+    its length (3 + 7 + 4 = 14 days) fixes the project duration. Any delay on it delays the whole
+    project.</figcaption>
+  </figure>
+
   <div class="example">
     <span class="label">EXAMPLE 2 — Compute float</span>
     <p>For activity B (Pred —, dur 5) above: E_start = 0, E_end = 5, L_end = 7, so TF = 7 − 5 = 2. B can be delayed up to 2 days without affecting the project.</p>
