@@ -73,6 +73,31 @@
     Variance = \(1/2 - (2/3)^2 = 1/2 - 4/9 = 1/18\).</p>
   </div>
 
+  <h3>Conditional Expectation and Conditional Variance</h3>
+  <div class="concept">
+    <p>The <strong>conditional expectation</strong> of \(Y\) given \(X = x\) is the mean of the
+    conditional distribution:</p>
+    <div class="formula">
+      \[ E(Y \mid X = x) = \sum_y y\,P(Y = y \mid X = x) \quad\text{or}\quad \int y\, f_{Y\mid X}(y\mid x)\,dy. \]
+    </div>
+    <p>Regarded as a function of the random variable \(X\), \(E(Y\mid X)\) is itself a random variable.
+    Two fundamental identities follow:</p>
+    <div class="formula">
+      \[ \textbf{Tower / total-expectation: } \; E(Y) = E\big[E(Y \mid X)\big]; \qquad
+         \textbf{Variance decomposition: } \; \text{Var}(Y) = E\big[\text{Var}(Y\mid X)\big] + \text{Var}\big[E(Y\mid X)\big]. \]
+    </div>
+    <p>The second (the "law of total variance") splits total variability into the average
+    within-group variance plus the variance of the group means — the same idea that underlies ANOVA.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE</span>
+    <p>Joint pmf of \((X,Y)\): \(P(0,0)=0.10,\ P(0,1)=0.20,\ P(0,2)=0.10,\ P(1,0)=0.20,\ P(1,1)=0.30,\
+    P(1,2)=0.10\). Then \(P(X=0)=0.4,\ P(X=1)=0.6\), and</p>
+    <p>\(E(Y\mid X=0) = (0\cdot0.10 + 1\cdot0.20 + 2\cdot0.10)/0.4 = 1.0\);
+    \(E(Y\mid X=1) = (0\cdot0.20 + 1\cdot0.30 + 2\cdot0.10)/0.6 = 0.833\).</p>
+    <p>Check the tower property: \(E[E(Y\mid X)] = 0.4(1.0) + 0.6(0.833) = 0.90 = E(Y)\). ✓</p>
+  </div>
+
   <!-- 2. MOMENTS VIA EXPECTATION -->
   <h2>2. Moments via Expectation</h2>
   <div class="formula">
@@ -290,6 +315,17 @@
     <li>Sample size estimation, error bounds, quality control.</li>
   </ul>
 
+  <h3>Markov's Inequality</h3>
+  <div class="concept">
+    <p>For a non-negative random variable \(X\) with finite mean and any \(a &gt; 0\),</p>
+    <div class="formula">
+      \[ P(X \ge a) \le \dfrac{E(X)}{a}. \]
+    </div>
+    <p>Markov's inequality is the one-sided ancestor of Chebyshev's inequality: applying it to
+    \((X-\mu)^2\) with \(a = k^2\sigma^2\) immediately yields Chebyshev's
+    \(P(|X-\mu|\ge k\sigma) \le 1/k^2\).</p>
+  </div>
+
   <!-- 8. CAUCHY-SCHWARTZ INEQUALITY -->
   <h2>8. Cauchy–Schwartz Inequality</h2>
   <div class="concept">
@@ -315,45 +351,6 @@
   <div class="example">
     <span class="label">EXAMPLE 2</span>
     <p>Equality holds when \(Y = aX + b\) (linear relationship), giving \(\rho = \pm 1\).</p>
-  </div>
-
-  <!-- ============ SOME MORE RELATED TOPICS ============ -->
-  <h2>Some more related topics to this unit</h2>
-
-  <h3>A. Conditional Expectation and Conditional Variance</h3>
-  <div class="concept">
-    <p>The <strong>conditional expectation</strong> of \(Y\) given \(X = x\) is the mean of the
-    conditional distribution:</p>
-    <div class="formula">
-      \[ E(Y \mid X = x) = \sum_y y\,P(Y = y \mid X = x) \quad\text{or}\quad \int y\, f_{Y\mid X}(y\mid x)\,dy. \]
-    </div>
-    <p>Regarded as a function of the random variable \(X\), \(E(Y\mid X)\) is itself a random variable.
-    Two fundamental identities follow:</p>
-    <div class="formula">
-      \[ \textbf{Tower / total-expectation: } \; E(Y) = E\big[E(Y \mid X)\big]; \qquad
-         \textbf{Variance decomposition: } \; \text{Var}(Y) = E\big[\text{Var}(Y\mid X)\big] + \text{Var}\big[E(Y\mid X)\big]. \]
-    </div>
-    <p>The second (the "law of total variance") splits total variability into the average
-    within-group variance plus the variance of the group means — the same idea that underlies ANOVA.</p>
-  </div>
-  <div class="example">
-    <span class="label">EXAMPLE</span>
-    <p>Joint pmf of \((X,Y)\): \(P(0,0)=0.10,\ P(0,1)=0.20,\ P(0,2)=0.10,\ P(1,0)=0.20,\ P(1,1)=0.30,\
-    P(1,2)=0.10\). Then \(P(X=0)=0.4,\ P(X=1)=0.6\), and</p>
-    <p>\(E(Y\mid X=0) = (0\cdot0.10 + 1\cdot0.20 + 2\cdot0.10)/0.4 = 1.0\);
-    \(E(Y\mid X=1) = (0\cdot0.20 + 1\cdot0.30 + 2\cdot0.10)/0.6 = 0.833\).</p>
-    <p>Check the tower property: \(E[E(Y\mid X)] = 0.4(1.0) + 0.6(0.833) = 0.90 = E(Y)\). ✓</p>
-  </div>
-
-  <h3>B. Markov's Inequality</h3>
-  <div class="concept">
-    <p>For a non-negative random variable \(X\) with finite mean and any \(a &gt; 0\),</p>
-    <div class="formula">
-      \[ P(X \ge a) \le \dfrac{E(X)}{a}. \]
-    </div>
-    <p>Markov's inequality is the one-sided ancestor of Chebyshev's inequality: applying it to
-    \((X-\mu)^2\) with \(a = k^2\sigma^2\) immediately yields Chebyshev's
-    \(P(|X-\mu|\ge k\sigma) \le 1/k^2\).</p>
   </div>
 
   <!-- KEY TAKEAWAYS -->
