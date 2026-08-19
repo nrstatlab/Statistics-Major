@@ -292,6 +292,145 @@
     complete sufficient statistic \(\sum X_i\); by Lehmann–Scheffé it is the MVUE of \(\lambda\).</p>
   </div>
 
+  <h3>C. Parameter Space (\(\Theta\))</h3>
+  <div class="concept">
+    <p>The <strong>parameter space</strong> \(\Theta\) is the set of <em>all admissible values</em> a
+    parameter can take. Estimation is the problem of using the sample to pick the value of \(\theta\in\Theta\)
+    that generated the data.</p>
+    <p><strong>Example.</strong> If \(X \sim N(\mu,\sigma^2)\) with density \(f(x;\mu,\sigma^2)\), then</p>
+    \[ \Theta = \{(\mu,\sigma^2)\;:\; -\infty < \mu < \infty,\ \sigma > 0\}. \]
+    <p>An estimator is a map from the sample space into \(\Theta\); "best estimator" means the point of
+    \(\Theta\) that best satisfies the criteria U–C–E–S below.</p>
+  </div>
+
+  <h3>D. Two Theorems on Consistency</h3>
+
+  <div class="formula">
+    <span class="label">THEOREM 1 — INVARIANCE PROPERTY OF CONSISTENT ESTIMATORS</span>
+    <p><strong>Statement.</strong> If \(t_n\) is a consistent estimator of \(\theta\) and \(\psi\) is a
+    function continuous at \(\theta\), then \(\psi(t_n)\) is a consistent estimator of \(\psi(\theta)\).</p>
+    <p><strong>Proof.</strong> Consistency means \(t_n \xrightarrow{P}\theta\): for every \(\varepsilon>0,\ \eta>0\)
+    there is \(m\) such that \(P(|t_n-\theta|\le\varepsilon) > 1-\eta\) for all \(n\ge m\). Because \(\psi\) is
+    continuous at \(\theta\), for every \(\varepsilon_1>0\) there is \(\varepsilon>0\) with</p>
+    \[ |t_n-\theta|\le\varepsilon \;\Longrightarrow\; |\psi(t_n)-\psi(\theta)|\le\varepsilon_1 . \]
+    <p>Hence the event \(\{|t_n-\theta|\le\varepsilon\}\) is contained in \(\{|\psi(t_n)-\psi(\theta)|\le\varepsilon_1\}\), so</p>
+    \[ P\big(|\psi(t_n)-\psi(\theta)|\le\varepsilon_1\big) \;\ge\; P\big(|t_n-\theta|\le\varepsilon\big) \;>\; 1-\eta \quad (n\ge m). \]
+    <p>Therefore \(\psi(t_n)\xrightarrow{P}\psi(\theta)\), i.e. \(\psi(t_n)\) is consistent for \(\psi(\theta)\). \(\blacksquare\)</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">THEOREM 2 — SUFFICIENT CONDITION FOR CONSISTENCY</span>
+    <p><strong>Statement.</strong> If \(E(t_n)\to\theta\) and \(\operatorname{Var}(t_n)\to 0\) as \(n\to\infty\),
+    then \(t_n\) is a consistent estimator of \(\theta\).</p>
+    <p><strong>Proof.</strong> By Chebyshev's inequality applied to \(t_n\), for any \(\varepsilon>0\)</p>
+    \[ P\big(|t_n-\theta|\ge\varepsilon\big) \;\le\; \frac{E\big[(t_n-\theta)^2\big]}{\varepsilon^2}
+       \;=\; \frac{\operatorname{Var}(t_n) + \big(E(t_n)-\theta\big)^2}{\varepsilon^2}, \]
+    <p>since the mean-squared error splits as variance plus squared bias. As \(n\to\infty\) the bias
+    \(E(t_n)-\theta\to0\) and \(\operatorname{Var}(t_n)\to0\), so the right-hand side \(\to0\). Hence
+    \(P(|t_n-\theta|\ge\varepsilon)\to0\), i.e. \(t_n\xrightarrow{P}\theta\). \(\blacksquare\)</p>
+  </div>
+
+  <h3>E. Full Derivations of the Standard Results</h3>
+
+  <div class="example">
+    <span class="label">DERIVATION 1 — \(\bar X\) is unbiased and consistent for \(\mu\)</span>
+    <p>For \(X_1,\dots,X_n\) with \(E(X_i)=\mu,\ \operatorname{Var}(X_i)=\sigma^2\),</p>
+    \[ E(\bar X) = \frac1n\sum_{i=1}^n E(X_i) = \frac1n\,(n\mu) = \mu \quad\Rightarrow\quad \text{unbiased.} \]
+    \[ \operatorname{Var}(\bar X) = \frac1{n^2}\sum_{i=1}^n \operatorname{Var}(X_i) = \frac{\sigma^2}{n} \xrightarrow[n\to\infty]{} 0. \]
+    <p>Unbiased with variance \(\to0\); by Theorem 2, \(\bar X\) is consistent for \(\mu\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">DERIVATION 2 — why we divide by \(n-1\)</span>
+    <p>Let \(s^2 = \frac1n\sum(X_i-\bar X)^2 = \frac1n\sum X_i^2 - \bar X^2\). Using
+    \(E(X_i^2)=\sigma^2+\mu^2\) and \(E(\bar X^2)=\dfrac{\sigma^2}{n}+\mu^2\),</p>
+    \[ E(s^2) = \frac1n\sum E(X_i^2) - E(\bar X^2)
+       = (\sigma^2+\mu^2) - \Big(\tfrac{\sigma^2}{n}+\mu^2\Big)
+       = \Big(1-\tfrac1n\Big)\sigma^2 = \frac{n-1}{n}\,\sigma^2 . \]
+    <p>So \(s^2\) is <em>biased</em> (it underestimates \(\sigma^2\)). Rescaling removes the bias:</p>
+    \[ E\!\left[\frac{n}{n-1}\,s^2\right] = \sigma^2 \quad\Longrightarrow\quad
+       S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2 \ \text{ is unbiased for } \sigma^2 . \]
+  </div>
+
+  <div class="example">
+    <span class="label">DERIVATION 3 — \(s^2\) is consistent for \(\sigma^2\) (normal population)</span>
+    <p>For a normal sample, \(\dfrac{n s^2}{\sigma^2}\sim\chi^2_{(n-1)}\), whose mean is \(n-1\) and variance \(2(n-1)\). Hence</p>
+    \[ E(s^2) = \frac{n-1}{n}\,\sigma^2 \to \sigma^2, \qquad
+       \operatorname{Var}(s^2) = \frac{2(n-1)}{n^2}\,\sigma^4 \to 0 . \]
+    <p>Mean \(\to\sigma^2\) and variance \(\to0\); by Theorem 2, \(s^2\) is consistent for \(\sigma^2\)
+    (the unbiased \(S^2\) is consistent too).</p>
+  </div>
+
+  <h3>F. Coefficient of Efficiency</h3>
+  <div class="concept">
+    <p>Among consistent estimators, the one with the smallest variance is the <strong>most efficient</strong>.
+    If \(t_1\) is the most efficient estimator (variance \(V_1\)) and \(t_2\) is another (variance \(V_2\)),
+    the <strong>efficiency</strong> of \(t_2\) is</p>
+    \[ e = \frac{V_1}{V_2}, \qquad 0 < e \le 1 . \]
+    <p><strong>Example.</strong> For a normal population both \(\bar X\) and the sample median \(M_d\) are
+    unbiased and consistent for \(\mu\), with \(\operatorname{Var}(\bar X)=\sigma^2/n\) and
+    \(\operatorname{Var}(M_d)=\dfrac{\pi\sigma^2}{2n}\approx 1.571\,\dfrac{\sigma^2}{n}\). Since
+    \(\operatorname{Var}(\bar X)<\operatorname{Var}(M_d)\), the mean is most efficient, and the efficiency of
+    the median is</p>
+    \[ e = \frac{\operatorname{Var}(\bar X)}{\operatorname{Var}(M_d)}
+         = \frac{\sigma^2/n}{\pi\sigma^2/2n} = \frac{2}{\pi} \approx 0.637 . \]
+  </div>
+
+  <h3>G. Solved Problems</h3>
+
+  <div class="example">
+    <span class="label">PROBLEM 1 — an unbiased estimator squared is generally biased</span>
+    <p>If \(T\) is unbiased for \(\theta\), show that \(T^2\) is <em>not</em> unbiased for \(\theta^2\).</p>
+    <p><strong>Solution.</strong> \(E(T)=\theta\). From \(\operatorname{Var}(T)=E(T^2)-[E(T)]^2\),</p>
+    \[ E(T^2) = \theta^2 + \operatorname{Var}(T). \]
+    <p>Since \(\operatorname{Var}(T)>0\) (unless \(T\) is degenerate), \(E(T^2)\neq\theta^2\); \(T^2\)
+    overestimates \(\theta^2\) by exactly \(\operatorname{Var}(T)\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">PROBLEM 2 — an unbiased estimator of \(\theta^2\) (Bernoulli)</span>
+    <p>Let \(X_1,\dots,X_n\) take values \(1\) and \(0\) with probabilities \(\theta\) and \(1-\theta\). Show that
+    \(\dfrac{\sum X_i\left(\sum X_i-1\right)}{n(n-1)}\) is unbiased for \(\theta^2\).</p>
+    <p><strong>Solution.</strong> \(T=\sum X_i\sim\text{Bin}(n,\theta)\), so \(E(T)=n\theta\),
+    \(\operatorname{Var}(T)=n\theta(1-\theta)\). Then</p>
+    \[ E\!\left[\frac{T(T-1)}{n(n-1)}\right] = \frac{E(T^2)-E(T)}{n(n-1)}
+       = \frac{\big[\operatorname{Var}(T)+(E T)^2\big]-E(T)}{n(n-1)}. \]
+    \[ = \frac{n\theta(1-\theta)+n^2\theta^2-n\theta}{n(n-1)}
+       = \frac{n^2\theta^2-n\theta^2}{n(n-1)} = \frac{n\theta^2(n-1)}{n(n-1)} = \theta^2 . \]
+    <p>Hence the statistic is unbiased for \(\theta^2\). <em>(Verified numerically: for \(n=10,\ \theta=0.62\)
+    the expectation equals \(0.3844=\theta^2\).)</em></p>
+  </div>
+
+  <div class="example">
+    <span class="label">PROBLEM 3 — exponential mean (unbiased, variance \(\theta^2/n\))</span>
+    <p>For a sample of size \(n\) from \(f(x)=\dfrac{e^{-x/\theta}}{\theta},\ 0<x<\infty\), show that \(\bar X\)
+    is unbiased for \(\theta\) with variance \(\theta^2/n\).</p>
+    <p><strong>Solution.</strong> \(E(X)=\displaystyle\int_0^\infty x\,\frac{e^{-x/\theta}}{\theta}\,dx=\theta\)
+    and \(E(X^2)=\displaystyle\int_0^\infty x^2\,\frac{e^{-x/\theta}}{\theta}\,dx=2\theta^2\), so
+    \(\operatorname{Var}(X)=2\theta^2-\theta^2=\theta^2\). Therefore</p>
+    \[ E(\bar X)=\frac1n\sum E(X_i)=\theta, \qquad
+       \operatorname{Var}(\bar X)=\frac1{n^2}\sum\operatorname{Var}(X_i)=\frac{\theta^2}{n}. \]
+    <p>So \(\bar X\) is an unbiased, consistent estimator of \(\theta\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">PROBLEM 4 — comparing estimators of \(\mu\) (find \(\lambda\); find the best)</span>
+    <p>A random sample of size 5 is drawn from a population with mean \(\mu\), variance \(\sigma^2\). Consider</p>
+    \[ t_1=\frac{X_1+X_2+X_3+X_4+X_5}{5},\quad
+       t_2=\frac{X_1+X_2}{2}+X_3,\quad
+       t_3=\frac{2X_1+X_2+\lambda X_3}{3}. \]
+    <p><strong>(a) Value of \(\lambda\) making \(t_3\) unbiased.</strong>
+    \(E(t_3)=\dfrac{2\mu+\mu+\lambda\mu}{3}=\dfrac{(3+\lambda)\mu}{3}\). Setting this \(=\mu\) gives
+    \(3+\lambda=3\), so \(\boxed{\lambda=0}\).</p>
+    <p><strong>(b) Are \(t_1,t_2\) unbiased?</strong> \(E(t_1)=\mu\) — unbiased. \(E(t_2)=\dfrac{\mu+\mu}{2}+\mu=2\mu\neq\mu\)
+    — \(t_2\) is <em>biased</em>.</p>
+    <p><strong>(c) Best estimator.</strong> Compare variances of the unbiased ones \(t_1\) and \(t_3\) (with \(\lambda=0\)):</p>
+    \[ \operatorname{Var}(t_1)=\frac{5\sigma^2}{25}=\frac{\sigma^2}{5}=0.20\,\sigma^2,\qquad
+       \operatorname{Var}(t_3)=\frac{(2^2+1^2)\sigma^2}{9}=\frac{5\sigma^2}{9}\approx0.556\,\sigma^2. \]
+    <p>Since \(\operatorname{Var}(t_1)<\operatorname{Var}(t_3)\), the sample mean \(t_1\) is the best (most
+    efficient) estimator of \(\mu\).</p>
+  </div>
+
   <!-- KEY TAKEAWAYS -->
   <h2>Key Take-aways</h2>
   <ul>
@@ -300,6 +439,8 @@
     <li>MoM matches sample moments to population moments; MLE maximises likelihood.</li>
     <li>MLEs are consistent, asymptotically normal, efficient and invariant.</li>
     <li>Rao–Cramer gives the minimum-variance lower bound for unbiased estimators.</li>
+    <li>An estimator is consistent if its bias \(\to0\) and variance \(\to0\) (Chebyshev); consistency is preserved by continuous functions (invariance property).</li>
+    <li>Efficiency \(e = V_1/V_2 \in (0,1]\); the sample median has efficiency \(2/\pi\approx0.637\) relative to the mean.</li>
     <li>CI = point estimate ± (critical value) × SE.</li>
   </ul>
 
