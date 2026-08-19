@@ -132,8 +132,19 @@
     \]
   </div>
 
-  <p><strong>Proof:</strong> \(P(X &gt; x) = e^{-\lambda x}\). Hence
-  \(P(X &gt; s+t \mid X &gt; s) = e^{-\lambda(s+t)}/e^{-\lambda s} = e^{-\lambda t} = P(X &gt; t)\).</p>
+  <p><strong>Proof.</strong> Recall the exponential density \(f(x) = \lambda e^{-\lambda x}\) for \(x \ge 0\).</p>
+  <ol>
+    <li><em>Find the tail probability.</em> Integrate the density from \(x\) to \(\infty\):
+    \[ P(X > x) = \int_{x}^{\infty} \lambda e^{-\lambda u}\,du
+       = \Big[-e^{-\lambda u}\Big]_{x}^{\infty} = 0 - (-e^{-\lambda x}) = e^{-\lambda x}. \]</li>
+    <li><em>Apply the definition of conditional probability.</em> Since \(s+t \ge s\), the event
+    \(\{X > s+t\}\) already lies inside \(\{X > s\}\), so their intersection is \(\{X > s+t\}\) and
+    \[ P(X > s+t \mid X > s) = \dfrac{P(X > s+t)}{P(X > s)}. \]</li>
+    <li><em>Substitute the tail from step&nbsp;1.</em>
+    \[ P(X > s+t \mid X > s) = \dfrac{e^{-\lambda(s+t)}}{e^{-\lambda s}} = e^{-\lambda(s+t)-(-\lambda s)} = e^{-\lambda t}. \]</li>
+    <li><em>Recognise the result.</em> By step&nbsp;1, \(e^{-\lambda t} = P(X > t)\). Hence
+    \(P(X > s+t \mid X > s) = P(X > t)\) — the lack-of-memory property. \(\blacksquare\)</li>
+  </ol>
 
   <p><strong>Interpretation:</strong> Past waiting time is irrelevant — the future wait has the same distribution.</p>
 
