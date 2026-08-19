@@ -50,13 +50,61 @@
   </table>
 
   <h3>Proofs of Key Relations</h3>
-  <ol>
-    <li>\(p_x + q_x = 1\) — sum of probabilities of surviving and dying.</li>
-    <li>\(d_x = l_x - l_{x+1}\) — by definition.</li>
-    <li>\(l_{x+1} = l_x \cdot p_x = l_x (1 - q_x)\).</li>
-    <li>\(T_x = T_{x+1} + L_x\) — accumulation property.</li>
-    <li>\(e_x = T_x / l_x\) — average years remaining for someone aged \(x\).</li>
-  </ol>
+  <p>Each relation below is derived from the definitions in the table above, one step at a time.</p>
+
+  <div class="formula">
+    <span class="label">RELATION 1 — \(p_x + q_x = 1\)</span>
+    <p>Consider a person exactly aged \(x\). Over the next year exactly one of two things happens: the
+    person <em>survives</em> to age \(x+1\), or the person <em>dies</em> before age \(x+1\). These two
+    events are mutually exclusive and together cover every possibility, so their probabilities must add to
+    \(1\). Writing \(p_x\) for the survival probability and \(q_x\) for the death probability,</p>
+    \[ p_x + q_x = 1, \qquad\text{equivalently}\qquad p_x = 1 - q_x. \]
+  </div>
+
+  <div class="formula">
+    <span class="label">RELATION 2 — \(d_x = l_x - l_{x+1}\)</span>
+    <p>Of the \(l_x\) people alive at exact age \(x\), those still alive one year later number \(l_{x+1}\).
+    The people who are <em>no longer</em> alive are precisely the deaths between ages \(x\) and \(x+1\),
+    which is what \(d_x\) counts. Subtracting the survivors from the starting group,</p>
+    \[ d_x = l_x - l_{x+1}. \]
+  </div>
+
+  <div class="formula">
+    <span class="label">RELATION 3 — \(l_{x+1} = l_x\,p_x = l_x(1-q_x)\)</span>
+    <p><em>Step 1.</em> By definition the survival probability is the fraction of the age-\(x\) group that
+    reaches age \(x+1\): \(p_x = l_{x+1}/l_x\). Multiplying both sides by \(l_x\),</p>
+    \[ l_{x+1} = l_x\,p_x. \]
+    <p><em>Step 2.</em> Substituting \(p_x = 1-q_x\) from Relation&nbsp;1,</p>
+    \[ l_{x+1} = l_x(1-q_x). \]
+  </div>
+
+  <div class="formula">
+    <span class="label">RELATION 4 — \(T_x = T_{x+1} + L_x\)</span>
+    <p>By definition \(T_x = \sum_{y \ge x} L_y\) is the total person-years still to be lived by the group
+    from age \(x\) onward. Split that sum by peeling off the first term:</p>
+    \[ T_x = \sum_{y \ge x} L_y = L_x + \sum_{y \ge x+1} L_y. \]
+    <p>The remaining sum is exactly \(T_{x+1}\), so</p>
+    \[ T_x = L_x + T_{x+1}. \]
+    <p>In words: the years lived from age \(x\) on = the years lived during the single year \([x, x+1]\)
+    (that is \(L_x\)) plus all the years lived from age \(x+1\) on (that is \(T_{x+1}\)). This is why the
+    \(T_x\) column is built up from the bottom of the table.</p>
+  </div>
+
+  <div class="formula">
+    <span class="label">RELATION 5 — \(e_x = T_x / l_x\)</span>
+    <p>\(T_x\) is the <em>total</em> number of future years that will be lived, added up over all \(l_x\)
+    people who are alive at age \(x\). The <strong>average</strong> number of future years <em>per person</em>
+    is that total shared equally among the \(l_x\) survivors:</p>
+    \[ e_x = \frac{\text{total future person-years}}{\text{number of survivors}} = \frac{T_x}{l_x}, \]
+    <p>which is the (complete) expectation of life at age \(x\).</p>
+  </div>
+
+  <div class="example">
+    <span class="label">CHECK (from Example 1 below)</span>
+    <p>With \(l_{30}=95\,000,\ l_{31}=94\,500\): Relation&nbsp;2 gives \(d_{30}=500\); then \(q_{30}=500/95\,000=0.00526\)
+    and \(p_{30}=1-0.00526=0.99474\) (Relation&nbsp;1); and Relation&nbsp;3 recovers
+    \(l_{31}=95\,000\times0.99474=94\,500\). ✓</p>
+  </div>
 
   <h3>Construction of a Life Table</h3>
   <ol>
