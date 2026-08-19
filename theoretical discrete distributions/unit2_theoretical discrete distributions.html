@@ -98,8 +98,20 @@
       X_1 + X_2 \;\sim\; P(\lambda_1 + \lambda_2).
     \]
   </div>
-  <p><strong>Proof:</strong> \(M_{X_1 + X_2}(t) = e^{\lambda_1(e^t-1)} \cdot e^{\lambda_2(e^t-1)} = e^{(\lambda_1 + \lambda_2)(e^t - 1)}\),
-  the MGF of \(P(\lambda_1 + \lambda_2)\).</p>
+  <p><strong>Proof.</strong> We use the moment generating function (MGF) and the fact that the MGF
+  determines the distribution uniquely.</p>
+  <ol>
+    <li><em>MGF of each variable.</em> For a Poisson variable the MGF is \(M_X(t) = e^{\lambda(e^t-1)}\),
+    so \(M_{X_1}(t) = e^{\lambda_1(e^t-1)}\) and \(M_{X_2}(t) = e^{\lambda_2(e^t-1)}\).</li>
+    <li><em>MGF of the sum.</em> Because \(X_1\) and \(X_2\) are independent, the MGF of their sum is the
+    product of the individual MGFs:
+    \[ M_{X_1+X_2}(t) = M_{X_1}(t)\,M_{X_2}(t) = e^{\lambda_1(e^t-1)}\cdot e^{\lambda_2(e^t-1)}. \]</li>
+    <li><em>Combine the exponents.</em> Adding the exponents of the two factors,
+    \[ M_{X_1+X_2}(t) = e^{\lambda_1(e^t-1)+\lambda_2(e^t-1)} = e^{(\lambda_1+\lambda_2)(e^t-1)}. \]</li>
+    <li><em>Identify the distribution.</em> This is exactly the MGF of a Poisson variable with parameter
+    \(\lambda_1+\lambda_2\). Since the MGF determines the distribution uniquely, it follows that
+    \(X_1+X_2 \sim P(\lambda_1+\lambda_2)\). \(\blacksquare\)</li>
+  </ol>
 
   <!-- SKEWNESS / KURTOSIS -->
   <h2>5. Skewness &amp; Kurtosis</h2>

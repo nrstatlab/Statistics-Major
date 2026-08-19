@@ -90,7 +90,20 @@
       X_1 + X_2 \;\sim\; \text{NB}(r_1 + r_2,\; p).
     \]
   </div>
-  <p><strong>Proof:</strong> \(M_{X_1+X_2}(t) = M_{X_1}(t)\,M_{X_2}(t) = p^{r_1+r_2}/(1-qe^t)^{r_1+r_2}\) which is NB\((r_1+r_2, p)\).</p>
+  <p><strong>Proof.</strong> Again we work with the moment generating function.</p>
+  <ol>
+    <li><em>MGF of each variable.</em> For NB\((r, p)\) the MGF is \(M_X(t) = \dfrac{p^{r}}{(1-qe^t)^{r}}\)
+    (with \(q = 1-p\)). Hence \(M_{X_1}(t) = \dfrac{p^{r_1}}{(1-qe^t)^{r_1}}\) and
+    \(M_{X_2}(t) = \dfrac{p^{r_2}}{(1-qe^t)^{r_2}}\). Note both share the <strong>same \(p\)</strong>.</li>
+    <li><em>MGF of the sum.</em> By independence the MGF of the sum is the product:
+    \[ M_{X_1+X_2}(t) = M_{X_1}(t)\,M_{X_2}(t)
+       = \dfrac{p^{r_1}}{(1-qe^t)^{r_1}}\cdot\dfrac{p^{r_2}}{(1-qe^t)^{r_2}}. \]</li>
+    <li><em>Add the exponents.</em> Multiplying powers with the same base adds their exponents:
+    \[ M_{X_1+X_2}(t) = \dfrac{p^{\,r_1+r_2}}{(1-qe^t)^{\,r_1+r_2}}. \]</li>
+    <li><em>Identify the distribution.</em> This is the MGF of NB\((r_1+r_2,\, p)\); by the uniqueness of
+    the MGF, \(X_1+X_2 \sim \text{NB}(r_1+r_2,\, p)\). (Had the two \(p\)'s differed, step&nbsp;3 could not
+    combine the denominators, which is why the same \(p\) is required.) \(\blacksquare\)</li>
+  </ol>
 
   <!-- SKEWNESS / KURTOSIS -->
   <h2>5. Skewness &amp; Kurtosis</h2>
