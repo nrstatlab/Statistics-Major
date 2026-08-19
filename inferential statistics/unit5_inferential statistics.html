@@ -232,20 +232,7 @@
   </div>
 
   <!-- DECISION TABLE -->
-  <h2>8. Choosing the Right Non-parametric Test</h2>
-  <table class="left">
-    <tr><th>Question</th><th>Test</th><th>Parametric counterpart</th></tr>
-    <tr><td>Is a sequence random?</td><td>One-sample runs test</td><td>—</td></tr>
-    <tr><td>Test population median (one sample)</td><td>Sign / Wilcoxon signed-rank</td><td>One-sample t</td></tr>
-    <tr><td>Paired samples</td><td>Sign / Wilcoxon signed-rank</td><td>Paired t</td></tr>
-    <tr><td>Two independent medians</td><td>Median test</td><td>Two-sample t</td></tr>
-    <tr><td>Two independent samples (general)</td><td>Mann–Whitney U / Wald–Wolfowitz</td><td>Two-sample t</td></tr>
-  </table>
-
-  <!-- ============ SOME MORE RELATED TOPICS ============ -->
-  <h2>Some more related topics to this unit</h2>
-
-  <h3>A. Kruskal–Wallis Test (Non-parametric One-way ANOVA)</h3>
+  <h2>8. Kruskal–Wallis Test (Non-parametric One-way ANOVA)</h2>
   <div class="concept">
     <p>The <strong>Kruskal–Wallis</strong> test compares the locations of \(k \ge 3\) independent groups
     without assuming normality — the rank-based analogue of one-way ANOVA. Pool all \(N\) observations,
@@ -264,7 +251,7 @@
     = 6.49\). Since \(6.49 &gt; \chi^2_{2,\,0.05} = 5.99\), the groups differ significantly.</p>
   </div>
 
-  <h3>B. Kolmogorov–Smirnov (K–S) Test</h3>
+  <h2>9. Kolmogorov–Smirnov (K–S) Test</h2>
   <div class="concept">
     <p>The <strong>Kolmogorov–Smirnov</strong> test checks goodness of fit by comparing the empirical CDF
     \(F_n(x)\) with a fully specified theoretical CDF \(F_0(x)\) (one-sample), using the largest vertical
@@ -282,6 +269,16 @@
     \(F_0(x) = x\) gives \(D = 0.19\). Since \(0.19 &lt; D_{0.05,\,5} = 0.563\), \(H_0\) is not rejected —
     the data are consistent with the uniform.</p>
   </div>
+
+  <h2>10. Choosing the Right Non-parametric Test</h2>
+  <table class="left">
+    <tr><th>Question</th><th>Test</th><th>Parametric counterpart</th></tr>
+    <tr><td>Is a sequence random?</td><td>One-sample runs test</td><td>—</td></tr>
+    <tr><td>Test population median (one sample)</td><td>Sign / Wilcoxon signed-rank</td><td>One-sample t</td></tr>
+    <tr><td>Paired samples</td><td>Sign / Wilcoxon signed-rank</td><td>Paired t</td></tr>
+    <tr><td>Two independent medians</td><td>Median test</td><td>Two-sample t</td></tr>
+    <tr><td>Two independent samples (general)</td><td>Mann–Whitney U / Wald–Wolfowitz</td><td>Two-sample t</td></tr>
+  </table>
 
   <h2>Key Take-aways</h2>
   <ul>
