@@ -144,8 +144,21 @@
     \]
   </div>
 
-  <p><strong>Proof:</strong> \(P(X \ge k) = q^k\) (sum of geometric series).</p>
-  <p>\(P(X \ge m + n \mid X \ge m) = q^{m+n}/q^m = q^n = P(X \ge n)\) ✓.</p>
+  <p><strong>Proof.</strong> Here \(X\) counts the number of failures before the first success, so
+  \(P(X = k) = q^{k}p\) with \(q = 1-p\).</p>
+  <ol>
+    <li><em>Tail probability.</em> The event \(\{X \ge k\}\) means the first \(k\) trials are all failures.
+    Summing the geometric series,
+    \[ P(X \ge k) = \sum_{j=k}^{\infty} q^{j}p = p\,q^{k}\sum_{i=0}^{\infty} q^{i}
+       = p\,q^{k}\cdot\dfrac{1}{1-q} = p\,q^{k}\cdot\dfrac{1}{p} = q^{k}. \]</li>
+    <li><em>Apply the definition of conditional probability.</em> Since \(\{X \ge m+n\}\subseteq\{X \ge m\}\),
+    the intersection is just \(\{X \ge m+n\}\), so
+    \[ P(X \ge m+n \mid X \ge m) = \dfrac{P(X \ge m+n)}{P(X \ge m)}. \]</li>
+    <li><em>Substitute the tail probabilities from step&nbsp;1.</em>
+    \[ P(X \ge m+n \mid X \ge m) = \dfrac{q^{m+n}}{q^{m}} = q^{n}. \]</li>
+    <li><em>Recognise the result.</em> By step&nbsp;1, \(q^{n} = P(X \ge n)\). Therefore
+    \(P(X \ge m+n \mid X \ge m) = P(X \ge n)\), which is the lack-of-memory property. \(\blacksquare\)</li>
+  </ol>
 
   <p><strong>Interpretation:</strong> the past does not influence the future — given that the first
   \(m\) trials are failures, the conditional distribution of the remaining wait is the same as the original.</p>
