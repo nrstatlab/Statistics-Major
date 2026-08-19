@@ -165,7 +165,20 @@
     \]
   </div>
 
-  <p><strong>Proof:</strong> \(M_{X_1+X_2}(t) = e^{\mu_1 t + \sigma_1^2 t^2/2} \cdot e^{\mu_2 t + \sigma_2^2 t^2/2} = e^{(\mu_1+\mu_2)t + (\sigma_1^2 + \sigma_2^2)t^2/2}\).</p>
+  <p><strong>Proof.</strong> We use the moment generating function (MGF) and its uniqueness.</p>
+  <ol>
+    <li><em>MGF of each variable.</em> A normal variable \(N(\mu,\sigma^2)\) has MGF
+    \(M_X(t) = e^{\mu t + \sigma^2 t^2/2}\), so
+    \(M_{X_1}(t) = e^{\mu_1 t + \sigma_1^2 t^2/2}\) and \(M_{X_2}(t) = e^{\mu_2 t + \sigma_2^2 t^2/2}\).</li>
+    <li><em>MGF of the sum.</em> By independence the MGF of the sum is the product of the MGFs:
+    \[ M_{X_1+X_2}(t) = M_{X_1}(t)\,M_{X_2}(t) = e^{\mu_1 t + \sigma_1^2 t^2/2}\cdot e^{\mu_2 t + \sigma_2^2 t^2/2}. \]</li>
+    <li><em>Add and regroup the exponents.</em> Adding the exponents, then collecting the \(t\) terms and the
+    \(t^2\) terms separately,
+    \[ M_{X_1+X_2}(t) = e^{(\mu_1 t + \sigma_1^2 t^2/2) + (\mu_2 t + \sigma_2^2 t^2/2)}
+       = e^{(\mu_1+\mu_2)t + (\sigma_1^2+\sigma_2^2)t^2/2}. \]</li>
+    <li><em>Identify the distribution.</em> This is the MGF of \(N(\mu_1+\mu_2,\ \sigma_1^2+\sigma_2^2)\).
+    By the uniqueness of the MGF, \(X_1+X_2 \sim N(\mu_1+\mu_2,\ \sigma_1^2+\sigma_2^2)\). \(\blacksquare\)</li>
+  </ol>
 
   <h2>9. Linear Combination of Normal Variates</h2>
   <div class="formula">
