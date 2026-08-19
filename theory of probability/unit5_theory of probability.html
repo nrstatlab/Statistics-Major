@@ -229,12 +229,24 @@
     <p>i.e., \(\bar X_n \xrightarrow{P} \mu\).</p>
   </div>
 
-  <p><strong>Proof sketch (using Chebyshev):</strong> \(E(\bar X_n) = \mu,\; \text{Var}(\bar X_n) = \sigma^2/n\). Apply Chebyshev:</p>
-  <div class="formula">
-    \[
-      P(|\bar X_n - \mu| \ge \epsilon) \;\le\; \dfrac{\sigma^2/n}{\epsilon^2} \;\to\; 0.
-    \]
-  </div>
+  <p><strong>Proof (using Chebyshev's inequality).</strong> Let \(X_1,\dots,X_n\) be independent with common
+  mean \(\mu\) and variance \(\sigma^2\), and \(\bar X_n = \frac1n\sum_{i=1}^n X_i\).</p>
+  <ol>
+    <li><em>Mean of the sample mean.</em> By linearity of expectation,
+    \[ E(\bar X_n) = \frac1n\sum_{i=1}^n E(X_i) = \frac1n\,(n\mu) = \mu. \]</li>
+    <li><em>Variance of the sample mean.</em> Because the \(X_i\) are independent their variances add, and a
+    constant factor comes out squared:
+    \[ \operatorname{Var}(\bar X_n) = \frac{1}{n^2}\sum_{i=1}^n \operatorname{Var}(X_i)
+       = \frac{1}{n^2}\,(n\sigma^2) = \frac{\sigma^2}{n}. \]</li>
+    <li><em>Apply Chebyshev's inequality</em> to \(\bar X_n\) (whose mean is \(\mu\) from step&nbsp;1). For any
+    \(\epsilon>0\),
+    \[ P\big(|\bar X_n - \mu| \ge \epsilon\big) \;\le\; \dfrac{\operatorname{Var}(\bar X_n)}{\epsilon^2}
+       \;=\; \dfrac{\sigma^2/n}{\epsilon^2} = \dfrac{\sigma^2}{n\,\epsilon^2}. \]</li>
+    <li><em>Take the limit.</em> With \(\epsilon\) fixed, \(\dfrac{\sigma^2}{n\,\epsilon^2}\to 0\) as
+    \(n\to\infty\). Since a probability cannot be negative, it is squeezed to \(0\):
+    \[ P\big(|\bar X_n - \mu| \ge \epsilon\big) \;\to\; 0 \quad\text{as } n\to\infty, \]
+    which is exactly the statement \(\bar X_n \xrightarrow{P} \mu\). \(\blacksquare\)</li>
+  </ol>
 
   <div class="example">
     <span class="label">EXAMPLE 1</span>
