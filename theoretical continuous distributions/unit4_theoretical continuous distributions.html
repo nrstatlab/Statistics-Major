@@ -184,23 +184,7 @@
   </div>
   <p>The curve is concave between \(\mu - \sigma\) and \(\mu + \sigma\), and convex outside.</p>
 
-  <h2>11. Worked Examples</h2>
-  <div class="example">
-    <span class="label">EXAMPLE 1 (Probability via standardization)</span>
-    <p>The marks of 1000 students follow \(N(60, 100)\). Find percentage of students scoring (i) above 75, (ii) between 50 and 70.</p>
-    <p>(i) \(z = (75 - 60)/10 = 1.5;\;\) \(P(Z &gt; 1.5) = 0.0668\) ≈ 6.68 %.</p>
-    <p>(ii) \(z_1 = -1, z_2 = 1;\;\) \(P(-1 &lt; Z &lt; 1) = 0.6827\) ≈ 68.27 %.</p>
-  </div>
-  <div class="example">
-    <span class="label">EXAMPLE 2 (Linear combination)</span>
-    <p>Heights of men \(\sim N(170, 36)\) and of women \(\sim N(160, 25)\). Find distribution of the difference (man − woman) of one randomly chosen pair.</p>
-    <p>Difference \(\sim N(170 - 160, 36 + 25) = N(10, 61)\). SD \(= \sqrt{61} \approx 7.81\).</p>
-  </div>
-
-  <!-- ============ SOME MORE RELATED TOPICS ============ -->
-  <h2>Some more related topics to this unit</h2>
-
-  <h3>A. Cauchy Distribution</h3>
+  <h2>11. Cauchy Distribution</h2>
   <div class="concept">
     <p>The <strong>Cauchy</strong> distribution is bell-shaped like the normal but has such heavy tails
     that <em>none of its moments exist</em> (not even the mean). With location \(\mu\) and scale
@@ -221,7 +205,7 @@
     centre.</p>
   </div>
 
-  <h3>B. Lognormal Distribution</h3>
+  <h2>12. Lognormal Distribution</h2>
   <div class="concept">
     <p>A positive variable \(X\) is <strong>lognormal</strong> if \(\ln X \sim N(\mu, \sigma^{2})\). It
     models positively-skewed quantities (incomes, share prices, particle sizes). Its density and moments
@@ -238,7 +222,7 @@
     \(= e^{0 + 0.125} = 1.133\) — the mean exceeds the median, confirming right skew.</p>
   </div>
 
-  <h3>C. Bivariate Normal Distribution</h3>
+  <h2>13. Bivariate Normal Distribution</h2>
   <div class="concept">
     <p>The pair \((X, Y)\) is <strong>bivariate normal</strong> with means \(\mu_X, \mu_Y\), variances
     \(\sigma_X^2, \sigma_Y^2\) and correlation \(\rho\) if</p>
@@ -261,6 +245,19 @@
     <p>With \(\mu_X=10,\mu_Y=20,\sigma_X=2,\sigma_Y=3,\rho=0.6\): at \(x = 12\),
     \(E(Y\mid X=12) = 20 + 0.6\cdot\dfrac{3}{2}(12-10) = 21.8\) and
     \(\text{Var}(Y\mid X=12) = 9(1-0.36) = 5.76\).</p>
+  </div>
+
+  <h2>14. Worked Examples</h2>
+  <div class="example">
+    <span class="label">EXAMPLE 1 (Probability via standardization)</span>
+    <p>The marks of 1000 students follow \(N(60, 100)\). Find percentage of students scoring (i) above 75, (ii) between 50 and 70.</p>
+    <p>(i) \(z = (75 - 60)/10 = 1.5;\;\) \(P(Z &gt; 1.5) = 0.0668\) ≈ 6.68 %.</p>
+    <p>(ii) \(z_1 = -1, z_2 = 1;\;\) \(P(-1 &lt; Z &lt; 1) = 0.6827\) ≈ 68.27 %.</p>
+  </div>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (Linear combination)</span>
+    <p>Heights of men \(\sim N(170, 36)\) and of women \(\sim N(160, 25)\). Find distribution of the difference (man − woman) of one randomly chosen pair.</p>
+    <p>Difference \(\sim N(170 - 160, 36 + 25) = N(10, 61)\). SD \(= \sqrt{61} \approx 7.81\).</p>
   </div>
 
   <h2>Key Take-aways</h2>
