@@ -48,12 +48,32 @@
     <li><strong>Interpreted</strong> — type a command, get the result instantly.</li>
     <li>Strong support for statistics: distributions, tests, models, simulation.</li>
   </ul>
+  <p><strong>Rich package ecosystem (a package for almost every task):</strong> data manipulation
+  (<code>dplyr</code>, <code>data.table</code>), machine learning (<code>caret</code>, <code>xgboost</code>),
+  text mining (<code>tm</code>), web scraping (<code>rvest</code>), spatial data (<code>sf</code>). R also
+  supports dynamic <strong>reporting</strong> — <code>R Markdown</code> weaves code, text and plots into
+  HTML/PDF/Word, and <code>shiny</code> builds interactive web apps — and <strong>interoperates</strong> with
+  other languages (<code>reticulate</code> for Python, <code>Rcpp</code> for C++). These make R a single tool
+  for academic research, business analytics, and data-science projects.</p>
 
   <h3>1.1 R and RStudio</h3>
   <p><strong>R</strong> is the engine; <strong>RStudio</strong> is an IDE (integrated development environment)
   that makes R far easier to use. Its four panes are: <em>Source editor</em> (write/save scripts),
   <em>Console</em> (run commands), <em>Environment/History</em> (see objects), and
   <em>Files/Plots/Packages/Help</em>. Install R first (from CRAN), then RStudio.</p>
+  <p><strong>Installing (all platforms follow the same two steps):</strong></p>
+  <ol>
+    <li><strong>Install R</strong> from CRAN (<code>https://cran.r-project.org/</code>): on Windows run the
+    downloaded <code>.exe</code>; on macOS the <code>.pkg</code>; on Linux use the package manager, e.g.
+    <code>sudo apt-get install r-base</code>.</li>
+    <li><strong>Install RStudio Desktop</strong> from the RStudio download page (run the installer, or on
+    Debian/Ubuntu: <code>sudo gdebi rstudio-*.deb</code>).</li>
+  </ol>
+  <p><strong>A typical RStudio workflow:</strong> set the working directory with
+  <code>setwd("path/to/project")</code> → write code in the Source pane and run it with
+  <strong>Ctrl+Enter</strong> (Windows) / <strong>Cmd+Enter</strong> (Mac) → inspect objects with
+  <code>summary()</code>, <code>str()</code> and <code>View()</code> → make plots (they appear in the Plots
+  tab) → write up results reproducibly with <strong>R Markdown</strong>.</p>
 
   <!-- 2 -->
   <h2>2. Assignment, Modes and the Console</h2>
@@ -63,11 +83,26 @@
     stored in the name on the left.</p>
   </div>
   <pre><code># assignment
-x &lt;- 10          # store 10 in x
-y = 5            # also valid
-z &lt;- x + y       # z becomes 15
-print(z)         # 15
-z                # typing the name also prints it</code></pre>
+x &lt;- 10          # leftward (preferred): store 10 in x
+y = 5            # equals sign also works (less common)
+15 -&gt; z          # rightward: value on the left goes into z
+w &lt;- x + y       # w becomes 15
+print(w)         # 15
+w                # typing the name also prints it</code></pre>
+  <div class="concept">
+    <span class="label">VARIABLE NAMING RULES</span>
+    <ul>
+      <li>A name must start with a <strong>letter</strong> or a period <code>.</code>, followed by letters,
+      digits, <code>.</code> or <code>_</code>. It <strong>cannot start with a digit</strong>.</li>
+      <li>Names are <strong>case-sensitive</strong>: <code>Var</code> and <code>var</code> are different.</li>
+      <li>Avoid using <strong>reserved words</strong> (<code>if</code>, <code>else</code>, <code>TRUE</code>, …)
+      as names — see §4.</li>
+    </ul>
+    <pre><code>name &lt;- "John"     # valid
+age  &lt;- 30          # valid
+is_student &lt;- TRUE  # valid
+2var &lt;- 5           # ERROR: starts with a digit</code></pre>
+  </div>
 
   <h3>2.1 Modes (basic data types)</h3>
   <table class="left">
@@ -85,6 +120,25 @@ class(TRUE)      # "logical"
 # convert (coerce) between types
 as.integer("7")  # 7
 as.character(42) # "42"</code></pre>
+  <p>A sixth common type is the <strong>factor</strong>, used for categorical data (it stores the distinct
+  <em>levels</em> once and records each value as a code):
+  <code>gender &lt;- factor(c("Male","Female","Female"))</code>.</p>
+
+  <p>Every object also has a <strong>mode</strong> — the broad category of what it stores. Modes split into
+  two families:</p>
+  <ul>
+    <li><strong>Atomic modes</strong> (all elements the same basic type): <code>numeric</code>,
+    <code>character</code>, <code>logical</code>, <code>complex</code>, and <code>raw</code> (raw bytes, e.g.
+    <code>charToRaw("R")</code>).</li>
+    <li><strong>Non-atomic modes</strong> (can hold mixed or code objects): <code>list</code> (holds objects of
+    different modes), <code>function</code>, <code>expression</code> (an unevaluated expression), and
+    <code>call</code> (an unevaluated function call).</li>
+  </ul>
+  <pre><code>mode(5)              # "numeric"
+mode("Data Science") # "character"
+mode(list(1, 2, 3))  # "list"
+# class() gives the finer type; mode() gives the storage family
+class(5L)            # "integer"   (but mode(5L) is "numeric")</code></pre>
 
   <!-- 3 -->
   <h2>3. Operators</h2>
@@ -111,6 +165,35 @@ as.character(42) # "42"</code></pre>
     <code>16 %% 3 == 0</code> is <code>FALSE</code>.</p>
   </div>
 
+  <p><strong>Miscellaneous and matrix operators:</strong></p>
+  <table class="left">
+    <tr><th>Operator</th><th>Meaning</th><th>Example → Result</th></tr>
+    <tr><td><code>:</code></td><td>sequence generation</td><td><code>1:5</code> → <code>1 2 3 4 5</code></td></tr>
+    <tr><td><code>%in%</code></td><td>membership test</td><td><code>3 %in% c(1,2,3)</code> → <code>TRUE</code></td></tr>
+    <tr><td><code>%*%</code></td><td>matrix multiplication</td><td><code>A %*% B</code> → matrix product</td></tr>
+    <tr><td><code>t()</code></td><td>matrix transpose</td><td><code>t(A)</code></td></tr>
+  </table>
+
+  <h3>3.1 Operator Precedence</h3>
+  <p>When several operators appear in one expression, R evaluates them in this order (highest first):</p>
+  <ol>
+    <li>Parentheses <code>()</code></li>
+    <li>Exponentiation <code>^</code></li>
+    <li>Unary <code>+</code> and <code>-</code> (sign)</li>
+    <li>Multiply / divide / integer-divide <code>* / %/%</code> and <code>%%</code></li>
+    <li>Add / subtract <code>+ -</code></li>
+    <li>Relational <code>&lt; &gt; &lt;= &gt;= == !=</code></li>
+    <li>Logical NOT <code>!</code></li>
+    <li>AND <code>&amp; &amp;&amp;</code></li>
+    <li>OR <code>| ||</code></li>
+  </ol>
+  <div class="example">
+    <span class="label">EXAMPLE 3 (precedence)</span>
+    <p><code>3 + 5 * 2 ^ 2</code> is evaluated as \(3 + 5 \times (2^2) = 3 + 5\times 4 = 3 + 20 = 23\) —
+    exponent first, then multiply, then add. Use parentheses to force a different order:
+    <code>(3 + 5) * 2 ^ 2 = 32</code>.</p>
+  </div>
+
   <!-- 4 -->
   <h2>4. Special Numbers and Logical Values</h2>
   <table class="left">
@@ -125,6 +208,42 @@ as.character(42) # "42"</code></pre>
 0/0          # NaN
 is.na(NA)    # TRUE
 sum(c(TRUE, TRUE, FALSE))   # 2  (logicals count as 1/0)</code></pre>
+
+  <h3>4.1 Reserved Words</h3>
+  <p>Some keywords have fixed meaning and cannot be used as variable names: the control-structure words
+  <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>repeat</code>,
+  <code>break</code>, <code>next</code>, <code>function</code>, <code>return</code>; the logical constants
+  <code>TRUE</code>, <code>FALSE</code>, <code>NA</code>, <code>NULL</code>; and <code>Inf</code>,
+  <code>NaN</code>.</p>
+
+  <h3>4.2 Functions for the Special Values</h3>
+  <p>Each special value has a matching test, and helpers exist to clean them out:</p>
+  <pre><code>is.na(NA)        # TRUE      – missing
+is.null(NULL)    # TRUE      – empty object
+is.infinite(1/0) # TRUE      – Inf / -Inf
+is.nan(0/0)      # TRUE      – Not a Number
+is.finite(5)     # TRUE      – neither NA, Inf, nor NaN
+na.omit(c(1, NA, 3))         # drops the NA, leaving 1 and 3</code></pre>
+
+  <h3>4.3 Special Characters</h3>
+  <table class="left">
+    <tr><th>Symbol</th><th>Use</th></tr>
+    <tr><td><code>$</code></td><td>access a named element of a list / column of a data frame (<code>df$age</code>)</td></tr>
+    <tr><td><code>@</code></td><td>access a slot of an S4 object</td></tr>
+    <tr><td><code>[ ]</code></td><td>extract elements from a vector, matrix or data frame (<code>vec[2]</code>)</td></tr>
+    <tr><td><code>::</code></td><td>use a function from a package without loading it (<code>stats::sd</code>)</td></tr>
+    <tr><td><code>...</code></td><td>a variable number of arguments passed to a function</td></tr>
+  </table>
+
+  <h3>4.4 Working with Logical Values</h3>
+  <p><code>TRUE</code>/<code>FALSE</code> have the shorthands <code>T</code>/<code>F</code> (avoid redefining
+  them). Because logicals act as 1/0, they are ideal for <strong>filtering</strong>: a logical vector kept
+  inside <code>[ ]</code> selects the elements where it is <code>TRUE</code>.</p>
+  <pre><code>vec &lt;- c(10, 20, 30, 40)
+condition &lt;- vec &gt; 20        # FALSE FALSE TRUE TRUE
+vec[condition]               # 30 40   (logical indexing)
+all(vec &gt; 5)                 # TRUE  – every element passes
+any(vec &gt; 35)                # TRUE  – at least one passes</code></pre>
 
   <!-- 5 -->
   <h2>5. Basic Functions and R Help</h2>

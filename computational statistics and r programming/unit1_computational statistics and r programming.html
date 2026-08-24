@@ -64,10 +64,99 @@
     <li><code>apropos("plot")</code> — list all functions containing "plot".</li>
   </ul>
 
-  <!-- 2. DATA TYPES -->
-  <h2>2. Basic Data Types</h2>
+  <!-- 2. R LANGUAGE BASICS -->
+  <h2>2. R Language Basics</h2>
+  <p>Before working with the data structures in the next section, it helps to know how R stores values, the
+  operators it provides, and its special values.</p>
 
-  <h3>2.1 Atomic Vectors</h3>
+  <h3>2.1 Assignment and Variable Names</h3>
+  <p>Assignment stores a value in a name. R offers leftward <code>&lt;-</code> (preferred), the equals sign
+  <code>=</code>, and rightward <code>-&gt;</code>.</p>
+  <pre><code>x &lt;- 10        # leftward (preferred)
+y = 5          # equals sign (valid, less common)
+15 -&gt; z        # rightward
+z              # 15</code></pre>
+  <p><strong>Naming rules:</strong> a name must start with a letter or a period <code>.</code>, followed by
+  letters, digits, <code>.</code> or <code>_</code>; it cannot start with a digit; names are case-sensitive
+  (<code>Var</code> and <code>var</code> differ); and reserved words (§2.5) cannot be used as names.</p>
+
+  <h3>2.2 Operators</h3>
+  <table class="left">
+    <tr><th>Type</th><th>Operators</th></tr>
+    <tr><td>Arithmetic</td><td><code>+ - * / ^</code>, <code>%%</code> (modulus), <code>%/%</code> (integer division)</td></tr>
+    <tr><td>Relational</td><td><code>&lt; &gt; &lt;= &gt;= == !=</code> (return <code>TRUE</code>/<code>FALSE</code>)</td></tr>
+    <tr><td>Logical</td><td><code>&amp;</code> <code>|</code> (element-wise), <code>&amp;&amp;</code> <code>||</code> (single value), <code>!</code> (not)</td></tr>
+    <tr><td>Assignment</td><td><code>&lt;-</code> <code>=</code> <code>-&gt;</code></td></tr>
+    <tr><td>Miscellaneous</td><td><code>:</code> (sequence), <code>%in%</code> (membership)</td></tr>
+    <tr><td>Matrix</td><td><code>%*%</code> (matrix product), <code>t()</code> (transpose)</td></tr>
+  </table>
+  <pre><code>17 %% 5              # 2   (remainder)
+17 %/% 5             # 3   (integer quotient)
+2 ^ 10              # 1024
+3 %in% c(1, 2, 3)   # TRUE
+(5 &gt; 3) &amp; (2 &gt; 4)    # FALSE</code></pre>
+  <div class="example">
+    <span class="label">EXAMPLE 1</span>
+    <p>Leap-year test with logical operators:
+    <code>(2024 %% 4 == 0) &amp; (2024 %% 100 != 0 | 2024 %% 400 == 0)</code> returns <code>TRUE</code>.</p>
+  </div>
+
+  <h3>2.3 Operator Precedence</h3>
+  <p>In a compound expression R evaluates operators in this order (highest first):</p>
+  <ol>
+    <li>Parentheses <code>()</code></li>
+    <li>Exponentiation <code>^</code></li>
+    <li>Unary sign <code>+ -</code></li>
+    <li>Multiply / divide <code>* / %/% %%</code></li>
+    <li>Add / subtract <code>+ -</code></li>
+    <li>Relational <code>&lt; &gt; &lt;= &gt;= == !=</code></li>
+    <li>Logical <code>! &amp; &amp;&amp; | ||</code></li>
+  </ol>
+  <div class="example">
+    <span class="label">EXAMPLE 2 (precedence)</span>
+    <p><code>3 + 5 * 2 ^ 2</code> gives \(3 + 5\times(2^2) = 3 + 20 = 23\) — exponent, then multiply, then add.
+    Parentheses override: <code>(3 + 5) * 2 ^ 2 = 32</code>.</p>
+  </div>
+
+  <h3>2.4 Modes</h3>
+  <p>Every object has a <strong>mode</strong> — the family of what it stores. <em>Atomic</em> modes hold
+  elements of a single basic type: <code>numeric</code>, <code>character</code>, <code>logical</code>,
+  <code>complex</code>, <code>raw</code>. <em>Non-atomic</em> modes hold richer objects: <code>list</code>
+  (mixed contents), <code>function</code>, <code>expression</code>, <code>call</code>. Use <code>mode()</code>
+  to check; the individual data types are detailed in the next section.</p>
+  <pre><code>mode(5)             # "numeric"
+mode("stats")       # "character"
+mode(list(1, "a"))  # "list"</code></pre>
+
+  <h3>2.5 Special Values, Reserved Words and Characters</h3>
+  <table class="left">
+    <tr><th>Value</th><th>Meaning</th><th>Test</th></tr>
+    <tr><td><code>Inf</code>, <code>-Inf</code></td><td>infinity, e.g. <code>1/0</code></td><td><code>is.infinite()</code></td></tr>
+    <tr><td><code>NaN</code></td><td>Not a Number, e.g. <code>0/0</code></td><td><code>is.nan()</code></td></tr>
+    <tr><td><code>NA</code></td><td>missing value (detailed later in the Handling Missing Values section)</td><td><code>is.na()</code></td></tr>
+    <tr><td><code>NULL</code></td><td>the empty object (absence of a value)</td><td><code>is.null()</code></td></tr>
+  </table>
+  <p><strong>Reserved words</strong> cannot be used as names: <code>if else for while repeat break next
+  function return TRUE FALSE NA NULL Inf NaN</code>.</p>
+  <p><strong>Special characters:</strong> <code>$</code> (element of a list / column of a data frame,
+  <code>df$age</code>), <code>@</code> (slot of an S4 object), <code>[ ]</code> (extract elements),
+  <code>::</code> (a function from a package, <code>stats::sd</code>), and <code>...</code> (a variable number
+  of function arguments).</p>
+
+  <h3>2.6 Logical Values</h3>
+  <p><code>TRUE</code>/<code>FALSE</code> (shorthands <code>T</code>/<code>F</code>) behave as 1/0 in
+  arithmetic, so they drive <strong>filtering</strong>: a logical vector inside <code>[ ]</code> keeps the
+  <code>TRUE</code> positions.</p>
+  <pre><code>vec &lt;- c(10, 20, 30, 40)
+vec[vec &gt; 20]    # 30 40   (logical indexing)
+all(vec &gt; 5)     # TRUE  – every element passes
+any(vec &gt; 35)    # TRUE  – at least one passes
+sum(c(TRUE, TRUE, FALSE))  # 2</code></pre>
+
+  <!-- 2. DATA TYPES -->
+  <h2>3. Basic Data Types</h2>
+
+  <h3>3.1 Atomic Vectors</h3>
   <p>The fundamental data structure. All elements must be of the same type.</p>
   <table class="left">
     <tr><th>Type</th><th>Example</th><th>Check function</th></tr>
@@ -109,7 +198,7 @@ fahrenheit &lt;- celsius * 9/5 + 32
 fahrenheit     # 32 50 68 86 104</code></pre>
   </div>
 
-  <h3>2.2 Matrices</h3>
+  <h3>3.2 Matrices</h3>
   <p>Two-dimensional, all elements same type.</p>
   <pre><code>M &lt;- matrix(1:12, nrow = 3, ncol = 4)
 M
@@ -125,13 +214,13 @@ M[1, ]        # first row → 1 4 7 10
 t(M)          # transpose
 M %*% t(M)    # matrix multiplication</code></pre>
 
-  <h3>2.3 Lists</h3>
+  <h3>3.3 Lists</h3>
   <p>Can contain elements of different types.</p>
   <pre><code>person &lt;- list(name = "Aarav", age = 19, marks = c(85, 90, 78))
 person$name           # "Aarav"
 person$marks[2]       # 90</code></pre>
 
-  <h3>2.4 Data Frames</h3>
+  <h3>3.4 Data Frames</h3>
   <p>Workhorse for statistical data — like a spreadsheet table; columns can be of different types.</p>
   <pre><code>df &lt;- data.frame(
   ID    = 1:5,
@@ -145,7 +234,7 @@ head(df, 3)    # first 3 rows
 tail(df, 2)    # last 2 rows
 nrow(df); ncol(df); dim(df)</code></pre>
 
-  <h3>2.5 Factors (Categorical Variables)</h3>
+  <h3>3.5 Factors (Categorical Variables)</h3>
   <pre><code>gender &lt;- factor(c("M", "F", "F", "M", "M"))
 levels(gender)        # "F" "M"
 table(gender)         # F:2  M:3
@@ -154,9 +243,9 @@ table(gender)         # F:2  M:3
 grade &lt;- factor(c("B","A","C","A","B"), levels = c("C","B","A"), ordered = TRUE)</code></pre>
 
   <!-- 3. IMPORT/EXPORT -->
-  <h2>3. Data Import &amp; Export</h2>
+  <h2>4. Data Import &amp; Export</h2>
 
-  <h3>3.1 CSV Files</h3>
+  <h3>4.1 CSV Files</h3>
   <pre><code># Reading
 data &lt;- read.csv("students.csv")             # comma-separated
 data &lt;- read.csv("students.csv", header = TRUE, na.strings = "")
@@ -164,7 +253,7 @@ data &lt;- read.csv("students.csv", header = TRUE, na.strings = "")
 # Writing
 write.csv(data, "output.csv", row.names = FALSE)</code></pre>
 
-  <h3>3.2 Excel Files</h3>
+  <h3>4.2 Excel Files</h3>
   <pre><code># install.packages("readxl")
 library(readxl)
 data &lt;- read_excel("students.xlsx", sheet = 1)
@@ -175,18 +264,18 @@ data &lt;- read_excel("students.xlsx", sheet = "Marks", range = "A1:D50")
 library(writexl)
 write_xlsx(data, "output.xlsx")</code></pre>
 
-  <h3>3.3 Tab / Whitespace-Delimited Files</h3>
+  <h3>4.3 Tab / Whitespace-Delimited Files</h3>
   <pre><code>data &lt;- read.table("data.txt", header = TRUE, sep = "\t")
 data &lt;- read.delim("data.txt")              # tab default</code></pre>
 
-  <h3>3.4 Databases</h3>
+  <h3>4.4 Databases</h3>
   <pre><code># install.packages("DBI"); install.packages("RSQLite")
 library(DBI); library(RSQLite)
 con &lt;- dbConnect(SQLite(), "school.db")
 data &lt;- dbGetQuery(con, "SELECT * FROM students WHERE marks &gt; 60")
 dbDisconnect(con)</code></pre>
 
-  <h3>3.5 Built-in Datasets (for practice)</h3>
+  <h3>4.5 Built-in Datasets (for practice)</h3>
   <pre><code>data()            # list all built-in datasets
 data(iris)
 head(iris)        # 4 numeric features + Species factor
@@ -194,7 +283,7 @@ data(mtcars)      # car attributes
 data(airquality)  # NY air-quality measurements</code></pre>
 
   <!-- 4. MISSING VALUES -->
-  <h2>4. Handling Missing Values (NA)</h2>
+  <h2>5. Handling Missing Values (NA)</h2>
   <p>R represents missing data as <code>NA</code>.</p>
   <pre><code>x &lt;- c(2, 4, NA, 8, NA, 12)
 is.na(x)                 # FALSE FALSE TRUE FALSE TRUE FALSE
@@ -211,7 +300,7 @@ x[is.na(x)] &lt;- mean(x, na.rm = TRUE)</code></pre>
 
   <div class="example">
     <span class="label">EXAMPLE 1</span>
-    <p>Identify and replace missing values in airquality$Ozone:</p>
+    <p>Identify and replace missing values in <code>airquality$Ozone</code>:</p>
     <pre><code>data(airquality)
 sum(is.na(airquality$Ozone))            # 37
 airquality$Ozone[is.na(airquality$Ozone)] &lt;- mean(airquality$Ozone, na.rm = TRUE)
@@ -225,16 +314,16 @@ nrow(df) - nrow(df_complete)   # number of rows dropped</code></pre>
   </div>
 
   <!-- 5. SUBSETTING -->
-  <h2>5. Subsetting</h2>
+  <h2>6. Subsetting</h2>
 
-  <h3>5.1 Vectors</h3>
+  <h3>6.1 Vectors</h3>
   <pre><code>x &lt;- c(10, 20, 30, 40, 50)
 x[1]                # 10
 x[c(2, 4)]          # 20 40
 x[-1]               # everything except element 1
 x[x &gt; 25]           # logical filter → 30 40 50</code></pre>
 
-  <h3>5.2 Data Frames</h3>
+  <h3>6.2 Data Frames</h3>
   <pre><code># By column name
 df$Marks                       # one column as vector
 df[["Marks"]]                  # same
@@ -251,7 +340,7 @@ df[df$Pass == TRUE, "Name"]    # passing students' names
 # Using subset()
 subset(df, Marks &gt; 70, select = c(Name, Marks))</code></pre>
 
-  <h3>5.3 dplyr Style (Modern)</h3>
+  <h3>6.3 dplyr Style (Modern)</h3>
   <pre><code># install.packages("dplyr")
 library(dplyr)
 df %&gt;%
@@ -260,16 +349,16 @@ df %&gt;%
   arrange(desc(Marks))</code></pre>
 
   <!-- 6. MERGING -->
-  <h2>6. Merging Datasets</h2>
+  <h2>7. Merging Datasets</h2>
 
-  <h3>6.1 rbind / cbind (stacking)</h3>
+  <h3>7.1 rbind / cbind (stacking)</h3>
   <pre><code># Add rows (same columns)
 combined &lt;- rbind(df1, df2)
 
 # Add columns (same number of rows)
 expanded &lt;- cbind(df1, age = c(19, 20, 21))</code></pre>
 
-  <h3>6.2 merge() — Like SQL JOIN</h3>
+  <h3>7.2 merge() — Like SQL JOIN</h3>
   <pre><code>students &lt;- data.frame(ID = 1:5, Name = c("A","B","C","D","E"))
 scores   &lt;- data.frame(ID = c(2,3,4,6), Score = c(80, 75, 90, 60))
 
@@ -301,9 +390,9 @@ all  &lt;- rbind(sem1, sem2)</code></pre>
   </div>
 
   <!-- 7. APPLY FAMILY -->
-  <h2>7. Applying Functions</h2>
+  <h2>8. Applying Functions</h2>
 
-  <h3>7.1 The apply family</h3>
+  <h3>8.1 The apply family</h3>
   <table class="left">
     <tr><th>Function</th><th>Use</th></tr>
     <tr><td><code>apply(M, MARGIN, FUN)</code></td><td>Apply FUN over rows (MARGIN = 1) or columns (MARGIN = 2) of a matrix / data frame</td></tr>
@@ -322,7 +411,7 @@ scores &lt;- c(80, 85, 75, 90, 95, 60, 70)
 groups &lt;- c("A","A","A","B","B","C","C")
 tapply(scores, groups, mean)   # A:80   B:92.5   C:65</code></pre>
 
-  <h3>7.2 Custom Functions</h3>
+  <h3>8.2 Custom Functions</h3>
   <pre><code># Define a function
 cv &lt;- function(x) {
   sd(x) / mean(x) * 100
@@ -350,7 +439,7 @@ apply(iris[, 1:4], 2, mean)
   </div>
 
   <!-- 8. WORKING DIRECTORY -->
-  <h2>8. Working Directory &amp; Workspace</h2>
+  <h2>9. Working Directory &amp; Workspace</h2>
   <pre><code>getwd()                              # current directory
 setwd("C:/Users/ragha/Documents/R")  # change directory
 
